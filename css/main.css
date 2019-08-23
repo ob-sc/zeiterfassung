@@ -45,7 +45,11 @@ a:link, a:visited, a:hover, a:active {
 .scc {
     background: #feed01;
 }
-
-table, th, td {
-    border:1px solid black;
+/* lieber mit bs klasse
+table {
+    min-width: 100%;
 }
+
+th, td {
+    border:1px solid black;
+}*/

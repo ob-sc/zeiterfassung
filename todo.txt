@@ -1,4 +1,6 @@
 ﻿[AKTUELLE BAUSTELLEN]
+- urlaubstage in abrechnung
+
 - über id statt name in allen sql
 
 - ids in tabellen eintragen statt namen (station, disponenten usw)
