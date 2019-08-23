@@ -1,6 +1,6 @@
 moment.locale('de')
 
-let choices, loehne, kennung, name, datum, beginnForm, endeForm, diffMinuten, gehalt;
+let choices, loehne, kennung, name, datum, beginnForm, endeForm, diffMinuten, gehalt, daten;
 
 // namen, löhne und station für alle
 $.get("../scripts/getdata.php", function(data){
@@ -10,7 +10,7 @@ $.get("../scripts/getdata.php", function(data){
     station = result.station;
 });
 
-// eintragen/index.php an DB senden
+// EINTRAGEN
 function senden() {
     $.ajax({
         url: 'send.php', // TODO anpassen wenn in anderer js datei
@@ -35,6 +35,7 @@ function senden() {
     $('#esend').hide();
 };
 
+// EINTRAGEN
 // TODO als const deklarieren? https://dmitripavlutin.com/6-ways-to-declare-javascript-functions/
 function formBerechnung() {
     kennung = $('#kennung').val()
@@ -94,15 +95,64 @@ function formBerechnung() {
     // TODO moment().toJSON(); für sql?
 };
 
+
+// ABRECHNUNG
+$('#aform').submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: 'abget.php',
+        type: 'POST',
+        dataType: 'json',
+        data : $("#aform").serialize(),
+    })
+    .done(function(data) {
+        daten = data;
+        tabelle();
+    })
+});
+
+// ABRECHNUNG
+function tabelle() {
+    // TODO WICHTIG URLAUBSTAGE
+    let html = '<h3 style="text-align:center">Monatsabrechnung ' + station + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>\n';
+    html += '<table class="table table-bordered" style="width:100%">\n';
+    html += '<thead>\n';
+    html += '<tr>\n';
+    // th style="width:x%"
+    html += '<th scope="col">PN</th>\n';
+    html += '<th scope="col">Name</th>\n';
+    html += '<th scope="col">Arbeitszeit</th>\n';
+    html += '<th scope="col">Gehalt</th>\n';
+    html += '<th scope="col">Tage</th>\n';
+    html += '</tr>\n';
+    html += '</thead>\n';
+    html += '<tbody>\n';
+    for (let x in daten) {
+        let gehalt = daten[x].gehalt;
+        if (daten[x].gehalt > 450) {
+            html += '<tr class="table-danger">\n';
+        } else {
+            html += '<tr>\n';
+        }
+        html += '<th scope="row">' + daten[x].personalnr + '</th>\n';
+        html += '<td>' + daten[x].name + '</td>\n';
+        html += '<td>' + moment.utc().startOf('day').add(daten[x].arbeitszeit, 'minutes').format('HH:mm') + '</td>\n';
+        html += '<td>' + gehalt.toFixed(2) + '</td>\n';
+        html += '<td>' + daten[x].tage + '</td>\n';
+        html += '</tr>';
+    }
+    $('#atext').html(html + '</tbody>\n</table>\n<input type="button" onclick="window.print();" value="Drucken" class="noPrint btn scc">');
+}
+
 $(document).ready(function() {
 
-    // index.php bei expire
+    // INDEX / EXPIRE
     if (window.location.hash == '#expire') { // TODO auch per js (callback .done bei $.ajax)?
         $('#expAlert').show();
         history.replaceState(null, null, ' ');
     }
 
-    // eintragen/index.php
+    // EINTRAGEN
     $('#eform').submit(function(e) {
         e.preventDefault();
         $('#esend').show();
@@ -112,7 +162,7 @@ $(document).ready(function() {
     // für jeden input Datum - automatisch Datum heute
     document.getElementById('datum').valueAsDate = new Date();
 
-    // eintragen/index.php 
+    // EINTRAGEN
     $('#eform').change(function() {
         $('#esend').hide();
     })

@@ -3,7 +3,6 @@ require '../req/expire.php';
 require '../req/connect.php';
 
 $station = $_SESSION['station'];
-
 $monJahr = $_POST['monat'];
 $monat = substr($monJahr, 5, 2);
 $jahr = substr($monJahr, 0, 4);
@@ -18,8 +17,8 @@ ORDER BY ah.personalnr ASC";
 
 $stmt = $conn->prepare($sql);
 
-$stmt->bindValue(':monat', $monat);
 $stmt->bindValue(':jahr', $jahr);
+$stmt->bindValue(':monat', $monat);
 $stmt->bindValue(':station', $station);
 
 $stmt->execute();

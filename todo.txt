@@ -10,7 +10,8 @@
 
 - EINZELAUSWERTUNG
     -> name auswerten ändern
-    -> auch als tabelle
+    -> auch als tabelle? (unter tagestabelle)
+    -> auch station filtern?
 
 - BEARBEITEN -> zu AUSHILFEN
     -> nur admin + sl
