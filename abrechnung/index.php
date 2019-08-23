@@ -49,16 +49,15 @@ function tabelle() {
     $('#atext').append("<th>Arbeitszeit</th>\n");
     $('#atext').append("<th>Gehalt</th>\n");
     $('#atext').append("</tr>\n");
-    for (let x in abresult) {
-        // hier was vor x?
-        let name = [x];
-        let az = [x].arbeitszeit;
-        let gehalt = [x].gehalt;
+    for (let x in abresult.personalnr) {
+        let abName = daten[x];
+        let abAz = daten[x].arbeitszeit;
+        let abGehalt = daten[x].gehalt;
         $('#atext').append("<tr>\n");
         $('#atext').append("<td>" + "id" + "</td>\n");
-        $('#atext').append("<td>" + name + "</td>\n");
-        $('#atext').append("<td>" + az + "</td>\n");
-        $('#atext').append("<td>" + gehalt.toFixed(2) + "</td>\n");
+        $('#atext').append("<td>" + abName + "</td>\n");
+        $('#atext').append("<td>" + abAz + "</td>\n");
+        $('#atext').append("<td>" + abGehalt.toFixed(2) + "</td>\n");
         $('#atext').append("</tr>\n");
         $('#atext').append("</table>\n");
     }

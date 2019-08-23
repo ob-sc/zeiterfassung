@@ -4,9 +4,9 @@ require '../req/connect.php';
 
 $station = $_SESSION['station'];
 
-$monjahr = $_POST['monat'];
-$monat = substr($monjahr, 5, 2);
-$jahr = substr($monjahr, 0, 4);
+$monJahr = $_POST['monat'];
+$monat = substr($monJahr, 5, 2);
+$jahr = substr($monJahr, 0, 4);
 
 
 // JOIN mit personalnr. (über name?)
@@ -47,7 +47,6 @@ foreach ($result as $v) {
     $daten[$v['name']] = ['arbeitszeit' => $v['SUM(arbeitszeit)'], 'gehalt' => $v['SUM(gehalt)'], 'tage' => $v['COUNT(DISTINCT datum)']];
 }
 
-# https://www.w3schools.com/js/js_json_objects.asp
 echo json_encode([
     'personalnr' => $personalnr,
     'daten' => $daten
