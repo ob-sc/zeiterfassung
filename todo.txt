@@ -1,20 +1,45 @@
 ﻿[AKTUELLE BAUSTELLEN]
-- urlaubstage in abrechnung
+- ABRECHNUNG
+    -> urlaubstage in abrechnung
+    -> Abrechnungen vom 10.-10.? -> 15.? SL fragen
+    -> feld für besonderes? zb. abmelden
+        -> felder in der tabelle bearbeiten können?
+    -> druckansicht
 
-- über id statt name in allen sql
+- EINZELAUSWERTUNG
+    -> name auswerten ändern
+    -> auch als tabelle
 
-- ids in tabellen eintragen statt namen (station, disponenten usw)
-
-- bearbeiten -> zu aushilfen
+- BEARBEITEN -> zu AUSHILFEN
     -> nur admin + sl
     -> tabelle mit allen aushilfen
     -> knopf fürs anlegen
     -> in der tabelle felder für norlohn, samlohn usw
         -> felder haben "edit" knopf
+    -> bei anlegen aushilfe direkt session station auslesen und einfügen
+        -> feld personalnr
 
-- abrechnung fertig
-    -> feld für besonderes? zb. abmelden
-        -> felder in der tabelle bearbeiten können?
+- ACCOUNTS
+    -> station (zb. osdorf)
+    -> sl (zb. sl_osdorf)   
+        -> abrechnung monat nur sl/idl
+        -> übersicht alle aushilfen und gehälter
+            -> verifizierung durch personalkürzel, nr, was auch immer
+        -> aushilfen anlegen / bearbeiten
+    -> admin
+        -> select für stationen
+        -> user anlegen / hash
+        -> sql für zb zeiten.php if ($station == admin) { $sql = ... }
+
+    -> jeweils einen status in benutzer
+    -> dann Menüpunkte entweder .disabled oder php if($status == admin){echo "<a href...";}
+        -> extra include für menü?
+        -> per json getdata auslesen welcher status (getdata) -> dementsprechend menü (mit .disabled?)
+
+- ZEITEN
+    -> für admin ist alles einsehbar
+        -> für den rest nur eigene station
+        -> filterbar (kriterien?)
 
 - TODO erledigen
 
@@ -37,27 +62,26 @@ WHERE az.datum = '14.08.2019'
 [WICHTIG]
 - expire auf 3 min
 - emulate an oder aus
+- Abrechnung testen
 
 - Verhalten bei mehreren Zeiten an einem Tag
     -> regelung pause?
 
-- Pausenzeiten fertig
+[SIMGE, ANNE]
 - Urlaub fertig (Anne, Simge?)
     -> alle 13 wochen? 3 monate?
     -> schon 6 monate sonst bla
-- Abrechnung testen
-
-[JONAS]
-- Pause umgehen? wird nicht gemacht, dann wird unnötig zeit abgezogen
-    -> entsprechende arbeitszeit hinten addieren dann abziehen
 - Nachtragen geht, da jährlich das limit 5400 ist nicht monatlich 450
     -> wie realisieren?
-    -> RS Simge
-- Abrechnungen vom 10.-10.? -> 15.? SL fragen
 
 [BUGS]
 - printOnly geht nicht mehr
     -> ganz raus?
+
+
+- über id statt name in allen sql
+
+- ids in tabellen eintragen statt namen (station, disponenten usw)
 
 - getdata nur wos nötig ist?
     -> getdata überall wegen menü? (in getdata status aus benutzer)
@@ -69,93 +93,34 @@ WHERE az.datum = '14.08.2019'
 
 - gucken wie fehlermeldungen behandelt werden
 
-- name auswerten ändern
-
-- einzelabrechnung effizienter mit join / union
-
-- accounts:
-    -> station (zb. osdorf)
-    -> sl (zb. sl_osdorf)   
-        -> abrechnung monat nur sl/idl
-        -> übersicht alle aushilfen und gehälter
-            -> verifizierung durch personalkürzel, nr, was auch immer
-        -> aushilfen anlegen / bearbeiten
-    -> admin
-        -> select für stationen
-        -> user anlegen / hash
-        -> sql für zb zeiten.php if ($station == admin) { $sql = ... }
-
-    -> jeweils einen status in benutzer
-    -> dann Menüpunkte entweder .disabled oder php if($status == admin){echo "<a href...";}
-        -> extra include für menü?
-        -> per json getdata auslesen welcher status (getdata) -> dementsprechend menü (mit .disabled?)
-
-- aushilfen in anderen stationen arbeiten?
-    -> bei auswertung -> station
-
 - Jahresübersicht einbauen für 5400 limit
     -> einzelne aush. / alle?
     -> mit kalender?
     -> von wann bis wann?
 
-- bei anlegen aushilfe direkt session station auslesen und einfügen
-    -> feld personalnr
-
-- zeiten.php 
-    -> alle daten kommen rein (alle stationen)
-    -> extra spalte für station (aus session variable)
-    -> für admin ist alles einsehbar
-        -> für den rest nur eigene station
-        -> filterbar (kriterien?)
-
 - reset autoincrement id
     -> auf 6k, warum auch immer
-
-- tabelle übersicht aller aushilfen einfügen (wie zeiten.php)
-
-- tabelle zeiten.php für einzelne aushilfen
-    -> im zuge von kalenderübersich abrechnung einzel?
-    -> pro monat oder insg oder beides?
-
-- dateime object mit datum und uhrzeit
-    -> date = new DateTime('2000-01-01', new DateTimeZone('Europe/Berlin'));
-    -> neue datetime aus post-date
-
-- Andere Tabellen anzeigen lassen!
-    -> aushilfen
-
-- aushilfen anlegen / bearbeiten schöner machen
-    -> echo daten bei bearbeitet
 
 - Abrechnung jährlich? Quartal?
 
 - input weite mit css (width) statt col
-- weite autocomplete
 
 - Handbuch / Manual schreiben
     -> Schritt für Schritt
     -> nicht IE benutzen
         -> css geht evtl auch nicht
 
-- checks einbauen
-    -> zb wenn az > 24 std
-    -> wenn eintrag aber >450
-
-- was in den footer?
-
-- border in tabellen in css aus dom
-
 - mehr kommentare damit ich den code später noch check
-
-- bootstrap (und jquery) runterladen?
-
-- für mobile -> footer weg?
 
 - ; hinter } weg
 
 - footer ordentlich
-
-- autocomplete stylen (auto-complete.css)
-    -> größer?
+    -> auch für mobile
+    -> was in den footer?
 
 - reset knopf bei eintragen?
+
+- tabelle für eintrag-vorschau? (vor senden)
+
+- Pause umgehen? wird nicht gemacht, dann wird unnötig zeit abgezogen
+    -> entsprechende arbeitszeit hinten addieren dann abziehen
