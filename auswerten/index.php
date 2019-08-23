@@ -8,15 +8,15 @@ include "../req/header.php";
         <form action="" method="post" id="eaform" autocomplete="off">
             <div class="form-group col-xl-6">
                 <label for="name" class="m-1">Name:</label>
-                <input type="text" class="form-control m-1 autocomplete" placeholder="Name" name="name" id="nameInput" required>
+                <input type="text" class="form-control m-1" placeholder="Name" name="name" id="nameInput" required>
             </div>
             <div class="form-group col-xl-6">
                 <label for="monat" class="m-1">Zeitraum:</label>
                 <input type="month" class="form-control m-1" name="monat" id="datum"> 
             </div>
-            <div class="container">
+            
                 <input type="submit" class="btn scc" value="OK">
-            </div>
+            
         </form>
     </span>
     <span class="container col-6" id="eaText"></span>
@@ -32,8 +32,9 @@ $('#eaform').submit(function(e) {
         data : $("#eaform").serialize(),
     })
     .done(function(data) {
+        console.log('done');
         daten = data;
-        tabelle();
+        console.log(data);
     })
 });
 </script>

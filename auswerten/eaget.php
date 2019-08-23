@@ -10,6 +10,8 @@ $jahr = substr($monJahr, 0, 4);
 
 $sql = "SELECT datum, beginn, ende, SUM(arbeitszeit), SUM(gehalt), COUNT(DISTINCT datum) FROM zeiten WHERE name = :name AND station = :station AND YEAR(datum) = :jahr AND MONTH(datum) = :monat";
 
+$stmt = $conn->prepare($sql);
+
 $stmt->bindValue(':name', $name);
 $stmt->bindValue(':station', $station);
 $stmt->bindValue(':jahr', $jahr);

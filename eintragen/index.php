@@ -12,7 +12,7 @@ include "../req/header.php";
             </div>
             <div class="form-group col-xl-6">
                 <label for="date">Datum:</label>
-                <input type="date" class="form-control m-1 autocomplete" placeholder="dd-mm-yyyy" name="date" id="datum" required>
+                <input type="date" class="form-control m-1" placeholder="dd-mm-yyyy" name="date" id="datum" required>
             </div>
             <div class="form-group col-xl-6">
                 <label for="beginn">Beginn:</label>
