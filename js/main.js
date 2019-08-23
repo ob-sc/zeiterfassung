@@ -59,11 +59,11 @@ function berechnung() {
     $('#etext').append("<p><strong>Wochentag:</strong> " + moment(datum).format('dddd') + "</p>\n");
 
     let beginn = moment($('#beginn').val(), 'HH:mm'); 
-    beginnForm = moment(beginn).format('HH:mm'); // TODO "beginn" austauschen und variable beginn nennen? alle austauschen!
+    beginnForm = moment(beginn).format('HH:mm'); // TODO "beginn" austauschen und variable beginn nennen? alle austauschen! achtung bei diff
     $('#etext').append("<p><strong>Beginn:</strong> " + beginnForm + "</p>\n");
 
     let ende = moment($('#ende').val(), 'HH:mm');
-    endeForm = moment(ende).format('HH:mm'); // TODO "ende" austauschen und variable ende nennen? alle austauschen!
+    endeForm = moment(ende).format('HH:mm'); // TODO "ende" austauschen und variable ende nennen? alle austauschen! achtung bei diff
     $('#etext').append("<p><strong>Ende:</strong> " + endeForm + "</p>\n");
     
     // TODO das muss besser gehen?

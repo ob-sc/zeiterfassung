@@ -50,6 +50,9 @@ function tabelle() {
     html += '<tbody>';
     for (let x in daten) {
         let gehalt = daten[x].gehalt;
+        let az = daten[x].arbeitszeit;
+        let mom = moment(az, 'minutes').format('HH:mm');
+        console.log(mom);
         if (daten[x].gehalt > 450) {
             html += '<tr class="table-danger">';
         } else {
@@ -57,7 +60,7 @@ function tabelle() {
         }
         html += '<th scope="row">' + daten[x].personalnr + '</th>';
         html += '<td>' + daten[x].name + '</td>';
-        html += '<td>' + daten[x].arbeitszeit + '</td>';
+        html += '<td>' + az + '</td>';
         html += '<td>' + gehalt.toFixed(2) + '</td>';
         html += '<td>' + daten[x].tage + '</td>';
         html += '</tr>';

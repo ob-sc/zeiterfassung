@@ -16,12 +16,12 @@
     -> feld für besonderes? zb. abmelden
         -> felder in der tabelle bearbeiten können?
 
+- TODO erledigen
+
 [TABELLEN]
 - alles abstrakt halten
     -> wenn etwas dargestellt werden soll dann über javascript
 - über id suchen, nicht :name und so weiter
-- direkt mit sql rechnen SELECT SUM() 
-        SELECT SUM(lohn) FROM arbeitszeit WHERE name='Ole Bergen' AND datum BETWEEN '2019-08-01' AND '2019-08-31'
 
 SELECT s.name, az.lohn
 FROM arbeitszeit as az
