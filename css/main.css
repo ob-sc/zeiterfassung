@@ -1,0 +1,51 @@
+@media print {
+    .noPrint {
+        display: none;
+    }
+    .printOnly {
+        display: block;
+    }
+}
+
+a:link, a:visited, a:hover, a:active {
+    color: black;
+}
+
+.btn {
+    border:1px solid #ccc;
+}
+/*
+.btn:hover, #btnDD:hover {
+    filter: drop-shadow(2px 1px 3px darkgrey);
+}*/
+
+.jumbotron {
+    background: #f3f3f3;
+}
+
+#btnDD {
+    cursor: pointer;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background:#f3f3f3;
+    color: grey;
+}
+
+.printOnly {
+    display: none;
+}
+
+.scc {
+    background: #feed01;
+}
+
+table, th, td {
+    border:1px solid black;
+}
