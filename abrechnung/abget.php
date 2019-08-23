@@ -13,7 +13,8 @@ $sql =
 FROM zeiten AS z
 LEFT JOIN aushilfen AS ah ON ah.name = z.name 
 WHERE YEAR(datum) = :jahr AND MONTH(datum) = :monat AND z.station = :station 
-GROUP BY z.name";
+GROUP BY z.name 
+ORDER BY ah.personalnr ASC";
 
 $stmt = $conn->prepare($sql);
 

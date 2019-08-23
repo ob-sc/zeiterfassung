@@ -2,11 +2,12 @@ moment.locale('de')
 
 let choices, loehne, kennung, name, datum, beginnForm, endeForm, diffMinuten, gehalt;
 
-// objekt für namen (choices) und löhne aus getdata.php
+// namen, löhne und station für alle
 $.get("../scripts/getdata.php", function(data){
-    let result = JSON.parse(data); // TODO schon JSON? warum gehts dann? test mit console.log was da aus getdata rauskommt (string aus encode -> parse zu json?), geht choices = data.namen?
+    let result = JSON.parse(data); // JSON.parse trotz json_encode? sonst gehts halt iwie nicht. vermutlich wegen array?
     choices = result.namen;
     loehne = result.loehne;
+    station = result.station;
 });
 
 // eintragen/index.php an DB senden
@@ -35,7 +36,7 @@ function senden() {
 };
 
 // TODO als const deklarieren? https://dmitripavlutin.com/6-ways-to-declare-javascript-functions/
-function berechnung() {
+function formBerechnung() {
     kennung = $('#kennung').val()
     name = $('#nameInput').val();
     $('#etext').html("<p><strong>Name:</strong> " + name + "</p>");
@@ -79,7 +80,7 @@ function berechnung() {
         return;
     }
 
-    // Berechnung Gehalt
+    // Gehalt
     if (wochentag == 7) {
         lohn = sonlohn;
     } else if (wochentag == 6) {
@@ -105,7 +106,7 @@ $(document).ready(function() {
     $('#eform').submit(function(e) {
         e.preventDefault();
         $('#esend').show();
-        berechnung();
+        formBerechnung();
     })
 
     // für jeden input Datum - automatisch Datum heute

@@ -8,8 +8,6 @@ include "../req/header.php";
         <form action="" method="post" id="aform" autocomplete="off">
             <div class="form-group ">
                 <label for="monat" class="m-1">Zeitraum:</label>
-                <!-- kein support für safari und firefox! 
-                https://caniuse.com/#feat=input-datetime-->
                 <input type="month" class="form-control m-1 col-md-6" name="monat" id="datum"> 
             </div>
             <input type="submit" class="btn scc" value="OK">
@@ -22,7 +20,6 @@ include "../req/header.php";
 let daten;
 $('#aform').submit(function(e) {
     e.preventDefault();
-    // $('#esend').show(); Druckbutton? wie eintragen
     $.ajax({
         url: 'abget.php',
         type: 'POST',
@@ -31,15 +28,17 @@ $('#aform').submit(function(e) {
     })
     .done(function(data) {
         daten = data;
-        console.log(daten);
         tabelle();
     })
 });
 
 function tabelle() {
-    let html = '<table class="table table-bordered" style="width:100%">\n';
+    // TODO WICHTIG URLAUBSTAGE
+    let html = '<h3 style="text-align:center">Monatsabrechnung ' + station + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>\n';
+    html += '<table class="table table-bordered" style="width:100%">\n';
     html += '<thead>\n';
     html += '<tr>\n';
+    // th style="width:x%"
     html += '<th scope="col">PN</th>\n';
     html += '<th scope="col">Name</th>\n';
     html += '<th scope="col">Arbeitszeit</th>\n';
@@ -47,25 +46,22 @@ function tabelle() {
     html += '<th scope="col">Tage</th>\n';
     html += '</tr>\n';
     html += '</thead>\n';
-    html += '<tbody>';
+    html += '<tbody>\n';
     for (let x in daten) {
         let gehalt = daten[x].gehalt;
-        let az = daten[x].arbeitszeit;
-        let mom = moment(az, 'minutes').format('HH:mm');
-        console.log(mom);
         if (daten[x].gehalt > 450) {
-            html += '<tr class="table-danger">';
+            html += '<tr class="table-danger">\n';
         } else {
-            html += '<tr>';
+            html += '<tr>\n';
         }
-        html += '<th scope="row">' + daten[x].personalnr + '</th>';
-        html += '<td>' + daten[x].name + '</td>';
-        html += '<td>' + az + '</td>';
-        html += '<td>' + gehalt.toFixed(2) + '</td>';
-        html += '<td>' + daten[x].tage + '</td>';
+        html += '<th scope="row">' + daten[x].personalnr + '</th>\n';
+        html += '<td>' + daten[x].name + '</td>\n';
+        html += '<td>' + moment.utc().startOf('day').add(daten[x].arbeitszeit, 'minutes').format('HH:mm') + '</td>\n';
+        html += '<td>' + gehalt.toFixed(2) + '</td>\n';
+        html += '<td>' + daten[x].tage + '</td>\n';
         html += '</tr>';
     }
-    $('#atext').html(html + '</tbody>\n</table>');
+    $('#atext').html(html + '</tbody>\n</table>\n<input type="button" onclick="window.print();" value="Drucken" class="noPrint btn scc">');
 }
 </script>
 
