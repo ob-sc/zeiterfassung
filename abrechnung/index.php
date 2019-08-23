@@ -37,7 +37,6 @@ $('#aform').submit(function(e) {
         console.log(personalnr);
         console.log(daten);
         tabelle();
-        alert('juhu ein change');
     })
 });
 
