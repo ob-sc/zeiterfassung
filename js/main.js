@@ -22,7 +22,7 @@ function senden() {
             sbeginn: beginnForm,
             sende: endeForm,
             saz: diffMinuten,
-            sgehalt: gehalt,
+            sgehalt: gehaltRund,
             skennung: kennung
         }
     })
@@ -90,26 +90,11 @@ function formBerechnung() {
         lohn = norlohn;
     }
     gehalt = lohn / 60 * diffMinuten;
-    $('#etext').append("<p><strong>Gehalt:</strong> " + gehalt.toFixed(2) + "€</p>\n");
+    gehaltRund = gehalt.toFixed(2);
+    $('#etext').append("<p><strong>Gehalt:</strong> " + gehaltRund + "€</p>\n");
     
     // TODO moment().toJSON(); für sql?
 };
-
-
-// ABRECHNUNG
-$('#aform').submit(function(e) {
-    e.preventDefault();
-    $.ajax({
-        url: 'abget.php',
-        type: 'POST',
-        dataType: 'json',
-        data : $("#aform").serialize(),
-    })
-    .done(function(data) {
-        daten = data;
-        tabelle();
-    })
-});
 
 // ABRECHNUNG
 function tabelle() {
@@ -157,6 +142,25 @@ $(document).ready(function() {
         e.preventDefault();
         $('#esend').show();
         formBerechnung();
+    })
+
+    // ABRECHNUNG
+    $('#aform').submit(function(e) {
+        e.preventDefault();
+        console.log('preventdefault'); // TODO TEST
+        $.ajax({
+            url: 'abget.php',
+            type: 'POST',
+            dataType: 'json',
+            data: $("#aform").serialize()
+        })
+        .done(function(data) {
+            daten = data;
+            tabelle();
+        })
+        .fail(function() {
+            $('#atext').html('<h3>Anfrage fehlgeschlagen</h3><br><h5>Bitte <a href="mailto:bergen@starcar.de">Ole Bergen</a> kontaktieren</h5>')
+        })
     })
 
     // für jeden input Datum - automatisch Datum heute

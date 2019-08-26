@@ -14,27 +14,27 @@ include "../req/header.php";
                 <label for="monat" class="m-1">Zeitraum:</label>
                 <input type="month" class="form-control m-1" name="monat" id="datum"> 
             </div>
-            
                 <input type="submit" class="btn scc" value="OK">
-            
         </form>
     </span>
     <span class="container col-6" id="eaText"></span>
 </div>
 
 <script>
+let eadaten;
 $('#eaform').submit(function(e) {
     e.preventDefault();
     $.ajax({
         url: 'eaget.php',
         type: 'POST',
         dataType: 'json',
-        data : $("#eaform").serialize(),
+        data: $("#eaform").serialize(),
     })
     .done(function(data) {
-        console.log('done');
-        daten = data;
         console.log(data);
+    })
+    .fail(function() {
+        $('#eatext').html('<h3>Anfrage fehlgeschlagen</h3><br><h5>Bitte <a href="mailto:bergen@starcar.de">Ole Bergen</a> kontaktieren</h5>')
     })
 });
 </script>

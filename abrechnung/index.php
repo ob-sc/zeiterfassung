@@ -5,7 +5,7 @@ include "../req/header.php";
 
 <div class="container-fluid row no-gutters">
     <div class="container col-lg-3 col-6 noPrint">
-        <form action="" method="post" id="aform" autocomplete="off">
+        <form action="#" method="post" id="aform" autocomplete="off">
             <div class="form-group">
                 <label for="monat" class="m-1">Zeitraum:</label>
                 <input type="month" class="form-control m-1 col-md-6" name="monat" id="datum"> 

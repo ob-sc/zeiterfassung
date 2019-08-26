@@ -8,7 +8,7 @@ $monJahr = $_POST['monat'];
 $monat = substr($monJahr, 5, 2);
 $jahr = substr($monJahr, 0, 4);
 
-$sql = "SELECT datum, beginn, ende, SUM(arbeitszeit), SUM(gehalt), COUNT(DISTINCT datum) FROM zeiten WHERE name = :name AND station = :station AND YEAR(datum) = :jahr AND MONTH(datum) = :monat";
+$sql = "SELECT datum, beginn, ende/*, SUM(arbeitszeit), SUM(gehalt), COUNT(DISTINCT datum) */FROM zeiten WHERE name = :name AND station = :station AND YEAR(datum) = :jahr AND MONTH(datum) = :monat";
 
 $stmt = $conn->prepare($sql);
 
@@ -21,7 +21,7 @@ $stmt->execute();
 
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-json_encode($result);
+echo json_encode($result);
 
 $conn = null;
 ?>

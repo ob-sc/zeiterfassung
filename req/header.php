@@ -20,8 +20,7 @@
         <a class="dropdown-item" href="../eintragen/index.php">Eintragen</a>
         <a class="dropdown-item" href="../auswerten/index.php">Auswerten</a>
         <a class="dropdown-item" href="../abrechnung/index.php">Abrechnung</a>
-        <a class="dropdown-item" href="../bearbeiten/index.php">Bearbeiten</a>
-        <a class="dropdown-item" href="../tabellen/zeiten.php">Zeiten anzeigen</a>
+        <a class="dropdown-item" href="../bearbeiten/index.php">Aushilfen</a>
         <a class="dropdown-item" href="../scripts/logout.php">
             <img src="../img/logout.svg" width="18"> Abmelden
         </a>
