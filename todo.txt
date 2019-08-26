@@ -11,7 +11,6 @@ titel ändern einzel abrechnung für pdf
 
 - EINZELAUSWERTUNG
     -> name auswerten ändern
-    -> auch als tabelle? (unter tagestabelle)
     -> auch station filtern?
 
 - BEARBEITEN -> zu AUSHILFEN
