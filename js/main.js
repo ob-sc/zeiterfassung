@@ -97,8 +97,9 @@ function formBerechnung() {
 };
 
 // ABRECHNUNG
-function tabelle() {
+function abtabelle() {
     // TODO WICHTIG URLAUBSTAGE
+    // TODO zeilen zusammenfassen? (zb <thead> und <tr>)
     let html = '<h3 style="text-align:center">Monatsabrechnung ' + station + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>\n';
     html += '<table class="table table-bordered" style="width:100%">\n';
     html += '<thead>\n';
@@ -156,7 +157,7 @@ $(document).ready(function() {
         })
         .done(function(data) {
             daten = data;
-            tabelle();
+            abtabelle();
         })
         .fail(function() {
             $('#atext').html('<h3>Anfrage fehlgeschlagen</h3><br><h5>Bitte <a href="mailto:bergen@starcar.de">Ole Bergen</a> kontaktieren</h5>')
