@@ -2,6 +2,8 @@
 require '../req/expire.php';
 require '../req/connect.php';
 
+# TODO wichtig: definitiv daten überprüfen und ggf. die(bla);
+
 $id = $_POST['id'];
 $personalnr = $_POST['personalnr'];
 $name = $_POST['name'];

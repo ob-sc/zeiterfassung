@@ -28,6 +28,7 @@ include "../req/header.php";
 <script>
 
 // TODO fehlermeldung wenn zb feld personalnr kein integer
+// TODO wenn komma -> zu punkt ändern (bei euro werten)
 // TODO nur eine zeile bearbeiten? -> wenn man ein anderen stift klickt alle anderen auf stift, nicht gelb und contenteditable="false" ändern
 
 $(document).ajaxComplete(function() {
@@ -78,8 +79,6 @@ $(document).ajaxComplete(function() {
                 'samlohn' : $('#sam' + id).text(),
                 'sonlohn' : $('#son' + id).text()
             };
-            //TODO test
-            console.log(ahEdit);
             // Senden an aedit.php
             $.ajax({
                 url: 'aedit.php',
