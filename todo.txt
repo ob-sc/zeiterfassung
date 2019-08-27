@@ -19,12 +19,10 @@ aus allen tabellen scope raus
 
 - BEARBEITEN ->  AUSHILFEN
     -> nur admin + sl
-    -> tabelle mit allen aushilfen
     -> knopf fürs anlegen
-    -> in der tabelle felder für norlohn, samlohn usw
-        -> felder haben "edit" knopf
-    -> bei anlegen aushilfe direkt session station auslesen und einfügen
-        -> feld personalnr
+        -> bei anlegen aushilfe direkt session station auslesen und einfügen
+    -> nur der gespeicherte Eintrag wird gespeichert
+    
 
 - ACCOUNTS
     -> station (zb. osdorf)
