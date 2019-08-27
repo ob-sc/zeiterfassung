@@ -26,7 +26,7 @@ a:link, a:visited, a:hover, a:active {
     right: 30px;
 }
 
-#edit:hover {
+.edit:hover, .update:hover {
     cursor: pointer;
 }
 

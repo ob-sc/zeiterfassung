@@ -6,7 +6,7 @@ $station = $_SESSION['station'];
 
 // TODO 1 Query?!
 
-$sql = "SELECT personalnr, name, norlohn, samlohn, sonlohn FROM aushilfen WHERE station = ?";
+$sql = "SELECT id, personalnr, name, norlohn, samlohn, sonlohn FROM aushilfen WHERE station = ?";
 
 $stmt = $conn->prepare($sql);
 
@@ -19,7 +19,7 @@ $daten = [];
 
 foreach ($result as $value) {
     $namen[] = $value['name'];
-    $daten[$value['name']] = ['personalnr' => $value['personalnr'], 'norlohn' => $value['norlohn'], 'samlohn' => $value['samlohn'], 'sonlohn' => $value['sonlohn']];
+    $daten[$value['name']] = ['id' => $value['id'], 'personalnr' => $value['personalnr'], 'norlohn' => $value['norlohn'], 'samlohn' => $value['samlohn'], 'sonlohn' => $value['sonlohn']];
 }
 
 $sql = "SELECT name FROM stationen WHERE id = ?";
