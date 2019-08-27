@@ -2,17 +2,14 @@
 require '../req/expire.php';
 require '../req/connect.php';
 
-# TODO daten überprüfen und ggf. die(bla);
-# aktuell wird einfach nix eingetragen wenn typ nicht stimmt, obwohl alles als string kommt
-
-$id = $_POST['id'];
 $personalnr = $_POST['personalnr'];
 $name = $_POST['name'];
 $norlohn = $_POST['norlohn'];
 $samlohn = $_POST['samlohn'];
 $sonlohn = $_POST['sonlohn'];
+$station = $_SESSION['station'];
 
-$sql = "UPDATE aushilfen SET personalnr = :personalnr, name = :name, norlohn = :norlohn, samlohn = :samlohn, sonlohn = :sonlohn WHERE id = :id";
+$sql = "INSERT INTO aushilfen (personalnr, name, norlohn, samlohn, sonlohn, station) VALUES (personalnr = :personalnr, name = :name, norlohn = :norlohn, samlohn = :samlohn, sonlohn = :sonlohn, station = :station";
 
 $stmt = $conn->prepare($sql);
 
@@ -21,7 +18,7 @@ $stmt->bindValue(':name', $name);
 $stmt->bindValue(':norlohn', $norlohn);
 $stmt->bindValue(':samlohn', $samlohn);
 $stmt->bindValue(':sonlohn', $sonlohn);
-$stmt->bindValue(':id', $id);
+$stmt->bindValue(':station', $station);
 
 $stmt->execute();
 

@@ -247,7 +247,7 @@ $(document).ready(function() {
             abtabelle();
         })
         .fail(function() {
-            $('#atext').html('<h3>Anfrage fehlgeschlagen</h3><br><h5>Bitte <a href="mailto:bergen@starcar.de">Ole Bergen</a> kontaktieren</h5>')
+            $('#atext').html('<h3>Anfrage fehlgeschlagen</h3><br><h5>Bitte <a href="mailto:bergen@starcar.de">Ole Bergen</a> kontaktieren</h5>');
         })
     })
 
@@ -268,7 +268,7 @@ $(document).ready(function() {
             eatabelle();
         })
         .fail(function() {
-            $('#eaText').html('<h3>Anfrage fehlgeschlagen</h3><br><h5>Bitte <a href="mailto:bergen@starcar.de">Ole Bergen</a> kontaktieren</h5>')
+            $('#eaText').html('<h3>Anfrage fehlgeschlagen</h3><br><h5>Bitte <a href="mailto:bergen@starcar.de">Ole Bergen</a> kontaktieren</h5>');
         })
     });
 

@@ -2,32 +2,73 @@
 require "../req/expire.php";
 include "../req/header.php";
 ?>
+<!-- zu form machen --> 
+<div class="container-fluid" id="anlegenContainer" style="margin:auto;display:none">
+    <form method="post" id="newform" autocomplete="off">
+        <div class="form-group col-xl-3">
+            <label for="name" class="m-1">Name:</label>
+            <input type="text" class="form-control m-1" placeholder="Name" name="name" id="anlegenName" required>
+        </div>
+        <div class="form-group col-xl-3">
+            <label for="name" class="m-1">Personalnummer:</label>
+            <input type="number" class="form-control m-1" placeholder="Personalnummer" name="personalnr" id="anlegenPN">
+        </div>
+        <div class="form-group col-xl-3">
+            <label for="name" class="m-1">Löhne:</label>
+            <input type="number" class="form-control m-1" placeholder="Wochentag" name="norlohn" id="anlegenNor">
+            <input type="number" class="form-control m-1" placeholder="Samstag" name="samlohn" id="anlegenSam">
+            <input type="number" class="form-control m-1" placeholder="Sonntag" name="sonlohn" id="anlegenSon">
+        </div>
+        <input type="submit" class="btn scc mt-2" value="Anlegen">
+        <input type="button" class="btn scc mt-2" value="Zurück" onclick="ansichtToggle();">
+    </form>
+</div>
 
-<div class="container-fluid">
-    <table class="table table-hover table-sm" style="width:80%;margin: auto;">
+<script>
+// BEARBEITEN anlegen / senden an anew.php
+$(document).ready(function() {
+    $('#newform').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: 'anew.php',
+            method: 'POST',
+            data: $("#newform").serialize()
+        })
+        // TODO hier mit function(data) etwas ausgeben? alert?
+        .done(function(data) {
+            console.log('erfolg\n' + data);
+        })
+        .fail(function(data) {
+            // TODO ordentliche nachricht
+            alert('fuuuuuuck\n' + data);
+        })
+    })
+    // ordenltiche erfolgnachricht dann form reset?
+});
+</script>
+
+
+<div class="container-fluid" id="bearbeitenContainer">
+    <table class="table table-hover table-sm" style="width:100%;margin:auto;">
         <thead>
             <tr> <!-- TODO Beschriftung € ändern? -->
-                <th width="5%">PN</th>
-                <th width="50%">Name</th>
-                <th width="8%">€ Wochentag</th>
-                <th width="8%">€ Samstag</th>
-                <th width="8%">€ Sonntag</th>
+                <th width="8%">PN</th>
+                <th width="54%">Name</th>
+                <th width="12%">€ Wochentag</th>
+                <th width="12%">€ Samstag</th>
+                <th width="12%">€ Sonntag</th>
                 <th width="2%">&nbsp</th>
             </tr>
         </thead>
         <tbody id="ahTab">
         </tbody>
     </table>
+    <input type="button" class="btn scc mt-5" value="Neu anlegen" onclick="ansichtToggle();">
 </div>
 
-<!--
-<div class="container">
-    Aushilfe Anlegen
-</div>
--->
 <script>
 
-// TODO fehlermeldung wenn zb feld personalnr kein integer
+// TODO fehlermeldung wenn zb feld personalnr kein integer -> aktuell wird der wert einfach nicht in die DB eingetragen
 // TODO wenn komma -> zu punkt ändern (bei euro werten)
 // TODO nur eine zeile bearbeiten? -> wenn man ein anderen stift klickt alle anderen auf stift, nicht gelb und contenteditable="false" ändern
 
@@ -90,6 +131,10 @@ $(document).ajaxComplete(function() {
                 console.log('erfolg');
                 location.reload();
             })
+            .fail(function(data) {
+                // TODO ordentliche nachricht
+                alert('fuuuuuuck\n' + data);
+            })
         }
     })
 
@@ -101,6 +146,11 @@ $(document).ajaxComplete(function() {
         }
     })
 });
+
+function ansichtToggle() {
+    $('#anlegenContainer').toggle();
+    $('#bearbeitenContainer').toggle();
+}
 </script>
 
 <?php
