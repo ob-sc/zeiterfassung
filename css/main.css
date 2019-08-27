@@ -19,15 +19,15 @@ a:link, a:visited, a:hover, a:active {
     filter: drop-shadow(2px 1px 3px darkgrey);
 }*/
 
-.jumbotron {
-    background: #f3f3f3;
-}
-
 #btnDD {
     cursor: pointer;
     position: absolute;
     top: 30px;
     right: 30px;
+}
+
+#edit:hover {
+    cursor: pointer;
 }
 
 #footer {
@@ -36,6 +36,10 @@ a:link, a:visited, a:hover, a:active {
     width: 100%;
     background:#f3f3f3;
     color: grey;
+}
+
+.jumbotron {
+    background: #f3f3f3;
 }
 
 .printOnly {

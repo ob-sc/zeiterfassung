@@ -4,7 +4,9 @@ require '../req/connect.php';
 
 $station = $_SESSION['station'];
 
-$sql = "SELECT name, norlohn, samlohn, sonlohn FROM aushilfen WHERE station = ?";
+// TODO 1 Query?!
+
+$sql = "SELECT personalnr, name, norlohn, samlohn, sonlohn FROM aushilfen WHERE station = ?";
 
 $stmt = $conn->prepare($sql);
 
@@ -13,12 +15,11 @@ $stmt->execute(array($station));
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $namen = [];
-$lohn = [];
-
+$daten = [];
 
 foreach ($result as $value) {
     $namen[] = $value['name'];
-    $lohn[$value['name']] = ['norlohn' => $value['norlohn'], 'samlohn' => $value['samlohn'], 'sonlohn' => $value['sonlohn']];
+    $daten[$value['name']] = ['personalnr' => $value['personalnr'], 'norlohn' => $value['norlohn'], 'samlohn' => $value['samlohn'], 'sonlohn' => $value['sonlohn']];
 }
 
 $sql = "SELECT name FROM stationen WHERE id = ?";
@@ -34,7 +35,7 @@ $stationString = $result['name'];
 echo json_encode([
     'station' => $stationString,
     'namen' => $namen,
-    'loehne' => $lohn,
+    'ahDaten' => $daten,
 ]);
 
 

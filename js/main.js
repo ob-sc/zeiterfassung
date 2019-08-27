@@ -1,13 +1,13 @@
 moment.locale('de')
 
-let choices, loehne, kennung, name, datum, beginnForm, endeForm, diffMinuten, gehalt, daten;
+let choices, ahDaten, kennung, name, datum, beginnForm, endeForm, diffMinuten, gehalt, daten;
 let tage, summe;
 
 // namen, löhne und station für alle
 $.get("../scripts/getdata.php", function(data){
     let result = JSON.parse(data); // JSON.parse trotz json_encode? sonst gehts halt iwie nicht. vermutlich wegen array?
     choices = result.namen;
-    loehne = result.loehne;
+    ahDaten = result.ahDaten;
     station = result.station;
 });
 
@@ -42,9 +42,9 @@ function formBerechnung() {
     kennung = $('#kennung').val()
     name = $('#nameInput').val();
     $('#etext').html("<p><strong>Name:</strong> " + name + "</p>");
-    let norlohn = loehne[name].norlohn;
-    let samlohn = loehne[name].samlohn;
-    let sonlohn = loehne[name].sonlohn;
+    let norlohn = ahDaten[name].norlohn;
+    let samlohn = ahDaten[name].samlohn;
+    let sonlohn = ahDaten[name].sonlohn;
     let lohn;
     
     datum = $('#datum').val();
@@ -130,7 +130,7 @@ function abtabelle() {
 
 // AUSWERTEN
 function eatabelle() {
-    let eintragVorher, gehaltEA, seVorhanden;
+    let eintragVorher, gehaltEA;
     let sonderRow = ' ';
     // Ende Funktion wenn keine Einträge
     if (tage.length == 0) {
@@ -181,7 +181,6 @@ function eatabelle() {
                 break;
             // Sondereintrag
             } else if (momentTag == eintragVorher) {
-                seVorhanden = true;
                 eintrag = true;
                 sonderZeile(x);
                 delete tage[x];
@@ -274,7 +273,10 @@ $(document).ready(function() {
     });
 
     // für jeden input Datum - automatisch Datum heute
-    document.getElementById('datum').valueAsDate = new Date();
+    let datum = document.getElementById('datum');
+    if (datum) {
+        document.getElementById('datum').valueAsDate = new Date();
+    } 
 
     // EINTRAGEN
     $('#eform').change(function() {
