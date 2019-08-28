@@ -3,6 +3,7 @@
 - aus allen tabellen scope raus
 - "anfrage" fehlgeschlagen?
     -> für senden auch .fail callback
+- Bei eintragen, update usw erfolgsecho, sonst fehlermeldung wiedergeben (wie behandeln?)
 
 - ABRECHNUNG
     -> urlaubstage in abrechnung
@@ -21,11 +22,6 @@
 
 - BEARBEITEN ->  AUSHILFEN
     -> nur admin + sl
-    -> knopf fürs anlegen
-        -> bei anlegen aushilfe direkt session station auslesen und einfügen
-    -> nur der gespeicherte Eintrag wird gespeichert
-    
-    -> ANLEGEN: input max (auch pn) min steps value und bla (aus altem formular)
 
 - ACCOUNTS
     -> station (zb. osdorf)

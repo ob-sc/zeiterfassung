@@ -1,7 +1,6 @@
 moment.locale('de')
 
-let choices, ahDaten, kennung, name, datum, beginnForm, endeForm, diffMinuten, gehalt, daten;
-let tage, summe;
+let choices, ahDaten, kennung, name, datum, beginnForm, endeForm, diffMinuten, gehalt, daten, tage, summe, ahRow;
 
 // namen, löhne und station für alle
 $.get("../scripts/getdata.php", function(data){
@@ -217,8 +216,13 @@ function eatabelle() {
     $('#eaText').append('<input type="button" onclick="window.print();" value="Drucken" class="noPrint btn scc my-3">');
 };
 
-$(document).ready(function() {
+// BEARBEITEN
+function ansichtToggle() {
+    $('#anlegenContainer').toggle();
+    $('#bearbeitenContainer').toggle();
+}
 
+$(document).ready(function() {
     // INDEX / EXPIRE
     if (window.location.hash == '#expire') { // TODO auch per js (callback .done bei $.ajax)?
         $('#expAlert').show();
@@ -246,8 +250,8 @@ $(document).ready(function() {
             daten = data;
             abtabelle();
         })
-        .fail(function() {
-            $('#atext').html('<h3>Anfrage fehlgeschlagen</h3><br><h5>Bitte <a href="mailto:bergen@starcar.de">Ole Bergen</a> kontaktieren</h5>');
+        .fail(function(data) {
+            alert('Fehler:\n' + data);
         })
     })
 
@@ -267,8 +271,8 @@ $(document).ready(function() {
             console.log(daten);
             eatabelle();
         })
-        .fail(function() {
-            $('#eaText').html('<h3>Anfrage fehlgeschlagen</h3><br><h5>Bitte <a href="mailto:bergen@starcar.de">Ole Bergen</a> kontaktieren</h5>');
+        .fail(function(data) {
+            alert('Fehler:\n' + data);
         })
     });
 
@@ -282,10 +286,28 @@ $(document).ready(function() {
     $('#eform').change(function() {
         $('#esend').hide();
     })
+
+    // BEARBEITEN anlegen / senden an anew.php
+    $('#newform').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: 'anew.php',
+            method: 'POST',
+            data: $("#newform").serialize()
+        })
+        // TODO statt alert ajax daneben? modal?
+        .done(function(data) {
+            alert(data);
+            $('#newform')[0].reset();
+        })
+        .fail(function(data) {
+            alert('Fehlgeschlagen:\n' + data);
+        })
+    })
 });
 
-// autocomplete
 $(document).ajaxComplete(function() {
+    // AUTOCOMPLETE
     $('#nameInput').autoComplete({
         minChars: 1,
         delay: 0, // TODO 150 für weniger laden?
@@ -295,6 +317,82 @@ $(document).ajaxComplete(function() {
             for (i=0; i<choices.length; i++)
                 if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
             suggest(matches);
+        }
+    })
+
+    // BEARBEITEN Aushilfe bearbeiten
+    // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
+
+    // TODO bei klick auf speichern werden aushilfen noch mal in Tabelle eingefügt
+    for (let x in ahDaten) {
+        ahRow += '<tr><td contenteditable="false" id="pn' + ahDaten[x].id + '">' + ahDaten[x].personalnr + '</th>';
+        ahRow += '<td contenteditable="false" id="name' + ahDaten[x].id + '">' + x + '</td>';
+        ahRow += '<td contenteditable="false" id="nor' + ahDaten[x].id + '">' + ahDaten[x].norlohn.toFixed(2) + '</td>';
+        ahRow += '<td contenteditable="false" id="sam' + ahDaten[x].id + '">' + ahDaten[x].samlohn.toFixed(2) + '</td>';
+        ahRow += '<td contenteditable="false" id="son' + ahDaten[x].id + '">' + ahDaten[x].sonlohn.toFixed(2) + '</td>';
+        ahRow += '<th><img src="../img/edit.svg" width="18" class="edit" id="' + ahDaten[x].id + '"></th></tr>';
+    }
+    // TODO wenn vorhanden? wie datum
+    $('#ahTab').html(ahRow);
+
+    // Bei klick auf bearbeiten-img
+    $('.edit').click(function() {
+        let currentTD = $(this).parents('tr').find('td');
+        let id = $(this).attr('id');
+
+        // Bei Stift-Bild: Zeile kann bearbeitet werden, ändert sich auf speichern
+        if ($(this).attr('src') == '../img/edit.svg') {
+            $.each(currentTD, function() {
+                $(this).prop('contenteditable', true);
+            })
+            $(this).parents('tr').addClass('table-warning');
+            $(this).attr('src', '../img/save.svg');
+            return;
+        }
+
+        
+        // TODO werte vom edit vorm senden per ajax auf typ überprüfen? (lohn nur float ...) -> Dann Fehlermeldung
+        // TODO wenn komma -> zu punkt ändern (bei euro werten)
+        // TODO nur eine zeile bearbeiten? -> wenn man ein anderen stift klickt alle anderen auf stift, nicht gelb und contenteditable="false" ändern
+
+        // Bei Disketten-Bild: Zeile wird gespeichert -> variablen aus IDs der Zellen werden erstellt und dann per ajax an php gesendet
+        if ($(this).attr('src') == '../img/save.svg') {
+            $.each(currentTD, function() {
+                $(this).prop('contenteditable', false);
+            })
+            $(this).parents('tr').removeClass('table-warning');
+            $(this).attr('src', '../img/edit.svg');
+
+            // Objekt mit Daten an ajax
+            let ahEdit = {
+                'id' : id,
+                'personalnr' : $('#pn' + id).text(),
+                'name' : $('#name' + id).text(),
+                'norlohn' : $('#nor' + id).text(),
+                'samlohn' : $('#sam' + id).text(),
+                'sonlohn' : $('#son' + id).text()
+            };
+            // Senden an aedit.php
+            $.ajax({
+                url: 'aedit.php',
+                method: 'POST',
+                data: ahEdit
+            })
+            // TODO hier mit function(data) etwas ausgeben? alert?
+            .done(function() {
+                location.reload();
+            })
+            .fail(function(data) {
+                alert('Fehler:\n' + data);
+            })
+        }
+    })
+
+    // Bei Enter: keine neue Zeile
+    $('td[contenteditable]').keydown(function(e) {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            $(this).blur();
         }
     })
 });
