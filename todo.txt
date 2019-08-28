@@ -1,9 +1,9 @@
 ﻿[AKTUELLE BAUSTELLEN]
 - titel ändern einzel abrechnung für pdf
-- aus allen tabellen scope raus
-- "anfrage" fehlgeschlagen?
-    -> für senden auch .fail callback
+    -> dynamische variable per php?
 - Bei eintragen, update usw erfolgsecho, sonst fehlermeldung wiedergeben (wie behandeln?)
+
+- ALLGEMEIN ajax response in text auf seite? alert? modal?
 
 - ABRECHNUNG
     -> urlaubstage in abrechnung
@@ -50,20 +50,18 @@
 - Passwort für Stationen + mitarbeiterkennungen
     -> erstmal selber vergeben -> ändern lassen?
 
-[TABELLEN]
-- alles abstrakt halten
-    -> wenn etwas dargestellt werden soll dann über javascript
-- über id suchen, nicht :name und so weiter
+
+[BFI]
+- MS ACCESS zusätzlich zusätzlich zu phpMyAdmin?
+- Machen die Tabellen in Abrechnung / Auswerten / Aushilfen so Sinn (vom erstellen per loop usw)?
+- Warum muss main.js 11 & 12 nicht deklariert werden?
+
 
 SELECT s.name, az.lohn
 FROM arbeitszeit as az
 JOIN station AS s ON s.id=az.station
 JOIN aushilfen as ah ON ah.id=az.name
 WHERE az.datum = '14.08.2019'
-
-[BFI]
-- MS ACCESS zusätzlich zusätzlich zu phpMyAdmin?
-- Machen die Tabellen in Abrechnung / Auswerten / Aushilfen so Sinn (vom erstellen per loop usw)?
 
 [WICHTIG]
 - expire auf 3 min
@@ -90,12 +88,10 @@ WHERE az.datum = '14.08.2019'
     -> mit kalender?
     -> von wann bis wann?
 
-- reset autoincrement id
-    -> auf 6k, warum auch immer
-
 - Abrechnung jährlich? Quartal?
 
 - input weite mit css (width) statt col
+    -> css flexbox?
 
 - Handbuch / Manual schreiben
     -> Schritt für Schritt
@@ -111,6 +107,8 @@ WHERE az.datum = '14.08.2019'
     -> auch für mobile
     -> was in den footer?
 
+    -> css flexbox?
+
 - reset knopf bei eintragen?
 
 - tabelle für eintrag-vorschau? (vor senden)
@@ -118,8 +116,8 @@ WHERE az.datum = '14.08.2019'
 - Pause umgehen? wird nicht gemacht, dann wird unnötig zeit abgezogen
     -> entsprechende arbeitszeit hinten addieren dann abziehen
 
-- input"month" kein support safari firefox
-    -> input"date" kein safari: placeholder="dd-mm-yyyy"
+- input="month" kein support safari firefox
+    -> input="date" kein safari: placeholder="dd-mm-yyyy"
     -> https://caniuse.com/#feat=input-datetime
 
 - abrechnung nur wenn alle personalnummern da sind / einzelne ohne nicht aufführen mit warnung
@@ -128,3 +126,6 @@ WHERE az.datum = '14.08.2019'
     -> nur SL
 
 - alle inputs iwie mittig? (besonders aushilfe anlegen)
+
+- alles mit flexbox?
+    -> https://css-tricks.com/snippets/css/a-guide-to-flexbox/

@@ -55,14 +55,13 @@ if (isset($_POST['login'])) {
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $_SESSION['status'] = $user['status'];
-
     if ($user === false) {
         die("<div class=\"container\"><div class=\"alert alert-danger text-center\" role=\"alert\">Benutzername / Passwort falsch!</div></div>");
     } else {
         $validPassword = password_verify($passwordAttempt, $user['password']);
         if ($validPassword) {
             $_SESSION['station'] = $user['station'];
+            $_SESSION['status'] = $user['status'];
             $_SESSION['aktiv'] = time();
 
             header("Location: eintragen/index.php");

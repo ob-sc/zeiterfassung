@@ -3,11 +3,14 @@ moment.locale('de')
 let choices, ahDaten, kennung, name, datum, beginnForm, endeForm, diffMinuten, gehalt, daten, tage, summe, ahRow;
 
 // namen, löhne und station für alle
+// Warum müssen variablen nicht deklariert werden?
 $.get("../scripts/getdata.php", function(data){
     let result = JSON.parse(data); // JSON.parse trotz json_encode? sonst gehts halt iwie nicht. vermutlich wegen array?
     choices = result.namen;
     ahDaten = result.ahDaten;
     station = result.station;
+    status = result.status;
+    console.log(status);
 });
 
 // EINTRAGEN
@@ -30,6 +33,9 @@ function senden() {
         $('#etext').html(data);
         $('#eform')[0].reset();
         document.getElementById('datum').valueAsDate = new Date();
+    })
+    .fail(function(data) {
+        alert('Fehler:\n' + data);
     })
     
     $('#esend').hide();
@@ -98,16 +104,17 @@ function formBerechnung() {
 
 // ABRECHNUNG
 function abtabelle() {
-    // TODO WICHTIG URLAUBSTAGE
+    // TODO Urlaubstage
+    let urlaub = '';
+
     let html = '<h3 style="text-align:center">Monatsabrechnung ' + station + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>';
-    html += '<table class="table table-bordered" style="width:100%"><thead><tr>';
-    // th style="width:x%"
-    html += '<th scope="col">PN</th>';
-    html += '<th scope="col">Name</th>';
-    html += '<th scope="col">Arbeitszeit</th>';
-    html += '<th scope="col">Gehalt</th>';
-    html += '<th scope="col">Tage</th>';
-    //html += '<th scope="col">Urlaubstage</th>';
+    html += '<table class="table table-bordered table-sm" style="width:100%"><thead><tr>';
+    html += '<th style="width:10%">PN</th>';
+    html += '<th style="width:50%">Name</th>';
+    html += '<th style="width:10%">Arbeitszeit</th>';
+    html += '<th style="width:10%">Gehalt</th>';
+    html += '<th style="width:10%">Tage</th>';
+    html += '<th style="width:10%">Urlaubstage</th>';
     html += '</tr></thead><tbody>';
     for (let x in daten) {
         let gehalt = daten[x].gehalt;
@@ -117,12 +124,12 @@ function abtabelle() {
         } else {
             html += '<tr>';
         }
-        html += '<th scope="row">' + daten[x].personalnr + '</th>';
-        html += '<td>' + daten[x].name + '</td>\n';
+        html += '<td>' + daten[x].personalnr + '</th>';
+        html += '<td>' + daten[x].name + '</td>';
         html += '<td>' + moment.utc().startOf('day').add(daten[x].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
         html += '<td>' + gehalt.toFixed(2) + '</td>';
-        html += '<td>' + daten[x].tage + '</td></tr>';
-        // noch urlaubstage
+        html += '<td>' + daten[x].tage + '</td>';
+        html += '<td>' + urlaub + '</td></tr>';
     }
     $('#atext').html(html + '</tbody></table><input type="button" onclick="window.print();" value="Drucken" class="noPrint btn scc">');
 }
@@ -141,7 +148,7 @@ function eatabelle() {
     // Funktion normaler Eintrag
     function tagZeile(row) {
         gehaltEA = tage[row].gehalt;
-        html += '<tr><th scope="row">' + momentTag + '</th>';
+        html += '<tr><th>' + momentTag + '</th>';
         html += '<td>' + tage[row].beginn + '</td>';
         html += '<td>' + tage[row].ende + '</td>';
         html += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
@@ -150,7 +157,7 @@ function eatabelle() {
     // Funktion Sondereintrag bei mehrfachem Datum
     function sonderZeile(row) {
         gehaltEA = tage[row].gehalt
-        sonderRow += '<tr><th scope="row">' + momentTag + '</th>';
+        sonderRow += '<tr><th>' + momentTag + '</th>';
         sonderRow += '<td>' + tage[row].beginn + '</td>';
         sonderRow += '<td>' + tage[row].ende + '</td>';
         sonderRow += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
@@ -159,11 +166,11 @@ function eatabelle() {
     // Variable mit String für Tabelle
     let html = '<h3 style="text-align:center">Monatsübersicht ' + $('#nameInput').val() + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>\n';
     html += '<table class="table table-bordered table-sm" style="width:100%"><thead><tr>';
-    html += '<th style="width:20%" scope="col">Tag</th>';
-    html += '<th style="width:20%" scope="col">Beginn</th>';
-    html += '<th style="width:20%" scope="col">Ende</th>';
-    html += '<th style="width:20%" scope="col">Arbeitszeit</th>';
-    html += '<th style="width:20%" scope="col">Gehalt</th></tr></thead><tbody>';
+    html += '<th style="width:20%">Tag</th>';
+    html += '<th style="width:20%">Beginn</th>';
+    html += '<th style="width:20%">Ende</th>';
+    html += '<th style="width:20%">Arbeitszeit</th>';
+    html += '<th style="width:20%">Gehalt</th></tr></thead><tbody>';
     // Loop für alle Monatstage
     for (let i = 1; i <= monatstage; i++) {
         let eintrag = false;
@@ -182,13 +189,14 @@ function eatabelle() {
             } else if (momentTag == eintragVorher) {
                 eintrag = true;
                 sonderZeile(x);
+                html += '<tr><th>' + i + '</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
                 delete tage[x];
                 break;
             }
         }
         // Leerer Eintrag wenn davor nichts eingetragen wurde
         if (eintrag == false) {
-            html += '<tr><th scope="row">' + i + '</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
+            html += '<tr><th>' + i + '</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
         }
     }
     // Wiedergeben der Tabelle
@@ -196,11 +204,11 @@ function eatabelle() {
     // Tabelle für Sondereinträge
     let sonderEintrag = '<h3 style="text-align:center;">Sondereinträge</h3>';
     sonderEintrag += '<table class="table table-bordered table-sm" style="width:100%;"><thead><tr>';
-    sonderEintrag += '<th style="width:20%" scope="col">Tag</th>';
-    sonderEintrag += '<th style="width:20%" scope="col">Beginn</th>';
-    sonderEintrag += '<th style="width:20%" scope="col">Ende</th>';
-    sonderEintrag += '<th style="width:20%" scope="col">Arbeitszeit</th>';
-    sonderEintrag += '<th style="width:20%" scope="col">Gehalt</th></tr></thead><tbody>';
+    sonderEintrag += '<th style="width:20%">Tag</th>';
+    sonderEintrag += '<th style="width:20%">Beginn</th>';
+    sonderEintrag += '<th style="width:20%">Ende</th>';
+    sonderEintrag += '<th style="width:20%">Arbeitszeit</th>';
+    sonderEintrag += '<th style="width:20%">Gehalt</th></tr></thead><tbody>';
     sonderEintrag += sonderRow;
     // Wenn die Tabelle Sondereinträge nicht leer ist diese wiedergeben
     if (sonderRow.length > 1) {
@@ -239,7 +247,6 @@ $(document).ready(function() {
     // ABRECHNUNG
     $('#aform').submit(function(e) {
         e.preventDefault();
-        console.log('preventdefault'); // TODO TEST
         $.ajax({
             url: 'abget.php',
             type: 'POST',
@@ -351,7 +358,8 @@ $(document).ajaxComplete(function() {
         }
 
         
-        // TODO werte vom edit vorm senden per ajax auf typ überprüfen? (lohn nur float ...) -> Dann Fehlermeldung
+        // TODO Werte vom edit vorm senden per ajax auf typ überprüfen? (lohn nur float ...) -> Dann Fehlermeldung
+        //      -> Personalnr darf nur 4 Stellen? Nur int?
         // TODO wenn komma -> zu punkt ändern (bei euro werten)
         // TODO nur eine zeile bearbeiten? -> wenn man ein anderen stift klickt alle anderen auf stift, nicht gelb und contenteditable="false" ändern
 
@@ -379,7 +387,8 @@ $(document).ajaxComplete(function() {
                 data: ahEdit
             })
             // TODO hier mit function(data) etwas ausgeben? alert?
-            .done(function() {
+            .done(function(data) {
+                console.log(data);
                 location.reload();
             })
             .fail(function(data) {

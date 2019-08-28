@@ -3,6 +3,7 @@ require '../req/expire.php';
 require '../req/connect.php';
 
 $station = $_SESSION['station'];
+$status = $_SESSION['status'];
 
 // TODO 1 Query?!
 
@@ -34,6 +35,7 @@ $stationString = $result['name'];
 
 echo json_encode([
     'station' => $stationString,
+    'status' => $status,
     'namen' => $namen,
     'ahDaten' => $daten,
 ]);

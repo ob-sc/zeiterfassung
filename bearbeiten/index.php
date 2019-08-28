@@ -30,9 +30,9 @@ include "../req/header.php";
             <tr> <!-- TODO Beschriftung € ändern? -->
                 <th width="8%">PN</th>
                 <th width="54%">Name</th>
-                <th width="12%">€ Wochentag</th>
-                <th width="12%">€ Samstag</th>
-                <th width="12%">€ Sonntag</th>
+                <th width="12%">Lohn Wochentag</th>
+                <th width="12%">Lohn Samstag</th>
+                <th width="12%">Lohn Sonntag</th>
                 <th width="2%">&nbsp</th>
             </tr>
         </thead>

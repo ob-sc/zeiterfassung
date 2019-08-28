@@ -22,8 +22,30 @@
         <a class="dropdown-item" href="../abrechnung/index.php">Abrechnung</a>
         <a class="dropdown-item" href="../bearbeiten/index.php">Aushilfen</a>
         <a class="dropdown-item" href="../scripts/logout.php">
-            <img src="../img/logout.svg" width="18"> Abmelden
+            <img src="../img/logout.svg" width="16"> Abmelden
         </a>
+        <select class="dropdown-item" id="stationSelect">
+            <option value="osdorf">Osdorf</option>
+            <option value="billsted">Billstedt</option>
+        </select>
+        <script>
+        $('#stationSelect').change(function(){
+            $.ajax({
+                url: '../scripts/admin.php',
+                method: 'POST',
+                dataType: 'json',
+                data: { station: $("#stationSelect").val(); }
+            })
+            .always(function(data){
+                console.log(data)
+            })
+        });
+        $(document).ready(function(){
+            if (status == 'admin') {
+                $('#stationSelect').show();
+            }
+        })
+        </script>
     </div>
 </div>
 <div class="jumbotron p-4" style="">

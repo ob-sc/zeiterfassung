@@ -1,7 +1,9 @@
-<!-- footer muss ganz unten an die seite, nicht unten an den sichtbaren bildschirm
+<!-- mit flex alles ordentlich ordnen
 <footer id="footer">
-    Links rein? Mailto an mich?
-    <div class="text-center p-2 pt-3">© 2019 STARCAR GmbH</div>
-</footer> -->
+    <div class="text-center pt-3">
+        <a href="mailto:bergen@starcar.de">Kontakt</a>
+    </div>
+    <div class="text-center pb-2">© 2019 STARCAR GmbH</div>
+</footer>-->
 </body>
 </html>

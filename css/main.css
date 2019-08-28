@@ -26,12 +26,17 @@ a:link, a:visited, a:hover, a:active {
     right: 30px;
 }
 
+.disabled {
+    color: grey;
+    pointer-events: none;
+}
+
 .edit:hover, .update:hover {
     cursor: pointer;
 }
 
 #footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     background:#f3f3f3;
