@@ -97,7 +97,6 @@ function formBerechnung() {
 // ABRECHNUNG
 function abtabelle() {
     // TODO Urlaubstage
-    let urlaub = '';
 
     let html = '<h3 style="text-align:center">Monatsabrechnung ' + station + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>';
     html += '<table class="table table-bordered table-sm" style="width:100%"><thead><tr>';
@@ -109,6 +108,7 @@ function abtabelle() {
     html += '<th style="width:10%">Urlaubstage</th>';
     html += '</tr></thead><tbody>';
     for (let x in daten) {
+        let urlaub = ""/* hier formel mit: daten[x].tage */;
         let gehalt = daten[x].gehalt;
         // Wenn Gehalt im Monat über 450 -> Zeile Rot
         if (daten[x].gehalt > 450) {
@@ -201,7 +201,7 @@ function eatabelle() {
     sonderEintrag += '<th style="width:20%">Arbeitszeit</th>';
     sonderEintrag += '<th style="width:20%">Gehalt</th></tr></thead><tbody>';
     sonderEintrag += sonderRow;
-    // Wenn die Tabelle Sondereinträge nicht leer ist diese wiedergeben
+    // Wenn die Tabelle Sondereinträge nicht leer ist -> diese wiedergeben
     if (sonderRow.length > 1) {
         $('#eaText').append(sonderEintrag + '</tbody></table>');
     }
@@ -274,7 +274,6 @@ $(document).ready(function() {
             daten = data;
             tage = daten.tage;
             summe = daten.summe;
-            console.log(daten);
             eatabelle();
         })
         .fail(function(data) {

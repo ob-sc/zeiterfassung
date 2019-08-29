@@ -10,9 +10,6 @@
     -> Abrechnungen vom 10.-9. WICHTIG
     -> feld für besonderes? zb. abmelden
         -> felder in der tabelle bearbeiten können?
-    -> druckansicht
-
-    -> station in getdata und auslesen für überschrift?
 
 - EINZELAUSWERTUNG
     -> name auswerten ändern
@@ -20,36 +17,10 @@
     -> css cols besser machen
         -> tabelle zu weit rechts
 
-- BEARBEITEN ->  AUSHILFEN
-    -> nur admin + sl
-
-- ACCOUNTS
-    -> station (zb. osdorf)
-    -> sl (zb. sl_osdorf)   
-        -> abrechnung monat nur sl/idl
-        -> übersicht alle aushilfen und gehälter
-            -> verifizierung durch personalkürzel, nr, was auch immer
-        -> aushilfen anlegen / bearbeiten
-    -> admin
-        -> select für stationen
-        -> user anlegen / hash
-        -> sql für zb zeiten.php if ($station == admin) { $sql = ... }
-
-    -> jeweils einen status in benutzer
-    -> dann Menüpunkte entweder .disabled oder php if($status == admin){echo "<a href...";}
-        -> extra include für menü?
-        -> per json getdata auslesen welcher status (getdata) -> dementsprechend menü (mit .disabled?)
-
 - ZEITEN
     -> für admin ist alles einsehbar
         -> für den rest nur eigene station
         -> filterbar (kriterien?)
-
-- TODO erledigen
-
-- Passwort für Stationen + mitarbeiterkennungen
-    -> erstmal selber vergeben -> ändern lassen?
-
 
 [BFI]
 - MS ACCESS zusätzlich zusätzlich zu phpMyAdmin?
@@ -57,6 +28,7 @@
 - main.js .get() ist komisch
 - eaget.php & getdata.php 1 Query?
 - abrechnung zeitraum 10.x.x - 9.x.x
+- wie gehe ich am besten mit sql fehlermeldungen um?
 
 SELECT s.name, az.lohn
 FROM arbeitszeit as az
@@ -74,8 +46,6 @@ WHERE az.datum = '14.08.2019'
     -> schon 6 monate sonst bla
 - Nachtragen geht, da jährlich das limit 5400 ist nicht monatlich 450
     -> wie realisieren?
-
-- ids in tabellen eintragen statt namen (station, disponenten usw)
 
 - https://stackoverflow.com/a/8840315/11918503
     -> ajax in funktion wrappen
@@ -99,8 +69,6 @@ WHERE az.datum = '14.08.2019'
     -> nicht IE benutzen
         -> css geht evtl auch nicht
 
-- mehr kommentare damit ich den code später noch check
-
 - ; hinter } weg
     -> http://inimino.org/~inimino/blog/javascript_semicolons
 
@@ -110,21 +78,7 @@ WHERE az.datum = '14.08.2019'
         -> status & station?
     -> css flexbox?
 
-- reset knopf bei eintragen?
-
-- tabelle für eintrag-vorschau? (vor senden)
-
-- Pause umgehen? wird nicht gemacht, dann wird unnötig zeit abgezogen
-    -> entsprechende arbeitszeit hinten addieren dann abziehen
-
-- input="month" kein support safari firefox
-    -> input="date" kein safari: placeholder="dd-mm-yyyy"
-    -> https://caniuse.com/#feat=input-datetime
-
 - abrechnung nur wenn alle personalnummern da sind / einzelne ohne nicht aufführen mit warnung
-
-- Seite wie aushilfen (bearbeiten) für mitarbeiterkennungen?
-    -> nur SL
 
 - alle inputs iwie mittig? (besonders aushilfe anlegen)
 

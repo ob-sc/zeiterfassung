@@ -26,6 +26,7 @@ include "../req/header.php";
 
 <div class="container-fluid" id="bearbeitenContainer">
     <table class="table table-hover table-sm" style="width:100%;margin:auto;">
+    <caption>Löhne mit Punkt statt Komma eintragen!</caption>
         <thead>
             <tr>
                 <th width="8%">PN</th>
@@ -39,7 +40,7 @@ include "../req/header.php";
         <tbody id="ahTab">
         </tbody>
     </table>
-    <input type="button" class="btn scc mt-5" value="Neu anlegen" onclick="ansichtToggle();">
+    <input type="button" class="btn scc mt-2" value="Neu anlegen" onclick="ansichtToggle();">
 </div>
 
 <?php
