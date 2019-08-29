@@ -1,16 +1,14 @@
 moment.locale('de')
 
-let choices, ahDaten, kennung, name, datum, beginnForm, endeForm, diffMinuten, gehalt, daten, tage, summe, ahRow;
+let choices, ahDaten, station, status, kennung, name, datum, beginnForm, endeForm, diffMinuten, gehalt, daten, tage, summe, ahRow;
 
 // namen, löhne und station für alle
-// Warum müssen variablen nicht deklariert werden?
 $.get("../scripts/getdata.php", function(data){
     let result = JSON.parse(data); // JSON.parse trotz json_encode? sonst gehts halt iwie nicht. vermutlich wegen array?
     choices = result.namen;
     ahDaten = result.ahDaten;
     station = result.station;
     status = result.status;
-    console.log(status);
 });
 
 // EINTRAGEN
@@ -231,6 +229,13 @@ function ansichtToggle() {
 }
 
 $(document).ready(function() {
+    // ADMIN / SL für Menü
+    if (status == 'admin') {
+        $('#admin').show();
+    } else if (status != 'admin' && status != 'sl') {
+        $('.priv').addClass('disabled');
+    }
+
     // INDEX / EXPIRE
     if (window.location.hash == '#expire') { // TODO auch per js (callback .done bei $.ajax)?
         $('#expAlert').show();

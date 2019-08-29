@@ -15,37 +15,19 @@
 </head>
 <body>
 <div>
-    <img src="../img/menu.svg" class="float-right dropdown-toggle noPrint" width="30" id="btnDD" data-toggle="dropdown">
-    <div class="dropdown-menu" aria-labelledby="btnDD">
-        <a class="dropdown-item" href="../eintragen/index.php">Eintragen</a>
-        <a class="dropdown-item" href="../auswerten/index.php">Auswerten</a>
-        <a class="dropdown-item" href="../abrechnung/index.php">Abrechnung</a>
-        <a class="dropdown-item" href="../bearbeiten/index.php">Aushilfen</a>
-        <a class="dropdown-item" href="../scripts/logout.php">
-            <img src="../img/logout.svg" width="16"> Abmelden
-        </a>
-        <select class="dropdown-item" id="stationSelect">
-            <option value="osdorf">Osdorf</option>
-            <option value="billsted">Billstedt</option>
-        </select>
-        <script>
-        $('#stationSelect').change(function(){
-            $.ajax({
-                url: '../scripts/admin.php',
-                method: 'POST',
-                dataType: 'json',
-                data: { station: $("#stationSelect").val(); }
-            })
-            .always(function(data){
-                console.log(data)
-            })
-        });
-        $(document).ready(function(){
-            if (status == 'admin') {
-                $('#stationSelect').show();
-            }
-        })
-        </script>
+    <div class="dropdown">
+        <img src="../img/menu.svg" class="dropdown-toggle noPrint" width="30" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnDD">
+        <div class="dropdown-menu dropdown-menu-right" aria-lab>
+            <a class="dropdown-item" href="../eintragen/index.php">Eintragen</a>
+            <a class="dropdown-item" href="../auswerten/index.php">Auswerten</a>
+            <a class="dropdown-item priv" href="../abrechnung/index.php">Abrechnung</a>
+            <a class="dropdown-item priv" href="../bearbeiten/index.php">Aushilfen</a>
+            <a class="dropdown-item" href="../admin/index.php" id="admin" style="display:none">Admin</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="../scripts/logout.php">
+                <img src="../img/logout.svg" width="16"> Abmelden
+            </a>
+        </div>
     </div>
 </div>
 <div class="jumbotron p-4" style="">
