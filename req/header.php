@@ -30,7 +30,7 @@
         </div>
     </div>
 </div>
-<div class="jumbotron p-4" style="">
+<div class="jumbotron p-4" style="background: #f3f3f3">
     <img src="../img/logo_starcar2x.png" alt="SC_Logo" width="276" height="53">
     <h1 style="font-weight:bolder">Zeiterfassung Aushilfen</h1>
 </div>

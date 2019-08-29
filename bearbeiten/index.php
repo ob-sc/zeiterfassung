@@ -27,7 +27,7 @@ include "../req/header.php";
 <div class="container-fluid" id="bearbeitenContainer">
     <table class="table table-hover table-sm" style="width:100%;margin:auto;">
         <thead>
-            <tr> <!-- TODO Beschriftung € ändern? -->
+            <tr>
                 <th width="8%">PN</th>
                 <th width="54%">Name</th>
                 <th width="12%">Lohn Wochentag</th>

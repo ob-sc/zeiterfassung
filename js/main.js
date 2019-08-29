@@ -1,8 +1,9 @@
 moment.locale('de')
 
-let choices, ahDaten, station, status, kennung, name, datum, beginnForm, endeForm, diffMinuten, gehalt, daten, tage, summe, ahRow;
+let choices, ahDaten, station, status, kennung, name, datum, beginnForm, endeForm, diff, daten, tage, summe, ahRow;
 
 // namen, löhne und station für alle
+// mega komisch, geht ohne url: braucht json parse, evtl type: 'json' geben?!
 $.get("../scripts/getdata.php", function(data){
     let result = JSON.parse(data); // JSON.parse trotz json_encode? sonst gehts halt iwie nicht. vermutlich wegen array?
     choices = result.namen;
@@ -14,7 +15,7 @@ $.get("../scripts/getdata.php", function(data){
 // EINTRAGEN
 function senden() {
     $.ajax({
-        url: 'send.php', // TODO anpassen wenn in anderer js datei
+        url: 'send.php',
         method: 'POST',
         data: {
             sname: name,
@@ -22,7 +23,7 @@ function senden() {
             // Beginn und Ende müssen rein wegen Tabelle Einzelauswertung
             sbeginn: beginnForm,
             sende: endeForm,
-            saz: diffMinuten,
+            saz: diff,
             sgehalt: gehaltRund,
             skennung: kennung
         }
@@ -40,7 +41,6 @@ function senden() {
 };
 
 // EINTRAGEN
-// TODO als const deklarieren? https://dmitripavlutin.com/6-ways-to-declare-javascript-functions/
 function formBerechnung() {
     kennung = $('#kennung').val()
     name = $('#nameInput').val();
@@ -60,22 +60,18 @@ function formBerechnung() {
         return;
     }
 
-    let wochentag = moment(datum).isoWeekday();
-    // TODO wochtentag vereinfachen / zusammenfassen?
     $('#etext').append("<p><strong>Wochentag:</strong> " + moment(datum).format('dddd') + "</p>\n");
 
     let beginn = moment($('#beginn').val(), 'HH:mm'); 
-    beginnForm = moment(beginn).format('HH:mm'); // TODO "beginn" austauschen und variable beginn nennen? alle austauschen! achtung bei diff
+    beginnForm = moment(beginn).format('HH:mm');
     $('#etext').append("<p><strong>Beginn:</strong> " + beginnForm + "</p>\n");
 
     let ende = moment($('#ende').val(), 'HH:mm');
-    endeForm = moment(ende).format('HH:mm'); // TODO "ende" austauschen und variable ende nennen? alle austauschen! achtung bei diff
+    endeForm = moment(ende).format('HH:mm');
     $('#etext').append("<p><strong>Ende:</strong> " + endeForm + "</p>\n");
     
-    // TODO das muss besser gehen?
-    diffMinuten =  ende.diff(beginn, 'minutes');
-    let diff = ende.diff(beginn);
-    let diffForm = moment.utc(diff).format("HH:mm");
+    diff =  ende.diff(beginn, 'minutes');
+    let diffForm = moment.utc(ende.diff(beginn)).format("HH:mm");
     $('#etext').append("<p><strong>Arbeitszeit:</strong> " + diffForm + "</p>\n");
 
     // Check ob AZ 0 oder negativ
@@ -86,18 +82,16 @@ function formBerechnung() {
     }
 
     // Gehalt
-    if (wochentag == 7) {
+    if (moment(datum).isoWeekday() == 7) {
         lohn = sonlohn;
-    } else if (wochentag == 6) {
+    } else if (moment(datum).isoWeekday() == 6) {
         lohn = samlohn;
     } else {
         lohn = norlohn;
     }
-    gehalt = lohn / 60 * diffMinuten;
+    let gehalt = lohn / 60 * diff;
     gehaltRund = gehalt.toFixed(2);
     $('#etext').append("<p><strong>Gehalt:</strong> " + gehaltRund + "€</p>\n");
-    
-    // TODO moment().toJSON(); für sql?
 };
 
 // ABRECHNUNG
@@ -175,7 +169,6 @@ function eatabelle() {
         // Loop für Objekt mit Tagen aus eaget.php
         for (let x in tage) {
             momentTag = moment(tage[x].datum, 'YYYY-MM-DD').format('D');
-            // console.log('x: ' + x + ', i: ' + i + ', momentTag: ' + momentTag + ', tage[x].datum: ' + tage[x].datum + ', eintragVorher: ' + eintragVorher); TODO nur test
             // Normaler Eintrag
             if (i == momentTag && eintragVorher != momentTag) {
                 tagZeile(x);
@@ -232,12 +225,13 @@ $(document).ready(function() {
     // ADMIN / SL für Menü
     if (status == 'admin') {
         $('#admin').show();
-    } else if (status != 'admin' && status != 'sl') {
+    }
+    if (status == 'station') {
         $('.priv').addClass('disabled');
     }
 
     // INDEX / EXPIRE
-    if (window.location.hash == '#expire') { // TODO auch per js (callback .done bei $.ajax)?
+    if (window.location.hash == '#expire') {
         $('#expAlert').show();
         history.replaceState(null, null, ' ');
     }
@@ -322,7 +316,7 @@ $(document).ajaxComplete(function() {
     // AUTOCOMPLETE
     $('#nameInput').autoComplete({
         minChars: 1,
-        delay: 0, // TODO 150 für weniger laden?
+        delay: 0,
         source: function(term, suggest){
             term = term.toLowerCase();
             var matches = [];
