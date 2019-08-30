@@ -158,11 +158,11 @@ function eatabelle() {
     }
     // Tage im Monat
     let monatsTage = moment($('#datum').val(), "YYYY-MM").daysInMonth(); // TEST MONAT stimmt?
-    let abrechnungsTage = monatsTage + 9; // TEST MONAT stimmt?
+    let eintragsTag = 10;
     // Funktion normaler Eintrag
     function tagZeile(row) {
         gehaltEA = tage[row].gehalt;
-        html += '<tr><th>' + momentTag + '</th>';
+        html += '<tr><th>' + eintragsTag + '</th>';
         html += '<td>' + tage[row].beginn + '</td>';
         html += '<td>' + tage[row].ende + '</td>';
         html += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
@@ -171,7 +171,7 @@ function eatabelle() {
     // Funktion Sondereintrag bei mehrfachem Datum
     function sonderZeile(row) {
         gehaltEA = tage[row].gehalt
-        sonderRow += '<tr><th>' + momentTag + '</th>';
+        sonderRow += '<tr><th>' + eintragsTag + '</th>';
         sonderRow += '<td>' + tage[row].beginn + '</td>';
         sonderRow += '<td>' + tage[row].ende + '</td>';
         sonderRow += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
@@ -187,13 +187,14 @@ function eatabelle() {
     html += '<th style="width:20%">Gehalt</th></tr></thead><tbody>';
     // Loop für alle Abrechnungstage
     // TODO stoppt nicht bei ende monatsTage, 2 loops? einmal for (let i = 1; i <= monatsTage; i++) {} dann 
-    for (let i = 10; i <= abrechnungsTage; i++) {
+    for (let i = 1; i <= monatsTage; i++) {
         let eintrag = false;
         // Loop für Objekt mit Tagen aus eaget.php
         for (let x in tage) {
             momentTag = moment(tage[x].datum, 'YYYY-MM-DD').format('D');
+            console.log(momentTag + "momenttag"); // todo test
             // Normaler Eintrag
-            if (i == momentTag && eintragVorher != momentTag) {
+            if (eintragsTag == momentTag && eintragVorher != momentTag) {
                 tagZeile(x);
                 eintragVorher = momentTag;
                 eintrag = true;
@@ -203,15 +204,21 @@ function eatabelle() {
             } else if (momentTag == eintragVorher) {
                 eintrag = true;
                 sonderZeile(x);
-                html += '<tr><th>' + i + '</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
+                html += '<tr><th>' + eintragsTag + '</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
                 delete tage[x];
                 break;
             }
         }
         // Leerer Eintrag wenn davor nichts eingetragen wurde
         if (eintrag == false) {
-            html += '<tr><th>' + i + '</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
+            html += '<tr><th>' + eintragsTag + '</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
         }
+        if (eintragsTag < monatsTage) {
+            eintragsTag++;
+        } else {
+            eintragsTag = 1;
+        }
+        console.log(eintragsTag + "eintragstag"); // todo test
     }
     // Wiedergeben der Tabelle
     $('#eaText').html(html + '</tbody></table>');
