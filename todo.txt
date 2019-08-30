@@ -17,6 +17,7 @@ abrechnung zusammenrechnen alles
     -> leere felder für aushilfen ohne zeiten diesen monat?
     -> feld für besonderes? zb. abmelden
         -> felder in der tabelle bearbeiten können?
+    -> sortiertung? personalnr oder name?
 
 - EINZELAUSWERTUNG
     -> WICHTIG: vom 10.-9.

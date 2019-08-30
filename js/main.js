@@ -97,7 +97,23 @@ function formBerechnung() {
 
 // ABRECHNUNG
 function abtabelle() {
+    let summeAZ = 0;
+    let summeGehalt = 0;
     // TODO Urlaubstage
+
+    // moment.js duration kann man nicht auf HH:mm formatieren. Daher string aus arbeitszeit minuten:
+    function zuStunden(azMinuten) {
+        let stunden = Math.floor(azMinuten / 60);          
+        let minuten = azMinuten % 60;
+        if (String(stunden).length == 1) {
+            stunden = "0" + stunden;
+        }
+        if (String(minuten).length == 1) {
+            minuten = "0" + minuten;
+        }
+        let azString = stunden + ":" + minuten;
+        return azString;
+    }
 
     let html = '<h3 style="text-align:center">Monatsabrechnung ' + station + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>';
     html += '<table class="table table-bordered table-sm" style="width:100%"><thead><tr>';
@@ -111,20 +127,24 @@ function abtabelle() {
     for (let x in daten) {
         let urlaub = ""/* hier formel mit: daten[x].tage */;
         let abgehalt = daten[x].gehalt;
-        // Wenn Gehalt im Monat über 450 -> Zeile Rot
-        if (daten[x].gehalt > 450) {
-            html += '<tr class="table-danger">';
-        } else {
-            html += '<tr>';
-        }
-        html += '<td>' + daten[x].personalnr + '</th>';
+        html += '<tr><td>' + daten[x].personalnr + '</td>';
         html += '<td>' + daten[x].name + '</td>';
-        html += '<td>' + moment.utc().startOf('day').add(daten[x].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
+        html += '<td>' + zuStunden(daten[x].arbeitszeit) + '</td>';
         html += '<td>' + abgehalt.toFixed(2) + '</td>';
         html += '<td>' + daten[x].tage + '</td>';
         html += '<td>' + urlaub + '</td></tr>';
+
+        summeAZ += parseInt(daten[x].arbeitszeit);
+        summeGehalt += daten[x].gehalt;
+
+        console.log(summeAZ + " " + summeGehalt.toFixed(2)); // todo test
     }
+    html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + summeGehalt.toFixed(2) + '</th><td>&nbsp</td><td>&nbsp</td></tr>';
     $('#atext').html(html + '</tbody></table><input type="button" onclick="window.print();" value="Drucken" class="noPrint btn scc">');
+
+    console.log("final: " + zuStunden(summeAZ) + " " + summeGehalt.toFixed(2)); // todo test
+
+
 }
 
 // AUSWERTEN
