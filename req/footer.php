@@ -1,5 +1,5 @@
-<!-- mit flex alles ordentlich ordnen
-<footer id="footer">
+<!--
+    <footer id="footer">
     <div class="text-center pt-3">
         <a href="mailto:bergen@starcar.de">Kontakt</a>
     </div>

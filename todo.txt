@@ -16,6 +16,10 @@
     -> auch station filtern?
     -> css cols besser machen
         -> tabelle zu weit rechts
+    -> punkt statt komma (string replace)
+        -> punkt statt komma aus cation raus
+    -> bei keiner pn -> exisitiert bereits (wegen 0)
+    -> nach anlegen auf zurück -> page reload statt show
 
 - ZEITEN
     -> für admin ist alles einsehbar

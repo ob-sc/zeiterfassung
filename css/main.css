@@ -11,12 +11,38 @@
     display: none;
 }
 
-a:link, a:visited, a:hover, a:active {
-    color: black;
+html, body {
+    height: 100%;
 }
 
-.btn {
-    border:1px solid #ccc;
+header {
+    height: 200px;
+    background: #f3f3f3;
+    padding: 20px;
+}
+
+.wrapper {
+    min-height: calc(100vh - 300px);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-shrink: 0;
+}
+
+.flex-item {
+    height: 350px;
+    width: 20%;
+    padding: 20px;
+    margin: 20px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+footer {
+    height: 100px;
+    background: #f3f3f3;
+    color: grey;
 }
 
 #btnDD {
@@ -26,16 +52,16 @@ a:link, a:visited, a:hover, a:active {
     right: 30px;
 }
 
-.edit:hover {
-    cursor: pointer;
+a:link, a:visited, a:hover, a:active {
+    color: black;
 }
 
-#footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background:#f3f3f3;
-    color: grey;
+.btn {
+    border:1px solid #ccc;
+}
+
+.edit:hover {
+    cursor: pointer;
 }
 
 .scc {
