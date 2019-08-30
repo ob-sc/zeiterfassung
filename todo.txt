@@ -3,6 +3,25 @@
     -> dynamische variable per php?
 - Bei eintragen, update usw erfolgsecho, sonst fehlermeldung wiedergeben (wie behandeln?)
 
+alle ajax.fail() mit json parse?
+
+KEHLER ABRECHNUNG
+    -> Sonstiges? abmelden ... -> benötigt?
+    -> Status? 450, student ... -> benötigt?
+    -> Unterschrift benötigt?
+
+JONAS
+    -> abrechnung: unterschrift? reicht kennung / personalnummer / passwort?
+
+DATENBANK
+    -> vor und nachname trennen (nur aushilfe?)
+        -> autocomplete array dann beides zusammenfügen (in getdata?)
+
+WICHTIG:
+    einzelauswertung: TITEL aktuell august -> zu juli + august?
+    tage -> monat hört nicht auf (bis zu 40 tage)
+    tage nächster monat werden nicht eingetragen
+
 - ALLGEMEIN ajax response in text auf seite? alert? modal?
 
 - Klick auf autocomplete -> geht nicht weg?
@@ -10,9 +29,9 @@
 - ABRECHNUNG
     -> urlaubstage in abrechnung
     -> leere felder für aushilfen ohne zeiten diesen monat?
-    -> feld für besonderes? zb. abmelden
+    -> feld für besonderes? zb. abmelden -> KEHLER
         -> felder in der tabelle bearbeiten können?
-    -> sortiertung? personalnr oder name?
+    -> sortiertung? personalnr oder name? -> eher name
 
 - EINZELAUSWERTUNG
     -> WICHTIG: vom 10.-9.
@@ -26,20 +45,25 @@
         -> für den rest nur eigene station
         -> filterbar (kriterien?)
 
+- AUSHILFEN
+    -> name und pn nicht veränderbar
+    -> info bei anlegen
+        -> wenn pn nicht vorhanden -> leer lassen
+        -> personalnummer ein mal veränderbar und dann gesperrt (bei null?)
+            -> bei eintragen check ob unique
+    -> Bei anlegen -> lohn wochentag, lohn samstag, lohn sonntag... (placeholder geht nich)
+
+- ADMIN
+    -> PN und name der aushilfe verändern
+
 [BFI]
 - eintragen -> gehalt, toFixed(2) rundet falsch (bei 78,115), mysql auch. ungerundet in tabelle oder geht runden?
 - MS ACCESS zusätzlich zusätzlich zu phpMyAdmin?
 - Machen die Tabellen in Abrechnung / Auswerten / Aushilfen so Sinn (vom erstellen per loop usw)?
 - main.js .get() ist komisch
 - eaget.php & getdata.php 1 Query?
-- abrechnung zeitraum 10.x.x - 9.x.x optimieren?
+- abrechnung zeitraum 10.x.x - 9.x.x optimieren? abget und eaget
 - wie gehe ich am besten mit sql fehlermeldungen um?
-
-SELECT s.name, az.lohn
-FROM arbeitszeit as az
-JOIN station AS s ON s.id=az.station
-JOIN aushilfen as ah ON ah.id=az.name
-WHERE az.datum = '14.08.2019'
 
 [WICHTIG]
 - expire auf 3 min

@@ -157,7 +157,8 @@ function eatabelle() {
         return;
     }
     // Tage im Monat
-    let monatstage = moment($('#datum').val(), "YYYY-MM").daysInMonth();
+    let monatsTage = moment($('#datum').val(), "YYYY-MM").daysInMonth(); // TEST MONAT stimmt?
+    let abrechnungsTage = monatsTage + 9; // TEST MONAT stimmt?
     // Funktion normaler Eintrag
     function tagZeile(row) {
         gehaltEA = tage[row].gehalt;
@@ -184,8 +185,9 @@ function eatabelle() {
     html += '<th style="width:20%">Ende</th>';
     html += '<th style="width:20%">Arbeitszeit</th>';
     html += '<th style="width:20%">Gehalt</th></tr></thead><tbody>';
-    // Loop für alle Monatstage
-    for (let i = 1; i <= monatstage; i++) {
+    // Loop für alle Abrechnungstage
+    // TODO stoppt nicht bei ende monatsTage, 2 loops? einmal for (let i = 1; i <= monatsTage; i++) {} dann 
+    for (let i = 10; i <= abrechnungsTage; i++) {
         let eintrag = false;
         // Loop für Objekt mit Tagen aus eaget.php
         for (let x in tage) {
@@ -296,10 +298,11 @@ $(document).ready(function() {
             daten = data;
             tage = daten.tage;
             summe = daten.summe;
+            console.log(data); // todo test
             eatabelle();
         })
         .fail(function(data) {
-            alert('Fehler:\n' + data);
+            alert('Fehler:\n' + JSON.parse(data));
         })
     });
 

@@ -18,14 +18,11 @@ $sql =
 FROM zeiten AS z
 LEFT JOIN aushilfen AS ah ON ah.name = z.name 
 WHERE datum BETWEEN CAST('$beginnString' AS DATE) AND CAST('$endeString' AS DATE) AND z.station = :station 
-#WHERE YEAR(datum) = :jahr AND MONTH(datum) = :monat
 GROUP BY z.name 
 ORDER BY ah.personalnr ASC";
 
 $stmt = $conn->prepare($sql);
 
-$stmt->bindValue(':jahr', $jahr);
-$stmt->bindValue(':monat', $monat);
 $stmt->bindValue(':station', $station);
 
 $stmt->execute();
