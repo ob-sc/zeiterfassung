@@ -1,7 +1,6 @@
 ﻿[AKTUELLE BAUSTELLEN]
-- titel ändern einzel abrechnung für pdf
-    -> dynamische variable per php?
-- Bei eintragen, update usw erfolgsecho, sonst fehlermeldung wiedergeben (wie behandeln?)
+
+abrechnung und auswertung richtig? man wählt august aus aber kriegt juli + august (august bis 9.)
 
 alle ajax.fail() mit json parse?
 
@@ -17,32 +16,19 @@ DATENBANK
     -> vor und nachname trennen (nur aushilfe?)
         -> autocomplete array dann beides zusammenfügen (in getdata?)
 
-WICHTIG:
-    einzelauswertung: TITEL aktuell august -> zu juli + august?
-    tage -> monat hört nicht auf (bis zu 40 tage)
-    tage nächster monat werden nicht eingetragen
-
-- ALLGEMEIN ajax response in text auf seite? alert? modal?
-
-- Klick auf autocomplete -> geht nicht weg?
-
 - ABRECHNUNG
     -> urlaubstage in abrechnung
     -> leere felder für aushilfen ohne zeiten diesen monat?
     -> feld für besonderes? zb. abmelden -> KEHLER
         -> felder in der tabelle bearbeiten können?
     -> sortiertung? personalnr oder name? -> eher name
+    -> abrechnung nur wenn alle personalnummern da sind / einzelne ohne nicht aufführen mit warnung
 
 - EINZELAUSWERTUNG
-    -> WICHTIG: vom 10.-9.
     -> name auswerten ändern
-    -> auch station filtern?
     -> css cols besser machen
         -> tabelle zu weit rechts
-    -> punkt statt komma (string replace)
-        -> punkt statt komma aus cation raus
-    -> bei keiner pn -> exisitiert bereits (wegen 0)
-    -> nach anlegen auf zurück -> page reload statt show
+    -> doppelter Eintrag hat einen Tag zu viel
 
 - ZEITEN
     -> für admin ist alles einsehbar
@@ -56,6 +42,10 @@ WICHTIG:
         -> personalnummer ein mal veränderbar und dann gesperrt (bei null?)
             -> bei eintragen check ob unique
     -> Bei anlegen -> lohn wochentag, lohn samstag, lohn sonntag... (placeholder geht nich)
+    -> punkt statt komma (string replace)
+        -> punkt statt komma aus cation raus
+    -> bei keiner pn -> exisitiert bereits (wegen 0)
+    -> nach anlegen auf zurück -> page reload statt show
 
 - ADMIN
     -> PN und name der aushilfe verändern
@@ -85,6 +75,10 @@ WICHTIG:
 
 - seitentitel ändern
 
+- Klick auf autocomplete -> geht nicht weg?
+
+- ALLGEMEIN ajax response in text auf seite? alert? modal?
+
 - gucken wie fehlermeldungen behandelt werden
 
 - Jahresübersicht einbauen für 5400 limit
@@ -102,8 +96,9 @@ WICHTIG:
     -> nicht IE benutzen
         -> css geht evtl auch nicht
 
-- ; hinter } weg
-    -> http://inimino.org/~inimino/blog/javascript_semicolons
+- code aufräumen
+    -> ; hinter } weg
+        -> http://inimino.org/~inimino/blog/javascript_semicolons
 
 - footer ordentlich
     -> auch für mobile
@@ -111,9 +106,12 @@ WICHTIG:
         -> status & station?
     -> css flexbox?
 
-- abrechnung nur wenn alle personalnummern da sind / einzelne ohne nicht aufführen mit warnung
-
 - alle inputs iwie mittig? (besonders aushilfe anlegen)
 
 - alles mit flexbox?
     -> https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+
+- titel ändern einzel abrechnung für pdf
+    -> dynamische variable per php?
+    
+- Bei eintragen, update usw erfolgsecho, sonst fehlermeldung wiedergeben (wie behandeln?)

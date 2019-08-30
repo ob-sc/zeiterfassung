@@ -136,15 +136,10 @@ function abtabelle() {
 
         summeAZ += parseInt(daten[x].arbeitszeit);
         summeGehalt += daten[x].gehalt;
-
-        console.log(summeAZ + " " + summeGehalt.toFixed(2)); // todo test
     }
     html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + summeGehalt.toFixed(2) + '</th><td>&nbsp</td><td>&nbsp</td></tr>';
+
     $('#atext').html(html + '</tbody></table><input type="button" onclick="window.print();" value="Drucken" class="noPrint btn scc">');
-
-    console.log("final: " + zuStunden(summeAZ) + " " + summeGehalt.toFixed(2)); // todo test
-
-
 }
 
 // AUSWERTEN
@@ -157,7 +152,10 @@ function eatabelle() {
         return;
     }
     // Tage im Monat
-    let monatsTage = moment($('#datum').val(), "YYYY-MM").daysInMonth(); // TEST MONAT stimmt?
+    let monatSelect = moment($('#datum').val(), "YYYY-MM").format("M");
+    let monatfuerTage = monatSelect - 1;
+    let monatsTage = moment(monatfuerTage, "M").daysInMonth();
+    console.log($('#datum').val());
     let eintragsTag = 10;
     // Funktion normaler Eintrag
     function tagZeile(row) {
@@ -178,7 +176,7 @@ function eatabelle() {
         sonderRow += '<td>' + gehaltEA.toFixed(2) + '</td></tr>';
     }
     // Variable mit String für Tabelle
-    let html = '<h3 style="text-align:center">Monatsübersicht ' + $('#nameInput').val() + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>\n';
+    let html = '<h3 style="text-align:center">Monatsübersicht ' + $('#nameInput').val() + ', '  + moment(monatfuerTage, "M").format('MMMM') + "-" + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>\n';
     html += '<table class="table table-bordered table-sm" style="width:100%"><thead><tr>';
     html += '<th style="width:20%">Tag</th>';
     html += '<th style="width:20%">Beginn</th>';
@@ -186,13 +184,11 @@ function eatabelle() {
     html += '<th style="width:20%">Arbeitszeit</th>';
     html += '<th style="width:20%">Gehalt</th></tr></thead><tbody>';
     // Loop für alle Abrechnungstage
-    // TODO stoppt nicht bei ende monatsTage, 2 loops? einmal for (let i = 1; i <= monatsTage; i++) {} dann 
     for (let i = 1; i <= monatsTage; i++) {
         let eintrag = false;
         // Loop für Objekt mit Tagen aus eaget.php
         for (let x in tage) {
             momentTag = moment(tage[x].datum, 'YYYY-MM-DD').format('D');
-            console.log(momentTag + "momenttag"); // todo test
             // Normaler Eintrag
             if (eintragsTag == momentTag && eintragVorher != momentTag) {
                 tagZeile(x);
@@ -218,7 +214,6 @@ function eatabelle() {
         } else {
             eintragsTag = 1;
         }
-        console.log(eintragsTag + "eintragstag"); // todo test
     }
     // Wiedergeben der Tabelle
     $('#eaText').html(html + '</tbody></table>');
@@ -284,11 +279,10 @@ $(document).ready(function() {
         })
         .done(function(data) {
             daten = data;
-            console.log(data); // todo test
             abtabelle();
         })
         .fail(function(data) {
-            alert('Fehler:\n' + data);
+            alert('Fehler:\n' + JSON.parse(data));
         })
     })
 
@@ -305,7 +299,6 @@ $(document).ready(function() {
             daten = data;
             tage = daten.tage;
             summe = daten.summe;
-            console.log(data); // todo test
             eatabelle();
         })
         .fail(function(data) {
@@ -338,7 +331,7 @@ $(document).ready(function() {
             $('#newform')[0].reset();
         })
         .fail(function(data) {
-            alert('Fehlgeschlagen:\n' + data);
+            alert('Fehlgeschlagen:\n' + JSON.parse(data));
         })
     })
 });
@@ -422,7 +415,7 @@ $(document).ajaxComplete(function() {
                 location.reload();
             })
             .fail(function(data) {
-                alert('Fehler:\n' + data);
+                alert('Fehler:\n' + JSON.parse(data));
             })
         }
     })
