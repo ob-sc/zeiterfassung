@@ -90,6 +90,7 @@ function formBerechnung() {
         lohn = norlohn;
     }
     let gehalt = lohn / 60 * diff;
+    console.log(gehalt); // todo test
     gehaltRund = gehalt.toFixed(2);
     $('#etext').append("<p><strong>Gehalt:</strong> " + gehaltRund + "€</p>\n");
 };
@@ -254,6 +255,7 @@ $(document).ready(function() {
         })
         .done(function(data) {
             daten = data;
+            console.log(data); // todo test
             abtabelle();
         })
         .fail(function(data) {

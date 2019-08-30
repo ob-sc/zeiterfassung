@@ -5,6 +5,8 @@
 
 - ALLGEMEIN ajax response in text auf seite? alert? modal?
 
+- Klick auf autocomplete -> geht nicht weg?
+
 - ABRECHNUNG
     -> urlaubstage in abrechnung
     -> Abrechnungen vom 10.-9. WICHTIG

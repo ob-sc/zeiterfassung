@@ -5,13 +5,20 @@ require '../req/connect.php';
 $station = $_SESSION['station'];
 $monJahr = $_POST['monat'];
 $monat = substr($monJahr, 5, 2);
+$monatDavor = $monat - 1;
 $jahr = substr($monJahr, 0, 4);
+
+$beginnString = "{$jahr}-0{$monatDavor}-10";
+$endeString = "{$jahr}-{$monat}-9";
+
+#10.juli bis 9. august ist august
 
 $sql = 
 "SELECT z.name, SUM(arbeitszeit), SUM(gehalt), COUNT(DISTINCT datum), ah.personalnr 
 FROM zeiten AS z
 LEFT JOIN aushilfen AS ah ON ah.name = z.name 
-WHERE YEAR(datum) = :jahr AND MONTH(datum) = :monat AND z.station = :station 
+WHERE datum BETWEEN CAST('$beginnString' AS DATE) AND CAST('$endeString' AS DATE) AND z.station = :station 
+#WHERE YEAR(datum) = :jahr AND MONTH(datum) = :monat
 GROUP BY z.name 
 ORDER BY ah.personalnr ASC";
 
