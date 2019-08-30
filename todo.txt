@@ -5,13 +5,17 @@
 
 - ALLGEMEIN ajax response in text auf seite? alert? modal?
 
+- Klick auf autocomplete -> geht nicht weg?
+
 - ABRECHNUNG
     -> urlaubstage in abrechnung
-    -> Abrechnungen vom 10.-9. WICHTIG
+    -> leere felder für aushilfen ohne zeiten diesen monat?
     -> feld für besonderes? zb. abmelden
         -> felder in der tabelle bearbeiten können?
+    -> sortiertung? personalnr oder name?
 
 - EINZELAUSWERTUNG
+    -> WICHTIG: vom 10.-9.
     -> name auswerten ändern
     -> auch station filtern?
     -> css cols besser machen
@@ -27,11 +31,12 @@
         -> filterbar (kriterien?)
 
 [BFI]
+- eintragen -> gehalt, toFixed(2) rundet falsch (bei 78,115), mysql auch. ungerundet in tabelle oder geht runden?
 - MS ACCESS zusätzlich zusätzlich zu phpMyAdmin?
 - Machen die Tabellen in Abrechnung / Auswerten / Aushilfen so Sinn (vom erstellen per loop usw)?
 - main.js .get() ist komisch
 - eaget.php & getdata.php 1 Query?
-- abrechnung zeitraum 10.x.x - 9.x.x
+- abrechnung zeitraum 10.x.x - 9.x.x optimieren?
 - wie gehe ich am besten mit sql fehlermeldungen um?
 
 SELECT s.name, az.lohn

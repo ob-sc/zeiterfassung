@@ -1,6 +1,6 @@
 moment.locale('de')
 
-let choices, ahDaten, station, status, kennung, name, datum, beginnForm, endeForm, diff, daten, tage, summe, ahRow;
+let choices, ahDaten, station, status, kennung, name, datum, beginnForm, endeForm, diff, gehalt, daten, tage, summe, ahRow;
 
 // namen, löhne und station für alle
 // mega komisch, geht ohne url: braucht json parse, evtl type: 'json' geben?!
@@ -24,7 +24,7 @@ function senden() {
             sbeginn: beginnForm,
             sende: endeForm,
             saz: diff,
-            sgehalt: gehaltRund,
+            sgehalt: gehalt,
             skennung: kennung
         }
     })
@@ -89,14 +89,31 @@ function formBerechnung() {
     } else {
         lohn = norlohn;
     }
-    let gehalt = lohn / 60 * diff;
-    gehaltRund = gehalt.toFixed(2);
+    // Berechnung in Cent, da sonst falsch gerundet wird
+    gehalt = lohn * 100 * diff / 60 / 100;
+    let gehaltRund = gehalt.toFixed(2);
     $('#etext').append("<p><strong>Gehalt:</strong> " + gehaltRund + "€</p>\n");
 };
 
 // ABRECHNUNG
 function abtabelle() {
+    let summeAZ = 0;
+    let summeGehalt = 0;
     // TODO Urlaubstage
+
+    // moment.js duration kann man nicht auf HH:mm formatieren. Daher string aus arbeitszeit minuten:
+    function zuStunden(azMinuten) {
+        let stunden = Math.floor(azMinuten / 60);          
+        let minuten = azMinuten % 60;
+        if (String(stunden).length == 1) {
+            stunden = "0" + stunden;
+        }
+        if (String(minuten).length == 1) {
+            minuten = "0" + minuten;
+        }
+        let azString = stunden + ":" + minuten;
+        return azString;
+    }
 
     let html = '<h3 style="text-align:center">Monatsabrechnung ' + station + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>';
     html += '<table class="table table-bordered table-sm" style="width:100%"><thead><tr>';
@@ -109,21 +126,25 @@ function abtabelle() {
     html += '</tr></thead><tbody>';
     for (let x in daten) {
         let urlaub = ""/* hier formel mit: daten[x].tage */;
-        let gehalt = daten[x].gehalt;
-        // Wenn Gehalt im Monat über 450 -> Zeile Rot
-        if (daten[x].gehalt > 450) {
-            html += '<tr class="table-danger">';
-        } else {
-            html += '<tr>';
-        }
-        html += '<td>' + daten[x].personalnr + '</th>';
+        let abgehalt = daten[x].gehalt;
+        html += '<tr><td>' + daten[x].personalnr + '</td>';
         html += '<td>' + daten[x].name + '</td>';
-        html += '<td>' + moment.utc().startOf('day').add(daten[x].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
-        html += '<td>' + gehalt.toFixed(2) + '</td>';
+        html += '<td>' + zuStunden(daten[x].arbeitszeit) + '</td>';
+        html += '<td>' + abgehalt.toFixed(2) + '</td>';
         html += '<td>' + daten[x].tage + '</td>';
         html += '<td>' + urlaub + '</td></tr>';
+
+        summeAZ += parseInt(daten[x].arbeitszeit);
+        summeGehalt += daten[x].gehalt;
+
+        console.log(summeAZ + " " + summeGehalt.toFixed(2)); // todo test
     }
+    html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + summeGehalt.toFixed(2) + '</th><td>&nbsp</td><td>&nbsp</td></tr>';
     $('#atext').html(html + '</tbody></table><input type="button" onclick="window.print();" value="Drucken" class="noPrint btn scc">');
+
+    console.log("final: " + zuStunden(summeAZ) + " " + summeGehalt.toFixed(2)); // todo test
+
+
 }
 
 // AUSWERTEN
@@ -254,6 +275,7 @@ $(document).ready(function() {
         })
         .done(function(data) {
             daten = data;
+            console.log(data); // todo test
             abtabelle();
         })
         .fail(function(data) {
