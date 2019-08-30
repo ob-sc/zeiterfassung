@@ -1,8 +1,4 @@
 ﻿[AKTUELLE BAUSTELLEN]
-
-stunden fixen
-abrechnung zusammenrechnen alles
-
 - titel ändern einzel abrechnung für pdf
     -> dynamische variable per php?
 - Bei eintragen, update usw erfolgsecho, sonst fehlermeldung wiedergeben (wie behandeln?)
@@ -12,7 +8,6 @@ abrechnung zusammenrechnen alles
 - Klick auf autocomplete -> geht nicht weg?
 
 - ABRECHNUNG
-    -> 450 mal rot mal nicht
     -> urlaubstage in abrechnung
     -> leere felder für aushilfen ohne zeiten diesen monat?
     -> feld für besonderes? zb. abmelden
