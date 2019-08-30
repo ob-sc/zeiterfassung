@@ -50,7 +50,7 @@ $stmt->bindValue(':sdatum', $sdatum);
 $stmt->bindValue(':beginn', $sbeginn);
 $stmt->bindValue(':ende', $sende);
 $stmt->bindValue(':saz', $saz); // Arbeitszeit in Minuten
-$stmt->bindValue(':sgehalt', $sgehalt);
+$stmt->bindValue(':sgehalt', $sgehalt); // Gehalt ungerundet, da teilweise falsch gerundet wird
 $stmt->bindValue(':disp', $disp);
 $stmt->bindValue(':station', $station);
 

@@ -1,6 +1,6 @@
 moment.locale('de')
 
-let choices, ahDaten, station, status, kennung, name, datum, beginnForm, endeForm, diff, daten, tage, summe, ahRow;
+let choices, ahDaten, station, status, kennung, name, datum, beginnForm, endeForm, diff, gehalt, daten, tage, summe, ahRow;
 
 // namen, löhne und station für alle
 // mega komisch, geht ohne url: braucht json parse, evtl type: 'json' geben?!
@@ -24,7 +24,7 @@ function senden() {
             sbeginn: beginnForm,
             sende: endeForm,
             saz: diff,
-            sgehalt: gehaltRund,
+            sgehalt: gehalt,
             skennung: kennung
         }
     })
@@ -89,9 +89,9 @@ function formBerechnung() {
     } else {
         lohn = norlohn;
     }
-    let gehalt = lohn / 60 * diff;
-    console.log(gehalt); // todo test
-    gehaltRund = gehalt.toFixed(2);
+    // Berechnung in Cent, da sonst falsch gerundet wird
+    gehalt = lohn * 100 * diff / 60 / 100;
+    let gehaltRund = gehalt.toFixed(2);
     $('#etext').append("<p><strong>Gehalt:</strong> " + gehaltRund + "€</p>\n");
 };
 
@@ -110,7 +110,7 @@ function abtabelle() {
     html += '</tr></thead><tbody>';
     for (let x in daten) {
         let urlaub = ""/* hier formel mit: daten[x].tage */;
-        let gehalt = daten[x].gehalt;
+        let abgehalt = daten[x].gehalt;
         // Wenn Gehalt im Monat über 450 -> Zeile Rot
         if (daten[x].gehalt > 450) {
             html += '<tr class="table-danger">';
@@ -120,7 +120,7 @@ function abtabelle() {
         html += '<td>' + daten[x].personalnr + '</th>';
         html += '<td>' + daten[x].name + '</td>';
         html += '<td>' + moment.utc().startOf('day').add(daten[x].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
-        html += '<td>' + gehalt.toFixed(2) + '</td>';
+        html += '<td>' + abgehalt.toFixed(2) + '</td>';
         html += '<td>' + daten[x].tage + '</td>';
         html += '<td>' + urlaub + '</td></tr>';
     }
