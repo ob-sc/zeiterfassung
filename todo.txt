@@ -35,9 +35,6 @@ DATENBANK
     -> bei keiner pn -> exisitiert bereits (wegen 0)
     -> anlegen 2 container -> ajax statt alert
 
-- ADMIN
-    -> PN und name der aushilfe verändern
-
 [BFI]
 - urlaub todo in gleiches query?
 - eintragen -> gehalt, toFixed(2) rundet falsch (bei 78,115), mysql auch. ungerundet in tabelle oder geht runden?
@@ -61,20 +58,12 @@ DATENBANK
 
 - Klick auf autocomplete -> geht nicht weg?
 
-- ALLGEMEIN ajax response in text auf seite? alert? modal?
-
-- gucken wie fehlermeldungen behandelt werden
-    -> alle ajax.fail() mit json parse?
-
 - Jahresübersicht einbauen für 5400 limit
     -> einzelne aush. / alle?
     -> mit kalender?
     -> von wann bis wann?
 
 - Abrechnung jährlich? Quartal?
-
-- input weite mit css (width) statt col
-    -> css flexbox?
 
 - Handbuch / Manual schreiben
     -> Schritt für Schritt
@@ -83,5 +72,3 @@ DATENBANK
 
 - titel ändern einzel abrechnung für pdf
     -> dynamische variable per php?
-    
-- Bei eintragen, update usw erfolgsecho, sonst fehlermeldung wiedergeben (wie behandeln?)
