@@ -2,6 +2,8 @@
 Alle bootstrap grid auf css flex umstellen
     -> vor / nachteile? erstmal in branch testen. Footer funktioniert!
 
+footer noprint
+
 flex wrapper aus index in header / footer
     -> ganz raus?
 
@@ -18,6 +20,7 @@ DATENBANK
     -> leere felder für aushilfen ohne zeiten diesen monat?
     -> sortiertung? personalnr oder name? -> eher name
     -> abrechnung nur wenn alle personalnummern da sind / einzelne ohne nicht aufführen mit warnung
+    -> status kleiner
 
 - EINZELAUSWERTUNG
     -> name auswerten ändern
@@ -44,6 +47,7 @@ DATENBANK
     -> PN und name der aushilfe verändern
 
 [BFI]
+- urlaub todo in gleiches query?
 - eintragen -> gehalt, toFixed(2) rundet falsch (bei 78,115), mysql auch. ungerundet in tabelle oder geht runden?
 - MS ACCESS zusätzlich zusätzlich zu phpMyAdmin?
 - Machen die Tabellen in Abrechnung / Auswerten / Aushilfen so Sinn (vom erstellen per loop usw)?

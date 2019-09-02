@@ -123,18 +123,25 @@ function abtabelle() {
     html += '<th style="width:5%">Gehalt</th>';
     html += '<th style="width:5%">Tage</th>';
     html += '<th style="width:5%">Urlaub</th>';
-    html += '<th style="width:15%">Status</th>';
-    html += '<th style="width:20%">Sonstiges</th>';
+    html += '<th style="width:5%">Status</th>';
+    html += '<th style="width:30%">Sonstiges</th>';
     html += '</tr></thead><tbody>';
     for (let x in daten) {
-        let urlaub = ""/* hier formel mit: daten[x].tage */;
+        /*  URLAUB TODO
+            Urlaubsanspruch muss berechnet werden aus tagen bisher in diesem Jahr
+            Query abget: SELECT COUNT(DISTINCT datum) FROM zeiten WHERE YEAR(datum) = :jahr? BETWEEN beginn jahr und ausgewähltes datum?
+            -> dann $urlaub = 24/312 * $result
+            $urlaub per ajax fetchen und mit Math.round(urlaub) eintragen
+        */
+
+        let urlaub = daten[x].urlaub;
         let abgehalt = daten[x].gehalt;
         html += '<tr><td>' + daten[x].personalnr + '</td>';
         html += '<td>' + daten[x].name + '</td>';
         html += '<td>' + zuStunden(daten[x].arbeitszeit) + '</td>';
         html += '<td>' + abgehalt.toFixed(2) + '</td>';
         html += '<td>' + daten[x].tage + '</td>';
-        html += '<td>' + urlaub + '</td>';
+        html += '<td>' + Math.round(urlaub) + '</td>';
         html += '<td>' + daten[x].status + '</td>';
         html += '<td contenteditable="true">&nbsp</td></tr>';
 
