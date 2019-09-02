@@ -33,8 +33,11 @@ https://css-tricks.com/snippets/css/sticky-footer/
 
 komplett mit flexbox
 flexbox in flexbox geht
+
+classe wrapper auf body?
 -->
 
+<div class="wrapper">
 <header>
     <div class="dropdown">
         <img src="../img/menu.svg" class="dropdown-toggle noPrint" width="30" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnDD">
@@ -56,7 +59,6 @@ flexbox in flexbox geht
     </div>
 </header>
 <main>
-<div class="wrapper">
 
 <!-- Station auswählen -->
 
@@ -107,14 +109,14 @@ flexbox in flexbox geht
             <input type="submit" name="kAendern" class="btn scc m-1" value="Ändern">
         </form>
     </div>
-</div>
 </main>
 <footer>
-    <div class="text-center">
+    <div>
         <a href="mailto:bergen@starcar.de">Kontakt</a>
     </div>
-    <div class="text-center">© 2019 STARCAR GmbH</div>
+    <div>© 2019 STARCAR GmbH</div>
 </footer>
+</div>
 </body>
 </html>
 
