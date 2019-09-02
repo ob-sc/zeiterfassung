@@ -58,7 +58,6 @@ $stmt->execute();
 
 $conn = null;
 
-// TODO echo ändern -> kommt als data
 echo "<h4>Eintrag erfolgreich!</h4>";
 
 ?>

@@ -186,7 +186,7 @@ function eatabelle() {
         sonderRow += '<td>' + gehaltEA.toFixed(2) + '</td></tr>';
     }
     // Variable mit String für Tabelle
-    let html = '<h3 style="text-align:center">Arbeitszeitnachweis ' + $('#nameInput').val() + ', '  + moment(monatfuerTage, "M").format('MMMM') + "-" + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>\n';
+    let html = '<h3 style="text-align:center">Arbeitszeitnachweis ' + $('#nameInput').val() + '<br>'  + moment(monatfuerTage, "M").format('MMMM') + "-" + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>\n';
     html += '<table class="table table-bordered table-sm" style="width:100%"><thead><tr>';
     html += '<th style="width:20%">Tag</th>';
     html += '<th style="width:20%">Beginn</th>';

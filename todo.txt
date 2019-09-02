@@ -1,6 +1,10 @@
 ﻿[AKTUELLE BAUSTELLEN]
 Datenbank vorbereiten
 
+abrechnung an welche mail?
+
+schon x über 450
+
 Anja
     -> wie werden aushilfen in anderen stationen gehandelt? reicht es die zeiten dann von der jew station eintragen zu lassne? filter station bei abrechnung?
 
@@ -15,17 +19,13 @@ DATENBANK
 
 - ABRECHNUNG
     -> urlaubstage in abrechnung
-    -> leere felder für aushilfen ohne zeiten diesen monat?
+    -> leere felder für aushilfen ohne zeiten diesen monat? WICHTIG für zb abmelden
     -> sortiertung? personalnr oder name? -> eher name
     -> abrechnung nur wenn alle personalnummern da sind / einzelne ohne nicht aufführen mit warnung
+    -> automatisch pdf
 
 - EINZELAUSWERTUNG
     -> name auswerten ändern
-
-- ZEITEN
-    -> für admin ist alles einsehbar
-        -> für den rest nur eigene station
-        -> filterbar (kriterien?)
 
 - AUSHILFEN
     -> info bei anlegen
@@ -49,9 +49,6 @@ DATENBANK
 
 [WICHTIG]
 - expire auf 3 min
-- emulate an oder aus
-
-
 
 
 - seitentitel ändern
@@ -64,11 +61,6 @@ DATENBANK
     -> von wann bis wann?
 
 - Abrechnung jährlich? Quartal?
-
-- Handbuch / Manual schreiben
-    -> Schritt für Schritt
-    -> nicht IE benutzen
-        -> css geht evtl auch nicht
 
 - titel ändern einzel abrechnung für pdf
     -> dynamische variable per php?
