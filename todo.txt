@@ -22,7 +22,6 @@ DATENBANK
     -> name auswerten ändern
     -> css cols besser machen
         -> tabelle zu weit rechts
-    -> doppelter Eintrag hat einen Tag zu viel
 
 - ZEITEN
     -> für admin ist alles einsehbar
@@ -30,7 +29,6 @@ DATENBANK
         -> filterbar (kriterien?)
 
 - AUSHILFEN
-    -> name und pn nicht veränderbar
     -> info bei anlegen
         -> wenn pn nicht vorhanden -> leer lassen
         -> personalnummer ein mal veränderbar und dann gesperrt (bei null?)
