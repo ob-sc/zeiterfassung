@@ -19,14 +19,12 @@
         <img src="../img/menu.svg" class="dropdown-toggle noPrint" width="30" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnDD">
         <div class="dropdown-menu dropdown-menu-right" aria-lab>
             <a class="dropdown-item" href="../eintragen/index.php">Eintragen</a>
-            <a class="dropdown-item" href="../auswerten/index.php">Auswerten</a>
+            <a class="dropdown-item" href="../auswerten/index.php">Arbeitszeitnachweis</a>
             <a class="dropdown-item priv" href="../abrechnung/index.php">Abrechnung</a>
             <a class="dropdown-item priv" href="../aushilfen/index.php">Aushilfen</a>
             <a class="dropdown-item" href="../admin/index.php" id="admin" style="display:none">Admin</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="../scripts/logout.php">
-                <img src="../img/logout.svg" width="16"> Abmelden
-            </a>
+            <a class="dropdown-item" href="../scripts/logout.php">Abmelden</a>
         </div>
     </div>
     <div>
