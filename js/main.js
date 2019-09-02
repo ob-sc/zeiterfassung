@@ -3,7 +3,7 @@ moment.locale('de')
 let choices, ahDaten, station, status, kennung, name, datum, beginnForm, endeForm, diff, gehalt, daten, tage, summe, ahRow;
 
 // namen, löhne und station für alle
-// mega komisch, geht ohne url: braucht json parse, evtl type: 'json' geben?!
+// mega komisch: braucht json parse, evtl type: 'json' geben?!
 $.get("../scripts/getdata.php", function(data){
     let result = JSON.parse(data); // JSON.parse trotz json_encode? sonst gehts halt iwie nicht. vermutlich wegen array?
     choices = result.namen;
@@ -324,7 +324,7 @@ $(document).ready(function() {
         $('#esend').hide();
     })
 
-    // BEARBEITEN anlegen / senden an anew.php
+    // AUSHILFEN anlegen / senden an anew.php
     $('#newform').submit(function(e) {
         e.preventDefault();
         $.ajax({
@@ -357,7 +357,7 @@ $(document).ajaxComplete(function() {
         }
     })
 
-    // BEARBEITEN Aushilfe bearbeiten
+    // AUSHILFEN bearbeiten
     // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
 
     // TODO bei klick auf speichern werden aushilfen noch mal in Tabelle eingefügt
@@ -388,10 +388,6 @@ $(document).ajaxComplete(function() {
             return;
         }
 
-        
-        // TODO Werte vom edit vorm senden per ajax auf typ überprüfen? (lohn nur float ...) -> Dann Fehlermeldung
-        //      -> Personalnr darf nur 4 Stellen? Nur int?
-        // TODO wenn komma -> zu punkt ändern (bei euro werten)
         // TODO nur eine zeile bearbeiten? -> wenn man ein anderen stift klickt alle anderen auf stift, nicht gelb und contenteditable="false" ändern
 
         // Bei Disketten-Bild: Zeile wird gespeichert -> variablen aus IDs der Zellen werden erstellt und dann per ajax an php gesendet
@@ -402,14 +398,19 @@ $(document).ajaxComplete(function() {
             $(this).parents('tr').removeClass('table-warning');
             $(this).attr('src', '../img/edit.svg');
 
+            // Werte aus contenteditable Feldern
+            let norval = $('#nor' + id).text();
+            let samval = $('#sam' + id).text();
+            let sonval = $('#son' + id).text();
+
             // Objekt mit Daten an ajax
             let ahEdit = {
                 'id' : id,
-                'norlohn' : $('#nor' + id).text(),
-                'samlohn' : $('#sam' + id).text(),
-                'sonlohn' : $('#son' + id).text()
+                'norlohn' : norval.replace(",", "."),
+                'samlohn' : samval.replace(",", "."),
+                'sonlohn' : sonval.replace(",", ".")
             }
-            console.log(id);
+            
             // Senden an aedit.php
             $.ajax({
                 url: 'aedit.php',

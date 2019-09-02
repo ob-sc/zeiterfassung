@@ -28,7 +28,6 @@ include "../req/header.php";
 
 <div class="container-fluid" id="bearbeitenContainer">
     <table class="table table-hover table-sm" style="width:100%;margin:auto;">
-    <caption>Löhne mit Punkt statt Komma eintragen!</caption>
         <thead>
             <tr>
                 <th width="8%">PN</th>

@@ -1,14 +1,6 @@
 ﻿[AKTUELLE BAUSTELLEN]
-Alle bootstrap grid auf css flex umstellen
-    -> vor / nachteile? erstmal in branch testen. Footer funktioniert!
-
 Anja
     -> wie werden aushilfen in anderen stationen gehandelt? reicht es die zeiten dann von der jew station eintragen zu lassne? filter station bei abrechnung?
-
-footer noprint
-
-flex wrapper aus index in header / footer
-    -> ganz raus?
 
 JONAS
     -> abrechnung: unterschrift? reicht kennung / personalnummer / passwort?
@@ -24,12 +16,9 @@ DATENBANK
     -> leere felder für aushilfen ohne zeiten diesen monat?
     -> sortiertung? personalnr oder name? -> eher name
     -> abrechnung nur wenn alle personalnummern da sind / einzelne ohne nicht aufführen mit warnung
-    -> status kleiner
 
 - EINZELAUSWERTUNG
     -> name auswerten ändern
-    -> css cols besser machen
-        -> tabelle zu weit rechts
 
 - ZEITEN
     -> für admin ist alles einsehbar
@@ -60,18 +49,13 @@ DATENBANK
 - abrechnung zeitraum 10.x.x - 9.x.x optimieren? abget und eaget
 - wie gehe ich am besten mit sql fehlermeldungen um?
 - vor und nachname trennen?
-    -> Was ist mit dem Input?
+    -> Was ist mit dem Input (anlegen, eintragen usw)?
 
 [WICHTIG]
 - expire auf 3 min
 - emulate an oder aus
 
-[SIMGE, ANNE]
-- Urlaub fertig (Anne, Simge?)
-    -> alle 13 wochen? 3 monate?
-    -> schon 6 monate sonst bla
-- Nachtragen geht, da jährlich das limit 5400 ist nicht monatlich 450
-    -> wie realisieren?
+
 
 - https://stackoverflow.com/a/8840315/11918503
     -> ajax in funktion wrappen
@@ -105,15 +89,8 @@ DATENBANK
         -> http://inimino.org/~inimino/blog/javascript_semicolons
 
 - footer ordentlich
-    -> auch für mobile
     -> was in den footer?
         -> status & station?
-    -> css flexbox?
-
-- alle inputs iwie mittig? (besonders aushilfe anlegen)
-
-- alles mit flexbox?
-    -> https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 
 - titel ändern einzel abrechnung für pdf
     -> dynamische variable per php?
