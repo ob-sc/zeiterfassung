@@ -20,7 +20,7 @@ include "../req/header.php";
             <input type="number" class="form-control m-1" placeholder="Sonntag" name="sonlohn" id="anlegenSon" min="9.19" step="0.01" max="100" value="11.00">
         </div>
         <input type="submit" class="btn scc mt-2" value="Anlegen">
-        <input type="button" class="btn scc mt-2" value="Zurück" onclick="ansichtToggle();">
+        <input type="button" class="btn scc mt-2" value="Zurück" onclick="location.reload();">
     </form>
 </div>
 
@@ -40,7 +40,7 @@ include "../req/header.php";
         <tbody id="ahTab">
         </tbody>
     </table>
-    <input type="button" class="btn scc mt-2" value="Neu anlegen" onclick="ansichtToggle();">
+    <input type="button" class="btn scc mt-2" value="Neu anlegen" onclick="$('#anlegenContainer').show();$('#bearbeitenContainer').hide()">
 </div>
 
 <?php

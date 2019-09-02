@@ -7,7 +7,7 @@ $status = $_SESSION['status'];
 
 // TODO 1 Query?!
 
-$sql = "SELECT id, personalnr, name, norlohn, samlohn, sonlohn FROM aushilfen WHERE station = ?";
+$sql = "SELECT id, personalnr, name, norlohn, samlohn, sonlohn, status FROM aushilfen WHERE station = ?";
 
 $stmt = $conn->prepare($sql);
 

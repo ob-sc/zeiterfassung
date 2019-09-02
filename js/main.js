@@ -117,12 +117,14 @@ function abtabelle() {
 
     let html = '<h3 style="text-align:center">Monatsabrechnung ' + station + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>';
     html += '<table class="table table-bordered table-sm" style="width:100%"><thead><tr>';
-    html += '<th style="width:10%">PN</th>';
-    html += '<th style="width:50%">Name</th>';
-    html += '<th style="width:10%">Arbeitszeit</th>';
-    html += '<th style="width:10%">Gehalt</th>';
-    html += '<th style="width:10%">Tage</th>';
-    html += '<th style="width:10%">Urlaubstage</th>';
+    html += '<th style="width:5%">PN</th>';
+    html += '<th style="width:40%">Name</th>';
+    html += '<th style="width:5%">AZ</th>';
+    html += '<th style="width:5%">Gehalt</th>';
+    html += '<th style="width:5%">Tage</th>';
+    html += '<th style="width:5%">Urlaub</th>';
+    html += '<th style="width:15%">Status</th>';
+    html += '<th style="width:20%">Sonstiges</th>';
     html += '</tr></thead><tbody>';
     for (let x in daten) {
         let urlaub = ""/* hier formel mit: daten[x].tage */;
@@ -132,12 +134,14 @@ function abtabelle() {
         html += '<td>' + zuStunden(daten[x].arbeitszeit) + '</td>';
         html += '<td>' + abgehalt.toFixed(2) + '</td>';
         html += '<td>' + daten[x].tage + '</td>';
-        html += '<td>' + urlaub + '</td></tr>';
+        html += '<td>' + urlaub + '</td>';
+        html += '<td>' + daten[x].status + '</td>';
+        html += '<td contenteditable="true">&nbsp</td></tr>';
 
         summeAZ += parseInt(daten[x].arbeitszeit);
         summeGehalt += daten[x].gehalt;
     }
-    html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + summeGehalt.toFixed(2) + '</th><td>&nbsp</td><td>&nbsp</td></tr>';
+    html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + summeGehalt.toFixed(2) + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>';
 
     $('#atext').html(html + '</tbody></table><input type="button" onclick="window.print();" value="Drucken" class="noPrint btn scc">');
 }
@@ -199,8 +203,8 @@ function eatabelle() {
             // Sondereintrag
             } else if (momentTag == eintragVorher) {
                 eintrag = true;
+                eintragsTag--;
                 sonderZeile(x);
-                html += '<tr><th>' + eintragsTag + '</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
                 delete tage[x];
                 break;
             }
@@ -239,12 +243,6 @@ function eatabelle() {
     // Druckbutton
     $('#eaText').append('<input type="button" onclick="window.print();" value="Drucken" class="noPrint btn scc my-3">');
 };
-
-// BEARBEITEN
-function ansichtToggle() {
-    $('#anlegenContainer').toggle();
-    $('#bearbeitenContainer').toggle();
-}
 
 $(document).ready(function() {
     // ADMIN / SL für Menü
@@ -293,7 +291,7 @@ $(document).ready(function() {
             url: 'eaget.php',
             type: 'POST',
             dataType: 'json',
-            data: $("#eaform").serialize(),
+            data: $('#eaform').serialize(),
         })
         .done(function(data) {
             daten = data;
@@ -304,7 +302,7 @@ $(document).ready(function() {
         .fail(function(data) {
             alert('Fehler:\n' + JSON.parse(data));
         })
-    });
+    })
 
     // für jeden input Datum - automatisch Datum heute
     let datum = document.getElementById('datum');
@@ -323,7 +321,7 @@ $(document).ready(function() {
         $.ajax({
             url: 'anew.php',
             method: 'POST',
-            data: $("#newform").serialize()
+            data: $('#newform').serialize()
         })
         // TODO statt alert ajax daneben? modal?
         .done(function(data) {
@@ -355,17 +353,16 @@ $(document).ajaxComplete(function() {
 
     // TODO bei klick auf speichern werden aushilfen noch mal in Tabelle eingefügt
     for (let x in ahDaten) {
-        ahRow += '<tr><td contenteditable="false" id="pn' + ahDaten[x].id + '">' + ahDaten[x].personalnr + '</th>';
-        ahRow += '<td contenteditable="false" id="name' + ahDaten[x].id + '">' + x + '</td>';
+        ahRow += '<tr><td>' + ahDaten[x].personalnr + '</th>';
+        ahRow += '<td>' + x + '</td>';
         ahRow += '<td contenteditable="false" id="nor' + ahDaten[x].id + '">' + ahDaten[x].norlohn.toFixed(2) + '</td>';
         ahRow += '<td contenteditable="false" id="sam' + ahDaten[x].id + '">' + ahDaten[x].samlohn.toFixed(2) + '</td>';
         ahRow += '<td contenteditable="false" id="son' + ahDaten[x].id + '">' + ahDaten[x].sonlohn.toFixed(2) + '</td>';
         ahRow += '<th><img src="../img/edit.svg" width="18" class="edit" id="' + ahDaten[x].id + '"></th></tr>';
     }
-    // TODO wenn vorhanden? wie datum
     $('#ahTab').html(ahRow);
 
-    // Bei klick auf bearbeiten-img
+    // Bei klick auf Bearbeiten-img
     $('.edit').click(function() {
         let currentTD = $(this).parents('tr').find('td');
         let id = $(this).attr('id');
@@ -373,7 +370,9 @@ $(document).ajaxComplete(function() {
         // Bei Stift-Bild: Zeile kann bearbeitet werden, ändert sich auf speichern
         if ($(this).attr('src') == '../img/edit.svg') {
             $.each(currentTD, function() {
-                $(this).prop('contenteditable', true);
+                if ($(this).prop('contenteditable') == "false") {
+                    $(this).prop('contenteditable', true);
+                }
             })
             $(this).parents('tr').addClass('table-warning');
             $(this).attr('src', '../img/save.svg');
@@ -397,12 +396,11 @@ $(document).ajaxComplete(function() {
             // Objekt mit Daten an ajax
             let ahEdit = {
                 'id' : id,
-                'personalnr' : $('#pn' + id).text(),
-                'name' : $('#name' + id).text(),
                 'norlohn' : $('#nor' + id).text(),
                 'samlohn' : $('#sam' + id).text(),
                 'sonlohn' : $('#son' + id).text()
-            };
+            }
+            console.log(id);
             // Senden an aedit.php
             $.ajax({
                 url: 'aedit.php',

@@ -1,16 +1,10 @@
 ﻿[AKTUELLE BAUSTELLEN]
 
-abrechnung und auswertung richtig? man wählt august aus aber kriegt juli + august (august bis 9.)
-
-alle ajax.fail() mit json parse?
-
-KEHLER ABRECHNUNG
-    -> Sonstiges? abmelden ... -> benötigt?
-    -> Status? 450, student ... -> benötigt?
-    -> Unterschrift benötigt?
+ea bis 450
 
 JONAS
     -> abrechnung: unterschrift? reicht kennung / personalnummer / passwort?
+    -> Rundungen bei Abrechnung?
 
 DATENBANK
     -> vor und nachname trennen (nur aushilfe?)
@@ -19,10 +13,10 @@ DATENBANK
 - ABRECHNUNG
     -> urlaubstage in abrechnung
     -> leere felder für aushilfen ohne zeiten diesen monat?
-    -> feld für besonderes? zb. abmelden -> KEHLER
         -> felder in der tabelle bearbeiten können?
     -> sortiertung? personalnr oder name? -> eher name
     -> abrechnung nur wenn alle personalnummern da sind / einzelne ohne nicht aufführen mit warnung
+    -> status jeweiliges maximum? student?
 
 - EINZELAUSWERTUNG
     -> name auswerten ändern
@@ -58,6 +52,8 @@ DATENBANK
 - eaget.php & getdata.php 1 Query?
 - abrechnung zeitraum 10.x.x - 9.x.x optimieren? abget und eaget
 - wie gehe ich am besten mit sql fehlermeldungen um?
+- vor und nachname trennen?
+    -> Was ist mit dem Input?
 
 [WICHTIG]
 - expire auf 3 min
@@ -80,6 +76,7 @@ DATENBANK
 - ALLGEMEIN ajax response in text auf seite? alert? modal?
 
 - gucken wie fehlermeldungen behandelt werden
+    -> alle ajax.fail() mit json parse?
 
 - Jahresübersicht einbauen für 5400 limit
     -> einzelne aush. / alle?
