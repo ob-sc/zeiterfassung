@@ -1,7 +1,5 @@
 ﻿[AKTUELLE BAUSTELLEN]
 
-ea bis 450
-
 JONAS
     -> abrechnung: unterschrift? reicht kennung / personalnummer / passwort?
     -> Rundungen bei Abrechnung?
@@ -13,10 +11,8 @@ DATENBANK
 - ABRECHNUNG
     -> urlaubstage in abrechnung
     -> leere felder für aushilfen ohne zeiten diesen monat?
-        -> felder in der tabelle bearbeiten können?
     -> sortiertung? personalnr oder name? -> eher name
     -> abrechnung nur wenn alle personalnummern da sind / einzelne ohne nicht aufführen mit warnung
-    -> status jeweiliges maximum? student?
 
 - EINZELAUSWERTUNG
     -> name auswerten ändern

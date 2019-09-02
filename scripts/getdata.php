@@ -20,7 +20,7 @@ $daten = [];
 
 foreach ($result as $value) {
     $namen[] = $value['name'];
-    $daten[$value['name']] = ['id' => $value['id'], 'personalnr' => $value['personalnr'], 'norlohn' => $value['norlohn'], 'samlohn' => $value['samlohn'], 'sonlohn' => $value['sonlohn']];
+    $daten[$value['name']] = ['id' => $value['id'], 'personalnr' => $value['personalnr'], 'norlohn' => $value['norlohn'], 'samlohn' => $value['samlohn'], 'sonlohn' => $value['sonlohn'], 'ahStatus' => $value['status']];
 }
 
 $sql = "SELECT name FROM stationen WHERE id = ?";

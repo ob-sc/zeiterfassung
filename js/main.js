@@ -159,7 +159,6 @@ function eatabelle() {
     let monatSelect = moment($('#datum').val(), "YYYY-MM").format("M");
     let monatfuerTage = monatSelect - 1;
     let monatsTage = moment(monatfuerTage, "M").daysInMonth();
-    console.log($('#datum').val());
     let eintragsTag = 10;
     // Funktion normaler Eintrag
     function tagZeile(row) {
@@ -238,6 +237,9 @@ function eatabelle() {
     $('#eaText').append('<strong>Arbeitszeit:</strong> ' + moment.utc().startOf('day').add(summe['SUM(arbeitszeit)'], 'minutes').format('HH:mm'));
     let sumGehalt = summe['SUM(gehalt)'];
     $('#eaText').append('<br><strong>Gehalt:</strong> ' + sumGehalt.toFixed(2) + '€');
+    let statusMax = parseInt(ahDaten[$('#nameInput').val()].ahStatus);
+    let bisMax = statusMax - sumGehalt;
+    $('#eaText').append('<br>Noch ' + bisMax.toFixed(2) + '€ bis ' + statusMax.toFixed(2) + '€');
     $('#eaText').append('<br><strong>Arbeitstage:</strong> ' + summe['COUNT(DISTINCT datum)'] + '<br>');
     
     // Druckbutton

@@ -14,10 +14,12 @@ include "../req/header.php";
             <input type="number" class="form-control m-1" placeholder="Personalnummer" name="personalnr" id="anlegenPN">
         </div>
         <div class="form-group col-xl-3">
-            <label for="name" class="m-1">Löhne:</label>
-            <input type="number" class="form-control m-1" placeholder="Wochentag" name="norlohn" id="anlegenNor" min="9.19" step="0.01" max="100" value="9.19">
-            <input type="number" class="form-control m-1" placeholder="Samstag" name="samlohn" id="anlegenSam" min="9.19" step="0.01" max="100" value="10.00">
-            <input type="number" class="form-control m-1" placeholder="Sonntag" name="sonlohn" id="anlegenSon" min="9.19" step="0.01" max="100" value="11.00">
+            <label for="norlohn" class="m-1">Lohn Wochentag:</label>
+            <input type="number" class="form-control m-1" name="norlohn" id="anlegenNor" min="9.19" step="0.01" max="100" value="9.19">
+            <label for="samlohn" class="m-1">Lohn Samstag:</label>
+            <input type="number" class="form-control m-1" name="samlohn" id="anlegenSam" min="9.19" step="0.01" max="100" value="10.00">
+            <label for="sonlohn" class="m-1">Lohn Sonntag:</label>
+            <input type="number" class="form-control m-1" name="sonlohn" id="anlegenSon" min="9.19" step="0.01" max="100" value="11.00">
         </div>
         <input type="submit" class="btn scc mt-2" value="Anlegen">
         <input type="button" class="btn scc mt-2" value="Zurück" onclick="location.reload();">
