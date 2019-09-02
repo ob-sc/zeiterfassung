@@ -1,4 +1,6 @@
 ﻿[AKTUELLE BAUSTELLEN]
+Alle bootstrap grid auf css flex umstellen
+    -> vor / nachteile? erstmal in branch testen. Footer funktioniert!
 
 JONAS
     -> abrechnung: unterschrift? reicht kennung / personalnummer / passwort?
