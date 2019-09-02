@@ -186,7 +186,7 @@ function eatabelle() {
         sonderRow += '<td>' + gehaltEA.toFixed(2) + '</td></tr>';
     }
     // Variable mit String für Tabelle
-    let html = '<h3 style="text-align:center">Monatsübersicht ' + $('#nameInput').val() + ', '  + moment(monatfuerTage, "M").format('MMMM') + "-" + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>\n';
+    let html = '<h3 style="text-align:center">Arbeitszeitnachweis ' + $('#nameInput').val() + ', '  + moment(monatfuerTage, "M").format('MMMM') + "-" + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>\n';
     html += '<table class="table table-bordered table-sm" style="width:100%"><thead><tr>';
     html += '<th style="width:20%">Tag</th>';
     html += '<th style="width:20%">Beginn</th>';
@@ -242,12 +242,12 @@ function eatabelle() {
     }
     // Zusammenrechnung des Monats aus eaget.php
     $('#eaText').append('<strong>Arbeitszeit:</strong> ' + moment.utc().startOf('day').add(summe['SUM(arbeitszeit)'], 'minutes').format('HH:mm'));
+    $('#eaText').append('<br><strong>Arbeitstage:</strong> ' + summe['COUNT(DISTINCT datum)']);
     let sumGehalt = summe['SUM(gehalt)'];
     $('#eaText').append('<br><strong>Gehalt:</strong> ' + sumGehalt.toFixed(2) + '€');
     let statusMax = parseInt(ahDaten[$('#nameInput').val()].ahStatus);
     let bisMax = statusMax - sumGehalt;
-    $('#eaText').append('<br>Noch ' + bisMax.toFixed(2) + '€ bis ' + statusMax.toFixed(2) + '€');
-    $('#eaText').append('<br><strong>Arbeitstage:</strong> ' + summe['COUNT(DISTINCT datum)'] + '<br>');
+    $('#eaText').append('<br>Noch ' + bisMax.toFixed(2) + '€ bis ' + statusMax.toFixed(2) + '€<br>');
     
     // Druckbutton
     $('#eaText').append('<input type="button" onclick="window.print();" value="Drucken" class="noPrint btn scc my-3">');

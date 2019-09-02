@@ -3,23 +3,23 @@ require "../req/expire.php";
 include "../req/header.php";
 ?>
 
-<div class="container-fluid" id="anlegenContainer" style="margin:auto;display:none">
+<div id="anlegenContainer">
     <form method="post" id="newform" autocomplete="off">
-        <div class="form-group col-xl-3">
-            <label for="name" class="m-1">Name:</label>
-            <input type="text" class="form-control m-1" placeholder="Name" name="name" id="anlegenName" required>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" placeholder="Name" name="name" id="anlegenName" required>
         </div>
-        <div class="form-group col-xl-3">
-            <label for="name" class="m-1">Personalnummer:</label>
-            <input type="number" class="form-control m-1" placeholder="Personalnummer" name="personalnr" id="anlegenPN">
+        <div class="form-group">
+            <label for="name">Personalnummer:</label>
+            <input type="number" class="form-control" placeholder="Personalnummer" name="personalnr" id="anlegenPN">
         </div>
-        <div class="form-group col-xl-3">
-            <label for="norlohn" class="m-1">Lohn Wochentag:</label>
-            <input type="number" class="form-control m-1" name="norlohn" id="anlegenNor" min="9.19" step="0.01" max="100" value="9.19">
-            <label for="samlohn" class="m-1">Lohn Samstag:</label>
-            <input type="number" class="form-control m-1" name="samlohn" id="anlegenSam" min="9.19" step="0.01" max="100" value="10.00">
-            <label for="sonlohn" class="m-1">Lohn Sonntag:</label>
-            <input type="number" class="form-control m-1" name="sonlohn" id="anlegenSon" min="9.19" step="0.01" max="100" value="11.00">
+        <div class="form-group">
+            <label for="norlohn">Lohn Wochentag:</label>
+            <input type="number" class="form-control" name="norlohn" id="anlegenNor" min="9.19" step="0.01" max="100" value="9.19">
+            <label for="samlohn">Lohn Samstag:</label>
+            <input type="number" class="form-control" name="samlohn" id="anlegenSam" min="9.19" step="0.01" max="100" value="10.00">
+            <label for="sonlohn">Lohn Sonntag:</label>
+            <input type="number" class="form-control" name="sonlohn" id="anlegenSon" min="9.19" step="0.01" max="100" value="11.00">
         </div>
         <input type="submit" class="btn scc mt-2" value="Anlegen">
         <input type="button" class="btn scc mt-2" value="Zurück" onclick="location.reload();">

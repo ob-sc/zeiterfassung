@@ -2,6 +2,9 @@
 Alle bootstrap grid auf css flex umstellen
     -> vor / nachteile? erstmal in branch testen. Footer funktioniert!
 
+Anja
+    -> wie werden aushilfen in anderen stationen gehandelt? reicht es die zeiten dann von der jew station eintragen zu lassne? filter station bei abrechnung?
+
 footer noprint
 
 flex wrapper aus index in header / footer
@@ -10,6 +13,7 @@ flex wrapper aus index in header / footer
 JONAS
     -> abrechnung: unterschrift? reicht kennung / personalnummer / passwort?
     -> Rundungen bei Abrechnung?
+    -> Urlaub ok so? jeden monat wird für kehler draufgerechnet
 
 DATENBANK
     -> vor und nachname trennen (nur aushilfe?)
@@ -41,7 +45,7 @@ DATENBANK
     -> punkt statt komma (string replace)
         -> punkt statt komma aus cation raus
     -> bei keiner pn -> exisitiert bereits (wegen 0)
-    -> nach anlegen auf zurück -> page reload statt show
+    -> anlegen 2 container -> ajax statt alert
 
 - ADMIN
     -> PN und name der aushilfe verändern
