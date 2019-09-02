@@ -34,7 +34,7 @@ function senden() {
         document.getElementById('datum').valueAsDate = new Date();
     })
     .fail(function(data) {
-        alert('Fehler:\n' + data);
+        alert('Fehler:\n' + JSON.stringify(data));
     })
     
     $('#esend').hide();
@@ -289,7 +289,7 @@ $(document).ready(function() {
             abtabelle();
         })
         .fail(function(data) {
-            alert('Fehler:\n' + JSON.parse(data));
+            alert('Fehler:\n' + JSON.stringify(data));
         })
     })
 
@@ -309,7 +309,7 @@ $(document).ready(function() {
             eatabelle();
         })
         .fail(function(data) {
-            alert('Fehler:\n' + JSON.parse(data));
+            alert('Fehler:\n' + JSON.stringify(data));
         })
     })
 
@@ -338,7 +338,7 @@ $(document).ready(function() {
             $('#newform')[0].reset();
         })
         .fail(function(data) {
-            alert('Fehlgeschlagen:\n' + JSON.parse(data));
+            alert('Fehler:\n' + JSON.stringify(data));
         })
     })
 });
@@ -418,12 +418,11 @@ $(document).ajaxComplete(function() {
                 data: ahEdit
             })
             // TODO hier mit function(data) etwas ausgeben? alert?
-            .done(function(data) {
-                console.log(data);
+            .done(function() {
                 location.reload();
             })
             .fail(function(data) {
-                alert('Fehler:\n' + JSON.parse(data));
+                alert('Fehler:\n' + JSON.stringify(data));
             })
         }
     })

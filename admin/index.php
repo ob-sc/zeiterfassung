@@ -36,14 +36,14 @@ include '../req/header.php';
     <form action="index.php" method="post" autocomplete="off">
         <h5>Passwort ändern</h5>
         <div class="form-group">
-            <label for="username" class="m-1">Benutzername:</label>
-            <input type="text" class="form-control m-1" placeholder="Benutzername" name="username" required>
+            <label for="username">Benutzername:</label>
+            <input type="text" class="form-control" placeholder="Benutzername" name="username" required>
         </div>
         <div class="form-group">
             <label for="password">Passwort:</label>
-            <input type="text" class="form-control m-1" placeholder="Passwort" name="password" required>
+            <input type="text" class="form-control" placeholder="Passwort" name="password" required>
         </div>
-        <input type="submit" name="pwAendern" class="btn scc m-1" value="Ändern">
+        <input type="submit" name="pwAendern" class="btn scc" value="Ändern">
     </form>
 </div>
 
@@ -53,14 +53,31 @@ include '../req/header.php';
     <form action="index.php" method="post" autocomplete="off">
         <h5>Kennung Disponent ändern</h5>
         <div class="form-group">
-            <label for="disponent" class="m-1">Name Disponent:</label>
-            <input type="text" class="form-control m-1" placeholder="Name" name="disponent" required>
+            <label for="disponent">Name Disponent:</label>
+            <input type="text" class="form-control" placeholder="Name" name="disponent" required>
         </div>
         <div class="form-group">
             <label for="kennung">Kennung:</label>
-            <input type="text" class="form-control m-1" placeholder="Kennung" name="kennung" required>
+            <input type="text" class="form-control" placeholder="Kennung" name="kennung" required>
         </div>
-        <input type="submit" name="kAendern" class="btn scc m-1" value="Ändern">
+        <input type="submit" name="kAendern" class="btn scc" value="Ändern">
+    </form>
+</div>
+
+<!-- Aushilfe PN ändern -->
+
+<div class="admin-item">
+    <form action="index.php" method="post" autocomplete="off">
+        <h5>PN Aushilfe ändern</h5>
+        <div class="form-group">
+            <label for="aushilfe">Name Aushilfe:</label>
+            <input type="text" class="form-control" placeholder="Name" name="aushilfe" required>
+        </div>
+        <div class="form-group">
+            <label for="pn">Personalnummer:</label>
+            <input type="number" class="form-control" placeholder="Personalnummer" name="pn" required>
+        </div>
+        <input type="submit" name="pnAendern" class="btn scc" value="Ändern">
     </form>
 </div>
 
@@ -113,6 +130,24 @@ if (isset($_POST['kAendern'])) {
         echo "<script>alert('Fehler')</script>";
     } else if ($stmt->rowCount() == 1) {
         echo "<script>alert('Kennung geändert')</script>";
+    }
+}
+if (isset($_POST['npAendern'])) {
+    $aushilfe = $_POST['aushilfe'];
+    $personalnr = $_POST['pn'];
+
+    $sql = "UPDATE aushilfen SET personalnr = :personalnr WHERE name = :aushilfe";
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bindValue(':personalnr', $personalnr);
+    $stmt->bindValue(':aushilfe', $aushilfe);
+
+    $stmt->execute();
+
+    if ($stmt->rowCount() == 0) {
+        echo "<script>alert('Fehler')</script>";
+    } else if ($stmt->rowCount() == 1) {
+        echo "<script>alert('Personalnummer geändert')</script>";
     }
 }
 ?>

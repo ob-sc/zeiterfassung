@@ -1,4 +1,6 @@
 ﻿[AKTUELLE BAUSTELLEN]
+Datenbank vorbereiten
+
 Anja
     -> wie werden aushilfen in anderen stationen gehandelt? reicht es die zeiten dann von der jew station eintragen zu lassne? filter station bei abrechnung?
 
@@ -30,9 +32,6 @@ DATENBANK
         -> wenn pn nicht vorhanden -> leer lassen
         -> personalnummer ein mal veränderbar und dann gesperrt (bei null?)
             -> bei eintragen check ob unique
-    -> Bei anlegen -> lohn wochentag, lohn samstag, lohn sonntag... (placeholder geht nich)
-    -> punkt statt komma (string replace)
-        -> punkt statt komma aus cation raus
     -> bei keiner pn -> exisitiert bereits (wegen 0)
     -> anlegen 2 container -> ajax statt alert
 
@@ -57,8 +56,6 @@ DATENBANK
 
 
 
-- https://stackoverflow.com/a/8840315/11918503
-    -> ajax in funktion wrappen
 
 - seitentitel ändern
 
@@ -83,14 +80,6 @@ DATENBANK
     -> Schritt für Schritt
     -> nicht IE benutzen
         -> css geht evtl auch nicht
-
-- code aufräumen
-    -> ; hinter } weg
-        -> http://inimino.org/~inimino/blog/javascript_semicolons
-
-- footer ordentlich
-    -> was in den footer?
-        -> status & station?
 
 - titel ändern einzel abrechnung für pdf
     -> dynamische variable per php?
