@@ -2,6 +2,9 @@
 Alle bootstrap grid auf css flex umstellen
     -> vor / nachteile? erstmal in branch testen. Footer funktioniert!
 
+flex wrapper aus index in header / footer
+    -> ganz raus?
+
 JONAS
     -> abrechnung: unterschrift? reicht kennung / personalnummer / passwort?
     -> Rundungen bei Abrechnung?

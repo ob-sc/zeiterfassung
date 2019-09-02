@@ -45,7 +45,6 @@ include '../req/header.php';
         </div>
         <input type="submit" name="pwAendern" class="btn scc m-1" value="Ändern">
     </form>
-    <input type="button" onclick="abtabelle();" value="text"><div id="text"></div>
 </div>
 
 <!-- Kennung ändern -->
