@@ -2,9 +2,9 @@
 require '../req/expire.php';
 require '../req/connect.php';
 
-$name = $_POST['name'];
+$id = $_POST['id'];
 $station = $_SESSION['station'];
-$monJahr = $_POST['monat'];
+$monJahr = $_POST['datum'];
 $monat = substr($monJahr, 5, 2);
 $monatDavor = $monat - 1;
 $jahr = substr($monJahr, 0, 4);
@@ -16,11 +16,11 @@ $endeString = "{$jahr}-{$monat}-9";
 
 // TODO geht 1 Query?
 // QUERY 1 mehrere Reihen
-$sql = "SELECT datum, beginn, ende, arbeitszeit, gehalt FROM zeiten WHERE name = :name AND station = :station AND datum BETWEEN CAST('$beginnString' AS DATE) AND CAST('$endeString' AS DATE) ORDER BY datum ASC, beginn ASC";
+$sql = "SELECT datum, beginn, ende, arbeitszeit, gehalt FROM zeiten WHERE ahid = :id AND station = :station AND datum BETWEEN CAST('$beginnString' AS DATE) AND CAST('$endeString' AS DATE) ORDER BY datum ASC, beginn ASC";
 
 $stmt = $conn->prepare($sql);
 
-$stmt->bindValue(':name', $name);
+$stmt->bindValue(':id', $id);
 $stmt->bindValue(':station', $station);
 
 $stmt->execute();
@@ -28,11 +28,11 @@ $stmt->execute();
 $result1 = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // QUERY 2 Zähl-Funktionen
-$sql = "SELECT SUM(arbeitszeit), SUM(gehalt), COUNT(DISTINCT datum) FROM zeiten WHERE name = :name AND station = :station AND datum BETWEEN CAST('$beginnString' AS DATE) AND CAST('$endeString' AS DATE)";
+$sql = "SELECT SUM(arbeitszeit), SUM(gehalt), COUNT(DISTINCT datum) FROM zeiten WHERE ahid = :id AND station = :station AND datum BETWEEN CAST('$beginnString' AS DATE) AND CAST('$endeString' AS DATE)";
 
 $stmt = $conn->prepare($sql);
 
-$stmt->bindValue(':name', $name);
+$stmt->bindValue(':id', $id);
 $stmt->bindValue(':station', $station);
 
 $stmt->execute();

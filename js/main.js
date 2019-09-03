@@ -320,11 +320,20 @@ $(document).ready(function() {
     // AUSWERTEN
     $('#eaform').submit(function(e) {
         e.preventDefault();
+
+        name = $('#nameInput').val();
+        id = ahDaten[name].id;
+
+        datum = $('#datum').val();
+
         $.ajax({
             url: 'eaget.php',
             type: 'POST',
             dataType: 'json',
-            data: $('#eaform').serialize(),
+            data: {
+                id: id,
+                datum: datum
+            },
         })
         .done(function(data) {
             daten = data;
@@ -338,9 +347,9 @@ $(document).ready(function() {
     })
 
     // für jeden input Datum - automatisch Datum heute
-    let datum = document.getElementById('datum');
-    if (datum) {
-        document.getElementById('datum').valueAsDate = new Date();
+    let datumInput = document.getElementById('datum');
+    if (datumInput) {
+        datumInput.valueAsDate = new Date();
     } 
 
     // EINTRAGEN
