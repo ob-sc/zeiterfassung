@@ -47,8 +47,8 @@ kehler urlaub auf halbe / ganze tage
     -> tool aushilfe name und / oder personalnummer ändern
 
 [BFI]
-- WICHTIG urlaub todo in gleiches query? muss 1 array durchlaufen
-- in abget.php (abrechnung) auch aushilfen auflisten, die nicht gearbeitet haben
+- WICHTIG:  urlaub todo in gleiches query? muss 1 array durchlaufen
+- WICHTIG: in abget.php (abrechnung) auch aushilfen auflisten, die nicht gearbeitet haben
 - eintragen -> gehalt, toFixed(2) rundet falsch (bei 78,115), mysql auch. ungerundet in tabelle oder geht runden?
 - MS ACCESS zusätzlich zusätzlich zu phpMyAdmin?
 - Machen die Tabellen in Abrechnung / Auswerten / Aushilfen so Sinn (vom erstellen per loop usw)?
@@ -56,8 +56,6 @@ kehler urlaub auf halbe / ganze tage
 - eaget.php & getdata.php 1 Query?
 - abrechnung zeitraum 10.x.x - 9.x.x optimieren? abget und eaget
 - wie gehe ich am besten mit sql fehlermeldungen um?
-- vor und nachname trennen?
-    -> Was ist mit dem Input (anlegen, eintragen usw)?
 
 [WICHTIG]
 - expire auf 3 min

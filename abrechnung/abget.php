@@ -16,7 +16,7 @@ $endeString = "{$jahr}-{$monat}-9";
 $sql = 
 "SELECT z.ahid, SUM(arbeitszeit), SUM(gehalt), COUNT(DISTINCT datum), ah.vorname, ah.nachname, ah.personalnr, ah.status 
 FROM zeiten AS z
-LEFT JOIN aushilfen AS ah ON ah.id = z.ahid 
+JOIN aushilfen AS ah ON ah.id = z.ahid 
 WHERE datum BETWEEN CAST('$beginnString' AS DATE) AND CAST('$endeString' AS DATE) AND z.station = :station 
 GROUP BY z.ahid 
 ORDER BY ah.nachname ASC";
