@@ -95,25 +95,24 @@ function formBerechnung() {
     $('#etext').append("<p><strong>Gehalt:</strong> " + gehaltRund + "€</p>\n");
 };
 
+// moment.js duration kann man nicht auf HH:mm formatieren. Daher string aus arbeitszeit minuten:
+function zuStunden(azMinuten) {
+    let stunden = Math.floor(azMinuten / 60);          
+    let minuten = azMinuten % 60;
+    if (String(stunden).length == 1) {
+        stunden = "0" + stunden;
+    }
+    if (String(minuten).length == 1) {
+        minuten = "0" + minuten;
+    }
+    let azString = stunden + ":" + minuten;
+    return azString;
+}
+
 // ABRECHNUNG
 function abtabelle() {
     let summeAZ = 0;
     let summeGehalt = 0;
-    // TODO Urlaubstage
-
-    // moment.js duration kann man nicht auf HH:mm formatieren. Daher string aus arbeitszeit minuten:
-    function zuStunden(azMinuten) {
-        let stunden = Math.floor(azMinuten / 60);          
-        let minuten = azMinuten % 60;
-        if (String(stunden).length == 1) {
-            stunden = "0" + stunden;
-        }
-        if (String(minuten).length == 1) {
-            minuten = "0" + minuten;
-        }
-        let azString = stunden + ":" + minuten;
-        return azString;
-    }
 
     let html = '<h3 style="text-align:center">Monatsabrechnung ' + station + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>';
     html += '<table class="table table-bordered table-sm" style="width:100%"><thead><tr>';
@@ -127,6 +126,7 @@ function abtabelle() {
     html += '<th style="width:30%">Sonstiges</th>';
     html += '</tr></thead><tbody>';
     for (let x in daten) {
+
         /*  URLAUB TODO
             Urlaubsanspruch muss berechnet werden aus tagen bisher in diesem Jahr
             Query abget: SELECT COUNT(DISTINCT datum) FROM zeiten WHERE YEAR(datum) = :jahr? BETWEEN beginn jahr und ausgewähltes datum?
@@ -155,22 +155,25 @@ function abtabelle() {
 
 // AUSWERTEN
 function eatabelle() {
+    // TODO eintragsTag in neue variable, eintragsMonat und eintragsTag wenn länge 1 = + "0" im loop / test mit sondereintrag
+    // TODO arbeitszeit wie abrechnung (gleiche function?)
     let eintragVorher, gehaltEA;
     let sonderRow = ' ';
+    let eintragsMonat = daten.monat - 1;
     // Ende Funktion wenn keine Einträge
     if (tage.length == 0) {
         $('#eaText').html('<h3>Keine Einträge für diesen Monat</h3>');
         return;
     }
     // Tage im Monat
-    let monatSelect = moment($('#datum').val(), "YYYY-MM").format("M");
+    let monatSelect = moment($('#datum').val(), 'YYYY-MM').format('M');
     let monatfuerTage = monatSelect - 1;
-    let monatsTage = moment(monatfuerTage, "M").daysInMonth();
+    let monatsTage = moment(monatfuerTage, 'M').daysInMonth();
     let eintragsTag = 10;
     // Funktion normaler Eintrag
     function tagZeile(row) {
         gehaltEA = tage[row].gehalt;
-        html += '<tr><th>' + eintragsTag + '</th>';
+        html += '<tr><td>' + eintragsTag + '.' + eintragsMonat + '.' + daten.jahr + '</td>';
         html += '<td>' + tage[row].beginn + '</td>';
         html += '<td>' + tage[row].ende + '</td>';
         html += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
@@ -179,14 +182,14 @@ function eatabelle() {
     // Funktion Sondereintrag bei mehrfachem Datum
     function sonderZeile(row) {
         gehaltEA = tage[row].gehalt;
-        sonderRow += '<tr><th>' + eintragsTag + '</th>';
+        html += '<tr><td>' + eintragsTag + '.' + eintragsMonat + '.' + daten.jahr + '</td>';
         sonderRow += '<td>' + tage[row].beginn + '</td>';
         sonderRow += '<td>' + tage[row].ende + '</td>';
         sonderRow += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
         sonderRow += '<td>' + gehaltEA.toFixed(2) + '</td></tr>';
     }
     // Variable mit String für Tabelle
-    let html = '<h3 style="text-align:center">Arbeitszeitnachweis ' + $('#nameInput').val() + '<br>'  + moment(monatfuerTage, "M").format('MMMM') + "-" + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>\n';
+    let html = '<h3 style="text-align:center">Arbeitszeitnachweis ' + $("#nameInput").val() + '<br>'  + moment(monatfuerTage, "M").format("MMMM") + '-' + moment($("#datum").val(), "YYYY-MM").format("MMMM YYYY") + '</h3>\n';
     html += '<table class="table table-bordered table-sm" style="width:100%"><thead><tr>';
     html += '<th style="width:20%">Tag</th>';
     html += '<th style="width:20%">Beginn</th>';
@@ -217,12 +220,13 @@ function eatabelle() {
         }
         // Leerer Eintrag wenn davor nichts eingetragen wurde
         if (eintrag == false) {
-            html += '<tr><th>' + eintragsTag + '</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
+            html += '<tr><td>' + eintragsTag + '.' + eintragsMonat + '.' + daten.jahr + '</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
         }
         if (eintragsTag < monatsTage) {
             eintragsTag++;
         } else {
             eintragsTag = 1;
+            eintragsMonat++;
         }
     }
     // Wiedergeben der Tabelle
@@ -241,14 +245,17 @@ function eatabelle() {
         $('#eaText').append(sonderEintrag + '</tbody></table>');
     }
     // Zusammenrechnung des Monats aus eaget.php
-    $('#eaText').append('<strong>Arbeitszeit:</strong> ' + moment.utc().startOf('day').add(summe['SUM(arbeitszeit)'], 'minutes').format('HH:mm'));
-    $('#eaText').append('<br><strong>Arbeitstage:</strong> ' + summe['COUNT(DISTINCT datum)']);
+    $('#eaText').append('<strong>Arbeitszeit:</strong> ' + zuStunden(summe["SUM(arbeitszeit)"])); // moment.utc().startOf("day").add(summe["SUM(arbeitszeit)"], "minutes").format("HH:mm")
+    $('#eaText').append('<br><strong>Arbeitstage:</strong> ' + summe["COUNT(DISTINCT datum)"]);
     let sumGehalt = summe['SUM(gehalt)'];
     $('#eaText').append('<br><strong>Gehalt:</strong> ' + sumGehalt.toFixed(2) + '€');
     let statusMax = parseInt(ahDaten[$('#nameInput').val()].ahStatus);
     let bisMax = statusMax - sumGehalt;
-    $('#eaText').append('<br>Noch ' + bisMax.toFixed(2) + '€ bis ' + statusMax.toFixed(2) + '€<br>');
-    
+    if (sumGehalt <= 450) {
+        $('#eaText').append('<br>Noch ' + bisMax.toFixed(2) + '€ bis ' + statusMax.toFixed(2) + '€<br>');
+    } else if (sumGehalt > 450) {
+        $('#eaText').append('<br><strong style="color:red;">Schon ' + -bisMax.toFixed(2) + '€ über ' + statusMax.toFixed(2) + '€</strong><br>');
+    }
     // Druckbutton
     $('#eaText').append('<input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc my-3">');
 };

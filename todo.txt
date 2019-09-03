@@ -1,9 +1,7 @@
 ﻿[AKTUELLE BAUSTELLEN]
 Datenbank vorbereiten
 
-abrechnung an welche mail?
-
-schon x über 450
+tage ganz ausschreiben
 
 readme aktualisieren
 
@@ -11,9 +9,6 @@ kehler urlaub auf halbe / ganze tage
 
 Anja
     -> wie werden aushilfen in anderen stationen gehandelt? reicht es die zeiten dann von der jew station eintragen zu lassne? filter station bei abrechnung?
-
-JONAS
-    -> Rundungen bei Abrechnung?
 
 DATENBANK
     -> vor und nachname trennen (nur aushilfe?)
@@ -35,7 +30,7 @@ DATENBANK
         -> personalnummer ein mal veränderbar und dann gesperrt (bei null?)
             -> bei eintragen check ob unique
     -> bei keiner pn -> exisitiert bereits (wegen 0)
-    -> anlegen 2 container -> ajax statt alert
+    -> aushilfe anlegen 2 container -> ajax statt alert
 
 [BFI]
 - WICHTIG urlaub todo in gleiches query? muss 1 array durchlaufen
@@ -54,6 +49,7 @@ DATENBANK
 
 
 - seitentitel ändern
+    -> header mit php dann jede seite dynamisch
 
 - Klick auf autocomplete -> geht nicht weg?
 

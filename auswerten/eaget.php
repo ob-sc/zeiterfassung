@@ -41,7 +41,9 @@ $result2 = $stmt->fetch(PDO::FETCH_ASSOC);
 
 echo json_encode([
     'tage' => $result1,
-    'summe' => $result2
+    'summe' => $result2,
+    'monat' => $monat,
+    'jahr' => $jahr
 ]);
 
 $conn = null;
