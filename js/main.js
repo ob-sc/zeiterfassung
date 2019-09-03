@@ -10,7 +10,6 @@ $.get("../scripts/getdata.php", function(data){
     ahDaten = result.ahDaten;
     station = result.station;
     status = result.status;
-    console.log(status);
 });
 
 // EINTRAGEN
@@ -151,7 +150,7 @@ function abtabelle() {
     }
     html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + summeGehalt.toFixed(2) + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>';
 
-    $('#atext').html(html + '</tbody></table><input type="button" onclick="window.print();" value="Drucken" class="noPrint btn scc">');
+    $('#atext').html(html + '</tbody></table><input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc">');
 }
 
 // AUSWERTEN
@@ -179,7 +178,7 @@ function eatabelle() {
     }
     // Funktion Sondereintrag bei mehrfachem Datum
     function sonderZeile(row) {
-        gehaltEA = tage[row].gehalt
+        gehaltEA = tage[row].gehalt;
         sonderRow += '<tr><th>' + eintragsTag + '</th>';
         sonderRow += '<td>' + tage[row].beginn + '</td>';
         sonderRow += '<td>' + tage[row].ende + '</td>';
@@ -251,10 +250,21 @@ function eatabelle() {
     $('#eaText').append('<br>Noch ' + bisMax.toFixed(2) + '€ bis ' + statusMax.toFixed(2) + '€<br>');
     
     // Druckbutton
-    $('#eaText').append('<input type="button" onclick="window.print();" value="Drucken" class="noPrint btn scc my-3">');
+    $('#eaText').append('<input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc my-3">');
 };
 
+// DRUCKEN
+function drucken() {
+    $('.tabelle-rechts').css('width','100%');
+    window.print();
+}
+
 $(document).ready(function() {
+    // NACH DRUCKEN
+    window.onafterprint = function() {
+        $('.tabelle-rechts').css('width','70%');
+    };
+    
     // INDEX / EXPIRE
     if (window.location.hash == '#expire') {
         $('#expAlert').show();

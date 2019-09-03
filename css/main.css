@@ -2,13 +2,6 @@
     .noPrint {
         display: none;
     }
-    .printOnly {
-        display: block;
-    }
-}
-
-.printOnly {
-    display: none;
 }
 
 body {
