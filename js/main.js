@@ -132,6 +132,8 @@ function abtabelle() {
             Query abget: SELECT COUNT(DISTINCT datum) FROM zeiten WHERE YEAR(datum) = :jahr? BETWEEN beginn jahr und ausgewähltes datum?
             -> dann $urlaub = 24/312 * $result
             $urlaub per ajax fetchen und mit Math.round(urlaub) eintragen
+            kehler: auf halbe bzw ganze runden
+            text in abrechnung: an starcarlohn@steuerberater-kehler.de (caption?)
         */
 
         let urlaub = daten[x].urlaub;

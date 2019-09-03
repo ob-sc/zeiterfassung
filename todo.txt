@@ -34,6 +34,7 @@ DATENBANK
 
 [BFI]
 - WICHTIG urlaub todo in gleiches query? muss 1 array durchlaufen
+- in abget.php (abrechnung) auch aushilfen auflisten, die nicht gearbeitet haben
 - eintragen -> gehalt, toFixed(2) rundet falsch (bei 78,115), mysql auch. ungerundet in tabelle oder geht runden?
 - MS ACCESS zusätzlich zusätzlich zu phpMyAdmin?
 - Machen die Tabellen in Abrechnung / Auswerten / Aushilfen so Sinn (vom erstellen per loop usw)?
