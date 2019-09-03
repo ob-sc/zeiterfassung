@@ -5,13 +5,13 @@ abrechnung an welche mail?
 
 schon x über 450
 
+readme aktualisieren
+
 Anja
     -> wie werden aushilfen in anderen stationen gehandelt? reicht es die zeiten dann von der jew station eintragen zu lassne? filter station bei abrechnung?
 
 JONAS
-    -> abrechnung: unterschrift? reicht kennung / personalnummer / passwort?
     -> Rundungen bei Abrechnung?
-    -> Urlaub ok so? jeden monat wird für kehler draufgerechnet
 
 DATENBANK
     -> vor und nachname trennen (nur aushilfe?)
@@ -36,7 +36,7 @@ DATENBANK
     -> anlegen 2 container -> ajax statt alert
 
 [BFI]
-- urlaub todo in gleiches query?
+- WICHTIG urlaub todo in gleiches query? muss 1 array durchlaufen
 - eintragen -> gehalt, toFixed(2) rundet falsch (bei 78,115), mysql auch. ungerundet in tabelle oder geht runden?
 - MS ACCESS zusätzlich zusätzlich zu phpMyAdmin?
 - Machen die Tabellen in Abrechnung / Auswerten / Aushilfen so Sinn (vom erstellen per loop usw)?

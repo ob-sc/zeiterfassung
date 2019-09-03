@@ -10,6 +10,7 @@ $.get("../scripts/getdata.php", function(data){
     ahDaten = result.ahDaten;
     station = result.station;
     status = result.status;
+    console.log(status);
 });
 
 // EINTRAGEN
@@ -254,14 +255,6 @@ function eatabelle() {
 };
 
 $(document).ready(function() {
-    // ADMIN / SL für Menü
-    if (status == 'admin') {
-        $('#admin').show();
-    }
-    if (status == 'station') {
-        $('.priv').addClass('disabled');
-    }
-
     // INDEX / EXPIRE
     if (window.location.hash == '#expire') {
         $('#expAlert').show();
@@ -356,6 +349,14 @@ $(document).ajaxComplete(function() {
             suggest(matches);
         }
     })
+
+    // ADMIN / SL für Menü
+    if (status == 'admin') {
+        $('#admin').show();
+    }
+    if (status == 'station') {
+        $('.priv').addClass('disabled');
+    }
 
     // AUSHILFEN bearbeiten
     // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
