@@ -6,28 +6,12 @@ WICHTIG: Melly und Anne: Name aus Tabelle zeiten?
     -> name aus zeiten tabelle raus
 
 [name]
-auch namen disponenten aufdröseln?
+    -> auch namen disponenten aufdröseln?
+
 
 überall ajax data zu daten direkt
 
-
-abrechnung
-aushilfen
-    vor und nachname bei anlegen
-
-
 alert statt .text() in eintragen? allgemein?
-
-
-
-name = $('#nameInput').val();
-id = ahDaten[name].id;
-
-mit id aus Datenbank
-
-
-
-
 
 Datenbank vorbereiten
 
@@ -36,10 +20,6 @@ tage ganz ausschreiben
 readme aktualisieren
 
 kehler urlaub auf halbe / ganze tage
-
-DATENBANK
-    -> vor und nachname trennen (nur aushilfe?)
-        -> autocomplete array dann beides zusammenfügen (in getdata?)
 
 - ABRECHNUNG
     -> urlaubstage in abrechnung
@@ -57,13 +37,14 @@ DATENBANK
         -> personalnummer ein mal veränderbar und dann gesperrt (bei null?)
             -> bei eintragen check ob unique
     -> bei keiner pn -> exisitiert bereits (wegen 0)
-    -> aushilfe anlegen 2 container -> ajax statt alert
+    -> aushilfe anlegen 2 container -> ajax statt alert?
 
 - ADMIN
     -> tool "wer hat die zeit eingetragen"
         -> datum + aushilfe (?) eingeben
         -> in der zeile id vom disponenten raussuchen
         -> den mit tabelle disponenten vergleichen
+    -> tool aushilfe name und / oder personalnummer ändern
 
 [BFI]
 - WICHTIG urlaub todo in gleiches query? muss 1 array durchlaufen

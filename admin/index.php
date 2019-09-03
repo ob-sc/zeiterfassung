@@ -64,7 +64,7 @@ include '../req/header.php';
     </form>
 </div>
 
-<!-- Aushilfe PN ändern -->
+<!-- Aushilfe PN ändern 
 
 <div class="admin-item">
     <form action="index.php" method="post" autocomplete="off">
@@ -79,7 +79,7 @@ include '../req/header.php';
         </div>
         <input type="submit" name="pnAendern" class="btn scc" value="Ändern">
     </form>
-</div>
+</div>-->
 
 <!-- Flex Wrapper Ende -->
 </div>
@@ -131,7 +131,7 @@ if (isset($_POST['kAendern'])) {
     } else if ($stmt->rowCount() == 1) {
         echo "<script>alert('Kennung geändert')</script>";
     }
-}
+}/*
 if (isset($_POST['npAendern'])) {
     $aushilfe = $_POST['aushilfe'];
     $personalnr = $_POST['pn'];
@@ -149,5 +149,5 @@ if (isset($_POST['npAendern'])) {
     } else if ($stmt->rowCount() == 1) {
         echo "<script>alert('Personalnummer geändert')</script>";
     }
-}
+}*/
 ?>

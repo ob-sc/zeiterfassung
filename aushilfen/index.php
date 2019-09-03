@@ -6,8 +6,10 @@ include "../req/header.php";
 <div id="anlegenContainer">
     <form method="post" id="newform" autocomplete="off">
         <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" placeholder="Name" name="name" id="anlegenName" required>
+            <label for="vorname">Vorname:</label>
+            <input type="text" class="form-control" placeholder="Vorname" name="vorname" required>
+            <label for="nachname">Nachname:</label>
+            <input type="text" class="form-control" placeholder="Nachname" name="nachname" required>
         </div>
         <div class="form-group">
             <label for="name">Personalnummer:</label>

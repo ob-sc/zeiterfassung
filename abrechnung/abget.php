@@ -19,7 +19,7 @@ FROM zeiten AS z
 LEFT JOIN aushilfen AS ah ON ah.id = z.ahid 
 WHERE datum BETWEEN CAST('$beginnString' AS DATE) AND CAST('$endeString' AS DATE) AND z.station = :station 
 GROUP BY z.ahid 
-ORDER BY ah.personalnr ASC";
+ORDER BY ah.nachname ASC";
 
 $stmt = $conn->prepare($sql);
 
@@ -33,7 +33,7 @@ $daten = [];
 
 foreach ($result as $v) {
     $name = $v['vorname'] . " " . $v['nachname'];
-    $daten[$name] = ['name' => $name, 'arbeitszeit' => $v['SUM(arbeitszeit)'], 'personalnr' => $v['personalnr'], 'gehalt' => $v['SUM(gehalt)'], 'tage' => $v['COUNT(DISTINCT datum)'], 'status' => $v['status']];
+    $daten[$name] = ['name' => $name, 'vorname' => $v['vorname'], 'nachname' => $v['nachname'], 'arbeitszeit' => $v['SUM(arbeitszeit)'], 'personalnr' => $v['personalnr'], 'gehalt' => $v['SUM(gehalt)'], 'tage' => $v['COUNT(DISTINCT datum)'], 'status' => $v['status']];
 }
 
 echo json_encode($daten);

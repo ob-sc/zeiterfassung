@@ -150,7 +150,7 @@ function abtabelle() {
         let urlaub = daten[x].urlaub;
         let abgehalt = daten[x].gehalt;
         html += '<tr><td>' + daten[x].personalnr + '</td>';
-        html += '<td>' + daten[x].name + '</td>';
+        html += '<td>' + daten[x].nachname + ', ' + daten[x].vorname + '</td>';
         html += '<td>' + zuStunden(daten[x].arbeitszeit) + '</td>';
         html += '<td>' + abgehalt.toFixed(2) + '</td>';
         html += '<td>' + daten[x].tage + '</td>';
@@ -169,7 +169,6 @@ function abtabelle() {
 // AUSWERTEN
 function eatabelle() {
     // TODO eintragsTag in neue variable, eintragsMonat und eintragsTag wenn länge 1 = + "0" im loop / test mit sondereintrag
-    // TODO arbeitszeit wie abrechnung (gleiche function?)
     let eintragVorher, gehaltEA;
     let sonderRow = ' ';
     let eintragsMonat = daten.monat - 1;
