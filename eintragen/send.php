@@ -3,6 +3,7 @@ require '../req/expire.php';
 require '../req/connect.php';
 
 $sname = $_POST['sname'];
+$sid = $_POST['sid'];
 $sdatum = $_POST['sdatum'];
 $sbeginn = $_POST['sbeginn'];
 $sende = $_POST['sende'];
@@ -11,21 +12,7 @@ $sgehalt = $_POST['sgehalt'];
 $skennung = $_POST['skennung'];
 $station = $_SESSION['station'];
 
-// Check ob Aushilfe existiert
-$sql = "SELECT id, name , norlohn, samlohn, sonlohn FROM aushilfen WHERE name = :name";
-$stmt = $conn->prepare($sql);
-
-$stmt->bindValue(':name', $sname);
-
-$stmt->execute();
-
-$aushilfe = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-if ($aushilfe === false) {
-    die("<h4>Aushilfe nicht gefunden</h4>");
-};
-
-// Check ob Personalnr existiert
+// Check ob Personalkennung existiert
 $sql = "SELECT id FROM disponenten WHERE kennung = :skennung";
 $stmt = $conn->prepare($sql);
 
@@ -36,16 +23,17 @@ $stmt->execute();
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($result === false) {
-    die("<h4>Ungültige Personalkennung</h4>");
-};
+    die("<h5>Ungültige Personalkennung</h5>");
+}
 
 $disp = $result['id'];
 
 // Eintragen in Tabelle zeiten
-$sql = "INSERT INTO zeiten (name, datum, beginn, ende, arbeitszeit, gehalt, disponent, station) VALUES (:sname, :sdatum, :beginn, :ende, :saz, :sgehalt, :disp, :station)";
+$sql = "INSERT INTO zeiten (name, ahid, datum, beginn, ende, arbeitszeit, gehalt, disponent, station) VALUES (:sname, :sid, :sdatum, :beginn, :ende, :saz, :sgehalt, :disp, :station)";
 $stmt = $conn->prepare($sql);
 
 $stmt->bindValue(':sname', $sname);
+$stmt->bindValue(':sid', $sid);
 $stmt->bindValue(':sdatum', $sdatum);
 $stmt->bindValue(':beginn', $sbeginn);
 $stmt->bindValue(':ende', $sende);

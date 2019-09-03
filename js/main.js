@@ -1,6 +1,6 @@
 moment.locale('de')
 
-let choices, ahDaten, station, status, kennung, name, datum, beginnForm, endeForm, diff, gehalt, daten, tage, summe, ahRow;
+let id, choices, ahDaten, station, status, kennung, name, datum, beginnForm, endeForm, diff, gehalt, daten, tage, summe, ahRow;
 
 // namen, löhne und station für alle
 // mega komisch: braucht json parse, evtl type: 'json' geben?!
@@ -10,7 +10,8 @@ $.get("../scripts/getdata.php", function(data){
     ahDaten = result.ahDaten;
     station = result.station;
     status = result.status;
-});
+    console.log(ahDaten);
+})
 
 // EINTRAGEN
 function senden() {
@@ -18,6 +19,7 @@ function senden() {
         url: 'send.php',
         method: 'POST',
         data: {
+            sid: id,
             sname: name,
             sdatum: datum,
             // Beginn und Ende müssen rein wegen Tabelle Einzelauswertung
@@ -38,12 +40,22 @@ function senden() {
     })
     
     $('#esend').hide();
-};
+}
 
 // EINTRAGEN
 function formBerechnung() {
     kennung = $('#kennung').val()
     name = $('#nameInput').val();
+
+    // Check ob Aushilfe existiert
+    if (!ahDaten[name]) {
+        $('#etext').html('<h5>Aushilfe nicht gefunden</h5>');
+        $('#esend').hide();
+        return;
+    }
+
+    id = ahDaten[name].id;
+
     $('#etext').html("<p><strong>Name:</strong> " + name + "</p>");
     let norlohn = ahDaten[name].norlohn;
     let samlohn = ahDaten[name].samlohn;
@@ -55,7 +67,7 @@ function formBerechnung() {
 
     // Check ob Datum in der Zukunft ist
     if(moment(datum).isAfter(new Date(), 'day') === true) {
-        $('#etext').html('<h4>Datum ist in der Zukunft</h4>');
+        $('#etext').html('<h5>Datum ist in der Zukunft</h5>');
         $('#esend').hide();
         return;
     }
@@ -76,7 +88,7 @@ function formBerechnung() {
 
     // Check ob AZ 0 oder negativ
     if (diff < 1) {
-        $('#etext').html('<h4>Beginn und Ende überprüfen!</h4>');
+        $('#etext').html('<h5>Beginn und Ende überprüfen!</h5>');
         $('#esend').hide();
         return;
     }
@@ -93,7 +105,7 @@ function formBerechnung() {
     gehalt = lohn * 100 * diff / 60 / 100;
     let gehaltRund = gehalt.toFixed(2);
     $('#etext').append("<p><strong>Gehalt:</strong> " + gehaltRund + "€</p>\n");
-};
+}
 
 // moment.js duration kann man nicht auf HH:mm formatieren. Daher string aus arbeitszeit minuten:
 function zuStunden(azMinuten) {
@@ -260,7 +272,7 @@ function eatabelle() {
     }
     // Druckbutton
     $('#eaText').append('<input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc my-3">');
-};
+}
 
 // DRUCKEN
 function drucken() {
@@ -353,7 +365,7 @@ $(document).ready(function() {
             alert('Fehler:\n' + JSON.stringify(data));
         })
     })
-});
+})
 
 $(document).ajaxComplete(function() {
     // AUTOCOMPLETE
@@ -454,4 +466,4 @@ $(document).ajaxComplete(function() {
             $(this).blur();
         }
     })
-});
+})

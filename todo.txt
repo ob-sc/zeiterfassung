@@ -1,4 +1,35 @@
 ﻿[AKTUELLE BAUSTELLEN]
+
+WICHTIG: Melly und Anne: Name aus Tabelle zeiten?
+    -> name aus senden ajax raus
+    -> name aus send.php raus
+    -> name aus zeiten tabelle raus
+
+[name]
+auch namen disponenten aufdröseln?
+
+
+
+
+auswerten
+abrechnung
+aushilfen
+    vor und nachname bei anlegen
+
+
+alert statt .text() in eintragen? allgemein?
+
+
+
+name = $('#nameInput').val();
+id = ahDaten[name].id;
+
+mit id aus Datenbank
+
+
+
+
+
 Datenbank vorbereiten
 
 tage ganz ausschreiben
@@ -6,9 +37,6 @@ tage ganz ausschreiben
 readme aktualisieren
 
 kehler urlaub auf halbe / ganze tage
-
-Anja
-    -> wie werden aushilfen in anderen stationen gehandelt? reicht es die zeiten dann von der jew station eintragen zu lassne? filter station bei abrechnung?
 
 DATENBANK
     -> vor und nachname trennen (nur aushilfe?)
@@ -31,6 +59,12 @@ DATENBANK
             -> bei eintragen check ob unique
     -> bei keiner pn -> exisitiert bereits (wegen 0)
     -> aushilfe anlegen 2 container -> ajax statt alert
+
+- ADMIN
+    -> tool "wer hat die zeit eingetragen"
+        -> datum + aushilfe (?) eingeben
+        -> in der zeile id vom disponenten raussuchen
+        -> den mit tabelle disponenten vergleichen
 
 [BFI]
 - WICHTIG urlaub todo in gleiches query? muss 1 array durchlaufen

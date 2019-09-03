@@ -7,7 +7,7 @@ $status = $_SESSION['status'];
 
 // TODO 1 Query?!
 
-$sql = "SELECT id, personalnr, name, norlohn, samlohn, sonlohn, status FROM aushilfen WHERE station = ?";
+$sql = "SELECT id, personalnr, vorname, nachname, norlohn, samlohn, sonlohn, status FROM aushilfen WHERE station = ?";
 
 $stmt = $conn->prepare($sql);
 
@@ -19,8 +19,9 @@ $namen = [];
 $daten = [];
 
 foreach ($result as $value) {
-    $namen[] = $value['name'];
-    $daten[$value['name']] = ['id' => $value['id'], 'personalnr' => $value['personalnr'], 'norlohn' => $value['norlohn'], 'samlohn' => $value['samlohn'], 'sonlohn' => $value['sonlohn'], 'ahStatus' => $value['status']];
+    $vollerName = $value['vorname'] . " " . $value['nachname'];
+    $namen[] = $vollerName;
+    $daten[$vollerName] = ['id' => $value['id'], 'personalnr' => $value['personalnr'], 'norlohn' => $value['norlohn'], 'samlohn' => $value['samlohn'], 'sonlohn' => $value['sonlohn'], 'ahStatus' => $value['status']];
 }
 
 $sql = "SELECT name FROM stationen WHERE id = ?";
