@@ -10,7 +10,6 @@ $.get("../scripts/getdata.php", function(data){
     ahDaten = result.ahDaten;
     station = result.station;
     status = result.status;
-    console.log(ahDaten);
 })
 
 // EINTRAGEN
@@ -310,6 +309,7 @@ $(document).ready(function() {
         })
         .done(function(data) {
             daten = data;
+            console.log(data); // todo test
             abtabelle();
         })
         .fail(function(data) {
