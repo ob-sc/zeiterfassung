@@ -7,9 +7,7 @@ WICHTIG: Melly und Anne: Name aus Tabelle zeiten?
 
 [name]
     -> auch namen disponenten aufdröseln?
-
-
-überall ajax data zu daten direkt
+    -> stationen aufdröseln? stadt: hamburg station: eiffestraße
 
 alert statt .text() in eintragen? allgemein?
 
@@ -45,6 +43,8 @@ kehler urlaub auf halbe / ganze tage
         -> in der zeile id vom disponenten raussuchen
         -> den mit tabelle disponenten vergleichen
     -> tool aushilfe name und / oder personalnummer ändern
+    -> station verwaltung: alle aushilfen und disponenten
+        -> verwaltung auf alle ändern?
 
 [BFI]
 - WICHTIG:  urlaub todo in gleiches query? muss 1 array durchlaufen

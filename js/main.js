@@ -142,9 +142,8 @@ function abtabelle() {
             Urlaubsanspruch muss berechnet werden aus tagen bisher in diesem Jahr
             Query abget: SELECT COUNT(DISTINCT datum) FROM zeiten WHERE YEAR(datum) = :jahr? BETWEEN beginn jahr und ausgewähltes datum?
             -> dann $urlaub = 24/312 * $result
-            $urlaub per ajax fetchen und mit Math.round(urlaub) eintragen
-            kehler: auf halbe bzw ganze runden
-            text in abrechnung: an starcarlohn@steuerberater-kehler.de (caption?)
+            $urlaub per json und mit Math.round(urlaub) eintragen (auf halbe bzw ganze runden)
+            text in abrechnung: an starcarlohn@steuerberater-kehler.de (caption tabelle?)
         */
 
         let urlaub = daten[x].urlaub;
@@ -308,7 +307,6 @@ $(document).ready(function() {
         })
         .done(function(data) {
             daten = data;
-            console.log(data); // todo test
             abtabelle();
         })
         .fail(function(data) {
@@ -457,7 +455,6 @@ $(document).ajaxComplete(function() {
                 method: 'POST',
                 data: ahEdit
             })
-            // TODO hier mit function(data) etwas ausgeben? alert?
             .done(function() {
                 location.reload();
             })

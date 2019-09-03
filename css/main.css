@@ -79,6 +79,11 @@ footer {
     border: 1px solid;
 }
 
+#filter {
+    padding: 30px;
+    border: 1px solid;
+}
+
 #btnDD {
     cursor: pointer;
     position: absolute;
