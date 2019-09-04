@@ -1,6 +1,6 @@
 moment.locale('de')
 
-let id, choices,  station, status, kennung, name, datum, beginnForm, endeForm, diff, gehalt, abDaten, ahDaten, eaDaten, tage, summe, ahRow;
+let id, choices, station, status, kennung, name, datum, eaBeginn, eaEnde, beginnForm, endeForm, diff, gehalt, abDaten, ahDaten, eaDaten, tage, summe, ahRow;
 
 // namen, löhne und station für alle
 // todo als ajax? dann gehts auch mit datatype: 'json' ohne json.parse
@@ -164,12 +164,10 @@ function abtabelle() {
 
 // AUSWERTEN
 function eatabelle() {
-    // TODO eintragsTag in neue variable, eintragsMonat und eintragsTag wenn länge 1 = + "0" im loop / test mit sondereintrag
-    // achtung eaDaten.monat und .jahr gibts nicht mehr. aus datum val() basteln
     let eintragVorher, gehaltEA;
     let sonderRow = ' ';
-    let eintragsMonat = eaDaten.monat - 1;
     // Ende Funktion wenn keine Einträge
+    // todo in bootstrap alert?
     if (tage.length == 0) {
         $('#eaText').html('<h3>Keine Einträge für diesen Monat</h3>');
         return;
@@ -179,10 +177,21 @@ function eatabelle() {
     let monatfuerTage = monatSelect - 1;
     let monatsTage = moment(monatfuerTage, 'M').daysInMonth();
     let eintragsTag = 10;
+    let eaMonatJahr = eaBeginn;
+
+    // wenn tag unter 10 -> null davor
+    function plusNull(tag) {
+        if (tag < 10) {
+            return '0' + String(tag);
+        } else {
+            return tag;
+        }
+    }
+
     // Funktion normaler Eintrag
     function tagZeile(row) {
         gehaltEA = tage[row].gehalt;
-        html += '<tr><td>' + eintragsTag + '.' + eintragsMonat + '.' + eaDaten.jahr + '</td>';
+        html += '<tr><td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td>'; // DATUMHIER
         html += '<td>' + tage[row].beginn + '</td>';
         html += '<td>' + tage[row].ende + '</td>';
         html += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
@@ -191,7 +200,7 @@ function eatabelle() {
     // Funktion Sondereintrag bei mehrfachem Datum
     function sonderZeile(row) {
         gehaltEA = tage[row].gehalt;
-        html += '<tr><td>' + eintragsTag + '.' + eintragsMonat + '.' + eaDaten.jahr + '</td>';
+        sonderRow += '<tr><td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td>'; // DATUMHIER
         sonderRow += '<td>' + tage[row].beginn + '</td>';
         sonderRow += '<td>' + tage[row].ende + '</td>';
         sonderRow += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
@@ -229,13 +238,13 @@ function eatabelle() {
         }
         // Leerer Eintrag wenn davor nichts eingetragen wurde
         if (eintrag == false) {
-            html += '<tr><td>' + eintragsTag + '.' + eintragsMonat + '.' + eaDaten.jahr + '</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
+            html += '<tr><td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>'; // DATUMHIER
         }
         if (eintragsTag < monatsTage) {
             eintragsTag++;
         } else {
             eintragsTag = 1;
-            eintragsMonat++;
+            eaMonatJahr = eaEnde;
         }
     }
     // Wiedergeben der Tabelle
@@ -254,10 +263,11 @@ function eatabelle() {
         $('#eaText').append(sonderEintrag + '</tbody></table>');
     }
     // Zusammenrechnung des Monats aus eaget.php
-    $('#eaText').append('<strong>Arbeitszeit:</strong> ' + zuStunden(summe["SUM(arbeitszeit)"])); // moment.utc().startOf("day").add(summe["SUM(arbeitszeit)"], "minutes").format("HH:mm")
+    $('#eaText').append('<strong>Arbeitszeit:</strong> ' + zuStunden(summe["SUM(arbeitszeit)"]));
     $('#eaText').append('<br><strong>Arbeitstage:</strong> ' + summe["COUNT(DISTINCT datum)"]);
     let sumGehalt = summe['SUM(gehalt)'];
     $('#eaText').append('<br><strong>Gehalt:</strong> ' + sumGehalt.toFixed(2) + '€');
+    // wieviel bis maximales monatsgehalt / schon drüber
     let statusMax = parseInt(ahDaten[$('#nameInput').val()].ahStatus);
     let bisMax = statusMax - sumGehalt;
     if (sumGehalt <= 450) {
@@ -334,6 +344,8 @@ $(document).ready(function() {
             eaDaten = data;
             tage = eaDaten.tage;
             summe = eaDaten.summe;
+            eaBeginn = eaDaten.beginn;
+            eaEnde = eaDaten.ende;
             eatabelle();
         })
         .fail(function(data) {

@@ -31,7 +31,7 @@ $endDate = new DateTime($_POST['monat'].'-09');
 
 // alle arbeitszeiten holen für abrechnungszeitraum
 $zeitenSql = 
-"SELECT ahid, SUM(arbeitszeit) AS arbeitszeit, SUM(gehalt) AS gehalt, COUNT(DISTINCT datum) AS datum 
+"SELECT ahid, SUM(arbeitszeit) AS arbeitszeit, SUM(gehalt) AS gehalt, COUNT(DISTINCT datum) AS datum  
 FROM zeiten 
 WHERE datum BETWEEN :beginnDate AND :endDate AND station = :station 
 GROUP BY ahid";

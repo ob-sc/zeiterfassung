@@ -2,7 +2,6 @@
 require '../req/expire.php';
 require '../req/connect.php';
 
-
 // abrechnungszeitraum vorbereiten
 $beginnDate = new DateTime($_POST['datum'].'-10');
 $beginnDate->sub(new DateInterval('P1M'));
@@ -25,6 +24,7 @@ $stmt->execute();
 $zeiten = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // QUERY 2 Zähl-Funktionen
+// todo mit SUM(gehalt) as gehalt -> wichtig key in eatabelle ändern)
 $sumSql = "SELECT SUM(arbeitszeit), SUM(gehalt), COUNT(DISTINCT datum) FROM zeiten WHERE ahid = :id AND station = :station AND datum BETWEEN :beginnDate AND :endDate";
 
 $stmt = $conn->prepare($sumSql);
@@ -40,7 +40,9 @@ $summen = $stmt->fetch(PDO::FETCH_ASSOC);
 
 echo json_encode([
     'tage' => $zeiten,
-    'summe' => $summen
+    'summe' => $summen,
+    'beginn' => $beginnDate->format('m.Y'),
+    'ende' => $endDate->format('m.Y')
 ]);
 
 $conn = null;
