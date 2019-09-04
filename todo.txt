@@ -1,7 +1,10 @@
 ﻿[AKTUELLE BAUSTELLEN]
 
-gucken ob es noch mehr fehler/erfolgsmeldungen gibt
-erfolgalert wenn erfolg dann echo <script> $('#erfolgAlert').addClass(alert-success) sonst alert danger oder so
+bei jedem prepare direkt $_POST['x']
+
+-gucken ob es noch mehr fehler/erfolgsmeldungen gibt
+-erfolgalert wenn erfolg dann echo <script> $('#erfolgAlert').addClass(alert-success) sonst alert danger oder so
+-beide alerts direkt mit <h4> (und mb-0?)
 
 eaget wie abget
 
