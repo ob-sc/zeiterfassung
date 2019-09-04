@@ -106,4 +106,3 @@ $('#filter').submit(function(e){
 
 <?php
 include '../req/footer.php';
-?>

@@ -1,11 +1,11 @@
 moment.locale('de')
 
-let id, choices, ahDaten, station, status, kennung, name, datum, beginnForm, endeForm, diff, gehalt, daten, tage, summe, ahRow;
+let id, choices,  station, status, kennung, name, datum, beginnForm, endeForm, diff, gehalt, abDaten, ahDaten, eaDaten, tage, summe, ahRow;
 
 // namen, löhne und station für alle
-// mega komisch: braucht json parse, evtl type: 'json' geben?!
+// todo als ajax? dann gehts auch mit datatype: 'json' ohne json.parse
 $.get("../scripts/getdata.php", function(data){
-    let result = JSON.parse(data); // JSON.parse trotz json_encode? sonst gehts halt iwie nicht. vermutlich wegen array?
+    let result = JSON.parse(data);
     choices = result.namen;
     ahDaten = result.ahDaten;
     station = result.station;
@@ -30,12 +30,14 @@ function senden() {
         }
     })
     .done(function(data) {
-        $('#etext').html(data);
+        $('#erfolgText').html(data);
+        $('#erfolgAlert').show();
         $('#eform')[0].reset();
         document.getElementById('datum').valueAsDate = new Date();
     })
     .fail(function(data) {
-        alert('Fehler:\n' + JSON.stringify(data));
+        $('#fehlerText').html('Fehler:' + data.responseText);
+        $('#fehlerAlert').show();
     })
     
     $('#esend').hide();
@@ -48,8 +50,8 @@ function formBerechnung() {
 
     // Check ob Aushilfe existiert
     if (!ahDaten[name]) {
-        $('#etext').html('<h5>Aushilfe nicht gefunden</h5>');
-        $('#esend').hide();
+        $('#fehlerText').html('Aushilfe nicht gefunden');
+        $('#fehlerAlert').show();
         return;
     }
 
@@ -66,8 +68,8 @@ function formBerechnung() {
 
     // Check ob Datum in der Zukunft ist
     if(moment(datum).isAfter(new Date(), 'day') === true) {
-        $('#etext').html('<h5>Datum ist in der Zukunft</h5>');
-        $('#esend').hide();
+        $('#fehlerText').html('Datum ist in der Zukunft');
+        $('#fehlerAlert').show();
         return;
     }
 
@@ -87,8 +89,8 @@ function formBerechnung() {
 
     // Check ob AZ 0 oder negativ
     if (diff < 1) {
-        $('#etext').html('<h5>Beginn und Ende überprüfen!</h5>');
-        $('#esend').hide();
+        $('#fehlerText').html('Beginn und Ende überprüfen');
+        $('#fehlerAlert').show();
         return;
     }
 
@@ -104,6 +106,9 @@ function formBerechnung() {
     gehalt = lohn * 100 * diff / 60 / 100;
     let gehaltRund = gehalt.toFixed(2);
     $('#etext').append("<p><strong>Gehalt:</strong> " + gehaltRund + "€</p>\n");
+    
+    // senden knopf zeigen
+    $('#esend').show();
 }
 
 // moment.js duration kann man nicht auf HH:mm formatieren. Daher string aus arbeitszeit minuten:
@@ -126,7 +131,8 @@ function abtabelle() {
     let summeGehalt = 0;
 
     let html = '<h3 style="text-align:center">Monatsabrechnung ' + station + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>';
-    html += '<table class="table table-bordered table-sm" style="width:100%"><thead><tr>';
+    html += '<table class="table table-bordered table-sm" style="width:100%">';
+    html += '<caption>Abrechnungen als PDF an <a href="mailto:starcarlohn@steuerberater-kehler.de" style="color:blue">Lohnkanzlei</a></caption><thead><tr>';
     html += '<th style="width:5%">PN</th>';
     html += '<th style="width:40%">Name</th>';
     html += '<th style="width:5%">AZ</th>';
@@ -136,29 +142,20 @@ function abtabelle() {
     html += '<th style="width:5%">Status</th>';
     html += '<th style="width:30%">Sonstiges</th>';
     html += '</tr></thead><tbody>';
-    for (let x in daten) {
-
-        /*  URLAUB TODO
-            Urlaubsanspruch muss berechnet werden aus tagen bisher in diesem Jahr
-            Query abget: SELECT COUNT(DISTINCT datum) FROM zeiten WHERE YEAR(datum) = :jahr? BETWEEN beginn jahr und ausgewähltes datum?
-            -> dann $urlaub = 24/312 * $result
-            $urlaub per json und mit Math.round(urlaub) eintragen (auf halbe bzw ganze runden)
-            text in abrechnung: an starcarlohn@steuerberater-kehler.de (caption tabelle?)
-        */
-
-        let urlaub = daten[x].urlaub;
-        let abgehalt = daten[x].gehalt;
-        html += '<tr><td>' + daten[x].personalnr + '</td>';
-        html += '<td>' + daten[x].nachname + ', ' + daten[x].vorname + '</td>';
-        html += '<td>' + zuStunden(daten[x].arbeitszeit) + '</td>';
+    for (let x in abDaten) {
+        let urlaub = 24 / 312 * abDaten[x].urlaub;
+        let abgehalt = abDaten[x].gehalt;
+        html += '<tr><td>' + abDaten[x].personalnr + '</td>';
+        html += '<td>' + abDaten[x].nachname + ', ' + abDaten[x].vorname + '</td>';
+        html += '<td>' + zuStunden(abDaten[x].arbeitszeit) + '</td>';
         html += '<td>' + abgehalt.toFixed(2) + '</td>';
-        html += '<td>' + daten[x].tage + '</td>';
+        html += '<td>' + abDaten[x].datum + '</td>';
         html += '<td>' + Math.round(urlaub) + '</td>';
-        html += '<td>' + daten[x].status + '</td>';
+        html += '<td>' + abDaten[x].status + '</td>';
         html += '<td contenteditable="true">&nbsp</td></tr>';
 
-        summeAZ += parseInt(daten[x].arbeitszeit);
-        summeGehalt += daten[x].gehalt;
+        summeAZ += parseInt(abDaten[x].arbeitszeit);
+        summeGehalt += abDaten[x].gehalt;
     }
     html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + summeGehalt.toFixed(2) + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>';
 
@@ -166,11 +163,12 @@ function abtabelle() {
 }
 
 // AUSWERTEN
+// TODO wieso daten.jahr und daten.monat? nicht eadaten?
 function eatabelle() {
     // TODO eintragsTag in neue variable, eintragsMonat und eintragsTag wenn länge 1 = + "0" im loop / test mit sondereintrag
     let eintragVorher, gehaltEA;
     let sonderRow = ' ';
-    let eintragsMonat = daten.monat - 1;
+    let eintragsMonat = eaDaten.monat - 1;
     // Ende Funktion wenn keine Einträge
     if (tage.length == 0) {
         $('#eaText').html('<h3>Keine Einträge für diesen Monat</h3>');
@@ -184,7 +182,7 @@ function eatabelle() {
     // Funktion normaler Eintrag
     function tagZeile(row) {
         gehaltEA = tage[row].gehalt;
-        html += '<tr><td>' + eintragsTag + '.' + eintragsMonat + '.' + daten.jahr + '</td>';
+        html += '<tr><td>' + eintragsTag + '.' + eintragsMonat + '.' + eaDaten.jahr + '</td>';
         html += '<td>' + tage[row].beginn + '</td>';
         html += '<td>' + tage[row].ende + '</td>';
         html += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
@@ -193,7 +191,7 @@ function eatabelle() {
     // Funktion Sondereintrag bei mehrfachem Datum
     function sonderZeile(row) {
         gehaltEA = tage[row].gehalt;
-        html += '<tr><td>' + eintragsTag + '.' + eintragsMonat + '.' + daten.jahr + '</td>';
+        html += '<tr><td>' + eintragsTag + '.' + eintragsMonat + '.' + eaDaten.jahr + '</td>';
         sonderRow += '<td>' + tage[row].beginn + '</td>';
         sonderRow += '<td>' + tage[row].ende + '</td>';
         sonderRow += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
@@ -231,7 +229,7 @@ function eatabelle() {
         }
         // Leerer Eintrag wenn davor nichts eingetragen wurde
         if (eintrag == false) {
-            html += '<tr><td>' + eintragsTag + '.' + eintragsMonat + '.' + daten.jahr + '</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
+            html += '<tr><td>' + eintragsTag + '.' + eintragsMonat + '.' + eaDaten.jahr + '</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
         }
         if (eintragsTag < monatsTage) {
             eintragsTag++;
@@ -292,7 +290,6 @@ $(document).ready(function() {
     // EINTRAGEN
     $('#eform').submit(function(e) {
         e.preventDefault();
-        $('#esend').show();
         formBerechnung();
     })
 
@@ -306,11 +303,12 @@ $(document).ready(function() {
             data: $("#aform").serialize()
         })
         .done(function(data) {
-            daten = data;
+            abDaten = data;
             abtabelle();
         })
         .fail(function(data) {
-            alert('Fehler:\n' + JSON.stringify(data));
+            $('#fehlerText').html('Fehler:' + data.responseText);
+            $('#fehlerAlert').show();
         })
     })
 
@@ -330,16 +328,17 @@ $(document).ready(function() {
             data: {
                 id: id,
                 datum: datum
-            },
+            }
         })
         .done(function(data) {
-            daten = data;
-            tage = daten.tage;
-            summe = daten.summe;
+            eaDaten = data;
+            tage = eaDaten.tage;
+            summe = eaDaten.summe;
             eatabelle();
         })
         .fail(function(data) {
-            alert('Fehler:\n' + JSON.stringify(data));
+            $('#fehlerText').html('Fehler:' + data.responseText);
+            $('#fehlerAlert').show();
         })
     })
 
@@ -362,13 +361,14 @@ $(document).ready(function() {
             method: 'POST',
             data: $('#newform').serialize()
         })
-        // TODO statt alert ajax daneben? modal?
         .done(function(data) {
-            alert(data);
+            $('#erfolgText').html(data);
+            $('#erfolgAlert').show();
             $('#newform')[0].reset();
         })
         .fail(function(data) {
-            alert('Fehler:\n' + JSON.stringify(data));
+            $('#fehlerText').html('Fehler:' + data.responseText);
+            $('#fehlerAlert').show();
         })
     })
 })
@@ -459,7 +459,8 @@ $(document).ajaxComplete(function() {
                 location.reload();
             })
             .fail(function(data) {
-                alert('Fehler:\n' + JSON.stringify(data));
+                $('#fehlerText').html('Fehler:' + JSON.stringify(data));
+                $('#fehlerAlert').show();
             })
         }
     })

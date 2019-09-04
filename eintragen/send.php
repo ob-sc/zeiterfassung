@@ -46,6 +46,5 @@ $stmt->execute();
 
 $conn = null;
 
-echo "<h4>Eintrag erfolgreich!</h4>";
-
-?>
+# todo if $stmt->rowCount() > 1 dann: sonst bla
+echo "Eintrag erfolgreich!";

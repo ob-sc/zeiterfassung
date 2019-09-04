@@ -43,4 +43,3 @@ echo json_encode([
 
 
 $conn = null;
-?>

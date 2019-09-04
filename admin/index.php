@@ -187,4 +187,3 @@ if (isset($_POST['npAendern'])) {
         echo "<script>alert('Personalnummer geändert')</script>";
     }
 }*/
-?>

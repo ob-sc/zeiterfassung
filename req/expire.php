@@ -13,4 +13,3 @@ if(isset($_SESSION['aktiv'])){
 }
 
 $_SESSION['aktiv'] = time();
-?>

@@ -26,4 +26,3 @@ foreach ($result as $v) {
 echo json_encode($daten);
 
 $conn = null;
-?>

@@ -1,27 +1,21 @@
 ﻿[AKTUELLE BAUSTELLEN]
 
-WICHTIG: Melly und Anne: Name aus Tabelle zeiten?
-    -> name aus senden ajax raus
-    -> name aus send.php raus
-    -> name aus zeiten tabelle raus
+gucken ob es noch mehr fehler/erfolgsmeldungen gibt
+erfolgalert wenn erfolg dann echo <script> $('#erfolgAlert').addClass(alert-success) sonst alert danger oder so
 
-[name]
-    -> auch namen disponenten aufdröseln?
-    -> stationen aufdröseln? stadt: hamburg station: eiffestraße
+eaget wie abget
 
-alert statt .text() in eintragen? allgemein?
+aushilfe anlegen status dazu
+
+aushilfe anlegen kann doppelt eingetragen werden, doppelte werden aber nur einmal in der tabelle aushilfe in html angezeit.... insert ignore funktioniert nicht
 
 Datenbank vorbereiten
 
-tage ganz ausschreiben
+ea tage ganz ausschreiben
 
 readme aktualisieren
 
-kehler urlaub auf halbe / ganze tage
-
 - ABRECHNUNG
-    -> urlaubstage in abrechnung
-    -> leere felder für aushilfen ohne zeiten diesen monat? WICHTIG für zb abmelden
     -> sortiertung? personalnr oder name? -> eher name
     -> abrechnung nur wenn alle personalnummern da sind / einzelne ohne nicht aufführen mit warnung
     -> automatisch pdf
@@ -47,15 +41,10 @@ kehler urlaub auf halbe / ganze tage
         -> verwaltung auf alle ändern?
 
 [BFI]
-- WICHTIG:  urlaub todo in gleiches query? muss 1 array durchlaufen
-- WICHTIG: in abget.php (abrechnung) auch aushilfen auflisten, die nicht gearbeitet haben
+- ?> auch bei include header und bla weg?
+    -> auch footer?
+- sortierung abget (macht nicht nach nachname -> wegen späterem sql?)
 - eintragen -> gehalt, toFixed(2) rundet falsch (bei 78,115), mysql auch. ungerundet in tabelle oder geht runden?
-- MS ACCESS zusätzlich zusätzlich zu phpMyAdmin?
-- Machen die Tabellen in Abrechnung / Auswerten / Aushilfen so Sinn (vom erstellen per loop usw)?
-- main.js .get() ist komisch
-- eaget.php & getdata.php 1 Query?
-- abrechnung zeitraum 10.x.x - 9.x.x optimieren? abget und eaget
-- wie gehe ich am besten mit sql fehlermeldungen um?
 
 [WICHTIG]
 - expire auf 3 min
@@ -72,6 +61,3 @@ kehler urlaub auf halbe / ganze tage
     -> von wann bis wann?
 
 - Abrechnung jährlich? Quartal?
-
-- titel ändern einzel abrechnung für pdf
-    -> dynamische variable per php?

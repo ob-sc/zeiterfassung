@@ -29,7 +29,19 @@
     </div>
     <div>
         <img src="../img/logo_starcar2x.png" alt="SC_Logo" width="276" height="53">
-        <h1 style="font-weight:bolder">Zeiterfassung Aushilfen</h1>
+        <h2 style="font-weight:bolder">Zeiterfassung Aushilfen</h2>
     </div>
 </header>
 <main>
+<div class="container">
+    <div class="alert alert-danger alert-dismissible" role="alert" id="fehlerAlert" style="display:none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <div id="fehlerText"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="alert alert-success alert-dismissible" role="alert" id="erfolgAlert" style="display:none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <div id="erfolgText"></div>
+    </div>
+</div>

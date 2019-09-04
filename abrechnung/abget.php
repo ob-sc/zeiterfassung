@@ -2,41 +2,75 @@
 require '../req/expire.php';
 require '../req/connect.php';
 
-$station = $_SESSION['station'];
-$monJahr = $_POST['monat'];
-$monat = substr($monJahr, 5, 2);
-$monatDavor = $monat - 1;
-$jahr = substr($monJahr, 0, 4);
-
-$beginnString = "{$jahr}-0{$monatDavor}-10";
-$endeString = "{$jahr}-{$monat}-9";
-
 #10.juli bis 9. august ist august
 
-$sql = 
-"SELECT z.ahid, SUM(arbeitszeit), SUM(gehalt), COUNT(DISTINCT datum), ah.vorname, ah.nachname, ah.personalnr, ah.status 
-FROM zeiten AS z
-JOIN aushilfen AS ah ON ah.id = z.ahid 
-WHERE datum BETWEEN CAST('$beginnString' AS DATE) AND CAST('$endeString' AS DATE) AND z.station = :station 
-GROUP BY z.ahid 
-ORDER BY ah.nachname ASC";
+// alle aushilfen der station -> leer
+$aushilfenSql = 
+"SELECT id, vorname, nachname, personalnr, status, 0 AS arbeitszeit, 0 AS gehalt, 0 AS datum, 0 AS urlaub
+FROM aushilfen
+WHERE station = :station
+ORDER BY nachname ASC";
 
-$stmt = $conn->prepare($sql);
+$stmt = $conn->prepare($aushilfenSql);
 
-$stmt->bindValue(':station', $station);
+$aushilfen = [];
 
+$stmt->bindValue(':station', $_SESSION['station']);
 $stmt->execute();
 
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$daten = [];
-
-foreach ($result as $v) {
-    $name = $v['vorname'] . " " . $v['nachname'];
-    $daten[$name] = ['name' => $name, 'vorname' => $v['vorname'], 'nachname' => $v['nachname'], 'arbeitszeit' => $v['SUM(arbeitszeit)'], 'personalnr' => $v['personalnr'], 'gehalt' => $v['SUM(gehalt)'], 'tage' => $v['COUNT(DISTINCT datum)'], 'status' => $v['status']];
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+	$aushilfen[$row['id']] = $row;
 }
 
-echo json_encode($daten);
+
+// abrechnungszeitraum vorbereiten
+$beginnDate = new DateTime($_POST['monat'].'-10');
+$beginnDate->sub(new DateInterval('P1M'));
+$endDate = new DateTime($_POST['monat'].'-09');
+
+
+// alle arbeitszeiten holen für abrechnungszeitraum
+$zeitenSql = 
+"SELECT ahid, SUM(arbeitszeit) AS arbeitszeit, SUM(gehalt) AS gehalt, COUNT(DISTINCT datum) AS datum 
+FROM zeiten 
+WHERE datum BETWEEN :beginnDate AND :endDate AND station = :station 
+GROUP BY ahid";
+
+$stmt = $conn->prepare($zeitenSql);
+
+$stmt->bindValue(':beginnDate', $beginnDate->format('Y-m-d'));
+$stmt->bindValue(':endDate', $endDate->format('Y-m-d'));
+$stmt->bindValue(':station', $_SESSION['station']);
+$stmt->execute();
+
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+	$aushilfen[$row['ahid']]['arbeitszeit'] = $row['arbeitszeit'];
+	$aushilfen[$row['ahid']]['gehalt'] = $row['gehalt'];
+	$aushilfen[$row['ahid']]['datum'] = $row['datum'];
+}
+
+
+// daten für urlaub -> anfang des jahres bis ende
+$firstDay = new DateTime('first day of january '.$_POST['monat']);
+$lastDay = new DateTime('last day of december'.$_POST['monat']);
+
+// alle arbeitstage im ausgewählten kompletten jahr
+$urlaubSql = 
+"SELECT ahid, COUNT(DISTINCT datum) AS urlaub 
+FROM zeiten 
+WHERE datum BETWEEN :beginnDate AND :endDate AND station = :station 
+GROUP BY ahid";
+
+$stmt = $conn->prepare($urlaubSql);
+
+$stmt->bindValue(':beginnDate', $firstDay->format('Y-m-d'));
+$stmt->bindValue(':endDate', $lastDay->format('Y-m-d'));
+$stmt->bindValue(':station', $_SESSION['station']);
+$stmt->execute();
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+	$aushilfen[$row['ahid']]['urlaub'] = $row['urlaub'];
+}
+
+echo json_encode($aushilfen);
 
 $conn = null;
-?>

@@ -18,4 +18,3 @@ include "../req/header.php";
 
 <?php
 include "../req/footer.php";
-?>

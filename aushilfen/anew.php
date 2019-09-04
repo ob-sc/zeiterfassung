@@ -10,7 +10,7 @@ $samlohn = $_POST['samlohn'];
 $sonlohn = $_POST['sonlohn'];
 $station = $_SESSION['station'];
 
-$sql = "INSERT IGNORE INTO aushilfen (personalnr, vorname, nachname, norlohn, samlohn, sonlohn, station) VALUES (:personalnr, :vorname, :nachname, :norlohn, :samlohn, :sonlohn, :station)";
+$sql = "INSERT INTO aushilfen (personalnr, vorname, nachname, norlohn, samlohn, sonlohn, station) VALUES (:personalnr, :vorname, :nachname, :norlohn, :samlohn, :sonlohn, :station)";
 
 $stmt = $conn->prepare($sql);
 
@@ -27,8 +27,7 @@ $stmt->execute();
 if ($stmt->rowCount() < 1) {
     echo "Aushilfe / Personalnummer existiert bereits!";
 } else {
-    echo "Name: $vorname $nachname \nPersonalnr: $personalnr \nLohn Wochtentag: $norlohn \nLohn Samstag: $samlohn \nLohn Sonntag: $sonlohn \nStation: $station \neingetragen!";
+    echo "Aushilfe eingetragen!";
 }
 
 $conn = null;
-?>

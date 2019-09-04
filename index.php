@@ -40,6 +40,8 @@ require 'req/connect.php';
         <button type="submit" name="login" class="btn m-1" style="background: #feed01">Senden</button>
     </form>
 </div>
+</body>
+</html>
 <?php
 if (isset($_POST['login'])) {
     
@@ -72,6 +74,3 @@ if (isset($_POST['login'])) {
     }
 }
 $conn = null;
-?>
-</body>
-</html>
