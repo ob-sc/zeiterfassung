@@ -2,48 +2,45 @@
 require '../req/expire.php';
 require '../req/connect.php';
 
-$id = $_POST['id'];
-$station = $_SESSION['station'];
-$monJahr = $_POST['datum'];
-$monat = substr($monJahr, 5, 2);
-$monatDavor = $monat - 1;
-$jahr = substr($monJahr, 0, 4);
 
-$beginnString = "{$jahr}-0{$monatDavor}-10";
-$endeString = "{$jahr}-{$monat}-9";
+// abrechnungszeitraum vorbereiten
+$beginnDate = new DateTime($_POST['datum'].'-10');
+$beginnDate->sub(new DateInterval('P1M'));
+$endDate = new DateTime($_POST['datum'].'-09');
 
 #10.juli bis 9. august ist august
 
-// TODO geht 1 Query?
+
 // QUERY 1 mehrere Reihen
-$sql = "SELECT datum, beginn, ende, arbeitszeit, gehalt FROM zeiten WHERE ahid = :id AND station = :station AND datum BETWEEN CAST('$beginnString' AS DATE) AND CAST('$endeString' AS DATE) ORDER BY datum ASC, beginn ASC";
+$zeitenSql = "SELECT datum, beginn, ende, arbeitszeit, gehalt FROM zeiten WHERE ahid = :id AND station = :station AND datum BETWEEN :beginnDate AND :endDate ORDER BY datum ASC, beginn ASC";
 
-$stmt = $conn->prepare($sql);
+$stmt = $conn->prepare($zeitenSql);
 
-$stmt->bindValue(':id', $id);
-$stmt->bindValue(':station', $station);
-
+$stmt->bindValue(':id', $_POST['id']);
+$stmt->bindValue(':station', $_SESSION['station']);
+$stmt->bindValue(':beginnDate', $beginnDate->format('Y-m-d'));
+$stmt->bindValue(':endDate', $endDate->format('Y-m-d'));
 $stmt->execute();
 
-$result1 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$zeiten = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // QUERY 2 Zähl-Funktionen
-$sql = "SELECT SUM(arbeitszeit), SUM(gehalt), COUNT(DISTINCT datum) FROM zeiten WHERE ahid = :id AND station = :station AND datum BETWEEN CAST('$beginnString' AS DATE) AND CAST('$endeString' AS DATE)";
+$sumSql = "SELECT SUM(arbeitszeit), SUM(gehalt), COUNT(DISTINCT datum) FROM zeiten WHERE ahid = :id AND station = :station AND datum BETWEEN :beginnDate AND :endDate";
 
-$stmt = $conn->prepare($sql);
+$stmt = $conn->prepare($sumSql);
 
-$stmt->bindValue(':id', $id);
-$stmt->bindValue(':station', $station);
+$stmt->bindValue(':id', $_POST['id']);
+$stmt->bindValue(':station', $_SESSION['station']);
+$stmt->bindValue(':beginnDate', $beginnDate->format('Y-m-d'));
+$stmt->bindValue(':endDate', $endDate->format('Y-m-d'));
 
 $stmt->execute();
 
-$result2 = $stmt->fetch(PDO::FETCH_ASSOC);
+$summen = $stmt->fetch(PDO::FETCH_ASSOC);
 
 echo json_encode([
-    'tage' => $result1,
-    'summe' => $result2,
-    'monat' => $monat,
-    'jahr' => $jahr
+    'tage' => $zeiten,
+    'summe' => $summen
 ]);
 
 $conn = null;

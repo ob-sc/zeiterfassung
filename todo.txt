@@ -1,12 +1,12 @@
 ﻿[AKTUELLE BAUSTELLEN]
 
+version 1.0 ohne admin
+
 bei jedem prepare direkt $_POST['x']
 
 -gucken ob es noch mehr fehler/erfolgsmeldungen gibt
 -erfolgalert wenn erfolg dann echo <script> $('#erfolgAlert').addClass(alert-success) sonst alert danger oder so
 -beide alerts direkt mit <h4> (und mb-0?)
-
-eaget wie abget
 
 aushilfe anlegen status dazu
 
@@ -14,7 +14,7 @@ aushilfe anlegen kann doppelt eingetragen werden, doppelte werden aber nur einma
 
 Datenbank vorbereiten
 
-ea tage ganz ausschreiben
+ea tage ganz ausschreiben + monat und jahr aus input value string basteln
 
 readme aktualisieren
 

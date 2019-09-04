@@ -163,9 +163,9 @@ function abtabelle() {
 }
 
 // AUSWERTEN
-// TODO wieso daten.jahr und daten.monat? nicht eadaten?
 function eatabelle() {
     // TODO eintragsTag in neue variable, eintragsMonat und eintragsTag wenn länge 1 = + "0" im loop / test mit sondereintrag
+    // achtung eaDaten.monat und .jahr gibts nicht mehr. aus datum val() basteln
     let eintragVorher, gehaltEA;
     let sonderRow = ' ';
     let eintragsMonat = eaDaten.monat - 1;
