@@ -8,12 +8,11 @@ $aushilfe = $_POST['aush'];
 $disponent = $_POST['disp'];
 $station = $_POST['stat'];
 
-$sql = "
-";
+#$sql = "";
 
 $stmt = $conn->prepare($sql);
 
-$stmt->bindValue(':', $);
+#$stmt->bindValue(':', $);
 
 $stmt->execute();
 
