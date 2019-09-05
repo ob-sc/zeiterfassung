@@ -4,3 +4,7 @@ servername = ""
 username = ""
 password = ""
 dbname = ""
+
+
+[settings]
+devmode = 0
