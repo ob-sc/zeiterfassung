@@ -31,6 +31,36 @@ function drucken() {
     window.print();
 }
 
+// RUNDEN return als string
+const roundTF = function(v) {    
+    // value as string
+    value = String(v);
+
+    // wenn kein . dann return mit 2 nullen
+    if (!value.includes('.')) {
+        return value + '.00';
+    }
+    
+    // split by "."
+    const values = value.split('.');
+    const decimal = values[0];
+    const decimalPlaceTotal = values[1];
+    let decimalPlace = parseInt(decimalPlaceTotal.substr(0, 2), 10);
+    //console.log(decimalPlaceTotal.length);
+    
+    // get digits + 1 to decide round up or down
+    let decider = decimalPlaceTotal.substr(2, 1);
+    decider = parseInt(decider, 10);
+    
+    // check round up or down
+    if(decider >= 5) {
+        decimalPlace += 1;
+    }
+
+    // return assemble as string
+    return String(decimal+"."+decimalPlace.toString().padEnd(2, '0'));
+}
+
 // EINTRAGEN
 function senden() {
     $.ajax({

@@ -12,8 +12,6 @@
         -> passwort vergessen
     -> login php bla auslagern?
 
-jquery bootstrap runterladen
-
 funktion runden einbauen -> auch für bug einzelauswertung? überall bei toFixed(2)?
 
 letzten beide zeiten jim weg -> für bug zeigen lassen
