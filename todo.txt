@@ -1,4 +1,14 @@
-﻿[AKTUELLE BAUSTELLEN]
+﻿[RUNDEN]
+    -> entweder gerundet in tabelle -> alle dann auch mit .00 und .x0
+        -> summe(gehalt) geht
+        -> bei INSERT ROUND(sgehalt, 2)
+    -> ungerundet in tabelle -> neue variable bei einzelabrechnung die zusammenzählt
+        -> monatsabrechnung weicht von einzelabrechnung ab
+    -> mysql ROUND(SUM(gehalt), 2) -> macht nichts anderes als danach RUNDEN
+
+[JAHRESÜBERSICHT]
+    -> schon bei eintragen aber auch auswerten
+    -> Durchschnitt und prognose (Jahresende 5400)
 
 [ACCOUNTS]
     -> formular account anlegen
@@ -12,17 +22,7 @@
         -> passwort vergessen
     -> login php bla auslagern?
 
-funktion runden einbauen -> auch für bug einzelauswertung? überall bei toFixed(2)?
-
-letzten beide zeiten jim weg -> für bug zeigen lassen
-
 version 1.0 ohne admin
-
--gucken ob es noch mehr fehler/erfolgsmeldungen gibt
--erfolgalert wenn erfolg dann echo <script> $('#erfolgAlert').addClass(alert-success) sonst alert danger oder so
--beide alerts direkt mit <h4> (und mb-0?)
-
-aushilfe anlegen status dazu
 
 aushilfe anlegen kann doppelt eingetragen werden, doppelte werden aber nur einmal in der tabelle aushilfe in html angezeit.... insert ignore funktioniert nicht
 
@@ -35,8 +35,7 @@ readme aktualisieren
     faq falsche, sowie die
 
 [BUGS]
-- einzelauswertung "schon x über 450" wird zwar gerundet ist aber nicht toFixed(2) sonder nur eine nachkommastelle (jim-roy im august)
-- klick auf autocomplete geht nicht weg
+    -> klick auf autocomplete geht nicht weg
 
 - ABRECHNUNG
     -> sortiertung? personalnr oder name? -> eher name
@@ -67,8 +66,6 @@ readme aktualisieren
 - ?> auch bei include header und bla weg?
     -> auch footer?
 - sortierung abget (macht nicht nach nachname -> wegen späterem sql?)
-- eintragen -> gehalt, toFixed(2) rundet falsch (bei 78,115), mysql auch. ungerundet in tabelle oder geht runden?
-    -> bug einzelauswertung ähnlich
 
 [WICHTIG]
 - expire auf 3 min

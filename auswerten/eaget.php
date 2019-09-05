@@ -23,8 +23,7 @@ $stmt->execute();
 $zeiten = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // QUERY 2 Zähl-Funktionen
-// todo mit SUM(gehalt) as gehalt -> wichtig key in eatabelle ändern)
-$sumSql = "SELECT SUM(arbeitszeit), SUM(gehalt), COUNT(DISTINCT datum) FROM zeiten WHERE ahid = :id AND station = :station AND datum BETWEEN :beginnDate AND :endDate";
+$sumSql = "SELECT SUM(arbeitszeit) AS arbeitszeit, SUM(gehalt) AS gehalt, COUNT(DISTINCT datum) AS datum FROM zeiten WHERE ahid = :id AND station = :station AND datum BETWEEN :beginnDate AND :endDate";
 
 $stmt = $conn->prepare($sumSql);
 

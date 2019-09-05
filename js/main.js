@@ -31,7 +31,7 @@ function drucken() {
     window.print();
 }
 
-// RUNDEN return als string
+// RUNDEN to fixed 2 / return als string
 const roundTF = function(v) {    
     // value as string
     value = String(v);
@@ -153,7 +153,7 @@ function formBerechnung() {
     }
     // Berechnung in Cent, da sonst falsch gerundet wird
     gehalt = lohn * 100 * diff / 60 / 100;
-    let gehaltRund = gehalt.toFixed(2);
+    let gehaltRund = roundTF(gehalt);
     $('#etext').append("<p><strong>Gehalt:</strong> " + gehaltRund + "€</p>\n");
     
     // senden knopf zeigen
@@ -183,7 +183,7 @@ function abtabelle() {
         html += '<tr><td>' + abDaten[x].personalnr + '</td>';
         html += '<td>' + abDaten[x].nachname + ', ' + abDaten[x].vorname + '</td>';
         html += '<td>' + zuStunden(abDaten[x].arbeitszeit) + '</td>';
-        html += '<td>' + abgehalt.toFixed(2) + '</td>';
+        html += '<td>' + roundTF(abgehalt) + '</td>';
         html += '<td>' + abDaten[x].datum + '</td>';
         html += '<td>' + Math.round(urlaub) + '</td>';
         html += '<td>' + abDaten[x].status + '</td>';
@@ -192,7 +192,7 @@ function abtabelle() {
         summeAZ += parseInt(abDaten[x].arbeitszeit);
         summeGehalt += abDaten[x].gehalt;
     }
-    html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + summeGehalt.toFixed(2) + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>';
+    html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + roundTF(summeGehalt) + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>';
 
     $('#atext').html(html + '</tbody></table><input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc">');
 }
@@ -230,7 +230,7 @@ function eatabelle() {
         html += '<td>' + tage[row].beginn + '</td>';
         html += '<td>' + tage[row].ende + '</td>';
         html += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
-        html += '<td>' + gehaltEA.toFixed(2) + '</td></tr>';
+        html += '<td>' + roundTF(gehaltEA) + '</td></tr>';
     }
     // Funktion Sondereintrag bei mehrfachem Datum
     function sonderZeile(row) {
@@ -239,7 +239,7 @@ function eatabelle() {
         sonderRow += '<td>' + tage[row].beginn + '</td>';
         sonderRow += '<td>' + tage[row].ende + '</td>';
         sonderRow += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
-        sonderRow += '<td>' + gehaltEA.toFixed(2) + '</td></tr>';
+        sonderRow += '<td>' + roundTF(gehaltEA) + '</td></tr>';
     }
     // Variable mit String für Tabelle
     let html = '<h3 style="text-align:center">Arbeitszeitnachweis ' + $("#nameInput").val() + '<br>'  + moment(monatfuerTage, "M").format("MMMM") + '-' + moment($("#datum").val(), "YYYY-MM").format("MMMM YYYY") + '</h3>\n';
@@ -298,17 +298,17 @@ function eatabelle() {
         $('#eaText').append(sonderEintrag + '</tbody></table>');
     }
     // Zusammenrechnung des Monats aus eaget.php
-    $('#eaText').append('<strong>Arbeitszeit:</strong> ' + zuStunden(summe["SUM(arbeitszeit)"]));
-    $('#eaText').append('<br><strong>Arbeitstage:</strong> ' + summe["COUNT(DISTINCT datum)"]);
-    let sumGehalt = summe['SUM(gehalt)'];
-    $('#eaText').append('<br><strong>Gehalt:</strong> ' + sumGehalt.toFixed(2) + '€');
+    $('#eaText').append('<strong>Arbeitszeit:</strong> ' + zuStunden(summe['arbeitszeit'])); // TODO as arbeitszeit
+    $('#eaText').append('<br><strong>Arbeitstage:</strong> ' + summe['datum']);
+    let sumGehalt = summe['gehalt'];
+    $('#eaText').append('<br><strong>Gehalt:</strong> ' + roundTF(sumGehalt) + '€');
     // wieviel bis maximales monatsgehalt / schon drüber
     let statusMax = parseInt(ahDaten[$('#nameInput').val()].ahStatus);
     let bisMax = statusMax - sumGehalt;
     if (sumGehalt <= 450) {
-        $('#eaText').append('<br>Noch ' + bisMax.toFixed(2) + '€ bis ' + statusMax.toFixed(2) + '€<br>');
+        $('#eaText').append('<br>Noch ' + roundTF(bisMax) + '€ bis ' + roundTF(statusMax) + '€<br>');
     } else if (sumGehalt > 450) {
-        $('#eaText').append('<br><strong style="color:red;">Schon ' + -bisMax.toFixed(2) + '€ über ' + statusMax.toFixed(2) + '€</strong><br>');
+        $('#eaText').append('<br><strong style="color:red;">Schon ' + roundTF(-bisMax) + '€ über ' + roundTF(statusMax) + '€</strong><br>');
     }
     // Druckbutton
     $('#eaText').append('<input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc my-3">');
@@ -457,9 +457,9 @@ $(document).ajaxComplete(function() {
     for (let x in ahDaten) {
         ahRow += '<tr><td>' + ahDaten[x].personalnr + '</th>';
         ahRow += '<td>' + x + '</td>';
-        ahRow += '<td contenteditable="false" id="nor' + ahDaten[x].id + '">' + ahDaten[x].norlohn.toFixed(2) + '</td>';
-        ahRow += '<td contenteditable="false" id="sam' + ahDaten[x].id + '">' + ahDaten[x].samlohn.toFixed(2) + '</td>';
-        ahRow += '<td contenteditable="false" id="son' + ahDaten[x].id + '">' + ahDaten[x].sonlohn.toFixed(2) + '</td>';
+        ahRow += '<td contenteditable="false" id="nor' + ahDaten[x].id + '">' + roundTF(ahDaten[x].norlohn) + '</td>';
+        ahRow += '<td contenteditable="false" id="sam' + ahDaten[x].id + '">' + roundTF(ahDaten[x].samlohn) + '</td>';
+        ahRow += '<td contenteditable="false" id="son' + ahDaten[x].id + '">' + roundTF(ahDaten[x].sonlohn) + '</td>';
         ahRow += '<th><img src="../img/edit.svg" width="18" class="edit" id="' + ahDaten[x].id + '"></th></tr>';
     }
     $('#ahTab').html(ahRow);
