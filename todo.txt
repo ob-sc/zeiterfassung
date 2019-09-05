@@ -62,11 +62,6 @@ readme aktualisieren
     -> station verwaltung: alle aushilfen und disponenten
         -> verwaltung auf alle ändern?
 
-[BFI]
-- ?> auch bei include header und bla weg?
-    -> auch footer?
-- sortierung abget (macht nicht nach nachname -> wegen späterem sql?)
-
 [WICHTIG]
 - expire auf 3 min
 
