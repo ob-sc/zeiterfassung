@@ -3,7 +3,6 @@ moment.locale('de')
 let id, choices, station, status, kennung, name, datum, eaBeginn, eaEnde, beginnForm, endeForm, diff, gehalt, abDaten, ahDaten, eaDaten, tage, summe, ahRow;
 
 // namen, löhne und station für alle
-// todo als ajax? dann gehts auch mit datatype: 'json' ohne json.parse
 $.get("../scripts/getdata.php", function(data){
     let result = JSON.parse(data);
     choices = result.namen;
@@ -11,6 +10,26 @@ $.get("../scripts/getdata.php", function(data){
     station = result.station;
     status = result.status;
 })
+
+// moment.js duration kann man nicht auf HH:mm formatieren. Daher string aus arbeitszeit minuten:
+function zuStunden(azMinuten) {
+    let stunden = Math.floor(azMinuten / 60);          
+    let minuten = azMinuten % 60;
+    if (String(stunden).length == 1) {
+        stunden = "0" + stunden;
+    }
+    if (String(minuten).length == 1) {
+        minuten = "0" + minuten;
+    }
+    let azString = stunden + ":" + minuten;
+    return azString;
+}
+
+// DRUCKEN
+function drucken() {
+    $('.tabelle-rechts').css('width','100%');
+    window.print();
+}
 
 // EINTRAGEN
 function senden() {
@@ -30,13 +49,13 @@ function senden() {
         }
     })
     .done(function(data) {
-        $('#erfolgText').html(data);
-        $('#erfolgAlert').show();
+        $('#infoText').html(data);
+        $('#infoAlert').show();
         $('#eform')[0].reset();
         document.getElementById('datum').valueAsDate = new Date();
     })
     .fail(function(data) {
-        $('#fehlerText').html('Fehler:' + data.responseText);
+        $('#fehlerText').html('<strong>Fehler:</strong>' + data.responseText);
         $('#fehlerAlert').show();
     })
     
@@ -50,7 +69,7 @@ function formBerechnung() {
 
     // Check ob Aushilfe existiert
     if (!ahDaten[name]) {
-        $('#fehlerText').html('Aushilfe nicht gefunden');
+        $('#fehlerText').html('<strong>Aushilfe nicht gefunden!</strong>');
         $('#fehlerAlert').show();
         return;
     }
@@ -68,7 +87,7 @@ function formBerechnung() {
 
     // Check ob Datum in der Zukunft ist
     if(moment(datum).isAfter(new Date(), 'day') === true) {
-        $('#fehlerText').html('Datum ist in der Zukunft');
+        $('#fehlerText').html('<strong>Datum ist in der Zukunft!</strong>');
         $('#fehlerAlert').show();
         return;
     }
@@ -89,7 +108,7 @@ function formBerechnung() {
 
     // Check ob AZ 0 oder negativ
     if (diff < 1) {
-        $('#fehlerText').html('Beginn und Ende überprüfen');
+        $('#fehlerText').html('<strong>Beginn und Ende überprüfen!</strong>');
         $('#fehlerAlert').show();
         return;
     }
@@ -109,20 +128,6 @@ function formBerechnung() {
     
     // senden knopf zeigen
     $('#esend').show();
-}
-
-// moment.js duration kann man nicht auf HH:mm formatieren. Daher string aus arbeitszeit minuten:
-function zuStunden(azMinuten) {
-    let stunden = Math.floor(azMinuten / 60);          
-    let minuten = azMinuten % 60;
-    if (String(stunden).length == 1) {
-        stunden = "0" + stunden;
-    }
-    if (String(minuten).length == 1) {
-        minuten = "0" + minuten;
-    }
-    let azString = stunden + ":" + minuten;
-    return azString;
 }
 
 // ABRECHNUNG
@@ -167,9 +172,9 @@ function eatabelle() {
     let eintragVorher, gehaltEA;
     let sonderRow = ' ';
     // Ende Funktion wenn keine Einträge
-    // todo in bootstrap alert?
     if (tage.length == 0) {
-        $('#eaText').html('<h3>Keine Einträge für diesen Monat</h3>');
+        $('#infoText').html('<strong>Keine Einträge für diesen Monat!</strong>');
+        $('#infoAlert').show();
         return;
     }
     // Tage im Monat
@@ -191,7 +196,7 @@ function eatabelle() {
     // Funktion normaler Eintrag
     function tagZeile(row) {
         gehaltEA = tage[row].gehalt;
-        html += '<tr><td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td>'; // DATUMHIER
+        html += '<tr><td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td>';
         html += '<td>' + tage[row].beginn + '</td>';
         html += '<td>' + tage[row].ende + '</td>';
         html += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
@@ -200,7 +205,7 @@ function eatabelle() {
     // Funktion Sondereintrag bei mehrfachem Datum
     function sonderZeile(row) {
         gehaltEA = tage[row].gehalt;
-        sonderRow += '<tr><td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td>'; // DATUMHIER
+        sonderRow += '<tr><td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td>';
         sonderRow += '<td>' + tage[row].beginn + '</td>';
         sonderRow += '<td>' + tage[row].ende + '</td>';
         sonderRow += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
@@ -238,7 +243,7 @@ function eatabelle() {
         }
         // Leerer Eintrag wenn davor nichts eingetragen wurde
         if (eintrag == false) {
-            html += '<tr><td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>'; // DATUMHIER
+            html += '<tr><td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
         }
         if (eintragsTag < monatsTage) {
             eintragsTag++;
@@ -279,12 +284,7 @@ function eatabelle() {
     $('#eaText').append('<input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc my-3">');
 }
 
-// DRUCKEN
-function drucken() {
-    $('.tabelle-rechts').css('width','100%');
-    window.print();
-}
-
+// Document ready
 $(document).ready(function() {
     // NACH DRUCKEN
     window.onafterprint = function() {
@@ -300,12 +300,16 @@ $(document).ready(function() {
     // EINTRAGEN
     $('#eform').submit(function(e) {
         e.preventDefault();
+        $('#fehlerAlert').hide();
+        $('#infoAlert').hide();
         formBerechnung();
     })
 
     // ABRECHNUNG
     $('#aform').submit(function(e) {
         e.preventDefault();
+        $('#fehlerAlert').hide();
+        $('#infoAlert').hide();
         $.ajax({
             url: 'abget.php',
             type: 'POST',
@@ -325,6 +329,8 @@ $(document).ready(function() {
     // AUSWERTEN
     $('#eaform').submit(function(e) {
         e.preventDefault();
+        $('#fehlerAlert').hide();
+        $('#infoAlert').hide();
 
         name = $('#nameInput').val();
         id = ahDaten[name].id;
@@ -368,18 +374,25 @@ $(document).ready(function() {
     // AUSHILFEN anlegen / senden an anew.php
     $('#newform').submit(function(e) {
         e.preventDefault();
+        // Check ob Aushilfe schon existiert
+        name = $('#nameInput').val();
+        if (ahDaten[name] === true) {
+            $('#fehlerText').html('</strong>Aushilfe existiert bereits!<strong>');
+            $('#fehlerAlert').show();
+            return;
+        }
         $.ajax({
             url: 'anew.php',
             method: 'POST',
             data: $('#newform').serialize()
         })
         .done(function(data) {
-            $('#erfolgText').html(data);
-            $('#erfolgAlert').show();
+            $('#infoText').html(data);
+            $('#infoAlert').show();
             $('#newform')[0].reset();
         })
         .fail(function(data) {
-            $('#fehlerText').html('Fehler:' + data.responseText);
+            $('#fehlerText').html('<strong>Fehler:</strong>' + data.responseText);
             $('#fehlerAlert').show();
         })
     })
@@ -471,7 +484,7 @@ $(document).ajaxComplete(function() {
                 location.reload();
             })
             .fail(function(data) {
-                $('#fehlerText').html('Fehler:' + JSON.stringify(data));
+                $('#fehlerText').html('<strong>Fehler:</strong>' + data.responseText);
                 $('#fehlerAlert').show();
             })
         }

@@ -2,16 +2,13 @@
 require '../req/expire.php';
 require '../req/connect.php';
 
-$station = $_SESSION['station'];
-$status = $_SESSION['status'];
-
 // TODO 1 Query?!
 
 $sql = "SELECT id, personalnr, vorname, nachname, norlohn, samlohn, sonlohn, status FROM aushilfen WHERE station = ?";
 
 $stmt = $conn->prepare($sql);
 
-$stmt->execute(array($station));
+$stmt->execute(array($_SESSION['station']));
 
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -28,7 +25,7 @@ $sql = "SELECT name FROM stationen WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
 
-$stmt->execute(array($station));
+$stmt->execute(array($_SESSION['station']));
 
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -36,7 +33,7 @@ $stationString = $result['name'];
 
 echo json_encode([
     'station' => $stationString,
-    'status' => $status,
+    'status' => $_SESSION['status'],
     'namen' => $namen,
     'ahDaten' => $daten,
 ]);

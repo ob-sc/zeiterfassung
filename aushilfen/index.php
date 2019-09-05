@@ -13,7 +13,11 @@ include "../req/header.php";
         </div>
         <div class="form-group">
             <label for="name">Personalnummer:</label>
-            <input type="number" class="form-control" placeholder="Personalnummer" name="personalnr" id="anlegenPN">
+            <input type="number" class="form-control" placeholder="Personalnummer" name="personalnr">
+        </div>
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <input type="number" class="form-control" placeholder="Status" value="450" name="status">
         </div>
         <div class="form-group">
             <label for="norlohn">Lohn Wochentag:</label>

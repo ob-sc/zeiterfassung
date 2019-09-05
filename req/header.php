@@ -40,8 +40,8 @@
     </div>
 </div>
 <div class="container">
-    <div class="alert alert-success alert-dismissible" role="alert" id="erfolgAlert" style="display:none;">
+    <div class="alert alert-info alert-dismissible" role="alert" id="infoAlert" style="display:none;">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <div id="erfolgText"></div>
+        <div id="infoText"></div>
     </div>
 </div>

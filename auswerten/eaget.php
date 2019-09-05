@@ -9,7 +9,6 @@ $endDate = new DateTime($_POST['datum'].'-09');
 
 #10.juli bis 9. august ist august
 
-
 // QUERY 1 mehrere Reihen
 $zeitenSql = "SELECT datum, beginn, ende, arbeitszeit, gehalt FROM zeiten WHERE ahid = :id AND station = :station AND datum BETWEEN :beginnDate AND :endDate ORDER BY datum ASC, beginn ASC";
 

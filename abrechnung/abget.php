@@ -6,17 +6,15 @@ require '../req/connect.php';
 
 // alle aushilfen der station -> leer
 $aushilfenSql = 
-"SELECT id, vorname, nachname, personalnr, status, 0 AS arbeitszeit, 0 AS gehalt, 0 AS datum, 0 AS urlaub
-FROM aushilfen
-WHERE station = :station
+"SELECT id, vorname, nachname, personalnr, status, 0 AS arbeitszeit, 0 AS gehalt, 0 AS datum, 0 AS urlaub 
+FROM aushilfen 
+WHERE station = ? 
 ORDER BY nachname ASC";
 
 $stmt = $conn->prepare($aushilfenSql);
+$stmt->execute(array($_SESSION['station']));
 
 $aushilfen = [];
-
-$stmt->bindValue(':station', $_SESSION['station']);
-$stmt->execute();
 
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 	$aushilfen[$row['id']] = $row;
@@ -27,7 +25,6 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 $beginnDate = new DateTime($_POST['monat'].'-10');
 $beginnDate->sub(new DateInterval('P1M'));
 $endDate = new DateTime($_POST['monat'].'-09');
-
 
 // alle arbeitszeiten holen für abrechnungszeitraum
 $zeitenSql = 
@@ -67,6 +64,7 @@ $stmt->bindValue(':beginnDate', $firstDay->format('Y-m-d'));
 $stmt->bindValue(':endDate', $lastDay->format('Y-m-d'));
 $stmt->bindValue(':station', $_SESSION['station']);
 $stmt->execute();
+
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 	$aushilfen[$row['ahid']]['urlaub'] = $row['urlaub'];
 }
