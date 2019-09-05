@@ -2,6 +2,11 @@ moment.locale('de')
 
 let id, choices, station, status, kennung, name, datum, eaBeginn, eaEnde, beginnForm, endeForm, diff, gehalt, abDaten, ahDaten, eaDaten, tage, summe, ahRow;
 
+// sort
+var firstBy=function(){function n(n){return n}function t(n){return"string"==typeof n?n.toLowerCase():n}function r(r,e){if(e="number"==typeof e?{direction:e}:e||{},"function"!=typeof r){var u=r;r=function(n){return n[u]?n[u]:""}}if(1===r.length){var i=r,o=e.ignoreCase?t:n;r=function(n,t){return o(i(n))<o(i(t))?-1:o(i(n))>o(i(t))?1:0}}return-1===e.direction?function(n,t){return-r(n,t)}:r}function e(n,t){return n=r(n,t),n.thenBy=u,n}function u(n,t){var u=this;return n=r(n,t),e(function(t,r){return u(t,r)||n(t,r)})}return e}();
+// prepare sort by nachname
+const sortByNachname = firstBy('nachname');
+
 // namen, löhne und station für alle
 $.get("../scripts/getdata.php", function(data){
     let result = JSON.parse(data);
@@ -74,7 +79,7 @@ function senden() {
             sbeginn: beginnForm,
             sende: endeForm,
             saz: diff,
-            sgehalt: gehalt,
+            sgehalt: gehalt, // runden
             skennung: kennung
         }
     })
@@ -113,7 +118,7 @@ function formBerechnung() {
     let lohn;
     
     datum = $('#datum').val();
-    $('#etext').append("<p><strong>Datum:</strong> " + moment(datum).format('DD.MM.YYYY') + "</p>\n");
+    $('#etext').append("<p><strong>Datum:</strong> " + moment(datum).format('DD.MM.YYYY') + "</p>");
 
     // Check ob Datum in der Zukunft ist
     if(moment(datum).isAfter(new Date(), 'day') === true) {
@@ -347,7 +352,7 @@ $(document).ready(function() {
             data: $("#aform").serialize()
         })
         .done(function(data) {
-            abDaten = data;
+            abDaten = data.sort(sortByNachname);
             abtabelle();
         })
         .fail(function(data) {
