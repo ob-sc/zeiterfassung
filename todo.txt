@@ -1,12 +1,4 @@
-﻿[RUNDEN]
-    -> entweder gerundet in tabelle -> alle dann auch mit .00 und .x0
-        -> summe(gehalt) geht
-        -> bei INSERT ROUND(sgehalt, 2)
-    -> ungerundet in tabelle -> neue variable bei einzelabrechnung die zusammenzählt
-        -> monatsabrechnung weicht von einzelabrechnung ab
-    -> mysql ROUND(SUM(gehalt), 2) -> macht nichts anderes als danach RUNDEN
-
-[JAHRESÜBERSICHT]
+﻿[JAHRESÜBERSICHT]
     -> schon bei eintragen aber auch auswerten
     -> Durchschnitt und prognose (Jahresende 5400)
 
@@ -35,10 +27,9 @@ readme aktualisieren
     faq falsche, sowie die
 
 [BUGS]
-    -> klick auf autocomplete geht nicht weg
+    -> klick auf autocomplete -> geht nicht weg
 
 - ABRECHNUNG
-    -> sortiertung? personalnr oder name? -> eher name
     -> abrechnung nur wenn alle personalnummern da sind / einzelne ohne nicht aufführen mit warnung
     -> automatisch pdf
 
@@ -68,10 +59,4 @@ readme aktualisieren
 
 - seitentitel ändern
     -> header mit php dann jede seite dynamisch
-
-- Jahresübersicht einbauen für 5400 limit
-    -> einzelne aush. / alle?
-    -> mit kalender?
-    -> von wann bis wann?
-    -> einfach in einzelauswertung: text so viel dieses jahr -> du musst x weniger oder darfst x mehr
-        -> dann text bis 450 -> diesen monat x bis 450
+    

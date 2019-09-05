@@ -69,11 +69,12 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 	$aushilfen[$row['ahid']]['urlaub'] = $row['urlaub'];
 }
 
-$data = [];
+// array aus objekt
+$daten = [];
 foreach($aushilfen as $entry) {
-	$data[] = $entry;
+	$daten[] = $entry;
 }
 
-echo json_encode($data);
+echo json_encode($daten);
 
 $conn = null;

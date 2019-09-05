@@ -3,7 +3,7 @@ moment.locale('de')
 let id, choices, station, status, kennung, name, datum, eaBeginn, eaEnde, beginnForm, endeForm, diff, gehalt, abDaten, ahDaten, eaDaten, tage, summe, ahRow;
 
 // sort
-var firstBy=function(){function n(n){return n}function t(n){return"string"==typeof n?n.toLowerCase():n}function r(r,e){if(e="number"==typeof e?{direction:e}:e||{},"function"!=typeof r){var u=r;r=function(n){return n[u]?n[u]:""}}if(1===r.length){var i=r,o=e.ignoreCase?t:n;r=function(n,t){return o(i(n))<o(i(t))?-1:o(i(n))>o(i(t))?1:0}}return-1===e.direction?function(n,t){return-r(n,t)}:r}function e(n,t){return n=r(n,t),n.thenBy=u,n}function u(n,t){var u=this;return n=r(n,t),e(function(t,r){return u(t,r)||n(t,r)})}return e}();
+const firstBy=function(){function n(n){return n}function t(n){return"string"==typeof n?n.toLowerCase():n}function r(r,e){if(e="number"==typeof e?{direction:e}:e||{},"function"!=typeof r){var u=r;r=function(n){return n[u]?n[u]:""}}if(1===r.length){var i=r,o=e.ignoreCase?t:n;r=function(n,t){return o(i(n))<o(i(t))?-1:o(i(n))>o(i(t))?1:0}}return-1===e.direction?function(n,t){return-r(n,t)}:r}function e(n,t){return n=r(n,t),n.thenBy=u,n}function u(n,t){var u=this;return n=r(n,t),e(function(t,r){return u(t,r)||n(t,r)})}return e}();
 // prepare sort by nachname
 const sortByNachname = firstBy('nachname');
 
@@ -63,7 +63,7 @@ const roundTF = function(v) {
     }
 
     // return assemble as string
-    return String(decimal+"."+decimalPlace.toString().padEnd(2, '0'));
+    return ""+decimal+"."+decimalPlace.toString().padEnd(2, '0');
 }
 
 // EINTRAGEN
@@ -75,11 +75,10 @@ function senden() {
             sid: id,
             sname: name,
             sdatum: datum,
-            // Beginn und Ende müssen rein wegen Tabelle Einzelauswertung
-            sbeginn: beginnForm,
+            sbeginn: beginnForm, // Beginn und Ende müssen rein wegen Tabelle Einzelauswertung
             sende: endeForm,
             saz: diff,
-            sgehalt: gehalt, // runden
+            sgehalt: roundTF(gehalt), // gerundet
             skennung: kennung
         }
     })
@@ -87,6 +86,7 @@ function senden() {
         $('#infoText').html(data);
         $('#infoAlert').show();
         $('#eform')[0].reset();
+        console.log(roundTF(gehalt));
         document.getElementById('datum').valueAsDate = new Date();
     })
     .fail(function(data) {
@@ -138,8 +138,7 @@ function formBerechnung() {
     $('#etext').append("<p><strong>Ende:</strong> " + endeForm + "</p>\n");
     
     diff =  ende.diff(beginn, 'minutes');
-    let diffForm = moment.utc(ende.diff(beginn)).format("HH:mm");
-    $('#etext').append("<p><strong>Arbeitszeit:</strong> " + diffForm + "</p>\n");
+    $('#etext').append("<p><strong>Arbeitszeit:</strong> " + moment.utc(ende.diff(beginn)).format("HH:mm") + "</p>\n");
 
     // Check ob AZ 0 oder negativ
     if (diff < 1) {
@@ -158,8 +157,7 @@ function formBerechnung() {
     }
     // Berechnung in Cent, da sonst falsch gerundet wird
     gehalt = lohn * 100 * diff / 60 / 100;
-    let gehaltRund = roundTF(gehalt);
-    $('#etext').append("<p><strong>Gehalt:</strong> " + gehaltRund + "€</p>\n");
+    $('#etext').append("<p><strong>Gehalt:</strong> " + roundTF(gehalt) + "€</p>\n");
     
     // senden knopf zeigen
     $('#esend').show();
