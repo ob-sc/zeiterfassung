@@ -7,6 +7,8 @@ const firstBy=function(){function n(n){return n}function t(n){return"string"==ty
 // prepare sort by nachname
 const sortByNachname = firstBy('nachname');
 
+// hier getconfig -> wenn devmode = 1 dann header blau oder so
+
 // namen, löhne und station für alle
 $.get("../scripts/getdata.php", function(data){
     let result = JSON.parse(data);
@@ -78,7 +80,7 @@ function senden() {
             sbeginn: beginnForm, // Beginn und Ende müssen rein wegen Tabelle Einzelauswertung
             sende: endeForm,
             saz: diff,
-            sgehalt: roundTF(gehalt), // gerundet
+            sgehalt: gehalt, // todo gerundet?
             skennung: kennung
         }
     })
