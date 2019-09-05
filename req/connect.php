@@ -22,7 +22,7 @@ if(
 }
 
 try {
-    $conn = new PDO('mysql:host='.$config['sql']['servername'].';dbname='.$config['sql']['dbname'], $config['sql']['username'], $config['sql']['password']);
+    $conn = new PDO('mysql:host='.$config['sql']['servername'].';dbname='.$config['sql']['dbname'].';charset=utf8mb4', $config['sql']['username'], $config['sql']['password']);
     $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(Exception $e) {
