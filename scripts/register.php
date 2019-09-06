@@ -3,11 +3,11 @@ session_start();
 require '../req/connect.php';
 
 /*
-status station
+status muss admin ändern?
 
 passwort vergessen
 
-sl muss accounts überprüfen
+sl muss accounts überprüfen und sagen wer account machen darf
 */
 
 $username = !empty($_POST['username']) ? trim($_POST['username']) : null;

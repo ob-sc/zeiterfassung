@@ -20,10 +20,6 @@ include "../req/header.php";
                 <label for="ende">Ende:</label>
                 <input type="time" class="form-control" name="ende" id="ende" required>
             </div>
-            <div class="form-group">
-                <label for="kennung">Kennung:</label>
-                <input type="password" class="form-control" placeholder="Kennung" name="kennung" id="kennung" required>
-            </div>
             <input type="submit" class="btn scc" value="OK">
         </form>
     </div>
