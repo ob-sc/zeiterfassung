@@ -19,8 +19,8 @@
         <div class="dropdown-menu dropdown-menu-right" aria-lab>
             <a class="dropdown-item" href="../eintragen/index.php">Eintragen</a>
             <a class="dropdown-item" href="../auswerten/index.php">Arbeitszeitnachweis</a>
-            <a class="dropdown-item priv" href="../abrechnung/index.php">Abrechnung</a>
-            <a class="dropdown-item priv" href="../aushilfen/index.php">Aushilfen</a>
+            <a class="dropdown-item priv disabled" href="../abrechnung/index.php">Abrechnung</a>
+            <a class="dropdown-item priv disabled" href="../aushilfen/index.php">Aushilfen</a>
             <a class="dropdown-item" href="../admin/index.php" id="admin" style="display:none">Admin</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="../scripts/logout.php">Abmelden</a>

@@ -445,8 +445,8 @@ $(document).ajaxComplete(function() {
     if (status == 'admin') {
         $('#admin').show();
     }
-    if (status == 'station') {
-        $('.priv').addClass('disabled');
+    if (status == 'admin' || status == 'sl') {
+        $('.priv').removeClass('disabled');
     }
 
     // AUSHILFEN bearbeiten
