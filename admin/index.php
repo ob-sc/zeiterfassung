@@ -34,7 +34,7 @@ include '../req/header.php';
             <option value="19">Hamburg Wandsbek</option>
             <option value="114">Hamburg Langenhorn</option>
             <option value="30">Hannover</option>
-            <option value="30">Hannover Döhren</option>
+            <option value="33">Hannover Döhren</option>
             <option value="36">Braunschweig</option>
             <option value="52">Düsseldorf</option>
             <option value="20">Berlin Tiergarten</option>
@@ -72,23 +72,6 @@ include '../req/header.php';
             <input type="text" class="form-control" placeholder="Passwort" name="password" required>
         </div>
         <input type="submit" name="pwAendern" class="btn scc" value="Ändern">
-    </form>
-</div>
-
-<!-- Kennung ändern -->
-
-<div class="admin-item">
-    <form action="index.php" method="post" autocomplete="off">
-        <h5>Kennung Disponent ändern</h5>
-        <div class="form-group">
-            <label for="disponent">Name Disponent:</label>
-            <input type="text" class="form-control" placeholder="Name" name="disponent" required>
-        </div>
-        <div class="form-group">
-            <label for="kennung">Kennung:</label>
-            <input type="text" class="form-control" placeholder="Kennung" name="kennung" required>
-        </div>
-        <input type="submit" name="kAendern" class="btn scc" value="Ändern">
     </form>
 </div>
 
@@ -149,24 +132,6 @@ if (isset($_POST['pwAendern'])) {
         echo "<script>alert('Fehler')</script>";
     } else if ($stmt->rowCount() == 1) {
         echo "<script>alert('Passwort geändert')</script>";
-    }
-}
-if (isset($_POST['kAendern'])) {
-    $disponent = $_POST['disponent'];
-    $kennung = $_POST['kennung'];
-
-    $sql = "UPDATE disponenten SET kennung = :kennung WHERE name = :disponent";
-    $stmt = $conn->prepare($sql);
-
-    $stmt->bindValue(':kennung', $kennung);
-    $stmt->bindValue(':disponent', $disponent);
-
-    $stmt->execute();
-
-    if ($stmt->rowCount() == 0) {
-        echo "<script>alert('Fehler')</script>";
-    } else if ($stmt->rowCount() == 1) {
-        echo "<script>alert('Kennung geändert')</script>";
     }
 }/*
 if (isset($_POST['npAendern'])) {

@@ -47,7 +47,7 @@ include '../req/header.php';
                     <option value="19">Hamburg Wandsbek</option>
                     <option value="114">Hamburg Langenhorn</option>
                     <option value="30">Hannover</option>
-                    <option value="30">Hannover Döhren</option>
+                    <option value="33">Hannover Döhren</option>
                     <option value="36">Braunschweig</option>
                     <option value="52">Düsseldorf</option>
                     <option value="20">Berlin Tiergarten</option>

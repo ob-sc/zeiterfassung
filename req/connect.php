@@ -28,5 +28,3 @@ try {
 } catch(Exception $e) {
     die('<h4>Fehler bei Konfiguration - PDO</h4>');
 }
-
-// TODO Fehlermeldungen testen

@@ -325,12 +325,6 @@ $(document).ready(function() {
     window.onafterprint = function() {
         $('.tabelle-rechts').css('width','70%');
     };
-    
-    // INDEX / EXPIRE
-    if (window.location.hash == '#expire') {
-        $('#expAlert').show();
-        history.replaceState(null, null, ' ');
-    }
 
     // EINTRAGEN
     $('#eform').submit(function(e) {
@@ -349,7 +343,7 @@ $(document).ready(function() {
             url: 'abget.php',
             type: 'POST',
             dataType: 'json',
-            data: $("#aform").serialize()
+            data: $('#aform').serialize()
         })
         .done(function(data) {
             abDaten = data.sort(sortByNachname);
