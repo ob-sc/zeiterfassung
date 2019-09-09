@@ -54,6 +54,12 @@ $(document).ready(function(){
         history.replaceState(null, null, ' ');
     }
 
+    if (window.location.hash == '#neu') {
+        $('#fehlerAlert').show();
+        $('#fehlerText').html('<strong>Status ist "neu", lass deinen Account von deinem Stationsleiter bestätigen.</strong>');
+        history.replaceState(null, null, ' ');
+    }
+
     if (window.location.hash == '#loginerror') {
         $('#fehlerAlert').show();
         $('#fehlerText').html('<strong>Benutzername / Passwort falsch!</strong>');

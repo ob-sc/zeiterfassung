@@ -123,7 +123,7 @@ function senden() {
             sbeginn: beginnForm, // Beginn und Ende müssen rein wegen Tabelle Einzelauswertung
             sende: endeForm,
             saz: diff,
-            sgehalt: roundTF(gehalt), // todo gerundet?
+            sgehalt: roundTF(gehalt),
             skennung: kennung
         }
     })
@@ -226,7 +226,7 @@ function abtabelle() {
     html += '<th style="width:30%">Sonstiges</th>';
     html += '</tr></thead><tbody>';
     for (let x in abDaten) {
-        let urlaub = Math.round(24 / 312 * abDaten[x].urlaub); // Urlaub, kaufmännisch auf ganze Tage gerundet, gemäß §5 BUrlG
+        let urlaub = Math.floor((24 / 312 * abDaten[x].urlaub) * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
         let abgehalt = abDaten[x].gehalt;
         html += '<tr><td>' + abDaten[x].personalnr + '</td>';
         html += '<td>' + abDaten[x].nachname + ', ' + abDaten[x].vorname + '</td>';
@@ -240,9 +240,10 @@ function abtabelle() {
         summeAZ += parseInt(abDaten[x].arbeitszeit);
         summeGehalt += abDaten[x].gehalt;
 
-        console.log(abDaten[x].nachname + ', ' + abDaten[x].vorname + " => " + abgehalt) // todo test
+        console.log(abDaten[x].nachname + ', ' + abDaten[x].vorname + " => " + abDaten[x].datum + ", " + (24 / 312 * abDaten[x].urlaub) + ", " + urlaub); // todo test
+        
     }
-    html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + summeGehalt + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>';
+    html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + roundTF(summeGehalt) + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>';
 
     $('#atext').html(html + '</tbody></table><input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc">');
 }
@@ -348,7 +349,7 @@ function eatabelle() {
         $('#eaText').append(sonderEintrag + '</tbody></table>');
     }
     // Zusammenrechnung des Monats aus eaget.php
-    $('#eaText').append('<strong>Arbeitszeit:</strong> ' + zuStunden(summe['arbeitszeit'])); // TODO as arbeitszeit
+    $('#eaText').append('<strong>Arbeitszeit:</strong> ' + zuStunden(summe['arbeitszeit']));
     $('#eaText').append('<br><strong>Arbeitstage:</strong> ' + summe['datum']);
     let sumGehalt = summe['gehalt'];
     $('#eaText').append('<br><strong>Gehalt:</strong> ' + roundTF(sumGehalt) + '€');
@@ -496,8 +497,6 @@ $(document).ajaxComplete(function() {
 
     // AUSHILFEN bearbeiten
     // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
-
-    // TODO bei klick auf speichern werden aushilfen noch mal in Tabelle eingefügt
     let ahRow;
     for (let x in ahDaten) {
         ahRow += '<tr><td>' + ahDaten[x].personalnr + '</td>';
