@@ -17,7 +17,6 @@ $.get("../scripts/getdata.php", function(data){
     maDaten = result.maDaten;
     station = result.station;
     status = result.status;
-    console.log(ahDaten); // todo test
 })
 
 
