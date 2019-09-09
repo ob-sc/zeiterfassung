@@ -78,6 +78,17 @@ const roundTF = function(v) {
         );
     }
     
+    // Prüfen ob Dezimalsprung
+    if(twoPlaces === '99') {
+        let decimalRoundedUp = parseInt(decimal, 10);
+        decimalRoundedUp++;
+        return String(
+            decimalRoundedUp // aufgerundete Ganzzahl vor dem Komma
+            + '.' // Dezimaltrenner
+            + '00' // zwei Nachkommastellen auf Null
+        );
+    }
+    
     // prüfen ob erste Stelle nicht Null
     if(decimalPlaceTotal[0] !== '0') {
         // "einfach" aufrunden
@@ -109,7 +120,7 @@ const roundTF = function(v) {
         + '0' // Null anfügen
         + lastPlace // eine aufgerundete Nachkommastellen
     );
-}
+} 
 
 // EINTRAGEN
 function senden() {
@@ -223,7 +234,7 @@ function abtabelle() {
     html += '<th style="width:5%">Tage</th>';
     html += '<th style="width:5%">Urlaub</th>';
     html += '<th style="width:5%">Status</th>';
-    html += '<th style="width:30%">Sonstiges</th>';
+    html += '<th style="width:30%">Abmelden</th>';
     html += '</tr></thead><tbody>';
     for (let x in abDaten) {
         let urlaub = Math.floor((24 / 312 * abDaten[x].urlaub) * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
@@ -239,8 +250,6 @@ function abtabelle() {
 
         summeAZ += parseInt(abDaten[x].arbeitszeit);
         summeGehalt += abDaten[x].gehalt;
-
-        console.log(abDaten[x].nachname + ', ' + abDaten[x].vorname + " => " + abDaten[x].datum + ", " + (24 / 312 * abDaten[x].urlaub) + ", " + urlaub); // todo test
         
     }
     html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + roundTF(summeGehalt) + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>';
