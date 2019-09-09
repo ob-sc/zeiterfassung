@@ -111,8 +111,6 @@ const roundTF = function(v) {
     );
 }
 
-console.log(roundTF(78.115)); // todo runden test
-
 // EINTRAGEN
 function senden() {
     $.ajax({
@@ -241,8 +239,10 @@ function abtabelle() {
 
         summeAZ += parseInt(abDaten[x].arbeitszeit);
         summeGehalt += abDaten[x].gehalt;
+
+        console.log(abDaten[x].nachname + ', ' + abDaten[x].vorname + " => " + abgehalt) // todo test
     }
-    html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + roundTF(summeGehalt) + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>';
+    html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + summeGehalt + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>';
 
     $('#atext').html(html + '</tbody></table><input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc">');
 }
