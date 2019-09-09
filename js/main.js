@@ -521,6 +521,7 @@ $(document).ajaxComplete(function() {
     if (status == 'admin' || status == 'sl') {
         $('.priv').removeClass('disabled');
     }
+    console.log(status);
 
     // AUSHILFEN bearbeiten
     // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
