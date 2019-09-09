@@ -71,6 +71,12 @@ footer {
     display: none;
 }
 
+#pnContainer {
+    width: 600px;
+    margin: auto;
+    display: none;
+}
+
 .admin-item {
     height: 350px;
     width: 300px;

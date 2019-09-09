@@ -13,9 +13,9 @@
     <script src="../js/main.js"></script>
 </head>
 <body>
-<header>
+<header class="noPrint">
     <div class="dropdown">
-        <img src="../img/menu.svg" class="dropdown-toggle noPrint" width="30" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnDD">
+        <img src="../img/menu.svg" class="dropdown-toggle" width="30" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnDD">
         <div class="dropdown-menu dropdown-menu-right" aria-lab>
             <a class="dropdown-item" href="../eintragen/index.php">Eintragen</a>
             <a class="dropdown-item" href="../auswerten/index.php">Arbeitszeitnachweis</a>

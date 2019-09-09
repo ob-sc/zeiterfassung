@@ -4,7 +4,7 @@ include "../req/header.php";
 ?>
 
 <div id="anlegenContainer">
-    <form method="post" id="newform" autocomplete="off">
+    <form method="post" id="newForm" autocomplete="off">
         <div class="form-group">
             <label for="vorname">Vorname:</label>
             <input type="text" class="form-control" placeholder="Vorname" name="vorname" required>
@@ -32,7 +32,26 @@ include "../req/header.php";
     </form>
 </div>
 
+<div id="pnContainer">
+    <form method="post" id="ahpnForm" autocomplete="off">
+        <table class="table" style="width:100%;margin:auto;">
+            <thead>
+                <tr>
+                    <th width="50%">Name</th>
+                    <th width="50%">Personalnummer</th>
+                </tr>
+            </thead>
+            <tbody id="ahpnTab">
+            </tbody>
+        </table>
+        <input type="submit" class="btn scc mt-2" value="Andern">
+        <input type="button" class="btn scc mt-2" value="Zurück" onclick="location.reload();">
+    </form>
+</div>
+
 <div class="container-fluid" id="bearbeitenContainer">
+    <input type="button" class="btn scc mb-3" value="Neu anlegen" onclick="$('#anlegenContainer').show();$('#bearbeitenContainer').hide()">
+    <input type="button" class="btn scc mb-3" value="Personalnummern" onclick="$('#pnContainer').show();$('#bearbeitenContainer').hide()">
     <table class="table table-hover table-sm" style="width:100%;margin:auto;">
         <thead>
             <tr>
@@ -47,7 +66,6 @@ include "../req/header.php";
         <tbody id="ahTab">
         </tbody>
     </table>
-    <input type="button" class="btn scc mt-2" value="Neu anlegen" onclick="$('#anlegenContainer').show();$('#bearbeitenContainer').hide()">
 </div>
 
 <?php

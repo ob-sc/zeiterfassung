@@ -17,6 +17,7 @@ $.get("../scripts/getdata.php", function(data){
     maDaten = result.maDaten;
     station = result.station;
     status = result.status;
+    console.log(ahDaten); // todo test
 })
 
 
@@ -225,7 +226,7 @@ function abtabelle() {
     let summeGehalt = 0;
 
     let html = '<h3 style="text-align:center">Monatsabrechnung ' + station + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>';
-    html += '<table class="table table-bordered table-sm" style="width:100%">';
+    html += '<table class="table table-bordered table-sm table-hover" style="width:100%">';
     html += '<caption>Abrechnungen als PDF an <a href="mailto:starcarlohn@steuerberater-kehler.de" style="color:blue">Lohnkanzlei</a></caption><thead><tr>';
     html += '<th style="width:5%">PN</th>';
     html += '<th style="width:40%">Name</th>';
@@ -234,7 +235,7 @@ function abtabelle() {
     html += '<th style="width:5%">Tage</th>';
     html += '<th style="width:5%">Urlaub</th>';
     html += '<th style="width:5%">Status</th>';
-    html += '<th style="width:30%">Abmelden</th>';
+    html += '<th style="width:30%">Abmelden ab dem</th>';
     html += '</tr></thead><tbody>';
     for (let x in abDaten) {
         let urlaub = Math.floor((24 / 312 * abDaten[x].urlaub) * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
@@ -376,6 +377,13 @@ function eatabelle() {
 
 // Document ready
 $(document).ready(function() {
+
+    // für jeden input Datum - automatisch Datum heute
+    let datumInput = document.getElementById('datum');
+    if (datumInput) {
+        datumInput.valueAsDate = new Date();
+    } 
+
     // NACH DRUCKEN
     window.onafterprint = function() {
         $('.tabelle-rechts').css('width','70%');
@@ -387,6 +395,11 @@ $(document).ready(function() {
         $('#fehlerAlert').hide();
         $('#infoAlert').hide();
         formBerechnung();
+    })
+
+    // EINTRAGEN
+    $('#eform').change(function() {
+        $('#esend').hide();
     })
 
     // ABRECHNUNG
@@ -444,19 +457,8 @@ $(document).ready(function() {
         })
     })
 
-    // für jeden input Datum - automatisch Datum heute
-    let datumInput = document.getElementById('datum');
-    if (datumInput) {
-        datumInput.valueAsDate = new Date();
-    } 
-
-    // EINTRAGEN
-    $('#eform').change(function() {
-        $('#esend').hide();
-    })
-
     // AUSHILFEN anlegen / senden an anew.php
-    $('#newform').submit(function(e) {
+    $('#newForm').submit(function(e) {
         e.preventDefault();
         // Check ob Aushilfe schon existiert
         name = $('#nameInput').val();
@@ -468,12 +470,29 @@ $(document).ready(function() {
         $.ajax({
             url: 'anew.php',
             method: 'POST',
-            data: $('#newform').serialize()
+            data: $('#newForm').serialize()
         })
         .done(function(data) {
             $('#infoText').html(data);
             $('#infoAlert').show();
-            $('#newform')[0].reset();
+            $('#newForm')[0].reset();
+        })
+        .fail(function(data) {
+            $('#fehlerText').html('<strong>Fehler:</strong>' + data.responseText);
+            $('#fehlerAlert').show();
+        })
+    })
+
+    // AUSHILFEN personalnummer
+    $('#ahpnForm').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: 'ahpn.php',
+            method: 'POST',
+            data: $('#ahpnForm').serialize()
+        })
+        .done(function() {
+            location.reload();
         })
         .fail(function(data) {
             $('#fehlerText').html('<strong>Fehler:</strong>' + data.responseText);
@@ -580,6 +599,16 @@ $(document).ajaxComplete(function() {
             $(this).blur();
         }
     })
+    
+    // AUSHILFEN bearbeiten / PERSONALNUMMERN
+    let ahpnRow;
+    for (let x in ahDaten) {
+        if (ahDaten[x].personalnr === 0) {
+            ahpnRow += '<tr><td>' + x + '</td>';
+            ahpnRow += '<td><input type="number" class="form-control-sm" name="' + ahDaten[x].id + '"></td></tr>';
+        }
+    }
+    $('#ahpnTab').html(ahpnRow);
 
     // MITARBEITER bearbeiten
     let maRow;
