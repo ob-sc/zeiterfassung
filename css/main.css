@@ -99,7 +99,7 @@ a:link, a:visited, a:hover, a:active {
     border:1px solid #ccc;
 }
 
-.edit:hover {
+.edit:hover, .confirm:hover {
     cursor: pointer;
 }
 

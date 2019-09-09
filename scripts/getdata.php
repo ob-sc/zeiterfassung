@@ -2,41 +2,43 @@
 require '../req/expire.php';
 require '../req/connect.php';
 
-// TODO 1 Query?!
+$aushilfenSql = "SELECT id, personalnr, vorname, nachname, norlohn, samlohn, sonlohn, status FROM aushilfen WHERE station = ?";
 
-$sql = "SELECT id, personalnr, vorname, nachname, norlohn, samlohn, sonlohn, status FROM aushilfen WHERE station = ?";
-
-$stmt = $conn->prepare($sql);
+$stmt = $conn->prepare($aushilfenSql);
 
 $stmt->execute(array($_SESSION['station']));
 
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$ahResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $namen = [];
-$daten = [];
+$ahDaten = [];
 
-foreach ($result as $value) {
+foreach ($ahResult as $value) {
     $vollerName = $value['vorname'] . " " . $value['nachname'];
     $namen[] = $vollerName;
-    $daten[$vollerName] = ['id' => $value['id'], 'personalnr' => $value['personalnr'], 'norlohn' => $value['norlohn'], 'samlohn' => $value['samlohn'], 'sonlohn' => $value['sonlohn'], 'ahStatus' => $value['status']];
+    $ahDaten[$vollerName] = ['id' => $value['id'], 'personalnr' => $value['personalnr'], 'norlohn' => $value['norlohn'], 'samlohn' => $value['samlohn'], 'sonlohn' => $value['sonlohn'], 'ahStatus' => $value['status']];
 }
 
-$sql = "SELECT name FROM stationen WHERE id = ?";
+$stationSql = "SELECT name FROM stationen WHERE id = ?";
 
-$stmt = $conn->prepare($sql);
-
+$stmt = $conn->prepare($stationSql);
 $stmt->execute(array($_SESSION['station']));
 
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$stationResult = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$stationString = $result['name'];
+$mitarbeiterSql = "SELECT id, username, status FROM benutzer WHERE station = ?";
+
+$stmt = $conn->prepare($mitarbeiterSql);
+$stmt->execute(array($_SESSION['station']));
+
+$maResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode([
-    'station' => $stationString,
+    'station' => $stationResult['name'],
     'status' => $_SESSION['status'],
     'namen' => $namen,
-    'ahDaten' => $daten,
+    'ahDaten' => $ahDaten,
+    'maDaten' => $maResult
 ]);
-
 
 $conn = null;

@@ -1,6 +1,6 @@
 moment.locale('de')
 
-let id, choices, station, status, kennung, name, datum, eaBeginn, eaEnde, beginnForm, endeForm, diff, gehalt, abDaten, ahDaten, eaDaten, tage, summe, ahRow;
+let id, choices, station, status, kennung, name, datum, eaBeginn, eaEnde, beginnForm, endeForm, diff, gehalt, abDaten, ahDaten, eaDaten, tage, summe;
 
 // sort
 const firstBy=function(){function n(n){return n}function t(n){return"string"==typeof n?n.toLowerCase():n}function r(r,e){if(e="number"==typeof e?{direction:e}:e||{},"function"!=typeof r){var u=r;r=function(n){return n[u]?n[u]:""}}if(1===r.length){var i=r,o=e.ignoreCase?t:n;r=function(n,t){return o(i(n))<o(i(t))?-1:o(i(n))>o(i(t))?1:0}}return-1===e.direction?function(n,t){return-r(n,t)}:r}function e(n,t){return n=r(n,t),n.thenBy=u,n}function u(n,t){var u=this;return n=r(n,t),e(function(t,r){return u(t,r)||n(t,r)})}return e}();
@@ -14,18 +14,20 @@ $.get("../scripts/getdata.php", function(data){
     let result = JSON.parse(data);
     choices = result.namen;
     ahDaten = result.ahDaten;
+    maDaten = result.maDaten;
     station = result.station;
     status = result.status;
 })
+
 
 // moment.js duration kann man nicht auf HH:mm formatieren. Daher string aus arbeitszeit minuten:
 function zuStunden(azMinuten) {
     let stunden = Math.floor(azMinuten / 60);          
     let minuten = azMinuten % 60;
-    if (String(stunden).length == 1) {
+    if (stunden < 10) {
         stunden = "0" + stunden;
     }
-    if (String(minuten).length == 1) {
+    if (minuten < 10) {
         minuten = "0" + minuten;
     }
     let azString = stunden + ":" + minuten;
@@ -40,7 +42,7 @@ function drucken() {
 
 // RUNDEN to fixed 2 / return als string
 const roundTF = function(v) {    
-    // value as string
+    // value als string
     value = String(v);
 
     // wenn kein . dann return mit 2 nullen
@@ -48,25 +50,68 @@ const roundTF = function(v) {
         return value + '.00';
     }
     
-    // split by "."
+    // trennen bei "."
     const values = value.split('.');
     const decimal = values[0];
     const decimalPlaceTotal = values[1];
-    let decimalPlace = parseInt(decimalPlaceTotal.substr(0, 2), 10);
-    //console.log(decimalPlaceTotal.length);
+    const twoPlaces = decimalPlaceTotal.substr(0, 2);
     
-    // get digits + 1 to decide round up or down
-    let decider = decimalPlaceTotal.substr(2, 1);
-    decider = parseInt(decider, 10);
-    
-    // check round up or down
-    if(decider >= 5) {
-        decimalPlace += 1;
+    // Prüfen auf kleiner drei Nachkommastellen
+    if(decimalPlaceTotal.length < 3) {
+        return String(
+            decimal // Ganzzahl vor dem Komma
+            + '.' // Dezimaltrenner
+            + twoPlaces.padEnd(2, '0') // zwei Nachkommastellen aufgefüllt
+        );
     }
-
-    // return assemble as string
-    return ""+decimal+"."+decimalPlace.toString().padEnd(2, '0');
+    
+    // dritte Nachkommastelle zur Prüfung auf- oder abrunden
+    let decider = parseInt(decimalPlaceTotal[2], 10);
+    
+    // prüfen, ob auf- oder abrunden
+    if(decider < 5) {
+        // Abrunden
+        return String(
+            decimal // Ganzzahl vor dem Komma
+            + '.' // Dezimaltrenner
+            + twoPlaces // zwei Nachkommastellen
+        );
+    }
+    
+    // prüfen ob erste Stelle nicht Null
+    if(decimalPlaceTotal[0] !== '0') {
+        // "einfach" aufrunden
+        let roundedUp = parseInt(twoPlaces, 10);
+        roundedUp++;
+        return String(
+            decimal // Ganzzahl vor dem Komma
+            + '.' // Dezimaltrenner
+            + roundedUp // zwei aufgerundete Nachkommastellen
+        );
+    }
+    
+    // letzte Stelle zur Prüfung aufrunden
+    let lastPlace = parseInt(decimalPlaceTotal[1], 10);
+    lastPlace++;
+    // prüfen ob Zehnersprung nach Aufrunden, dann zweistellig zurückgeben
+    if(lastPlace > 9) {
+        return String(
+            decimal // Ganzzahl vor dem Komma
+            + '.' // Dezimaltrenner
+            + lastPlace // zwei aufgerundete Nachkommastellen
+        );
+    }
+    
+    // wenn kein Zehnersprung, dann "0" und einstellig zurückgeben
+    return String(
+        decimal // Ganzzahl vor dem Komma
+        + '.' // Dezimaltrenner
+        + '0' // Null anfügen
+        + lastPlace // eine aufgerundete Nachkommastellen
+    );
 }
+
+console.log(roundTF(78.115)); // todo runden test
 
 // EINTRAGEN
 function senden() {
@@ -80,7 +125,7 @@ function senden() {
             sbeginn: beginnForm, // Beginn und Ende müssen rein wegen Tabelle Einzelauswertung
             sende: endeForm,
             saz: diff,
-            sgehalt: gehalt, // todo gerundet?
+            sgehalt: roundTF(gehalt), // todo gerundet?
             skennung: kennung
         }
     })
@@ -183,14 +228,14 @@ function abtabelle() {
     html += '<th style="width:30%">Sonstiges</th>';
     html += '</tr></thead><tbody>';
     for (let x in abDaten) {
-        let urlaub = 24 / 312 * abDaten[x].urlaub;
+        let urlaub = Math.round(24 / 312 * abDaten[x].urlaub); // Urlaub, kaufmännisch auf ganze Tage gerundet, gemäß §5 BUrlG
         let abgehalt = abDaten[x].gehalt;
         html += '<tr><td>' + abDaten[x].personalnr + '</td>';
         html += '<td>' + abDaten[x].nachname + ', ' + abDaten[x].vorname + '</td>';
         html += '<td>' + zuStunden(abDaten[x].arbeitszeit) + '</td>';
         html += '<td>' + roundTF(abgehalt) + '</td>';
         html += '<td>' + abDaten[x].datum + '</td>';
-        html += '<td>' + Math.round(urlaub) + '</td>';
+        html += '<td>' + urlaub + '</td>';
         html += '<td>' + abDaten[x].status + '</td>';
         html += '<td contenteditable="true">&nbsp</td></tr>';
 
@@ -453,8 +498,9 @@ $(document).ajaxComplete(function() {
     // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
 
     // TODO bei klick auf speichern werden aushilfen noch mal in Tabelle eingefügt
+    let ahRow;
     for (let x in ahDaten) {
-        ahRow += '<tr><td>' + ahDaten[x].personalnr + '</th>';
+        ahRow += '<tr><td>' + ahDaten[x].personalnr + '</td>';
         ahRow += '<td>' + x + '</td>';
         ahRow += '<td contenteditable="false" id="nor' + ahDaten[x].id + '">' + roundTF(ahDaten[x].norlohn) + '</td>';
         ahRow += '<td contenteditable="false" id="sam' + ahDaten[x].id + '">' + roundTF(ahDaten[x].samlohn) + '</td>';

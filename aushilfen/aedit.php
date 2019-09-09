@@ -16,10 +16,4 @@ $stmt->bindValue(':id', $_POST['id']);
 
 $stmt->execute();
 
-if ($stmt->rowCount() < 1) {
-    echo "<strong>Fehler!</strong>";
-} else {
-    echo "<strong>Aushilfe geändert!</strong>";
-}
-
 $conn = null;
