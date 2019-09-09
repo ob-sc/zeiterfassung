@@ -58,7 +58,7 @@ include '../req/header.php';
     </form>
 </div>
 
-<!-- Passwort ändern -->
+<!-- Passwort ändern 
 
 <div class="admin-item">
     <form action="index.php" method="post" autocomplete="off">
@@ -75,7 +75,7 @@ include '../req/header.php';
     </form>
 </div>
 
-<!-- Aushilfe PN ändern 
+ Aushilfe PN ändern 
 
 <div class="admin-item">
     <form action="index.php" method="post" autocomplete="off">
@@ -90,16 +90,16 @@ include '../req/header.php';
         </div>
         <input type="submit" name="pnAendern" class="btn scc" value="Ändern">
     </form>
-</div>-->
+</div>
 
-<!-- Zeiten -->
+ Zeiten
 
 <div class="admin-item">
     <form action="zeiten.php" method="post" autocomplete="off">
         <h5>Zeiten anzeigen</h5>
         <input type="submit" class="btn scc mt-5" value="OK">
     </form>
-</div>
+</div>-->
 
 <!-- Flex Wrapper Ende -->
 </div>
@@ -114,7 +114,7 @@ include '../req/footer.php';
 
 if (isset($_POST['stationSet'])) {
     $_SESSION['station'] = $_POST['stationSelect'];
-}
+}/*
 if (isset($_POST['pwAendern'])) {
     $benutzer = $_POST['username'];
     $passwort = $_POST['password'];
@@ -133,7 +133,7 @@ if (isset($_POST['pwAendern'])) {
     } else if ($stmt->rowCount() == 1) {
         echo "<script>alert('Passwort geändert')</script>";
     }
-}/*
+}
 if (isset($_POST['npAendern'])) {
     $aushilfe = $_POST['aushilfe'];
     $personalnr = $_POST['pn'];
