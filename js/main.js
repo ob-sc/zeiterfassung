@@ -11,6 +11,7 @@ const sortByNachname = firstBy('nachname');
 // CONFIG
 $.get('../scripts/getconfig.php', function(data) {
     let config = JSON.parse(data);
+    if (config.status != 'OK') console.log(config);
     let settings = config.daten.settings;
     if (settings.devmode == 1) {
         $('#devIns').text('Developer');

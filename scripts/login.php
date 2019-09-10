@@ -20,7 +20,6 @@ if ($user === false) {
         $_SESSION['userid'] = $user['id'];
         $_SESSION['station'] = $user['station'];
         $_SESSION['status'] = $user['status'];
-        $_SESSION['devmode'] = 0;
         $_SESSION['aktiv'] = time();
 
         header("Location: ../eintragen/index.php");

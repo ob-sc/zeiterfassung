@@ -11,7 +11,7 @@ $daten = [
 $iniFile = __DIR__ . '/../config.ini';
 
 // prüfen ob existiert und lesbar
-if(!file_exists($iniFile) || !is_readable($iniFile)) {
+if (!file_exists($iniFile) || !is_readable($iniFile)) {
     $daten['status'] = 'ERROR';
     $daten['meldung'] = 'Konfigdatei nicht vorhanden oder nicht lesbar';
     die(json_encode($daten));
@@ -20,7 +20,7 @@ if(!file_exists($iniFile) || !is_readable($iniFile)) {
 // Datei parsen
 $config = parse_ini_file($iniFile, true);
 
-if($config === false) {
+if ($config === false) {
     $daten['status'] = 'ERROR';
     $daten['meldung'] = 'Konfigdatei nicht parsbar';
     die(json_encode($daten));
@@ -29,7 +29,11 @@ if($config === false) {
 // Sicherheit: sql-Daten entfernen
 unset($config['sql']);
 
-if ($config['settings']['devmode'] == 1) $_SESSION['devmode'] = 1;
+// devmode
+if ($config['settings']['devmode'] == 1) {
+    $daten['status'] = 'DEV';
+    $daten['meldung'] = 'devmode';
+}
 
 // Rückgabe der Konfig
 $daten['daten'] = $config;
