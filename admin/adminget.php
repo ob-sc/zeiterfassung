@@ -10,7 +10,7 @@ $station = $_POST['stat'];
 
 $sql = "SELECT name, datum, beginn, ende, arbeitszeit, gehalt, disponent, station FROM zeiten";
 
-
+#if ($von != "") $
 
 $stmt = $conn->prepare($sql);
 
