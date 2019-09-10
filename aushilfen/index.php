@@ -44,7 +44,7 @@ include "../req/header.php";
             <tbody id="ahpnTab">
             </tbody>
         </table>
-        <input type="submit" class="btn scc mt-2" value="Andern">
+        <input type="submit" class="btn scc mt-2" value="Ändern">
         <input type="button" class="btn scc mt-2" value="Zurück" onclick="location.reload();">
     </form>
 </div>
