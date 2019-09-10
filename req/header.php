@@ -3,6 +3,7 @@
     <title>Zeiterfassung Aushilfen</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="../img/favicon.png">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/jquery.auto-complete.css">
     <link rel="stylesheet" href="../css/main.css">
@@ -29,7 +30,7 @@
     </div>
     <div>
         <img src="../img/logo_starcar2x.png" alt="SC_Logo" width="276" height="53">
-        <h2 style="font-weight:bolder">Zeiterfassung Aushilfen</h2>
+        <h2 style="font-weight:bolder">Zeiterfassung Aushilfen <div id="devIns"></div></h2>
     </div>
 </header>
 <main>
