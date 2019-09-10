@@ -23,7 +23,7 @@ include '../req/header.php';
         <select class="form-control" name="stationSelect" id="stationSelect">
             <option value="70">Verwaltung</option>
             <option value="10">Hamburg Jenfeld</option>
-            <option value="11">Hamburg Nedderfeld</option>
+            <option value="11">Hamburg Eppendorf</option>
             <option value="12">Hamburg Eiffestraße</option>
             <option value="13">Hamburg Heimfeld</option>
             <option value="14">Hamburg Billstedt</option>
