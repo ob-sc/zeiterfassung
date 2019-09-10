@@ -5,6 +5,7 @@ if(isset($_SESSION['aktiv'])){
     $sekInaktiv = time() - $_SESSION['aktiv'];
     // in sekunden, 3 Min (180)
     $expireNach = 180;
+    if($_SESSION['devmode'] == 1) $expireNach = 999999999;
     if($sekInaktiv >= $expireNach){
         session_unset();
         session_destroy();

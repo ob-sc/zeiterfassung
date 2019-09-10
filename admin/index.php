@@ -56,6 +56,10 @@ include '../req/header.php';
         </select>
         <input type="submit" class="btn scc mt-3" name="stationSet" value="Ändern">
     </form>
+    <hr>
+    <form action="zeiten.php" method="post" autocomplete="off" style="text-align:center">
+        <input type="submit" class="btn scc mt-5" value="Zeiten anzeigen">
+    </form>
 </div>
 
 <!-- Passwort ändern 
@@ -72,32 +76,6 @@ include '../req/header.php';
             <input type="text" class="form-control" placeholder="Passwort" name="password" required>
         </div>
         <input type="submit" name="pwAendern" class="btn scc" value="Ändern">
-    </form>
-</div>
-
- Aushilfe PN ändern 
-
-<div class="admin-item">
-    <form action="index.php" method="post" autocomplete="off">
-        <h5>PN Aushilfe ändern</h5>
-        <div class="form-group">
-            <label for="aushilfe">Name Aushilfe:</label>
-            <input type="text" class="form-control" placeholder="Name" name="aushilfe" required>
-        </div>
-        <div class="form-group">
-            <label for="pn">Personalnummer:</label>
-            <input type="number" class="form-control" placeholder="Personalnummer" name="pn" required>
-        </div>
-        <input type="submit" name="pnAendern" class="btn scc" value="Ändern">
-    </form>
-</div>
-
- Zeiten
-
-<div class="admin-item">
-    <form action="zeiten.php" method="post" autocomplete="off">
-        <h5>Zeiten anzeigen</h5>
-        <input type="submit" class="btn scc mt-5" value="OK">
     </form>
 </div>-->
 
@@ -132,23 +110,5 @@ if (isset($_POST['pwAendern'])) {
         echo "<script>alert('Fehler')</script>";
     } else if ($stmt->rowCount() == 1) {
         echo "<script>alert('Passwort geändert')</script>";
-    }
-}
-if (isset($_POST['npAendern'])) {
-    $aushilfe = $_POST['aushilfe'];
-    $personalnr = $_POST['pn'];
-
-    $sql = "UPDATE aushilfen SET personalnr = :personalnr WHERE name = :aushilfe";
-    $stmt = $conn->prepare($sql);
-
-    $stmt->bindValue(':personalnr', $personalnr);
-    $stmt->bindValue(':aushilfe', $aushilfe);
-
-    $stmt->execute();
-
-    if ($stmt->rowCount() == 0) {
-        echo "<script>alert('Fehler')</script>";
-    } else if ($stmt->rowCount() == 1) {
-        echo "<script>alert('Personalnummer geändert')</script>";
     }
 }*/

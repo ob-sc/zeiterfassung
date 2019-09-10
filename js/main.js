@@ -7,13 +7,15 @@ const firstBy=function(){function n(n){return n}function t(n){return"string"==ty
 // prepare sort by nachname
 const sortByNachname = firstBy('nachname');
 
-/*
+
 // CONFIG
 $.get('../scripts/getconfig.php', function(data) {
     let config = JSON.parse(data);
-    console.log(config); // todo test
-    console.log(config.daten.settings.devmode); // todo test
-})*/
+    let settings = config.daten.settings;
+    if (settings.devmode == 1) {
+        $('#devIns').text('Developer');
+    }
+})
 
 // namen, löhne und station für alle
 $.get("../scripts/getdata.php", function(data){

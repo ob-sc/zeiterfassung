@@ -29,6 +29,8 @@ if($config === false) {
 // Sicherheit: sql-Daten entfernen
 unset($config['sql']);
 
+if ($config['settings']['devmode'] == 1) $_SESSION['devmode'] = 1;
+
 // Rückgabe der Konfig
 $daten['daten'] = $config;
 echo json_encode($daten);

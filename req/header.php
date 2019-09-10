@@ -14,7 +14,7 @@
     <script src="../js/main.js"></script>
 </head>
 <body>
-<header class="noPrint">
+<header class="noPrint header">
     <div class="dropdown">
         <img src="../img/menu.svg" class="dropdown-toggle" width="30" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnDD">
         <div class="dropdown-menu dropdown-menu-right" aria-lab>
@@ -33,7 +33,7 @@
         <h2 style="font-weight:bolder">Zeiterfassung Aushilfen <div id="devIns"></div></h2>
     </div>
 </header>
-<main>
+<main class="main">
 <div class="container">
     <div class="alert alert-danger alert-dismissible" role="alert" id="fehlerAlert" style="display:none;">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
