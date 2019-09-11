@@ -34,7 +34,7 @@ include '../req/header.php';
             <div class="form-group col-2">
                 <label for="stationSelect">Station:</label>
                 <select class="form-control" name="stationSelect" id="stationSelect">
-                    <option value="70">Verwaltung</option>
+                    <option value="">Alle</option>
                     <option value="10">Hamburg Jenfeld</option>
                     <option value="11">Hamburg Eppendorf</option>
                     <option value="12">Hamburg Eiffestraße</option>
@@ -71,23 +71,24 @@ include '../req/header.php';
         </div>
             <input type="submit" class="btn scc" name="ok" value="OK">
     </form>
-<table class="table table-sm table-hover">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Datum</th>
-            <th>Beginn</th>
-            <th>Ende</th>
-            <th>Arbeitszeit</th>
-            <th>Gehalt</th>
-            <th>Disponent</th>
-            <th>Station</th>
-        </tr>
-    </thead>
-    <tbody id="zTab">
-    </tbody>
-</table>
-<div id="zeitentabelle"></div>
+<div class="container">
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Datum</th>
+                <th>Beginn</th>
+                <th>Ende</th>
+                <th>Arbeitszeit</th>
+                <th>Gehalt</th>
+                <th>Disponent</th>
+                <th>Station</th>
+            </tr>
+        </thead>
+        <tbody id="zTab">
+        </tbody>
+    </table>
+</div>
 </div> <!-- Ende Wrapper -->
 
 <script>
@@ -113,7 +114,7 @@ $('#filter').submit(function(e){
         }
     })
     .done(function(data) {
-        zDaten = data;
+        zDaten = JSON.parse(data);
         zTabelle();
     })
     .fail(function(data) {
@@ -121,83 +122,22 @@ $('#filter').submit(function(e){
     })
 })
 function zTabelle() {
-    let zRow;
+    let zRow = "";
 
-    console.log(zDaten);
-    return;
 
-    zRow += "<tr><td>"
-    // Funktion normaler Eintrag
-    function tagZeile(row) {
-        gehaltEA = tage[row].gehalt;
-        html += '<tr><td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td>';
-        html += '<td>' + tage[row].beginn + '</td>';
-        html += '<td>' + tage[row].ende + '</td>';
-        html += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
-        html += '<td>' + roundTF(gehaltEA) + '</td></tr>';
+    for (let v in zDaten) {
+        zRow += '<tr><td>' + zDaten[v].name + '</td>';
+        zRow += '<td>' + zDaten[v].datum + '</td>';
+        zRow += '<td>' + zDaten[v].beginn + '</td>';
+        zRow += '<td>' + zDaten[v].ende + '</td>';
+        zRow += '<td>' + zDaten[v].arbeitszeit + '</td>';
+        zRow += '<td>' + zDaten[v].gehalt + '</td>';
+        zRow += '<td>' + zDaten[v].disponent + '</td>';
+        zRow += '<td>' + zDaten[v].station + '</td></tr>';
     }
-    // Variable mit String für Tabelle
-    // Loop für alle Abrechnungstage
-    for (let i = 1; i <= monatsTage; i++) {
-        let eintrag = false;
-        // Loop für Objekt mit Tagen aus eaget.php
-        for (let x in tage) {
-            momentTag = moment(tage[x].datum, 'YYYY-MM-DD').format('D');
-            // Normaler Eintrag
-            if (eintragsTag == momentTag && eintragVorher != momentTag) {
-                tagZeile(x);
-                eintragVorher = momentTag;
-                eintrag = true;
-                delete tage[x];
-                break;
-            // Sondereintrag
-            } else if (momentTag == eintragVorher) {
-                eintrag = true;
-                eintragsTag--;
-                sonderZeile(x);
-                delete tage[x];
-                break;
-            }
-        }
-        // Leerer Eintrag wenn davor nichts eingetragen wurde
-        if (eintrag == false) {
-            html += '<tr><td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
-        }
-        if (eintragsTag < monatsTage) {
-            eintragsTag++;
-        } else {
-            eintragsTag = 1;
-            eaMonatJahr = eaEnde;
-        }
-    }
-    // Wiedergeben der Tabelle
-    $('#eaText').html(html + '</tbody></table>');
-    // Tabelle für Sondereinträge
-    let sonderEintrag = '<h3 style="text-align:center;">Sondereinträge</h3>';
-    sonderEintrag += '<table class="table table-bordered table-sm" style="width:100%;"><thead><tr>';
-    sonderEintrag += '<th style="width:20%">Tag</th>';
-    sonderEintrag += '<th style="width:20%">Beginn</th>';
-    sonderEintrag += '<th style="width:20%">Ende</th>';
-    sonderEintrag += '<th style="width:20%">Arbeitszeit</th>';
-    sonderEintrag += '<th style="width:20%">Gehalt</th></tr></thead><tbody>';
-    sonderEintrag += sonderRow;
-    // Wenn die Tabelle Sondereinträge nicht leer ist -> diese wiedergeben
-    if (sonderRow.length > 1) {
-        $('#eaText').append(sonderEintrag + '</tbody></table>');
-    }
-    // Zusammenrechnung des Monats aus eaget.php
-    $('#eaText').append('<strong>Arbeitszeit:</strong> ' + zuStunden(summe['arbeitszeit']));
-    $('#eaText').append('<br><strong>Arbeitstage:</strong> ' + summe['datum']);
-    let sumGehalt = summe['gehalt'];
-    $('#eaText').append('<br><strong>Gehalt:</strong> ' + roundTF(sumGehalt) + '€');
-    // wieviel bis maximales monatsgehalt / schon drüber
-    let statusMax = parseInt(ahDaten[$('#nameInput').val()].ahStatus);
-    let bisMax = statusMax - sumGehalt;
-    if (sumGehalt <= 450) {
-        $('#eaText').append('<br>Noch ' + roundTF(bisMax) + '€ bis ' + roundTF(statusMax) + '€<br>');
-    } else if (sumGehalt > 450) {
-        $('#eaText').append('<br><strong style="color:red;">Schon ' + roundTF(-bisMax) + '€ über ' + roundTF(statusMax) + '€</strong><br>');
-    }
+    
+    
+    $('#zTab').html(zRow);
 }
 </script>
 
