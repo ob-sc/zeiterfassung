@@ -35,7 +35,7 @@ include '../req/header.php';
             </div>
             <div class="form-group col-3">
                 <label for="disponent">Disponent:</label>
-                <input type="text" class="form-control" name="disponent" id="disponent">
+                <input type="text" class="form-control" name="disponent" id="zDisp">
             </div>
             <div class="form-group col-2">
                 <label for="stationSelect">Station:</label>
@@ -76,19 +76,30 @@ include '../req/header.php';
             </div>
         </div>
             <input type="submit" class="btn scc" name="ok" value="OK">
+            <input type="button" class="btn scc" value="Reset" onclick="resetFilter();">
+            <script>
+            function resetFilter() {
+                $('#filter')[0].reset();
+                $('#beginn').val(moment().startOf('year').format('YYYY-MM-DD'));
+                $('#ende').val(moment().endOf('year').format('YYYY-MM-DD'));
+                $('#filter').submit();
+            }
+            </script>
     </form>
-    <div class="container">
+    <div class="container-fluid">
         <table class="table table-sm table-hover">
             <thead>
                 <tr>
-                    <th>Name</th>
                     <th>Datum</th>
+                    <th>ID</th>
+                    <th>Name</th>
                     <th>Beginn</th>
                     <th>Ende</th>
-                    <th>Arbeitszeit</th>
+                    <th>AZ</th>
                     <th>Gehalt</th>
                     <th>Disponent</th>
                     <th>Station</th>
+                    <th>Reg-Datum</th>
                 </tr>
             </thead>
             <tbody id="zTab">
@@ -98,14 +109,14 @@ include '../req/header.php';
 </div>
 
 <script>
-let zDaten, zNamen;
+let zDaten, zNamen, zDisp;
 $('#filter').submit(function(e){
     e.preventDefault();
     
     let von = $('#beginn').val();
     let bis = $('#ende').val();
     let aushilfe = $('#zName').val();
-    let disponent = $('#disponent').val();
+    let disponent = $('#zDisp').val();
     let stationSelect = $('#stationSelect').val();
 
     $.ajax({
@@ -123,6 +134,8 @@ $('#filter').submit(function(e){
         let result = JSON.parse(data);
         zDaten = result.zeiten;
         zNamen = result.namen;
+        zDisp = result.disponenten;
+        console.log(result);
         zTabelle();
     })
     .fail(function(data) {
@@ -136,14 +149,16 @@ function zTabelle() {
         let zGehalt = zDaten[v].gehalt;
         let zAZ = zDaten[v].arbeitszeit;
 
-        zRow += '<tr><td>' + zDaten[v].name + '</td>';
-        zRow += '<td>' + zDaten[v].datum + '</td>';
+        zRow += '<tr><td>' + moment(zDaten[v].datum).format('DD.MM.YYYY') + '</td>';
+        zRow += '<td>' + zDaten[v].id + '</td>';
+        zRow += '<td>' + zDaten[v].name + '</td>';
         zRow += '<td>' + zDaten[v].beginn + '</td>';
         zRow += '<td>' + zDaten[v].ende + '</td>';
         zRow += '<td>' + zuStunden(zAZ) + '</td>';
         zRow += '<td>' + roundTF(zGehalt) + '</td>';
-        zRow += '<td>' + zDaten[v].disponent + '</td>';
-        zRow += '<td>' + zDaten[v].station + '</td></tr>';
+        zRow += '<td>' + zDaten[v].username + '</td>';
+        zRow += '<td>' + zDaten[v].statname + '</td>';
+        zRow += '<td>' + moment(zDaten[v].reg_date).format('DD.MM.YYYY HH:mm') + '</td></tr>';
     }
     
     $('#zTab').html(zRow);
@@ -156,6 +171,17 @@ $('#zName').autoComplete({
         var matches = [];
         for (i=0; i<zNamen.length; i++)
             if (~zNamen[i].toLowerCase().indexOf(term)) matches.push(zNamen[i]);
+        suggest(matches);
+    }
+})
+$('#zDisp').autoComplete({
+    minChars: 1,
+    delay: 0,
+    source: function(term, suggest){
+        term = term.toLowerCase();
+        var matches = [];
+        for (i=0; i<zDisp.length; i++)
+            if (~zDisp[i].toLowerCase().indexOf(term)) matches.push(zDisp[i]);
         suggest(matches);
     }
 })
