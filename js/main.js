@@ -7,7 +7,6 @@ const firstBy=function(){function n(n){return n}function t(n){return"string"==ty
 // prepare sort by nachname
 const sortByNachname = firstBy('nachname');
 
-
 // CONFIG
 $.get('../scripts/getconfig.php', function(data) {
     let config = JSON.parse(data);
@@ -21,8 +20,10 @@ $.get('../scripts/getconfig.php', function(data) {
 // namen, löhne und station für alle
 $.get("../scripts/getdata.php", function(data){
     let result = JSON.parse(data);
-    choices = result.namen;
+    stationNamen = result.stationNamen;
+    alleNamen = result.alleNamen;
     ahDaten = result.ahDaten;
+    alleDaten = result.alleDaten;
     maDaten = result.maDaten;
     station = result.station;
     status = result.status;
@@ -150,7 +151,6 @@ function senden() {
         $('#infoText').html(data);
         $('#infoAlert').show();
         $('#eform')[0].reset();
-        console.log(roundTF(gehalt));
         document.getElementById('datum').valueAsDate = new Date();
     })
     .fail(function(data) {
@@ -167,18 +167,18 @@ function formBerechnung() {
     name = $('#nameInput').val();
 
     // Check ob Aushilfe existiert
-    if (!ahDaten[name]) {
+    if (!alleDaten[name]) {
         $('#fehlerText').html('<strong>Aushilfe nicht gefunden!</strong>');
         $('#fehlerAlert').show();
         return;
     }
 
-    id = ahDaten[name].id;
+    id = alleDaten[name].id;
 
     $('#etext').html("<p><strong>Name:</strong> " + name + "</p>");
-    let norlohn = ahDaten[name].norlohn;
-    let samlohn = ahDaten[name].samlohn;
-    let sonlohn = ahDaten[name].sonlohn;
+    let norlohn = alleDaten[name].norlohn;
+    let samlohn = alleDaten[name].samlohn;
+    let sonlohn = alleDaten[name].sonlohn;
     let lohn;
     
     datum = $('#datum').val();
@@ -396,6 +396,19 @@ $(document).ready(function() {
         $('.tabelle-rechts').css('width','70%');
     };
 
+    // EINTRAGEN checkbox andere Station
+    $('#stationCheck').change(function() {
+        if (this.checked) {
+            $('#nameInput').hide();
+            $('#alleInput').show();
+            $('#nameInput, #alleInput').val('');
+        } else {
+            $('#nameInput').show();
+            $('#alleInput').hide();
+            $('#nameInput, #alleInput').val('');
+        }
+    })
+
     // EINTRAGEN
     $('#eform').submit(function(e) {
         e.preventDefault();
@@ -509,15 +522,28 @@ $(document).ready(function() {
 })
 
 $(document).ajaxComplete(function() {
-    // AUTOCOMPLETE
+    // AUTOCOMPLETE - Station
     $('#nameInput').autoComplete({
         minChars: 1,
         delay: 0,
-        source: function(term, suggest){
+        source: function (term, suggest) {
             term = term.toLowerCase();
             var matches = [];
-            for (i=0; i<choices.length; i++)
-                if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+            for (i=0; i<stationNamen.length; i++)
+                if (~stationNamen[i].toLowerCase().indexOf(term)) matches.push(stationNamen[i]);
+            suggest(matches);
+        }
+    })
+
+    // AUTOCOMPLETE - Alle
+    $('#alleInput').autoComplete({
+        minChars: 1,
+        delay: 0,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var matches = [];
+            for (i=0; i<alleNamen.length; i++)
+                if (~alleNamen[i].toLowerCase().indexOf(term)) matches.push(alleNamen[i]);
             suggest(matches);
         }
     })

@@ -2,9 +2,6 @@
 require '../req/expire.php';
 require '../req/connect.php';
 
-
-
-
 /* AUSHILFEN */
 $stmt = $conn->query("SELECT vorname, nachname FROM aushilfen");
 $namenResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -23,8 +20,6 @@ $dispResult = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
 /* ZEITEN */
 // Disponent aus Filter
-
-
 $dispPost = $_POST['disp'];
 if (!empty($dispPost)) {
     $stmt = $conn->prepare("SELECT id from benutzer WHERE username = :dispPost");
@@ -32,8 +27,6 @@ if (!empty($dispPost)) {
     $stmt->execute();
     $disponent = $stmt->fetch(PDO::FETCH_COLUMN);
 }
-
-
 
 // SQL ohne Filter
 // todo join -> z.station raus?

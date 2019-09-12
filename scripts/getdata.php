@@ -2,6 +2,7 @@
 require '../req/expire.php';
 require '../req/connect.php';
 
+// aushilfen der Station mit löhnen -> station dazu?
 $aushilfenSql = "SELECT id, personalnr, vorname, nachname, norlohn, samlohn, sonlohn, status FROM aushilfen WHERE station = ?";
 
 $stmt = $conn->prepare($aushilfenSql);
@@ -10,13 +11,24 @@ $stmt->execute(array($_SESSION['station']));
 
 $ahResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$namen = [];
+$stationNamen = [];
 $ahDaten = [];
 
 foreach ($ahResult as $value) {
     $vollerName = $value['vorname'] . " " . $value['nachname'];
-    $namen[] = $vollerName;
+    $stationNamen[] = $vollerName;
     $ahDaten[$vollerName] = ['id' => $value['id'], 'personalnr' => $value['personalnr'], 'norlohn' => $value['norlohn'], 'samlohn' => $value['samlohn'], 'sonlohn' => $value['sonlohn'], 'ahStatus' => $value['status']];
+}
+
+// alle aushilfen 
+$stmt = $conn->query("SELECT id, personalnr, vorname, nachname, norlohn, samlohn, sonlohn, status FROM aushilfen");
+$alleResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$alleNamen = [];
+foreach ($alleResult as $value) {
+    $vollerNameAlle = $value['vorname'] . " " . $value['nachname'];
+    $alleNamen[] = $vollerNameAlle;
+    $alleDaten[$vollerNameAlle] = ['id' => $value['id'], 'personalnr' => $value['personalnr'], 'norlohn' => $value['norlohn'], 'samlohn' => $value['samlohn'], 'sonlohn' => $value['sonlohn'], 'ahStatus' => $value['status']];
 }
 
 $stationSql = "SELECT name FROM stationen WHERE id = ?";
@@ -36,8 +48,10 @@ $maResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 echo json_encode([
     'station' => $stationResult['name'],
     'status' => $_SESSION['status'],
-    'namen' => $namen,
+    'stationNamen' => $stationNamen,
     'ahDaten' => $ahDaten,
+    'alleNamen' => $alleNamen,
+    'alleDaten' => $alleDaten,
     'maDaten' => $maResult
 ]);
 
