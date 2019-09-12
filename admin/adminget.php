@@ -2,37 +2,50 @@
 require '../req/expire.php';
 require '../req/connect.php';
 
-$von = $_POST['von'];
-if (empty($von)) $von = "2000-01-01";
+/* AUSHILFEN */
+$stmt = $conn->query("SELECT vorname, nachname FROM aushilfen");
+$namenResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$bis = $_POST['bis'];
-if (empty($bis)) $bis = "3000-01-01";
+$namen = [];
+foreach ($namenResult as $value) {
+    $vollerName = $value['vorname'] . " " . $value['nachname'];
+    $namen[] = $vollerName;
+}
 
-$sql = "SELECT ahid, name, datum, beginn, ende, arbeitszeit, gehalt, disponent, station FROM zeiten WHERE datum BETWEEN :von AND :bis";
+/* ZEITEN */
+// SQL ohne Filter
+$zeitenSql = "SELECT ahid, name, datum, beginn, ende, arbeitszeit, gehalt, disponent, station FROM zeiten WHERE datum BETWEEN :von AND :bis";
 
+// Konstruire Filter wenn Inputs nicht leer sind
 $aushilfe = $_POST['aush'];
-if (!empty($aushilfe)) $sql .= " AND name = :aushilfe";
+if (!empty($aushilfe)) $zeitenSql .= " AND name = :aushilfe";
 
 $disponent = $_POST['disp'];
-if (!empty($disponent)) $sql .= " AND disponent = :disponent";
+if (!empty($disponent)) $zeitenSql .= " AND disponent = :disponent";
 
 $station = $_POST['stat'];
-if (!empty($station)) $sql .= " AND station = :station";
+if (!empty($station)) $zeitenSql .= " AND station = :station";
 
-$sql .= " ORDER BY datum ASC, beginn ASC LIMIT 300";
+$zeitenSql .= " ORDER BY datum ASC, beginn ASC";
 
-$stmt = $conn->prepare($sql);
+// Prepare und Fetch
+$stmt = $conn->prepare($zeitenSql);
 
-$stmt->bindValue(':von', $von);
-$stmt->bindValue(':bis', $bis);
+$stmt->bindValue(':von', $_POST['von']);
+$stmt->bindValue(':bis', $_POST['bis']);
 if (!empty($aushilfe)) $stmt->bindValue(':aushilfe', $aushilfe);
 if (!empty($disponent)) $stmt->bindValue(':disponent', $disponent);
 if (!empty($station)) $stmt->bindValue(':station', $station);
 
 $stmt->execute();
 
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$zeiten = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-echo json_encode($result);
+
+
+echo json_encode([
+    'namen' => $namen,
+    'zeiten' => $zeiten,
+]);
 
 $conn = null;

@@ -470,7 +470,7 @@ $(document).ready(function() {
         // Check ob Aushilfe schon existiert
         name = $('#nameInput').val();
         if (ahDaten[name] === true) {
-            $('#fehlerText').html('</strong>Aushilfe existiert bereits!<strong>');
+            $('#fehlerText').html('<strong>Aushilfe existiert bereits!</strong>');
             $('#fehlerAlert').show();
             return;
         }

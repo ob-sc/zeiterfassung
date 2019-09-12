@@ -19,13 +19,19 @@ include '../req/header.php';
                 <label for="beginn">Von:</label>
                 <input type="date" class="form-control" name="beginn" id="beginn">
             </div>
+            <script>
+                $('#beginn').val(moment().startOf('year').format('YYYY-MM-DD'));
+            </script>
             <div class="form-group col-2">
                 <label for="ende">Bis:</label>
                 <input type="date" class="form-control" name="ende" id="ende">
             </div>
+            <script>
+                $('#ende').val(moment().endOf('year').format('YYYY-MM-DD'));
+            </script>
             <div class="form-group col-3">
                 <label for="aushilfe">Aushilfe:</label>
-                <input type="text" class="form-control" name="aushilfe" id="nameInput">
+                <input type="text" class="form-control" name="aushilfe" id="zName">
             </div>
             <div class="form-group col-3">
                 <label for="disponent">Disponent:</label>
@@ -71,34 +77,34 @@ include '../req/header.php';
         </div>
             <input type="submit" class="btn scc" name="ok" value="OK">
     </form>
-<div class="container">
-    <table class="table table-sm table-hover">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Datum</th>
-                <th>Beginn</th>
-                <th>Ende</th>
-                <th>Arbeitszeit</th>
-                <th>Gehalt</th>
-                <th>Disponent</th>
-                <th>Station</th>
-            </tr>
-        </thead>
-        <tbody id="zTab">
-        </tbody>
-    </table>
+    <div class="container">
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Datum</th>
+                    <th>Beginn</th>
+                    <th>Ende</th>
+                    <th>Arbeitszeit</th>
+                    <th>Gehalt</th>
+                    <th>Disponent</th>
+                    <th>Station</th>
+                </tr>
+            </thead>
+            <tbody id="zTab">
+            </tbody>
+        </table>
+    </div>
 </div>
-</div> <!-- Ende Wrapper -->
 
 <script>
-let zDaten;
+let zDaten, zNamen;
 $('#filter').submit(function(e){
     e.preventDefault();
     
     let von = $('#beginn').val();
     let bis = $('#ende').val();
-    let aushilfe = $('#nameInput').val();
+    let aushilfe = $('#zName').val();
     let disponent = $('#disponent').val();
     let stationSelect = $('#stationSelect').val();
 
@@ -114,7 +120,9 @@ $('#filter').submit(function(e){
         }
     })
     .done(function(data) {
-        zDaten = JSON.parse(data);
+        let result = JSON.parse(data);
+        zDaten = result.zeiten;
+        zNamen = result.namen;
         zTabelle();
     })
     .fail(function(data) {
@@ -124,21 +132,36 @@ $('#filter').submit(function(e){
 function zTabelle() {
     let zRow = "";
 
-
     for (let v in zDaten) {
+        let zGehalt = zDaten[v].gehalt;
+        let zAZ = zDaten[v].arbeitszeit;
+
         zRow += '<tr><td>' + zDaten[v].name + '</td>';
         zRow += '<td>' + zDaten[v].datum + '</td>';
         zRow += '<td>' + zDaten[v].beginn + '</td>';
         zRow += '<td>' + zDaten[v].ende + '</td>';
-        zRow += '<td>' + zDaten[v].arbeitszeit + '</td>';
-        zRow += '<td>' + zDaten[v].gehalt + '</td>';
+        zRow += '<td>' + zuStunden(zAZ) + '</td>';
+        zRow += '<td>' + roundTF(zGehalt) + '</td>';
         zRow += '<td>' + zDaten[v].disponent + '</td>';
         zRow += '<td>' + zDaten[v].station + '</td></tr>';
     }
     
-    
     $('#zTab').html(zRow);
 }
+$('#zName').autoComplete({
+    minChars: 1,
+    delay: 0,
+    source: function(term, suggest){
+        term = term.toLowerCase();
+        var matches = [];
+        for (i=0; i<zNamen.length; i++)
+            if (~zNamen[i].toLowerCase().indexOf(term)) matches.push(zNamen[i]);
+        suggest(matches);
+    }
+})
+$(document).ready(function() {
+    $('#filter').submit();
+})
 </script>
 
 <?php
