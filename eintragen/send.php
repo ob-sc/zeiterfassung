@@ -3,7 +3,7 @@ require '../req/expire.php';
 require '../req/connect.php';
 
 // Eintragen in Tabelle zeiten
-$sql = "INSERT INTO zeiten (name, ahid, datum, beginn, ende, arbeitszeit, gehalt, disponent, station) VALUES (:sname, :sid, :sdatum, :beginn, :ende, :saz, :sgehalt, :disp, :station)";
+$sql = "INSERT INTO zeiten (name, ahid, datum, beginn, ende, arbeitszeit, gehalt, disponent, station, ahstation) VALUES (:sname, :sid, :sdatum, :beginn, :ende, :saz, :sgehalt, :disp, :station, :ahstation)";
 $stmt = $conn->prepare($sql);
 
 $stmt->bindValue(':sname', $_POST['sname']);
@@ -15,6 +15,7 @@ $stmt->bindValue(':saz', $_POST['saz']); // Arbeitszeit in Minuten
 $stmt->bindValue(':sgehalt', $_POST['sgehalt']); // Gehalt ungerundet, da teilweise falsch gerundet wird
 $stmt->bindValue(':disp', $_SESSION['userid']);
 $stmt->bindValue(':station', $_SESSION['station']);
+$stmt->bindValue(':ahstation', $_POST['sahstation']);
 
 $stmt->execute();
 

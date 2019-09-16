@@ -1,6 +1,6 @@
 moment.locale('de')
 
-let id, choices, station, status, kennung, name, datum, eaBeginn, eaEnde, beginnForm, endeForm, diff, gehalt, abDaten, ahDaten, eaDaten, maDaten, tage, summe;
+let id, choices, station, status, kennung, name, datum, eaBeginn, eaEnde, ahStation, beginnForm, endeForm, diff, gehalt, abDaten, ahDaten, eaDaten, maDaten, tage, summe;
 
 // sort
 const firstBy=function(){function n(n){return n}function t(n){return"string"==typeof n?n.toLowerCase():n}function r(r,e){if(e="number"==typeof e?{direction:e}:e||{},"function"!=typeof r){var u=r;r=function(n){return n[u]?n[u]:""}}if(1===r.length){var i=r,o=e.ignoreCase?t:n;r=function(n,t){return o(i(n))<o(i(t))?-1:o(i(n))>o(i(t))?1:0}}return-1===e.direction?function(n,t){return-r(n,t)}:r}function e(n,t){return n=r(n,t),n.thenBy=u,n}function u(n,t){var u=this;return n=r(n,t),e(function(t,r){return u(t,r)||n(t,r)})}return e}();
@@ -12,9 +12,7 @@ $.get('../scripts/getconfig.php', function(data) {
     let config = JSON.parse(data);
     if (config.status != 'OK') console.log(config);
     let settings = config.daten.settings;
-    if (settings.devmode == 1) {
-        $('#devIns').text('Developer');
-    }
+    if (settings.devmode == 1) $('#devIns').text('Developer');
 })
 
 // namen, löhne und station für alle
@@ -25,6 +23,7 @@ $.get("../scripts/getdata.php", function(data){
     ahDaten = result.ahDaten;
     alleDaten = result.alleDaten;
     maDaten = result.maDaten;
+    stationid = result.stationid;
     station = result.station;
     status = result.status;
 })
@@ -33,12 +32,8 @@ $.get("../scripts/getdata.php", function(data){
 function zuStunden(azMinuten) {
     let stunden = Math.floor(azMinuten / 60);
     let minuten = azMinuten % 60;
-    if (stunden < 10) {
-        stunden = "0" + stunden;
-    }
-    if (minuten < 10) {
-        minuten = "0" + minuten;
-    }
+    if (stunden < 10) stunden = "0" + stunden;
+    if (minuten < 10) minuten = "0" + minuten;
     let azString = stunden + ":" + minuten;
     return azString;
 }
@@ -55,9 +50,7 @@ const roundTF = function(v) {
     value = String(v);
 
     // wenn kein . dann return mit 2 nullen
-    if (!value.includes('.')) {
-        return value + '.00';
-    }
+    if (!value.includes('.')) return value + '.00';
     
     // trennen bei "."
     const values = value.split('.');
@@ -144,7 +137,7 @@ function senden() {
             sende: endeForm,
             saz: diff,
             sgehalt: roundTF(gehalt),
-            skennung: kennung
+            sahstation: ahStation
         }
     })
     .done(function(data) {
@@ -163,8 +156,16 @@ function senden() {
 
 // EINTRAGEN
 function formBerechnung() {
-    kennung = $('#kennung').val()
-    name = $('#nameInput').val();
+    // Input name, je nachdem ob der normale leer ist
+    if ($('#nameInput').val() != "") {
+        name = $('#nameInput').val();
+    } else {
+        name = $('#alleInput').val();
+    }
+
+    // Station der Aushilfe
+    ahStation = alleDaten[name].station;
+    console.log(ahStation); // todo test
 
     // Check ob Aushilfe existiert
     if (!alleDaten[name]) {
@@ -176,6 +177,7 @@ function formBerechnung() {
     id = alleDaten[name].id;
 
     $('#etext').html("<p><strong>Name:</strong> " + name + "</p>");
+
     let norlohn = alleDaten[name].norlohn;
     let samlohn = alleDaten[name].samlohn;
     let sonlohn = alleDaten[name].sonlohn;
@@ -191,18 +193,18 @@ function formBerechnung() {
         return;
     }
 
-    $('#etext').append("<p><strong>Wochentag:</strong> " + moment(datum).format('dddd') + "</p>\n");
+    $('#etext').append("<p><strong>Wochentag:</strong> " + moment(datum).format('dddd') + "</p>");
 
     let beginn = moment($('#beginn').val(), 'HH:mm'); 
     beginnForm = moment(beginn).format('HH:mm');
-    $('#etext').append("<p><strong>Beginn:</strong> " + beginnForm + "</p>\n");
+    $('#etext').append("<p><strong>Beginn:</strong> " + beginnForm + "</p>");
 
     let ende = moment($('#ende').val(), 'HH:mm');
     endeForm = moment(ende).format('HH:mm');
-    $('#etext').append("<p><strong>Ende:</strong> " + endeForm + "</p>\n");
+    $('#etext').append("<p><strong>Ende:</strong> " + endeForm + "</p>");
     
     diff =  ende.diff(beginn, 'minutes');
-    $('#etext').append("<p><strong>Arbeitszeit:</strong> " + moment.utc(ende.diff(beginn)).format("HH:mm") + "</p>\n");
+    $('#etext').append("<p><strong>Arbeitszeit:</strong> " + moment.utc(ende.diff(beginn)).format("HH:mm") + "</p>");
 
     // Check ob AZ 0 oder negativ
     if (diff < 1) {
@@ -221,7 +223,7 @@ function formBerechnung() {
     }
     // Berechnung in Cent, da sonst falsch gerundet wird
     gehalt = lohn * 100 * diff / 60 / 100;
-    $('#etext').append("<p><strong>Gehalt:</strong> " + roundTF(gehalt) + "€</p>\n");
+    $('#etext').append("<p><strong>Gehalt:</strong> " + roundTF(gehalt) + "€</p>");
     
     // senden knopf zeigen
     $('#esend').show();
@@ -247,7 +249,12 @@ function abtabelle() {
     for (let x in abDaten) {
         let urlaub = Math.floor((24 / 312 * abDaten[x].urlaub) * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
         let abgehalt = abDaten[x].gehalt;
-        html += '<tr><td>' + abDaten[x].personalnr + '</td>';
+        if (abDaten[x].ahstation != stationid && abDaten[x].arbeitszeit != 0) {
+            html += '<tr class="table-warning">';
+        } else {
+            html += '<tr>';
+        }
+        html += '<td>' + abDaten[x].personalnr + '</td>';
         html += '<td>' + abDaten[x].nachname + ', ' + abDaten[x].vorname + '</td>';
         html += '<td>' + zuStunden(abDaten[x].arbeitszeit) + '</td>';
         html += '<td>' + roundTF(abgehalt) + '</td>';
@@ -258,7 +265,6 @@ function abtabelle() {
 
         summeAZ += parseInt(abDaten[x].arbeitszeit);
         summeGehalt += abDaten[x].gehalt;
-        
     }
     html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + roundTF(summeGehalt) + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>';
 
@@ -362,9 +368,7 @@ function eatabelle() {
     sonderEintrag += '<th style="width:20%">Gehalt</th></tr></thead><tbody>';
     sonderEintrag += sonderRow;
     // Wenn die Tabelle Sondereinträge nicht leer ist -> diese wiedergeben
-    if (sonderRow.length > 1) {
-        $('#eaText').append(sonderEintrag + '</tbody></table>');
-    }
+    if (sonderRow.length > 1) $('#eaText').append(sonderEintrag + '</tbody></table>');
     // Zusammenrechnung des Monats aus eaget.php
     $('#eaText').append('<strong>Arbeitszeit:</strong> ' + zuStunden(summe['arbeitszeit']));
     $('#eaText').append('<br><strong>Arbeitstage:</strong> ' + summe['datum']);
@@ -387,9 +391,7 @@ $(document).ready(function() {
 
     // für jeden input Datum - automatisch Datum heute
     let datumInput = document.getElementById('datum');
-    if (datumInput) {
-        datumInput.valueAsDate = new Date();
-    } 
+    if (datumInput) datumInput.valueAsDate = new Date();
 
     // NACH DRUCKEN
     window.onafterprint = function() {
@@ -434,7 +436,10 @@ $(document).ready(function() {
             data: $('#aform').serialize()
         })
         .done(function(data) {
-            abDaten = data.sort(sortByNachname);
+            abResult = data.daten;
+            console.log(data); // todo test
+            abDaten = abResult.sort(sortByNachname);
+            console.log(abDaten); // todo test
             abtabelle();
         })
         .fail(function(data) {
@@ -549,12 +554,8 @@ $(document).ajaxComplete(function() {
     })
 
     // ADMIN / SL für Menü
-    if (status == 'admin') {
-        $('#admin').show();
-    }
-    if (status == 'admin' || status == 'sl') {
-        $('.priv').removeClass('disabled');
-    }
+    if (status == 'admin') $('#admin').show();
+    if (status == 'admin' || status == 'sl') $('.priv').removeClass('disabled');
 
     // AUSHILFEN bearbeiten
     // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
@@ -577,9 +578,7 @@ $(document).ajaxComplete(function() {
         // Bei Stift-Bild: Zeile kann bearbeitet werden, ändert sich auf speichern
         if ($(this).attr('src') == '../img/edit.svg') {
             $.each(currentTD, function() {
-                if ($(this).prop('contenteditable') == "false") {
-                    $(this).prop('contenteditable', true);
-                }
+                if ($(this).prop('contenteditable') == "false") $(this).prop('contenteditable', true);
             })
             $(this).parents('tr').addClass('table-warning');
             $(this).attr('src', '../img/save.svg');

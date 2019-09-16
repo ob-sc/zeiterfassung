@@ -2,8 +2,6 @@
 require '../req/expire.php';
 require '../req/connect.php';
 
-#10.juli bis 9. august ist august
-
 // alle aushilfen der station -> leer
 $aushilfenSql = 
 "SELECT id, vorname, nachname, personalnr, status, 0 AS arbeitszeit, 0 AS gehalt, 0 AS datum, 0 AS urlaub 
@@ -20,6 +18,9 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 	$aushilfen[$row['id']] = $row;
 }
 
+// Zeiten von Aushilfen aus anderer Station
+$stmt = $conn->query("SELECT ahid, SUM(arbeitszeit) AS arbeitszeit, SUM(gehalt) AS gehalt, COUNT(DISTINCT datum) AS datum FROM zeiten WHERE station != ahstation");
+$fremdZeiten = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // abrechnungszeitraum vorbereiten
 $beginnDate = new DateTime($_POST['monat'].'-10');
@@ -28,7 +29,7 @@ $endDate = new DateTime($_POST['monat'].'-09');
 
 // alle arbeitszeiten holen für abrechnungszeitraum
 $zeitenSql = 
-"SELECT ahid, SUM(arbeitszeit) AS arbeitszeit, SUM(gehalt) AS gehalt, COUNT(DISTINCT datum) AS datum  
+"SELECT ahid, SUM(arbeitszeit) AS arbeitszeit, SUM(gehalt) AS gehalt, COUNT(DISTINCT datum) AS datum 
 FROM zeiten 
 WHERE datum BETWEEN :beginnDate AND :endDate AND station = :station 
 GROUP BY ahid";
@@ -75,6 +76,9 @@ foreach($aushilfen as $entry) {
 	$daten[] = $entry;
 }
 
-echo json_encode($daten);
+echo json_encode([
+	'daten' => $daten,
+	'fremd' => $fremdZeiten
+	]);
 
 $conn = null;

@@ -90,9 +90,8 @@ $(document).ajaxComplete(function(){
 <?php
 include '../req/footer.php';
 
-if (isset($_POST['stationSet'])) {
-    $_SESSION['station'] = $_POST['stationSelect'];
-}/*
+if (isset($_POST['stationSet'])) $_SESSION['station'] = $_POST['stationSelect'];
+/*
 if (isset($_POST['pwAendern'])) {
     $benutzer = $_POST['username'];
     $passwort = $_POST['password'];
