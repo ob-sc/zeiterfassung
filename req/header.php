@@ -11,6 +11,8 @@
     <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/moment.js"></script>
     <script src="../js/jquery.auto-complete.js"></script>
+    <script src="../js/jspdf.js"></script>
+    <script src="../js/jspdf.plugin.autotable.js"></script>
     <script src="../js/main.js"></script>
 </head>
 <body>

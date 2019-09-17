@@ -25,7 +25,7 @@ include "../req/header.php";
                 <label for="ende">Ende:</label>
                 <input type="time" class="form-control" name="ende" id="ende" required>
             </div>
-            <!-- <div class="form-check mb-3">
+            <!-- todo <div class="form-check mb-3">
                 <input type="checkbox" class="form-check-input" id="notdienst">
                 <label class="form-check-label" for="notdienst">Notdienst</label>
             </div> -->

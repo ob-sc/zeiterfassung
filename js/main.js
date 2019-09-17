@@ -10,7 +10,6 @@ const sortByNachname = firstBy('nachname');
 // CONFIG
 $.get('../scripts/getconfig.php', function(data) {
     let config = JSON.parse(data);
-    if (config.status != 'OK') console.log(config);
     let settings = config.daten.settings;
     if (settings.devmode == 1) $('#devIns').text('Developer');
 })
@@ -42,6 +41,16 @@ function zuStunden(azMinuten) {
 function drucken() {
     $('.tabelle-rechts').css('width','100%');
     window.print();
+}
+
+// ABRECHNUNG PDF speichern
+function printpdf() {
+    var doc = new jsPDF();
+    doc.autoTable({
+        html: '#abrechnungTable',
+        useCss: true,
+    });
+    doc.save('table.pdf');
 }
 
 // RUNDEN to fixed 2 / return als string
@@ -235,8 +244,8 @@ function abtabelle() {
     let summeGehalt = 0;
 
     let html = '<h3 style="text-align:center">Monatsabrechnung ' + station + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>';
-    html += '<table class="table table-bordered table-sm table-hover" style="width:100%">';
-    html += '<caption>Abrechnungen als PDF an <a href="mailto:starcarlohn@steuerberater-kehler.de" style="color:blue">Lohnkanzlei</a></caption><thead><tr>';
+    html += '<table class="table table-bordered table-sm table-hover" style="width:100%" id="abrechnungTable">';
+    html += '<caption>Gelb = Aushilfe aus anderer Station</caption><thead><tr>'; // <caption>Abrechnungen als PDF an <a href="mailto:starcarlohn@steuerberater-kehler.de" style="color:blue">Lohnkanzlei</a></caption>
     html += '<th style="width:5%">PN</th>';
     html += '<th style="width:40%">Name</th>';
     html += '<th style="width:5%">AZ</th>';
@@ -249,6 +258,7 @@ function abtabelle() {
     for (let x in abDaten) {
         let urlaub = Math.floor((24 / 312 * abDaten[x].urlaub) * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
         let abgehalt = abDaten[x].gehalt;
+
         if (abDaten[x].ahstation != stationid && abDaten[x].arbeitszeit != 0) {
             html += '<tr class="table-warning">';
         } else {
@@ -268,7 +278,8 @@ function abtabelle() {
     }
     html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + roundTF(summeGehalt) + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>';
 
-    $('#atext').html(html + '</tbody></table><input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc">');
+
+    $('#atext').html(html + '</tbody></table><input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc"><input type="button" onclick="printpdf();" value="PDF" class="noPrint btn scc">');
 }
 
 // AUSWERTEN
@@ -436,10 +447,9 @@ $(document).ready(function() {
             data: $('#aform').serialize()
         })
         .done(function(data) {
-            abResult = data.daten;
+            let dieseStation = data.daten;
             console.log(data); // todo test
-            abDaten = abResult.sort(sortByNachname);
-            console.log(abDaten); // todo test
+            abDaten = dieseStation.sort(sortByNachname);
             abtabelle();
         })
         .fail(function(data) {
