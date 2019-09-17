@@ -261,7 +261,12 @@ function abtabelle() {
         html += '<td>' + zuStunden(abDaten[x].arbeitszeit) + '</td>';
         html += '<td>' + roundTF(abgehalt) + '</td>';
         html += '<td>' + abDaten[x].datum + '</td>';
-        html += '<td>' + urlaub + '</td>';
+        if (abDaten[x].ahstation != stationid && abDaten[x].arbeitszeit != 0) {
+            html += '<td>&nbsp</td>';
+        } else {
+            html += '<td>' + urlaub + '</td>';
+        }
+        
         html += '<td>' + abDaten[x].status + '</td>';
         html += '<td contenteditable="true">&nbsp</td></tr>';
 
@@ -269,13 +274,12 @@ function abtabelle() {
         summeGehalt += abDaten[x].gehalt;
     }
 
-    let druckbtn = '<input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc"></input>';
     let pdfbtn = '<input type="button" onclick="printpdf();" value="PDF" class="noPrint btn scc">';
 
-    html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + roundTF(summeGehalt) + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>';
+    html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + roundTF(summeGehalt) + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr></tbody></table>';
 
 
-    $('#atext').html(html + '</tbody></table>' + druckbtn + pdfbtn);
+    $('#atext').html(html + pdfbtn);
 }
 
 // ABRECHNUNG PDF speichern
@@ -284,6 +288,9 @@ function printpdf() {
     doc.autoTable({
         html: '#abrechnungTable',
         useCss: true,
+        didDrawPage: function() {
+            doc.text(titel, 14, 10);
+        }
     });
     doc.save(titel + '.pdf');
 }
