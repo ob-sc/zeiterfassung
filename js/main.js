@@ -164,7 +164,6 @@ function formBerechnung() {
 
     // Station der Aushilfe
     ahStation = alleDaten[name].station;
-    console.log(ahStation); // todo test
 
     // Check ob Aushilfe existiert
     if (!alleDaten[name]) {
@@ -237,7 +236,7 @@ function abtabelle() {
 
     let html = '<h3 style="text-align:center">Monatsabrechnung ' + titel + '</h3>';
     html += '<table class="table table-bordered table-sm table-hover" style="width:100%" id="abrechnungTable">';
-    html += '<caption>Gelb = Aushilfe aus anderer Station</caption><thead><tr>'; // <caption>Abrechnungen als PDF an <a href="mailto:starcarlohn@steuerberater-kehler.de" style="color:blue">Lohnkanzlei</a></caption>
+    html += '<caption>Gelb = Aushilfe aus anderer Station</caption><thead><tr>';
     html += '<th style="width:5%">PN</th>';
     html += '<th style="width:40%">Name</th>';
     html += '<th style="width:5%">AZ</th>';
@@ -251,22 +250,13 @@ function abtabelle() {
         let urlaub = Math.floor((24 / 312 * abDaten[x].urlaub) * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
         let abgehalt = abDaten[x].gehalt;
 
-        if (abDaten[x].ahstation != stationid && abDaten[x].arbeitszeit != 0) {
-            html += '<tr class="table-warning">';
-        } else {
-            html += '<tr>';
-        }
+        if (abDaten[x].ahstation != stationid && abDaten[x].arbeitszeit != 0) html += '<tr class="table-warning">'; else html += '<tr>';
         html += '<td>' + abDaten[x].personalnr + '</td>';
         html += '<td>' + abDaten[x].nachname + ', ' + abDaten[x].vorname + '</td>';
         html += '<td>' + zuStunden(abDaten[x].arbeitszeit) + '</td>';
         html += '<td>' + roundTF(abgehalt) + '</td>';
         html += '<td>' + abDaten[x].datum + '</td>';
-        if (abDaten[x].ahstation != stationid && abDaten[x].arbeitszeit != 0) {
-            html += '<td>&nbsp</td>';
-        } else {
-            html += '<td>' + urlaub + '</td>';
-        }
-        
+        if (abDaten[x].ahstation != stationid && abDaten[x].arbeitszeit != 0) html += '<td>&nbsp</td>'; else html += '<td>' + urlaub + '</td>';
         html += '<td>' + abDaten[x].status + '</td>';
         html += '<td contenteditable="true">&nbsp</td></tr>';
 
@@ -324,7 +314,8 @@ function eatabelle() {
     // Funktion normaler Eintrag
     function tagZeile(row) {
         gehaltEA = tage[row].gehalt;
-        html += '<tr><td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td>';
+        if (tage[row].station != tage[row].ahstation) html += '<tr class="table-warning">'; else html += '<tr>';
+        html += '<td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td>';
         html += '<td>' + tage[row].beginn + '</td>';
         html += '<td>' + tage[row].ende + '</td>';
         html += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
@@ -333,7 +324,8 @@ function eatabelle() {
     // Funktion Sondereintrag bei mehrfachem Datum
     function sonderZeile(row) {
         gehaltEA = tage[row].gehalt;
-        sonderRow += '<tr><td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td>';
+        if (tage[row].station != tage[row].ahstation) sonderRow += '<tr class="table-warning">'; else sonderRow += '<tr>';
+        sonderRow += '<td>' + plusNull(eintragsTag) + '.' + eaMonatJahr + '</td>';
         sonderRow += '<td>' + tage[row].beginn + '</td>';
         sonderRow += '<td>' + tage[row].ende + '</td>';
         sonderRow += '<td>' + moment.utc().startOf('day').add(tage[row].arbeitszeit, 'minutes').format('HH:mm') + '</td>';
@@ -341,7 +333,7 @@ function eatabelle() {
     }
     // Variable mit String für Tabelle
     let html = '<h3 style="text-align:center">Arbeitszeitnachweis ' + $("#nameInput").val() + '<br>'  + moment(monatfuerTage, "M").format("MMMM") + '-' + moment($("#datum").val(), "YYYY-MM").format("MMMM YYYY") + '</h3>\n';
-    html += '<table class="table table-bordered table-sm" style="width:100%"><thead><tr>';
+    html += '<table class="table table-bordered table-sm" style="width:100%"><caption>Gelb = In anderer Station gearbeitet<thead><tr>';
     html += '<th style="width:20%">Tag</th>';
     html += '<th style="width:20%">Beginn</th>';
     html += '<th style="width:20%">Ende</th>';
@@ -461,7 +453,6 @@ $(document).ready(function() {
         })
         .done(function(data) {
             let dieseStation = data.daten;
-            console.log(data); // todo test
             abDaten = dieseStation.sort(sortByNachname);
             abtabelle();
         })

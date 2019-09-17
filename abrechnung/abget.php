@@ -85,12 +85,11 @@ foreach ($fremdDaten as $value) {
 $firstDay = new DateTime('first day of january '.$_POST['monat']);
 $lastDay = new DateTime('last day of december '.$_POST['monat']);
 
-// alle arbeitstage im ausgewählten kompletten jahr
-// todo: fremdeinträge werden nicht gezählt. evtl alle aushilfen der station loopen und alle einträge zählen? (dann werden auch einträge in anderen stationen gezählt)
+// alle arbeitstage im ausgewählten kompletten jahr / auch in anderer Station
 $urlaubSql = 
 "SELECT ahid, COUNT(DISTINCT datum) AS urlaub 
 FROM zeiten 
-WHERE datum BETWEEN :beginnDate AND :endDate AND station = :station AND station = ahstation 
+WHERE datum BETWEEN :beginnDate AND :endDate AND ahstation = :station 
 GROUP BY ahid";
 
 $stmt = $conn->prepare($urlaubSql);

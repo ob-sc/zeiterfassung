@@ -10,7 +10,7 @@ $endDate = new DateTime($_POST['datum'].'-09');
 #10.juli bis 9. august ist august
 
 // QUERY 1 mehrere Reihen
-$zeitenSql = "SELECT datum, beginn, ende, arbeitszeit, gehalt FROM zeiten WHERE ahid = :id AND station = :station AND datum BETWEEN :beginnDate AND :endDate ORDER BY datum ASC, beginn ASC";
+$zeitenSql = "SELECT datum, beginn, ende, arbeitszeit, gehalt, station, ahstation FROM zeiten WHERE ahid = :id AND ahstation = :station AND datum BETWEEN :beginnDate AND :endDate ORDER BY datum ASC, beginn ASC";
 
 $stmt = $conn->prepare($zeitenSql);
 
@@ -23,7 +23,7 @@ $stmt->execute();
 $zeiten = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // QUERY 2 Zähl-Funktionen
-$sumSql = "SELECT SUM(arbeitszeit) AS arbeitszeit, SUM(gehalt) AS gehalt, COUNT(DISTINCT datum) AS datum FROM zeiten WHERE ahid = :id AND station = :station AND datum BETWEEN :beginnDate AND :endDate";
+$sumSql = "SELECT SUM(arbeitszeit) AS arbeitszeit, SUM(gehalt) AS gehalt, COUNT(DISTINCT datum) AS datum FROM zeiten WHERE ahid = :id AND ahstation = :station AND datum BETWEEN :beginnDate AND :endDate";
 
 $stmt = $conn->prepare($sumSql);
 
