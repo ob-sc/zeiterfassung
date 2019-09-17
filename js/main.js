@@ -1,6 +1,6 @@
 moment.locale('de')
 
-let id, choices, station, status, kennung, name, datum, eaBeginn, eaEnde, ahStation, beginnForm, endeForm, diff, gehalt, abDaten, ahDaten, eaDaten, maDaten, tage, summe;
+let id, choices, station, status, kennung, name, datum, eaBeginn, eaEnde, ahStation, beginnForm, endeForm, diff, gehalt, abDaten, ahDaten, eaDaten, maDaten, tage, summe, titel;
 
 // sort
 const firstBy=function(){function n(n){return n}function t(n){return"string"==typeof n?n.toLowerCase():n}function r(r,e){if(e="number"==typeof e?{direction:e}:e||{},"function"!=typeof r){var u=r;r=function(n){return n[u]?n[u]:""}}if(1===r.length){var i=r,o=e.ignoreCase?t:n;r=function(n,t){return o(i(n))<o(i(t))?-1:o(i(n))>o(i(t))?1:0}}return-1===e.direction?function(n,t){return-r(n,t)}:r}function e(n,t){return n=r(n,t),n.thenBy=u,n}function u(n,t){var u=this;return n=r(n,t),e(function(t,r){return u(t,r)||n(t,r)})}return e}();
@@ -41,16 +41,6 @@ function zuStunden(azMinuten) {
 function drucken() {
     $('.tabelle-rechts').css('width','100%');
     window.print();
-}
-
-// ABRECHNUNG PDF speichern
-function printpdf() {
-    var doc = new jsPDF();
-    doc.autoTable({
-        html: '#abrechnungTable',
-        useCss: true,
-    });
-    doc.save('table.pdf');
 }
 
 // RUNDEN to fixed 2 / return als string
@@ -243,7 +233,9 @@ function abtabelle() {
     let summeAZ = 0;
     let summeGehalt = 0;
 
-    let html = '<h3 style="text-align:center">Monatsabrechnung ' + station + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY') + '</h3>';
+    titel = station + ', ' + moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY');
+
+    let html = '<h3 style="text-align:center">Monatsabrechnung ' + titel + '</h3>';
     html += '<table class="table table-bordered table-sm table-hover" style="width:100%" id="abrechnungTable">';
     html += '<caption>Gelb = Aushilfe aus anderer Station</caption><thead><tr>'; // <caption>Abrechnungen als PDF an <a href="mailto:starcarlohn@steuerberater-kehler.de" style="color:blue">Lohnkanzlei</a></caption>
     html += '<th style="width:5%">PN</th>';
@@ -276,10 +268,24 @@ function abtabelle() {
         summeAZ += parseInt(abDaten[x].arbeitszeit);
         summeGehalt += abDaten[x].gehalt;
     }
+
+    let druckbtn = '<input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc"></input>';
+    let pdfbtn = '<input type="button" onclick="printpdf();" value="PDF" class="noPrint btn scc">';
+
     html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + roundTF(summeGehalt) + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr>';
 
 
-    $('#atext').html(html + '</tbody></table><input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc"><input type="button" onclick="printpdf();" value="PDF" class="noPrint btn scc">');
+    $('#atext').html(html + '</tbody></table>' + druckbtn + pdfbtn);
+}
+
+// ABRECHNUNG PDF speichern
+function printpdf() {
+    var doc = new jsPDF();
+    doc.autoTable({
+        html: '#abrechnungTable',
+        useCss: true,
+    });
+    doc.save(titel + '.pdf');
 }
 
 // AUSWERTEN
