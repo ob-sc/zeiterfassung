@@ -402,6 +402,83 @@ function eatabelle() {
     $('#eaText').append('<input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc my-3">');
 }
 
+// AUSHILFEN bearbeiten
+// Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
+function ahBearbeiten() {
+    let ahRow;
+    for (let x in ahDaten) {
+        ahRow += '<tr><td>' + ahDaten[x].personalnr + '</td>';
+        ahRow += '<td>' + x + '</td>';
+        ahRow += '<td contenteditable="false" id="nor' + ahDaten[x].id + '">' + roundTF(ahDaten[x].norlohn) + '</td>';
+        ahRow += '<td contenteditable="false" id="sam' + ahDaten[x].id + '">' + roundTF(ahDaten[x].samlohn) + '</td>';
+        ahRow += '<td contenteditable="false" id="son' + ahDaten[x].id + '">' + roundTF(ahDaten[x].sonlohn) + '</td>';
+        ahRow += '<th><img src="../img/edit.svg" width="18" class="edit" id="' + ahDaten[x].id + '"></th></tr>';
+    }
+    $('#ahTab').html(ahRow);
+
+    // Bei klick auf Bearbeiten-img
+    $('.edit').click(function() {
+        let currentTD = $(this).parents('tr').find('td');
+        let id = $(this).attr('id');
+
+        // Bei Stift-Bild: Zeile kann bearbeitet werden, ändert sich auf speichern
+        if ($(this).attr('src') == '../img/edit.svg') {
+            $.each(currentTD, function() {
+                if ($(this).prop('contenteditable') == "false") $(this).prop('contenteditable', true);
+            })
+            $(this).parents('tr').addClass('table-warning');
+            $(this).attr('src', '../img/save.svg');
+            return;
+        }
+
+        // TODO nur eine zeile bearbeiten? -> wenn man ein anderen stift klickt alle anderen auf stift, nicht gelb und contenteditable="false" ändern
+
+        // Bei Disketten-Bild: Zeile wird gespeichert -> variablen aus IDs der Zellen werden erstellt und dann per ajax an php gesendet
+        if ($(this).attr('src') == '../img/save.svg') {
+            $.each(currentTD, function() {
+                $(this).prop('contenteditable', false);
+            })
+            $(this).parents('tr').removeClass('table-warning');
+            $(this).attr('src', '../img/edit.svg');
+
+            // Werte aus contenteditable Feldern
+            let norval = $('#nor' + id).text();
+            let samval = $('#sam' + id).text();
+            let sonval = $('#son' + id).text();
+
+            // Objekt mit Daten an ajax
+            let ahEdit = {
+                'id' : id,
+                'norlohn' : norval.replace(",", "."),
+                'samlohn' : samval.replace(",", "."),
+                'sonlohn' : sonval.replace(",", ".")
+            }
+            
+            // Senden an aedit.php
+            $.ajax({
+                url: 'aedit.php',
+                method: 'POST',
+                data: ahEdit
+            })
+            .done(function() {
+                location.reload();
+            })
+            .fail(function(data) {
+                $('#fehlerText').html('<strong>Fehler:</strong>' + data.responseText);
+                $('#fehlerAlert').show();
+            })
+        }
+    })
+
+    // Bei Enter: keine neue Zeile
+    $('td[contenteditable]').keydown(function(e) {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            $(this).blur();
+        }
+    })
+}
+
 // Document ready
 $(document).ready(function() {
 
@@ -570,83 +647,10 @@ $(document).ajaxComplete(function() {
     // ADMIN / SL für Menü
     if (status == 'admin') $('#admin').show();
     if (status == 'admin' || status == 'sl') $('.priv').removeClass('disabled');
-
-    // AUSHILFEN bearbeiten
-    // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
-    let ahRow;
-    for (let x in ahDaten) {
-        ahRow += '<tr><td>' + ahDaten[x].personalnr + '</td>';
-        ahRow += '<td>' + x + '</td>';
-        ahRow += '<td contenteditable="false" id="nor' + ahDaten[x].id + '">' + roundTF(ahDaten[x].norlohn) + '</td>';
-        ahRow += '<td contenteditable="false" id="sam' + ahDaten[x].id + '">' + roundTF(ahDaten[x].samlohn) + '</td>';
-        ahRow += '<td contenteditable="false" id="son' + ahDaten[x].id + '">' + roundTF(ahDaten[x].sonlohn) + '</td>';
-        ahRow += '<th><img src="../img/edit.svg" width="18" class="edit" id="' + ahDaten[x].id + '"></th></tr>';
-    }
-    $('#ahTab').html(ahRow);
-
-    // Bei klick auf Bearbeiten-img
-    $('.edit').click(function() {
-        let currentTD = $(this).parents('tr').find('td');
-        let id = $(this).attr('id');
-
-        // Bei Stift-Bild: Zeile kann bearbeitet werden, ändert sich auf speichern
-        if ($(this).attr('src') == '../img/edit.svg') {
-            $.each(currentTD, function() {
-                if ($(this).prop('contenteditable') == "false") $(this).prop('contenteditable', true);
-            })
-            $(this).parents('tr').addClass('table-warning');
-            $(this).attr('src', '../img/save.svg');
-            return;
-        }
-
-        // TODO nur eine zeile bearbeiten? -> wenn man ein anderen stift klickt alle anderen auf stift, nicht gelb und contenteditable="false" ändern
-
-        // Bei Disketten-Bild: Zeile wird gespeichert -> variablen aus IDs der Zellen werden erstellt und dann per ajax an php gesendet
-        if ($(this).attr('src') == '../img/save.svg') {
-            $.each(currentTD, function() {
-                $(this).prop('contenteditable', false);
-            })
-            $(this).parents('tr').removeClass('table-warning');
-            $(this).attr('src', '../img/edit.svg');
-
-            // Werte aus contenteditable Feldern
-            let norval = $('#nor' + id).text();
-            let samval = $('#sam' + id).text();
-            let sonval = $('#son' + id).text();
-
-            // Objekt mit Daten an ajax
-            let ahEdit = {
-                'id' : id,
-                'norlohn' : norval.replace(",", "."),
-                'samlohn' : samval.replace(",", "."),
-                'sonlohn' : sonval.replace(",", ".")
-            }
-            
-            // Senden an aedit.php
-            $.ajax({
-                url: 'aedit.php',
-                method: 'POST',
-                data: ahEdit
-            })
-            .done(function() {
-                location.reload();
-            })
-            .fail(function(data) {
-                $('#fehlerText').html('<strong>Fehler:</strong>' + data.responseText);
-                $('#fehlerAlert').show();
-            })
-        }
-    })
-
-    // Bei Enter: keine neue Zeile
-    $('td[contenteditable]').keydown(function(e) {
-        if (e.keyCode === 13) {
-            e.preventDefault();
-            $(this).blur();
-        }
-    })
     
-    // AUSHILFEN bearbeiten / PERSONALNUMMERN
+    // AUSHILFEN bearbeiten
+    ahBearbeiten()
+    // personalnummern
     let ahpnRow;
     for (let x in ahDaten) {
         if (ahDaten[x].personalnr === 0) {

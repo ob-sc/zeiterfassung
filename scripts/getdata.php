@@ -25,6 +25,7 @@ $stmt = $conn->query("SELECT id, personalnr, vorname, nachname, norlohn, samlohn
 $alleResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $alleNamen = [];
+$alleDaten = [];
 foreach ($alleResult as $value) {
     $vollerNameAlle = $value['vorname'] . " " . $value['nachname'];
     $alleNamen[] = $vollerNameAlle;
