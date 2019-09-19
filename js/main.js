@@ -409,33 +409,40 @@ function ahBearbeiten() {
     for (let x in ahDaten) {
         ahRow += '<tr><td>' + ahDaten[x].personalnr + '</td>';
         ahRow += '<td>' + x + '</td>';
-        ahRow += '<td contenteditable="false" id="nor' + ahDaten[x].id + '">' + roundTF(ahDaten[x].norlohn) + '</td>';
-        ahRow += '<td contenteditable="false" id="sam' + ahDaten[x].id + '">' + roundTF(ahDaten[x].samlohn) + '</td>';
-        ahRow += '<td contenteditable="false" id="son' + ahDaten[x].id + '">' + roundTF(ahDaten[x].sonlohn) + '</td>';
+        ahRow += '<td class="editable" contenteditable="false" id="nor' + ahDaten[x].id + '">' + roundTF(ahDaten[x].norlohn) + '</td>';
+        ahRow += '<td class="editable" contenteditable="false" id="sam' + ahDaten[x].id + '">' + roundTF(ahDaten[x].samlohn) + '</td>';
+        ahRow += '<td class="editable" contenteditable="false" id="son' + ahDaten[x].id + '">' + roundTF(ahDaten[x].sonlohn) + '</td>';
         ahRow += '<th><img src="../img/edit.svg" width="18" class="edit" id="' + ahDaten[x].id + '"></th></tr>';
     }
     $('#ahTab').html(ahRow);
 
     // Bei klick auf Bearbeiten-img
     $('.edit').click(function() {
-        let currentTD = $(this).parents('tr').find('td');
+
+        let editableTD = $(this).parents('tr').find('td.editable');
         let id = $(this).attr('id');
+
+        // Alle anderen gelben Zeilen abwählen
+        $('.edit').not(this).each(function() {
+            $(this).parents('tr').find('td.editable').prop('contenteditable', false);
+            $(this).parents('tr').removeClass('table-warning');
+            $(this).attr('src', '../img/edit.svg');
+        })
 
         // Bei Stift-Bild: Zeile kann bearbeitet werden, ändert sich auf speichern
         if ($(this).attr('src') == '../img/edit.svg') {
-            $.each(currentTD, function() {
-                if ($(this).prop('contenteditable') == "false") $(this).prop('contenteditable', true);
+            $.each(editableTD, function() {
+                $(this).prop('contenteditable', true);
             })
             $(this).parents('tr').addClass('table-warning');
             $(this).attr('src', '../img/save.svg');
             return;
         }
 
-        // TODO nur eine zeile bearbeiten? -> wenn man ein anderen stift klickt alle anderen auf stift, nicht gelb und contenteditable="false" ändern
-
         // Bei Disketten-Bild: Zeile wird gespeichert -> variablen aus IDs der Zellen werden erstellt und dann per ajax an php gesendet
+
         if ($(this).attr('src') == '../img/save.svg') {
-            $.each(currentTD, function() {
+            $.each(editableTD, function() {
                 $(this).prop('contenteditable', false);
             })
             $(this).parents('tr').removeClass('table-warning');
