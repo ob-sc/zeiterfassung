@@ -17,7 +17,14 @@ $ahDaten = [];
 foreach ($ahResult as $value) {
     $vollerName = $value['vorname'] . " " . $value['nachname'];
     $stationNamen[] = $vollerName;
-    $ahDaten[$vollerName] = ['id' => $value['id'], 'personalnr' => $value['personalnr'], 'norlohn' => $value['norlohn'], 'samlohn' => $value['samlohn'], 'sonlohn' => $value['sonlohn'], 'ahStatus' => $value['status']];
+    $ahDaten[$vollerName] = [
+        'id' => $value['id'], 
+        'personalnr' => $value['personalnr'], 
+        'norlohn' => $value['norlohn'], 
+        'samlohn' => $value['samlohn'], 
+        'sonlohn' => $value['sonlohn'], 
+        'ahStatus' => $value['status']
+    ];
 }
 
 // alle aushilfen 
@@ -29,7 +36,15 @@ $alleDaten = [];
 foreach ($alleResult as $value) {
     $vollerNameAlle = $value['vorname'] . " " . $value['nachname'];
     $alleNamen[] = $vollerNameAlle;
-    $alleDaten[$vollerNameAlle] = ['id' => $value['id'], 'personalnr' => $value['personalnr'], 'norlohn' => $value['norlohn'], 'samlohn' => $value['samlohn'], 'sonlohn' => $value['sonlohn'], 'ahStatus' => $value['status'], 'station' => $value['station']];
+    $alleDaten[$vollerNameAlle] = [
+        'id' => $value['id'], 
+        'personalnr' => $value['personalnr'], 
+        'norlohn' => $value['norlohn'], 
+        'samlohn' => $value['samlohn'], 
+        'sonlohn' => $value['sonlohn'], 
+        'ahStatus' => $value['status'], 
+        'station' => $value['station']
+    ];
 }
 
 $stationSql = "SELECT name FROM stationen WHERE id = ?";
