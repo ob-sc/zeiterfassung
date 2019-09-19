@@ -1,9 +1,8 @@
 <?php
 require "../req/expire.php";
+$titel = "Mitarbeiter";
 include '../req/header.php';
 ?>
-
-<h2 style="text-align:center">Mitarbeiter</h2>
 
 <div id="maContainer" style="width:50%;margin:auto;border: 1px solid;">
     <table class="table table-hover table-sm">

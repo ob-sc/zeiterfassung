@@ -9,6 +9,7 @@ if ($_SESSION['status'] != 'admin') {
         </script>');
 };
 require '../req/connect.php';
+$titel = "Zeiten";
 include '../req/header.php';
 ?>
 

@@ -92,9 +92,10 @@ body {
 
 #btnDD {
     cursor: pointer;
-    position: absolute;
+    /*position: absolute;
     top: 30px;
-    right: 30px;
+    right: 30px;*/
+    margin-left: 243px;
 }
 
 a:link, a:visited, a:hover, a:active {

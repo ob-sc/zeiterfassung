@@ -9,6 +9,7 @@ if ($_SESSION['status'] != 'admin') {
         </script>');
 };
 require '../req/connect.php';
+$titel = "Admin";
 include '../req/header.php';
 ?>
 

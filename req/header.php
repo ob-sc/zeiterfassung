@@ -1,6 +1,6 @@
 <html lang="de">
 <head>
-    <title>Zeiterfassung Aushilfen</title>
+    <title><?php echo $titel; ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="../img/favicon.png">
@@ -16,7 +16,9 @@
     <script src="../js/main.js"></script>
 </head>
 <body>
-<header class="noPrint header">
+<header class="noPrint header d-flex flex-nowrap justify-content-between align-items-center">
+    <img src="../img/logo_starcar2x.png" alt="SC_Logo" width="276" height="53">
+    <div class="display-1 text-center"><?php echo $titel; ?></div>
     <div class="dropdown">
         <img src="../img/menu.svg" class="dropdown-toggle" width="30" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnDD">
         <div class="dropdown-menu dropdown-menu-right" aria-lab>
@@ -30,11 +32,12 @@
             <a class="dropdown-item" href="../scripts/logout.php">Abmelden</a>
         </div>
     </div>
-    <div>
-        <img src="../img/logo_starcar2x.png" alt="SC_Logo" width="276" height="53">
-        <h2 style="font-weight:bolder">Zeiterfassung Aushilfen <div id="devIns"></div></h2>
-    </div>
 </header>
+<!-- <header class="header d-flex flex-nowrap justify-content-around align-items-center">
+    <img src="assets/mblogo.png" class="float-left" alt="MB_Logo" width="276" height="155">
+    <div class="display-2 text-center">Anforderung Mietfahrzeug</div>
+    <img src="assets/logo_starcar2x.png" class="float-right" alt="SC_Logo" width="276" height="53">
+</header> -->
 <main class="main">
 <div class="container">
     <div class="alert alert-danger alert-dismissible" role="alert" id="fehlerAlert" style="display:none;">

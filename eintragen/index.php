@@ -1,5 +1,6 @@
 ﻿<?php
 require "../req/expire.php";
+$titel = "Eintragen";
 include "../req/header.php";
 ?>
 

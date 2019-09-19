@@ -1,5 +1,6 @@
 <?php
 require "../req/expire.php";
+$titel = "Aushilfen";
 include "../req/header.php";
 ?>
 
