@@ -264,7 +264,7 @@ function abtabelle() {
         summeGehalt += abDaten[x].gehalt;
     }
 
-    let pdfbtn = '<input type="button" onclick="printpdf();" value="PDF" class="noPrint btn scc">';
+    let pdfbtn = '<input type="button" onclick="printpdf();" value="Speichern" class="noPrint btn scc">';
 
     html += '<tr><td>&nbsp</td><td>&nbsp</td><th>' + zuStunden(summeAZ) + '</th><th>' + roundTF(summeGehalt) + '</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr></tbody></table>';
 

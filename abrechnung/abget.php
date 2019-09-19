@@ -108,15 +108,12 @@ $daten = [];
 foreach($aushilfen as $entry) {
 	$daten[] = $entry;
 }
-#$fremd = [];
 foreach($fremdDaten as $entry) {
 	$daten[] = $entry;
 }
 
 echo json_encode([
 	'daten' => $daten,
-	#'fremd' => $fremd,
-	#'fremdzeiten' => $fremdZeiten
 ]);
 
 $conn = null;
