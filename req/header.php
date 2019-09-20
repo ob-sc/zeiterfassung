@@ -33,11 +33,6 @@
         </div>
     </div>
 </header>
-<!-- <header class="header d-flex flex-nowrap justify-content-around align-items-center">
-    <img src="assets/mblogo.png" class="float-left" alt="MB_Logo" width="276" height="155">
-    <div class="display-2 text-center">Anforderung Mietfahrzeug</div>
-    <img src="assets/logo_starcar2x.png" class="float-right" alt="SC_Logo" width="276" height="53">
-</header> -->
 <main class="main">
 <div class="container">
     <div class="alert alert-danger alert-dismissible" role="alert" id="fehlerAlert" style="display:none;">
