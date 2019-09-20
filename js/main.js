@@ -11,7 +11,6 @@ const sortByNachname = firstBy('nachname');
 $.get('../scripts/getconfig.php', function(data) {
     let config = JSON.parse(data);
     let settings = config.daten.settings;
-    if (settings.devmode == 1) $('#devIns').text('Developer');
 })
 
 // namen, löhne und station für alle
