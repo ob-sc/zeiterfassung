@@ -35,6 +35,14 @@ body {
     flex: none;
 }
 
+#fehlerAlert, #infoAlert {
+    position: fixed;
+    display: none;
+    width: 40%;
+    left: 30%;
+    /* text-align: center; */
+}
+
 .flex-wrapper {
     display: flex;
     flex-flow: row wrap;

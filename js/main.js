@@ -7,12 +7,29 @@ const firstBy=function(){function n(n){return n}function t(n){return"string"==ty
 // prepare sort by nachname
 const sortByNachname = firstBy('nachname');
 
+// Fehler Alert
+function fehler(tx) {
+    $('#fehlerText').html('<strong>' + tx + '</strong>');
+    $('#fehlerAlert').fadeIn('fast');
+    $('#fehlerClose').click(function() {
+        $('#fehlerAlert').fadeOut('fast');
+    })
+}
+
+// Info Alert
+function info(tx) {
+    $('#infoText').html('<strong>' + tx + '</strong>');
+    $('#infoAlert').fadeIn('fast');
+    $('#infoClose').click(function() {
+        $('#infoAlert').fadeOut('fast');
+    })
+}
+
 // CONFIG
 $.get('../scripts/getconfig.php', function(data) {
     let config = JSON.parse(data);
     let settings = config.daten.settings;
     if (settings.devmode == 1) $('.header, .footer').css('background', '#D4E6F1');
-    console.log(data); // todo test
 })
 
 // namen, löhne und station für alle
@@ -141,14 +158,12 @@ function senden() {
         }
     })
     .done(function(data) {
-        $('#infoText').html(data);
-        $('#infoAlert').show();
+        info(data);
         $('#eform')[0].reset();
         document.getElementById('datum').valueAsDate = new Date();
     })
     .fail(function(data) {
-        $('#fehlerText').html('<strong>Fehler:</strong>' + data.responseText);
-        $('#fehlerAlert').show();
+        fehler(data.responseText);
     })
     
     $('#esend').hide();
@@ -168,8 +183,7 @@ function formBerechnung() {
 
     // Check ob Aushilfe existiert
     if (!alleDaten[name]) {
-        $('#fehlerText').html('<strong>Aushilfe nicht gefunden!</strong>');
-        $('#fehlerAlert').show();
+        fehler('Aushilfe nicht gefunden!');
         return;
     }
 
@@ -207,8 +221,7 @@ function formBerechnung() {
 
     // Check ob AZ 0 oder negativ
     if (diff < 1) {
-        $('#fehlerText').html('<strong>Beginn und Ende überprüfen!</strong>');
-        $('#fehlerAlert').show();
+        fehler('Beginn und Ende überprüfen!');
         return;
     }
 
@@ -292,8 +305,7 @@ function eatabelle() {
     let sonderRow = ' ';
     // Ende Funktion wenn keine Einträge
     if (tage.length == 0) {
-        $('#infoText').html('<strong>Keine Einträge für diesen Monat!</strong>');
-        $('#infoAlert').show();
+        info('Keine Einträge für diesen Monat!');
         return;
     }
     // Tage im Monat
@@ -472,8 +484,7 @@ function ahBearbeiten() {
                 location.reload();
             })
             .fail(function(data) {
-                $('#fehlerText').html('<strong>Fehler:</strong>' + data.responseText);
-                $('#fehlerAlert').show();
+                fehler(data.responseText);
             })
         }
     })
@@ -542,8 +553,7 @@ $(document).ready(function() {
             abtabelle();
         })
         .fail(function(data) {
-            $('#fehlerText').html('Fehler:' + data.responseText);
-            $('#fehlerAlert').show();
+            fehler(data.responseText);
         })
     })
 
@@ -576,8 +586,7 @@ $(document).ready(function() {
             eatabelle();
         })
         .fail(function(data) {
-            $('#fehlerText').html('Fehler:' + data.responseText);
-            $('#fehlerAlert').show();
+            fehler(data.responseText);
         })
     })
 
@@ -587,8 +596,7 @@ $(document).ready(function() {
         // Check ob Aushilfe schon existiert
         name = $('#nameInput').val();
         if (ahDaten[name] === true) {
-            $('#fehlerText').html('<strong>Aushilfe existiert bereits!</strong>');
-            $('#fehlerAlert').show();
+            fehler('Aushilfe existiert bereits!');
             return;
         }
         $.ajax({
@@ -597,13 +605,11 @@ $(document).ready(function() {
             data: $('#newForm').serialize()
         })
         .done(function(data) {
-            $('#infoText').html(data);
-            $('#infoAlert').show();
+            info(data);
             $('#newForm')[0].reset();
         })
         .fail(function(data) {
-            $('#fehlerText').html('<strong>Fehler:</strong>' + data.responseText);
-            $('#fehlerAlert').show();
+            fehler(data.responseText);
         })
     })
 
@@ -619,8 +625,7 @@ $(document).ready(function() {
             location.reload();
         })
         .fail(function(data) {
-            $('#fehlerText').html('<strong>Fehler:</strong>' + data.responseText);
-            $('#fehlerAlert').show();
+            fehler(data.responseText);
         })
     })
 })
@@ -694,8 +699,7 @@ $(document).ajaxComplete(function() {
             location.reload();
         })
         .fail(function(data) {
-            $('#fehlerText').html('<strong>Fehler:</strong>' + data.responseText);
-            $('#fehlerAlert').show();
+            fehler(data.responseText);
         })
     })
 })
