@@ -38,6 +38,7 @@ body {
 #fehlerAlert, #infoAlert {
     position: fixed;
     display: none;
+    font-size: 1.3rem;
     width: 40%;
     left: 30%;
     /* text-align: center; */
@@ -100,9 +101,6 @@ body {
 
 #btnDD {
     cursor: pointer;
-    /*position: absolute;
-    top: 30px;
-    right: 30px;*/
     margin-left: 243px;
 }
 

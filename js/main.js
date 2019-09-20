@@ -9,7 +9,7 @@ const sortByNachname = firstBy('nachname');
 
 // Fehler Alert
 function fehler(tx) {
-    $('#fehlerText').html('<strong>' + tx + '</strong>');
+    $('#fehlerText').html(tx);
     $('#fehlerAlert').fadeIn('fast');
     $('#fehlerClose').click(function() {
         $('#fehlerAlert').fadeOut('fast');
@@ -18,7 +18,7 @@ function fehler(tx) {
 
 // Info Alert
 function info(tx) {
-    $('#infoText').html('<strong>' + tx + '</strong>');
+    $('#infoText').html(tx);
     $('#infoAlert').fadeIn('fast');
     $('#infoClose').click(function() {
         $('#infoAlert').fadeOut('fast');
@@ -594,11 +594,12 @@ $(document).ready(function() {
     $('#newForm').submit(function(e) {
         e.preventDefault();
         // Check ob Aushilfe schon existiert
-        name = $('#nameInput').val();
-        if (ahDaten[name] === true) {
+        name = String($('#vorn').val() + " " + $('#nachn').val());
+        if (ahDaten[name] != undefined) {
             fehler('Aushilfe existiert bereits!');
             return;
         }
+    
         $.ajax({
             url: 'anew.php',
             method: 'POST',
@@ -668,7 +669,7 @@ $(document).ajaxComplete(function() {
     for (let x in ahDaten) {
         if (ahDaten[x].personalnr === 0) {
             ahpnRow += '<tr><td>' + x + '</td>';
-            ahpnRow += '<td><input type="number" class="form-control-sm" name="' + ahDaten[x].id + '"></td></tr>';
+            ahpnRow += '<td><input type="number" class="form-control" style="height:25px;" name="' + ahDaten[x].id + '"></td></tr>';
         }
     }
     $('#ahpnTab').html(ahpnRow);

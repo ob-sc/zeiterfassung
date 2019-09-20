@@ -8,9 +8,9 @@ include "../req/header.php";
     <form method="post" id="newForm" autocomplete="off">
         <div class="form-group">
             <label for="vorname">Vorname:</label>
-            <input type="text" class="form-control" placeholder="Vorname" name="vorname" required>
+            <input type="text" class="form-control" placeholder="Vorname" name="vorname" id="vorn" required>
             <label for="nachname">Nachname:</label>
-            <input type="text" class="form-control" placeholder="Nachname" name="nachname" required>
+            <input type="text" class="form-control" placeholder="Nachname" name="nachname" id="nachn" required>
         </div>
         <div class="form-group">
             <label for="name">Personalnummer:</label>
