@@ -34,15 +34,11 @@
     </div>
 </header>
 <main class="main">
-<div class="container">
-    <div class="alert alert-danger alert-dismissible" role="alert" id="fehlerAlert" style="display:none;">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <div id="fehlerText"></div>
-    </div>
+<div class="alert alert-danger" role="alert" id="fehlerAlert">
+    <span id="fehlerText"></span>
+    <button type="button" id="fehlerClose" class="close" aria-label="Close">&times;</button>
 </div>
-<div class="container">
-    <div class="alert alert-info alert-dismissible" role="alert" id="infoAlert" style="display:none;">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <div id="infoText"></div>
-    </div>
+<div class="alert alert-info" role="alert" id="infoAlert">
+    <span id="infoText"></span>
+    <button type="button" id="infoClose" class="close" aria-label="Close">&times;</button>
 </div>
