@@ -1,6 +1,6 @@
 moment.locale('de')
 
-let id, choices, station, status, kennung, name, datum, eaBeginn, eaEnde, ahStation, beginnForm, endeForm, diff, gehalt, abDaten, ahDaten, eaDaten, maDaten, tage, summe, titel;
+let stationNamen, alleNamen, ahDaten, alleDaten, maDaten, stationid, id, station, status, kennung, name, datum, eaBeginn, eaEnde, ahStation, beginnForm, endeForm, diff, gehalt, abDaten, eaDaten, tage, summe, titel;
 
 // sort
 const firstBy=function(){function n(n){return n}function t(n){return"string"==typeof n?n.toLowerCase():n}function r(r,e){if(e="number"==typeof e?{direction:e}:e||{},"function"!=typeof r){var u=r;r=function(n){return n[u]?n[u]:""}}if(1===r.length){var i=r,o=e.ignoreCase?t:n;r=function(n,t){return o(i(n))<o(i(t))?-1:o(i(n))>o(i(t))?1:0}}return-1===e.direction?function(n,t){return-r(n,t)}:r}function e(n,t){return n=r(n,t),n.thenBy=u,n}function u(n,t){var u=this;return n=r(n,t),e(function(t,r){return u(t,r)||n(t,r)})}return e}();

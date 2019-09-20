@@ -76,7 +76,6 @@
                     that.val(v);
                     o.onSelect(e, v, item);
                     that.sc.hide();
-                    console.log(that.sc) // todo test
                 }
                 return false;
             });
