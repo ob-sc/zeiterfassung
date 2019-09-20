@@ -118,3 +118,8 @@ a:link, a:visited, a:hover, a:active {
     background: #feed01;
     border:1px solid #ccc;
 }
+
+.readmeText {
+    font-size: 1.3rem;
+    margin-bottom: 200px;
+}
