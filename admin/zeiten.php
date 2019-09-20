@@ -32,7 +32,7 @@ include '../req/header.php';
             </script>
             <div class="form-group col-3">
                 <label for="aushilfe">Aushilfe:</label>
-                <input type="text" class="form-control" name="aushilfe" id="zName">
+                <input type="text" class="form-control" name="aushilfe" id="alleInput">
             </div>
             <div class="form-group col-3">
                 <label for="disponent">Disponent:</label>
@@ -109,14 +109,18 @@ include '../req/header.php';
     </div>
 </div>
 
+<?php
+include '../req/footer.php';
+?>
+
 <script>
-let zDaten, zNamen, zDisp;
+let zDaten, zDisp;
 $('#filter').submit(function(e){
     e.preventDefault();
     
     let von = $('#beginn').val();
     let bis = $('#ende').val();
-    let aushilfe = $('#zName').val();
+    let aushilfe = $('#alleInput').val();
     let disponent = $('#zDisp').val();
     let stationSelect = $('#stationSelect').val();
 
@@ -134,7 +138,6 @@ $('#filter').submit(function(e){
     .done(function(data) {
         let result = JSON.parse(data);
         zDaten = result.zeiten;
-        zNamen = result.namen;
         zDisp = result.disponenten;
         console.log(result);
         zTabelle();
@@ -164,17 +167,6 @@ function zTabelle() {
     
     $('#zTab').html(zRow);
 }
-$('#zName').autoComplete({
-    minChars: 1,
-    delay: 0,
-    source: function(term, suggest){
-        term = term.toLowerCase();
-        var matches = [];
-        for (i=0; i<zNamen.length; i++)
-            if (~zNamen[i].toLowerCase().indexOf(term)) matches.push(zNamen[i]);
-        suggest(matches);
-    }
-})
 $('#zDisp').autoComplete({
     minChars: 1,
     delay: 0,
@@ -190,6 +182,3 @@ $(document).ready(function() {
     $('#filter').submit();
 })
 </script>
-
-<?php
-include '../req/footer.php';

@@ -17,3 +17,6 @@ include '../req/header.php';
         </tbody>
     </table>
 </div>
+
+<?php 
+include "../req/footer.php";

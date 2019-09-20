@@ -2,21 +2,9 @@
 require '../req/expire.php';
 require '../req/connect.php';
 
-/* AUSHILFEN */
-$stmt = $conn->query("SELECT vorname, nachname FROM aushilfen");
-$namenResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$namen = [];
-foreach ($namenResult as $value) {
-    $vollerName = $value['vorname'] . " " . $value['nachname'];
-    $namen[] = $vollerName;
-}
-
 /* DISPONENTEN */
 $stmt = $conn->query("SELECT username FROM benutzer");
 $dispResult = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
-
 
 /* ZEITEN */
 // Disponent aus Filter
@@ -63,7 +51,6 @@ $zeiten = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 echo json_encode([
-    'namen' => $namen,
     'zeiten' => $zeiten,
     'disponenten' => $dispResult
 ]);
