@@ -110,14 +110,11 @@ a:link, a:visited, a:hover, a:active {
     color: black;
 }
 
-.btn {
-    border:1px solid #ccc;
-}
-
 .edit:hover, .confirm:hover {
     cursor: pointer;
 }
 
 .scc {
     background: #feed01;
+    border:1px solid #ccc;
 }
