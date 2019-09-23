@@ -20,9 +20,9 @@ $stmt->bindValue(':ahstation', $_POST['sahstation']);
 $stmt->execute();
 
 if ($stmt->rowCount() < 1) {
-    echo "<strong>Fehler!</strong>";
+    echo "Fehler!";
 } else {
-    echo "<strong>Eintrag erfolgreich</strong>";
+    echo "Eintrag erfolgreich";
 }
 
 $conn = null;
