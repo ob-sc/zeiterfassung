@@ -1,5 +1,5 @@
 <?php
-require "../req/expire.php";
+require "../req/session.php";
 $titel = "Hilfe";
 include "../req/header.php";
 ?>

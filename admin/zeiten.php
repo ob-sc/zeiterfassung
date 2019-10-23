@@ -1,5 +1,5 @@
 <?php
-require "../req/expire.php";
+require "../req/session.php";
 if ($_SESSION['status'] != 'admin') {
   die('<script>
         frage = window.prompt("Hat sich da jemand verlaufen?", "");
@@ -17,26 +17,26 @@ include '../req/header.php';
   <form action="zeiten.php" method="post" id="filter">
     <div class="form-row">
       <div class="form-group col-2">
-          <label for="beginn">Von:</label>
-          <input type="date" class="form-control" name="beginn" id="beginn">
+        <label for="beginn">Von:</label>
+        <input type="date" class="form-control" name="beginn" id="beginn">
       </div>
       <script>
-          $('#beginn').val(moment().startOf('year').format('YYYY-MM-DD'));
+        $('#beginn').val(moment().startOf('year').format('YYYY-MM-DD'));
       </script>
       <div class="form-group col-2">
-          <label for="ende">Bis:</label>
-          <input type="date" class="form-control" name="ende" id="ende">
+        <label for="ende">Bis:</label>
+        <input type="date" class="form-control" name="ende" id="ende">
       </div>
       <script>
-          $('#ende').val(moment().endOf('year').format('YYYY-MM-DD'));
+        $('#ende').val(moment().endOf('year').format('YYYY-MM-DD'));
       </script>
       <div class="form-group col-3">
-          <label for="aushilfe">Aushilfe:</label>
-          <input type="text" class="form-control" name="aushilfe" id="alleInput">
+        <label for="aushilfe">Aushilfe:</label>
+        <input type="text" class="form-control" name="aushilfe" id="alleInput">
       </div>
       <div class="form-group col-3">
-          <label for="disponent">Disponent:</label>
-          <input type="text" class="form-control" name="disponent" id="zDisp">
+        <label for="disponent">Disponent:</label>
+        <input type="text" class="form-control" name="disponent" id="zDisp">
       </div>
       <div class="form-group col-2">
         <label for="stationSelect">Station:</label>

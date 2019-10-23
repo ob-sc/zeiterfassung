@@ -1,5 +1,5 @@
 <?php
-require '../req/expire.php';
+require '../req/session.php';
 require '../req/connect.php';
 
 // aushilfen der Station mit löhnen -> station dazu?

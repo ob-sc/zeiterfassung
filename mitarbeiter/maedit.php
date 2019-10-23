@@ -1,5 +1,5 @@
 <?php
-require '../req/expire.php';
+require '../req/session.php';
 require '../req/connect.php';
 
 $sql = "UPDATE benutzer SET status = null WHERE id = ?";

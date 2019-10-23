@@ -1,5 +1,5 @@
 <?php
-require "../req/expire.php";
+require "../req/session.php";
 if ($_SESSION['status'] != 'admin') {
   die('<script>
         frage = window.prompt("Hat sich da jemand verlaufen?", "");

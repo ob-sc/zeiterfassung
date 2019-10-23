@@ -1,5 +1,5 @@
 <?php
-require "../req/expire.php";
+require "../req/session.php";
 $titel = "Arbeitszeitnachweis";
 include "../req/header.php";
 ?>
