@@ -37,10 +37,10 @@ $stmt->execute();
 $summen = $stmt->fetch(PDO::FETCH_ASSOC);
 
 echo json_encode([
-    'tage' => $zeiten,
-    'summe' => $summen,
-    'beginn' => $beginnDate->format('m.Y'),
-    'ende' => $endDate->format('m.Y')
+  'tage' => $zeiten,
+  'summe' => $summen,
+  'beginn' => $beginnDate->format('m.Y'),
+  'ende' => $endDate->format('m.Y')
 ]);
 
 $conn = null;

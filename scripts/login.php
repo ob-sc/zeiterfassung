@@ -13,20 +13,20 @@ $stmt->execute(array($username));
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($user === false) {
-    die("<script type='text/javascript'>window.location.href='../index.html#loginerror';</script>");
+  die("<script type='text/javascript'>window.location.href='../index.html#loginerror';</script>");
 } else {
-    $validPassword = password_verify($passwordAttempt, $user['password']);
-    if ($validPassword) {
-        $_SESSION['userid'] = $user['id'];
-        $_SESSION['station'] = $user['station'];
-        $_SESSION['status'] = $user['status'];
-        $_SESSION['aktiv'] = time();
+  $validPassword = password_verify($passwordAttempt, $user['password']);
+  if ($validPassword) {
+    $_SESSION['userid'] = $user['id'];
+    $_SESSION['station'] = $user['station'];
+    $_SESSION['status'] = $user['status'];
+    $_SESSION['aktiv'] = time();
 
-        header("Location: ../eintragen/index.php");
-        exit;
-    } else {
-        die("<script type='text/javascript'>window.location.href='../index.html#loginerror';</script>");
-    }
+    header("Location: ../eintragen/index.php");
+    exit;
+  } else {
+    die("<script type='text/javascript'>window.location.href='../index.html#loginerror';</script>");
+  }
 }
 
 $conn = null;

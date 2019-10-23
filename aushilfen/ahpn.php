@@ -9,9 +9,9 @@ $sql = "UPDATE aushilfen SET personalnr = :pn WHERE id = :id";
 $stmt = $conn->prepare($sql);
 
 foreach ($_POST as $key => $value) {
-    $stmt->bindValue(':id', $key);
-    $stmt->bindValue(':pn', $value);
-    $stmt->execute();
+  $stmt->bindValue(':id', $key);
+  $stmt->bindValue(':pn', $value);
+  $stmt->execute();
 }
 
 $conn = null;

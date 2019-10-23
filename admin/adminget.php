@@ -10,10 +10,10 @@ $dispResult = $stmt->fetchAll(PDO::FETCH_COLUMN);
 // Disponent aus Filter
 $dispPost = $_POST['disp'];
 if (!empty($dispPost)) {
-    $stmt = $conn->prepare("SELECT id from benutzer WHERE username = :dispPost");
-    $stmt->bindValue(':dispPost', $dispPost);
-    $stmt->execute();
-    $disponent = $stmt->fetch(PDO::FETCH_COLUMN);
+  $stmt = $conn->prepare("SELECT id from benutzer WHERE username = :dispPost");
+  $stmt->bindValue(':dispPost', $dispPost);
+  $stmt->execute();
+  $disponent = $stmt->fetch(PDO::FETCH_COLUMN);
 }
 
 // SQL ohne Filter
@@ -51,8 +51,8 @@ $zeiten = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 echo json_encode([
-    'zeiten' => $zeiten,
-    'disponenten' => $dispResult
+  'zeiten' => $zeiten,
+  'disponenten' => $dispResult
 ]);
 
 $conn = null;

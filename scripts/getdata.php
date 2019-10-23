@@ -15,16 +15,16 @@ $stationNamen = [];
 $ahDaten = [];
 
 foreach ($ahResult as $value) {
-    $vollerName = $value['vorname'] . " " . $value['nachname'];
-    $stationNamen[] = $vollerName;
-    $ahDaten[$vollerName] = [
-        'id' => $value['id'], 
-        'personalnr' => $value['personalnr'], 
-        'norlohn' => $value['norlohn'], 
-        'samlohn' => $value['samlohn'], 
-        'sonlohn' => $value['sonlohn'], 
-        'ahStatus' => $value['status']
-    ];
+  $vollerName = $value['vorname'] . " " . $value['nachname'];
+  $stationNamen[] = $vollerName;
+  $ahDaten[$vollerName] = [
+    'id' => $value['id'], 
+    'personalnr' => $value['personalnr'], 
+    'norlohn' => $value['norlohn'], 
+    'samlohn' => $value['samlohn'], 
+    'sonlohn' => $value['sonlohn'], 
+    'ahStatus' => $value['status']
+  ];
 }
 
 // alle aushilfen 
@@ -34,17 +34,17 @@ $alleResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $alleNamen = [];
 $alleDaten = [];
 foreach ($alleResult as $value) {
-    $vollerNameAlle = $value['vorname'] . " " . $value['nachname'];
-    $alleNamen[] = $vollerNameAlle;
-    $alleDaten[$vollerNameAlle] = [
-        'id' => $value['id'], 
-        'personalnr' => $value['personalnr'], 
-        'norlohn' => $value['norlohn'], 
-        'samlohn' => $value['samlohn'], 
-        'sonlohn' => $value['sonlohn'], 
-        'ahStatus' => $value['status'], 
-        'station' => $value['station']
-    ];
+  $vollerNameAlle = $value['vorname'] . " " . $value['nachname'];
+  $alleNamen[] = $vollerNameAlle;
+  $alleDaten[$vollerNameAlle] = [
+    'id' => $value['id'], 
+    'personalnr' => $value['personalnr'], 
+    'norlohn' => $value['norlohn'], 
+    'samlohn' => $value['samlohn'], 
+    'sonlohn' => $value['sonlohn'], 
+    'ahStatus' => $value['status'], 
+    'station' => $value['station']
+  ];
 }
 
 $stationSql = "SELECT name FROM stationen WHERE id = ?";
@@ -62,14 +62,14 @@ $stmt->execute(array($_SESSION['station']));
 $maResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode([
-    'stationid' => $_SESSION['station'],
-    'station' => $stationResult['name'],
-    'status' => $_SESSION['status'],
-    'stationNamen' => $stationNamen,
-    'ahDaten' => $ahDaten,
-    'alleNamen' => $alleNamen,
-    'alleDaten' => $alleDaten,
-    'maDaten' => $maResult
+  'stationid' => $_SESSION['station'],
+  'station' => $stationResult['name'],
+  'status' => $_SESSION['status'],
+  'stationNamen' => $stationNamen,
+  'ahDaten' => $ahDaten,
+  'alleNamen' => $alleNamen,
+  'alleDaten' => $alleDaten,
+  'maDaten' => $maResult
 ]);
 
 $conn = null;

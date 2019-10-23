@@ -25,7 +25,7 @@ $stmt->execute(array($username));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if($row['num'] > 0){
-    die("<script type='text/javascript'>window.location.href='../register.html#exists';</script>");
+  die("<script type='text/javascript'>window.location.href='../register.html#exists';</script>");
 }
 
 // hash & eintragen
@@ -43,7 +43,7 @@ $result = $stmt->execute();
 
 // erfolg
 if($result){
-    die("<script type='text/javascript'>window.location.href='../register.html#regsuccess';</script>");
+  die("<script type='text/javascript'>window.location.href='../register.html#regsuccess';</script>");
 }
 
-$conn = null;
+$conn = null; 
