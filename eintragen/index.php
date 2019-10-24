@@ -39,5 +39,7 @@ include "../req/header.php";
   </div>
 </div>
 
+<script src="eintragen.js"></script>
+
 <?php
 include "../req/footer.php";

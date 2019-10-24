@@ -3,19 +3,20 @@ require '../req/session.php';
 require '../req/connect.php';
 
 // Eintragen in Tabelle zeiten
-$sql = "INSERT INTO zeiten (name, ahid, datum, beginn, ende, arbeitszeit, gehalt, disponent, station, ahstation) VALUES (:sname, :sid, :sdatum, :beginn, :ende, :saz, :sgehalt, :disp, :station, :ahstation)";
+$sql = "INSERT INTO zeiten (name, ahid, datum, beginn, ende, arbeitszeit, gehalt, disponent, station, ahstation) 
+  VALUES (:name, :ahid, :datum, :beginn, :ende, :arbeitszeit, :sgehalt, :disp, :station, :ahstation)";
 $stmt = $conn->prepare($sql);
 
-$stmt->bindValue(':sname', $_POST['sname']);
-$stmt->bindValue(':sid', $_POST['sid']);
-$stmt->bindValue(':sdatum', $_POST['sdatum']);
-$stmt->bindValue(':beginn', $_POST['sbeginn']);
-$stmt->bindValue(':ende', $_POST['sende']);
-$stmt->bindValue(':saz', $_POST['saz']); // Arbeitszeit in Minuten
-$stmt->bindValue(':sgehalt', $_POST['sgehalt']); // Gehalt ungerundet, da teilweise falsch gerundet wird
+$stmt->bindValue(':name', $_POST['ausName']);
+$stmt->bindValue(':ahid', $_POST['aushilfenId']);
+$stmt->bindValue(':datum', $_POST['datum']);
+$stmt->bindValue(':beginn', $_POST['beginnForm']);
+$stmt->bindValue(':ende', $_POST['endeForm']);
+$stmt->bindValue(':arbeitszeit', $_POST['diff']); // Arbeitszeit in Minuten
+$stmt->bindValue(':sgehalt', $_POST['gehalt']); // Gehalt ungerundet, da teilweise falsch gerundet wird
 $stmt->bindValue(':disp', $_SESSION['userid']);
 $stmt->bindValue(':station', $_SESSION['station']);
-$stmt->bindValue(':ahstation', $_POST['sahstation']);
+$stmt->bindValue(':ahstation', $_POST['ahStation']);
 
 $stmt->execute();
 

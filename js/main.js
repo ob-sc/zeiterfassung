@@ -1,6 +1,6 @@
 moment.locale('de')
 
-let stationNamen; let alleNamen; let ahDaten; let alleDaten; let maDaten; let stationid; let id; let station; let status; let name; let datum; let eaBeginn; let eaEnde; let ahStation; let beginnForm; let endeForm; let diff; let gehalt; let abDaten; let eaDaten; let tage; let summe; let titel;
+let ahDaten; let maDaten; let stationid; let id; let station; let status; let name; let eaBeginn; let eaEnde; let abDaten; let eaDaten; let tage; let summe; let titel;
 
 // sort
 const firstBy=function(){function n(n){return n}function t(n){return"string"===typeof n?n.toLowerCase():n}function r(r,e){if(e="number"===typeof e?{direction:e}:e||{},"function"!==typeof r){let u=r;r=function(n){return n[u]?n[u]:""}}if(1===r.length){let i=r; let o=e.ignoreCase?t:n;r=function(n,t){return o(i(n))<o(i(t))?-1:o(i(n))>o(i(t))?1:0}}return-1===e.direction?function(n,t){return-r(n,t)}:r}function e(n,t){return n=r(n,t),n.thenBy=u,n}function u(n,t){let u=this;return n=r(n,t),e(function(t,r){return u(t,r)||n(t,r)})}return e}();
@@ -141,105 +141,6 @@ const roundTF = (v) => {
   );
 } 
 
-// EINTRAGEN
-function senden() {
-    $.ajax({
-        url: 'send.php',
-        method: 'POST',
-        data: {
-            sid: id,
-            sname: name,
-            sdatum: datum,
-            sbeginn: beginnForm, // Beginn und Ende müssen rein wegen Tabelle Einzelauswertung
-            sende: endeForm,
-            saz: diff,
-            sgehalt: roundTF(gehalt),
-            sahstation: ahStation
-        }
-    })
-    .done((data) => {
-        info(data);
-        $('#eform')[0].reset();
-        document.getElementById('datum').valueAsDate = new Date();
-    })
-    .fail((data) => {
-        fehler(data.responseText);
-    })
-    
-    $('#esend').hide();
-}
-
-// EINTRAGEN
-function formBerechnung() {
-    // Input name, je nachdem ob der normale leer ist
-    if ($('#nameInput').val() != "") {
-        name = $('#nameInput').val();
-    } else {
-        name = $('#alleInput').val();
-    }
-
-    // Station der Aushilfe
-    ahStation = alleDaten[name].station;
-
-    // Check ob Aushilfe existiert
-    if (!alleDaten[name]) {
-        fehler('Aushilfe nicht gefunden!');
-        return;
-    }
-
-    id = alleDaten[name].id;
-
-    $('#etext').html(`<p><strong>Name:</strong> ${  name  }</p>`);
-
-    const {norlohn} = alleDaten[name];
-    const {samlohn} = alleDaten[name];
-    const {sonlohn} = alleDaten[name];
-    let lohn;
-    
-    datum = $('#datum').val();
-    $('#etext').append(`<p><strong>Datum:</strong> ${  moment(datum).format('DD.MM.YYYY')  }</p>`);
-
-    // Check ob Datum in der Zukunft ist
-    if(moment(datum).isAfter(new Date(), 'day') === true) {
-        $('#fehlerText').html('<strong>Datum ist in der Zukunft!</strong>');
-        $('#fehlerAlert').show();
-        return;
-    }
-
-    $('#etext').append(`<p><strong>Wochentag:</strong> ${  moment(datum).format('dddd')  }</p>`);
-
-    const beginn = moment($('#beginn').val(), 'HH:mm'); 
-    beginnForm = moment(beginn).format('HH:mm');
-    $('#etext').append(`<p><strong>Beginn:</strong> ${  beginnForm  }</p>`);
-
-    const ende = moment($('#ende').val(), 'HH:mm');
-    endeForm = moment(ende).format('HH:mm');
-    $('#etext').append(`<p><strong>Ende:</strong> ${  endeForm  }</p>`);
-    
-    diff =  ende.diff(beginn, 'minutes');
-    $('#etext').append(`<p><strong>Arbeitszeit:</strong> ${  moment.utc(ende.diff(beginn)).format("HH:mm")  }</p>`);
-
-    // Check ob AZ 0 oder negativ
-    if (diff < 1) {
-        fehler('Beginn und Ende überprüfen!');
-        return;
-    }
-
-    // Gehalt
-    if (moment(datum).isoWeekday() == 7) {
-        lohn = sonlohn;
-    } else if (moment(datum).isoWeekday() == 6) {
-        lohn = samlohn;
-    } else {
-        lohn = norlohn;
-    }
-    // Berechnung in Cent, da sonst falsch gerundet wird
-    gehalt = lohn * 100 * diff / 60 / 100;
-    $('#etext').append(`<p><strong>Gehalt:</strong> ${  roundTF(gehalt)  }€</p>`);
-    
-    // senden knopf zeigen
-    $('#esend').show();
-}
 
 // ABRECHNUNG
 function abtabelle() {
@@ -512,31 +413,7 @@ $(document).ready(() => {
         $('.tabelle-rechts').css('width','70%');
     };
 
-    // EINTRAGEN checkbox andere Station
-    $('#stationCheck').change(() => {
-        if (this.checked) {
-            $('#nameInput').hide();
-            $('#alleInput').show();
-            $('#nameInput, #alleInput').val('');
-        } else {
-            $('#nameInput').show();
-            $('#alleInput').hide();
-            $('#nameInput, #alleInput').val('');
-        }
-    })
 
-    // EINTRAGEN
-    $('#eform').submit((e) => {
-        e.preventDefault();
-        $('#fehlerAlert').hide();
-        $('#infoAlert').hide();
-        formBerechnung();
-    })
-
-    // EINTRAGEN
-    $('#eform').change(() => {
-        $('#esend').hide();
-    })
 
     // ABRECHNUNG
     $('#aform').submit((e) => {
@@ -641,7 +518,7 @@ $(document).ajaxComplete(() => {
         source (term, suggest) {
             term = term.toLowerCase();
             let matches = [];
-            for (i=0; i<stationNamen.length; i++)
+            for (let i=0; i<stationNamen.length; i++)
                 if (~stationNamen[i].toLowerCase().indexOf(term)) matches.push(stationNamen[i]);
             suggest(matches);
         }
@@ -654,7 +531,7 @@ $(document).ajaxComplete(() => {
         source (term, suggest) {
             term = term.toLowerCase();
             let matches = [];
-            for (i=0; i<alleNamen.length; i++)
+            for (let i=0; i<alleNamen.length; i++)
                 if (~alleNamen[i].toLowerCase().indexOf(term)) matches.push(alleNamen[i]);
             suggest(matches);
         }
