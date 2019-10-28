@@ -21,5 +21,7 @@ include "../req/header.php";
   <span class="tabelle-rechts" id="eaText"></span>
 </div>
 
+<script src="auswerten.js"></script>
+
 <?php
 include "../req/footer.php";

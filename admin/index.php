@@ -88,6 +88,7 @@ $(document).ajaxComplete(function(){
   $('#aktStation').html(station);
 });
 </script>
+
 <?php
 include '../req/footer.php';
 

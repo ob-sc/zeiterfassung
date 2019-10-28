@@ -69,5 +69,7 @@ include "../req/header.php";
   </table>
 </div>
 
+<script src="aushilfen.js"></script>
+
 <?php
 include "../req/footer.php";
