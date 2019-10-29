@@ -1,3 +1,5 @@
+/* global moment, roundTF, fehler, info */
+
 let alleAH = [];
 let stationNamen = [];
 let alleNamen = [];
@@ -117,7 +119,7 @@ function formBerechnung() {
     lohn = norlohn;
   }
   // Berechnung in Cent, da sonst falsch gerundet wird
-  let gehaltNoRund = (lohn * 100 * diff) / 60 / 100;
+  const gehaltNoRund = (lohn * 100 * diff) / 60 / 100;
   gehalt = roundTF(gehaltNoRund);
   $('#etext').append(`<p><strong>Gehalt:</strong> ${gehalt}€</p>`);
 

@@ -84,6 +84,12 @@ include '../req/header.php';
 </div>
 
 <script>
+let station;
+$.get('../scripts/getdata.php', data => {
+  const result = JSON.parse(data);
+  station = result.station;
+});
+
 $(document).ajaxComplete(function(){
   $('#aktStation').html(station);
 });

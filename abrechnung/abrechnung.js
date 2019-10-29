@@ -1,11 +1,28 @@
+/* global moment, zuStunden, roundTF, sortByNachname, fehler */
+
 let abDaten = [];
 let titel;
 let station;
+let stationid;
 
 $.get('../scripts/getdata.php', data => {
   const daten = JSON.parse(data);
   station = daten.station;
+  stationid = daten.stationid;
 });
+
+// ABRECHNUNG PDF speichern
+function printpdf() {
+  const doc = new jsPDF();
+  doc.autoTable({
+    html: '#abrechnungTable',
+    useCss: true,
+    didDrawPage: () => {
+      doc.text(titel, 14, 10);
+    }
+  });
+  doc.save(`${titel}.pdf`);
+}
 
 function abtabelle() {
   let summeAZ = 0;
@@ -27,30 +44,6 @@ function abtabelle() {
   html += '<th style="width:5%">Status</th>';
   html += '<th style="width:30%">Abmelden ab dem</th>';
   html += '</tr></thead><tbody>';
-
-  /*
-  for (const x in abDaten) {
-    console.log(abDaten[x]);
-    const urlaub = Math.floor((24 / 312) * abDaten[x].urlaub * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
-    const abgehalt = abDaten[x].gehalt;
-
-    if (abDaten[x].ahstation != stationid && abDaten[x].arbeitszeit != 0)
-      html += '<tr class="table-warning">';
-    else html += '<tr>';
-    html += `<td>${abDaten[x].personalnr}</td>`;
-    html += `<td>${abDaten[x].nachname}, ${abDaten[x].vorname}</td>`;
-    html += `<td>${zuStunden(abDaten[x].arbeitszeit)}</td>`;
-    html += `<td>${roundTF(abgehalt)}</td>`;
-    html += `<td>${abDaten[x].datum}</td>`;
-    if (abDaten[x].ahstation != stationid && abDaten[x].arbeitszeit != 0)
-      html += '<td>&nbsp</td>';
-    else html += `<td>${urlaub}</td>`;
-    html += `<td>${abDaten[x].status}</td>`;
-    html += '<td contenteditable="true">&nbsp</td></tr>';
-
-    summeAZ += parseInt(abDaten[x].arbeitszeit);
-    summeGehalt += abDaten[x].gehalt;
-  } todo muss weg*/
 
   abDaten.forEach(element => {
     const urlaub = Math.floor((24 / 312) * element.urlaub * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
