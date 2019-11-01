@@ -45,26 +45,26 @@ function abtabelle() {
   html += '<th style="width:30%">Abmelden ab dem</th>';
   html += '</tr></thead><tbody>';
 
-  abDaten.forEach(element => {
-    const urlaub = Math.floor((24 / 312) * element.urlaub * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
-    const abgehalt = element.gehalt;
+  abDaten.forEach(key => {
+    const urlaub = Math.floor((24 / 312) * key.urlaub * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
+    const abgehalt = key.gehalt;
 
-    if (element.ahstation != stationid && element.arbeitszeit != 0)
+    if (key.ahstation != stationid && key.arbeitszeit !== 0)
       html += '<tr class="table-warning">';
     else html += '<tr>';
-    html += `<td>${element.personalnr}</td>`;
-    html += `<td>${element.nachname}, ${element.vorname}</td>`;
-    html += `<td>${zuStunden(element.arbeitszeit)}</td>`;
+    html += `<td>${key.personalnr}</td>`;
+    html += `<td>${key.nachname}, ${key.vorname}</td>`;
+    html += `<td>${zuStunden(key.arbeitszeit)}</td>`;
     html += `<td>${roundTF(abgehalt)}</td>`;
-    html += `<td>${element.datum}</td>`;
-    if (element.ahstation != stationid && element.arbeitszeit != 0)
+    html += `<td>${key.datum}</td>`;
+    if (key.ahstation != stationid && key.arbeitszeit !== 0)
       html += '<td>&nbsp</td>';
     else html += `<td>${urlaub}</td>`;
-    html += `<td>${element.status}</td>`;
+    html += `<td>${key.status}</td>`;
     html += '<td contenteditable="true">&nbsp</td></tr>';
 
-    summeAZ += parseInt(element.arbeitszeit, 10);
-    summeGehalt += element.gehalt;
+    summeAZ += parseInt(key.arbeitszeit, 10);
+    summeGehalt += key.gehalt;
   });
 
   const pdfbtn =

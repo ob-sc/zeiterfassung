@@ -22,7 +22,7 @@ $(document).ajaxComplete(() => {
   $('#maTab').html(maRow);
 
   $('.confirm').click(e => {
-    const maid = e.target.getAttribute('id');
+    const maid = e.currentTarget.getAttribute('id');
     $.ajax({
       url: 'maedit.php',
       method: 'POST',

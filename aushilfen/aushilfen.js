@@ -33,12 +33,11 @@ function ahBearbeiten() {
       .parents('tr')
       .find('td.editable');
     const id = $(this).attr('id');
-    console.log(id);
 
     // Alle anderen gelben Zeilen abwählen
     $('.edit')
       .not(this)
-      .each(() => {
+      .each(function() {
         $(this)
           .parents('tr')
           .find('td.editable')
@@ -51,7 +50,7 @@ function ahBearbeiten() {
 
     // Bei Stift-Bild: Zeile kann bearbeitet werden, ändert sich auf speichern
     if ($(this).attr('src') === '../img/edit.svg') {
-      $.each(editableTD, () => {
+      $.each(editableTD, function() {
         $(this).prop('contenteditable', true);
       });
       $(this)
@@ -64,7 +63,7 @@ function ahBearbeiten() {
     // Bei Disketten-Bild: Zeile wird gespeichert -> variablen aus IDs der Zellen werden erstellt und dann per ajax an php gesendet
 
     if ($(this).attr('src') === '../img/save.svg') {
-      $.each(editableTD, () => {
+      $.each(editableTD, function() {
         $(this).prop('contenteditable', false);
       });
       $(this)
@@ -104,18 +103,18 @@ function ahBearbeiten() {
   $('td[contenteditable]').keydown(e => {
     if (e.keyCode === 13) {
       e.preventDefault();
-      $(this).blur();
+      e.currentTarget.blur();
     }
   });
 }
 
 $(document).ready(() => {
-  // AUSHILFEN anlegen / senden an anew.php
+  // anlegen / senden an anew.php
   $('#newForm').submit(e => {
     e.preventDefault();
     // Check ob Aushilfe schon existiert
     const ahName = String(`${$('#vorn').val()} ${$('#nachn').val()}`);
-    if (ahDaten[ahName] != undefined) {
+    if (ahDaten[ahName] !== undefined) {
       fehler('Aushilfe existiert bereits!');
       return;
     }
