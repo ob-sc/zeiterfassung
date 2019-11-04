@@ -16,8 +16,8 @@ include "../req/header.php";
   </div>
   <div class="tabelle-rechts" id="atext"></div>
 </div>
+</main>
+</body>
+</html>
 
 <script src="abrechnung.js"></script>
-
-<?php
-include "../req/footer.php";

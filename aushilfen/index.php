@@ -68,8 +68,8 @@ include "../req/header.php";
     </tbody>
   </table>
 </div>
+</main>
+</body>
+</html>
 
 <script src="aushilfen.js"></script>
-
-<?php
-include "../req/footer.php";

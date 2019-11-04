@@ -18,7 +18,8 @@ include '../req/header.php';
   </table>
 </div>
 
-<script src="mitarbeiter.js"></script>
+</main>
+</body>
+</html>
 
-<?php 
-include "../req/footer.php";
+<script src="mitarbeiter.js"></script>

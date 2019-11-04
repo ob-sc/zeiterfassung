@@ -83,6 +83,10 @@ include '../req/header.php';
 <!-- Flex Wrapper Ende -->
 </div>
 
+</main>
+</body>
+</html>
+
 <script>
 let station;
 $.get('../scripts/getdata.php', data => {
@@ -96,8 +100,6 @@ $(document).ajaxComplete(function(){
 </script>
 
 <?php
-include '../req/footer.php';
-
 if (isset($_POST['stationSet'])) $_SESSION['station'] = $_POST['stationSelect'];
 /*
 if (isset($_POST['pwAendern'])) {
