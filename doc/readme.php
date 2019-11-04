@@ -89,5 +89,3 @@ include "../req/header.php";
     d. h. falls jemand in der Probezeit keine Zeiten eintragen soll, muss dieser nicht bestätigt werden.</p>
   </div>
 </div>
-<?php
-include "../req/footer.php";

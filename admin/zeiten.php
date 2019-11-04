@@ -109,10 +109,6 @@ include '../req/header.php';
   </div>
 </div>
 
-<?php
-include '../req/footer.php';
-?>
-
 <script>
 let zDaten, zDisp;
 $('#filter').submit(function(e){

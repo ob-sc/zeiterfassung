@@ -30,6 +30,7 @@
       <a class="dropdown-item priv disabled" href="../mitarbeiter/index.php">Mitarbeiter</a>
       <a class="dropdown-item" href="../admin/index.php" id="admin" style="display:none">Admin</a>
       <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="../doc/readme.php">Hilfe</a>
       <a class="dropdown-item" href="../scripts/logout.php">Abmelden</a>
     </div>
   </div>

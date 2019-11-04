@@ -74,8 +74,7 @@ function info(tx) {
 $.get('../scripts/getconfig.php', data => {
   const config = JSON.parse(data);
   const { settings } = config.daten;
-  if (settings.devmode === '1')
-    $('.header, .footer').css('background', '#D4E6F1'); // 1 ist string aus json
+  if (settings.devmode === '1') console.log('dev');
 });
 
 /* in einzelnen seiten

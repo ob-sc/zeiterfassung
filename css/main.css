@@ -1,123 +1,116 @@
 @media print {
-    .noPrint {
-        display: none;
-    }
+  .noPrint {
+    display: none;
+  }
 }
 
 body {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
+  height: 100%;
 }
 
 .header {
-    height: 200px;
-    background: #f3f3f3;
-    padding: 20px;
-    margin-bottom: 20px;
-    flex: none;
+  height: 200px;
+  background: #f3f3f3;
+  padding: 20px;
+  margin-bottom: 20px;
+  flex: none;
 }
 
 .main {
-    flex: 1 0 auto;
-    width: 100%;
+  flex: 1 0 auto;
+  width: 100%;
 }
 
-.footer {
-    height: 100px;
-    width: 100%;
-    margin-top: 20px;
-    padding-top: 30px;
-    background: #f3f3f3;
-    color: grey;
-    text-align: center;
-    flex: none;
-}
-
-#fehlerAlert, #infoAlert {
-    position: fixed;
-    display: none;
-    font-size: 1.3rem;
-    width: 40%;
-    left: 30%;
-    /* text-align: center; */
+#fehlerAlert,
+#infoAlert {
+  position: fixed;
+  display: none;
+  font-size: 1.3rem;
+  width: 40%;
+  left: 30%;
+  /* text-align: center; */
 }
 
 .flex-wrapper {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
 }
 
 .eintragen-links {
-    width: 300px;
-    margin: 20px;
-    padding: 20px;
+  width: 300px;
+  margin: 20px;
+  padding: 20px;
+  background: #f3f3f3;
+  box-shadow: 8px 8px 8px grey;
 }
 
 .eintragen-rechts {
-    width: 300px;
-    margin: 20px;
-    padding: 20px;
+  width: 300px;
+  margin: 20px;
+  padding: 20px;
 }
 
 .tabelle-links {
-    width: 20%;
-    margin: 20px;
-    padding: 20px;
+  width: 20%;
+  margin: 20px;
+  padding: 20px;
 }
 
 .tabelle-rechts {
-    width: 70%;
-    margin: 20px;
-    padding: 20px;
+  width: 70%;
+  margin: 20px;
+  padding: 20px;
 }
 
 #anlegenContainer {
-    width: 300px;
-    margin: auto;
-    display: none;
+  width: 300px;
+  margin: auto;
+  display: none;
 }
 
 #pnContainer {
-    width: 600px;
-    margin: auto;
-    display: none;
+  width: 600px;
+  margin: auto;
+  display: none;
 }
 
 .admin-item {
-    height: 350px;
-    width: 300px;
-    padding: 20px;
-    margin: 20px;
-    border: 1px solid;
+  height: 350px;
+  width: 300px;
+  padding: 20px;
+  margin: 20px;
+  border: 1px solid;
 }
 
 #filter {
-    padding: 30px;
-    border: 1px solid;
+  padding: 30px;
+  border: 1px solid;
 }
 
 #btnDD {
-    cursor: pointer;
-    margin-left: 243px;
+  cursor: pointer;
+  margin-left: 243px;
 }
 
-a:link, a:visited, a:hover, a:active {
-    color: black;
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: black;
 }
 
-.edit:hover, .confirm:hover {
-    cursor: pointer;
+.edit:hover,
+.confirm:hover {
+  cursor: pointer;
 }
 
 .scc {
-    background: #feed01;
-    border:1px solid #ccc;
+  background: #feed01;
+  border: 1px solid #ccc;
 }
 
 .readmeText {
-    font-size: 1.3rem;
-    margin-bottom: 200px;
+  font-size: 1.3rem;
+  margin-bottom: 200px;
 }
