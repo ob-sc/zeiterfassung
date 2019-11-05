@@ -1,5 +1,6 @@
 .cnav {
-  /* font-family: 'Raleway', Arial, sans-serif; */
+  font-family: 'Raleway', Arial, sans-serif;
+  font-size: 1.2em;
   text-align: center;
   text-transform: uppercase;
   font-weight: 500;
@@ -10,22 +11,22 @@
 .cnav li {
   display: inline-block;
   list-style: outside none none;
-  margin: 0 1.5em;
+  margin: 0 1.3em;
   padding: 0;
 }
 .cnav a {
   padding: 0.5em 0;
-  color: rgb(175, 175, 175);
+  color: #005691;
   position: relative;
   letter-spacing: 1px;
   text-decoration: none;
 }
 .cnav a:hover {
-  color: black;
+  font-weight: 800;
 }
 .cnav a.logout:hover {
   color: #bd0000;
 }
 .cnav a.current {
-  color: black;
+  font-weight: 800;
 }
