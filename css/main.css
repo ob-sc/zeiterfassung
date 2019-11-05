@@ -4,12 +4,28 @@
   }
 }
 
-.header {
+header {
   height: 200px;
-  background: #f3f3f3;
-  padding: 20px;
-  margin-bottom: 20px;
-  flex: none;
+  background-color: #f3f3f3;
+}
+
+header nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap;
+  margin: 0;
+  padding: 120px, 0, 20px;
+}
+
+.logowrapper {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.logo {
+  width: 276px;
+  height: 53px;
 }
 
 .main {
@@ -85,13 +101,6 @@
 #btnDD {
   cursor: pointer;
   margin-left: 243px;
-}
-
-a:link,
-a:visited,
-a:hover,
-a:active {
-  color: black;
 }
 
 .edit:hover,

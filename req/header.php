@@ -7,6 +7,7 @@
   <link rel="icon" type="image/png" href="../img/favicon.png">
   <link rel="stylesheet" href="../css/bootstrap.css">
   <link rel="stylesheet" href="../css/jquery.auto-complete.css">
+  <link rel="stylesheet" href="../css/navbar.css">
   <link rel="stylesheet" href="../css/main.css">
   <script src="../js/jquery-3.4.1.js"></script>
   <script src="../js/bootstrap.bundle.js"></script>
@@ -17,24 +18,24 @@
   <script src="../js/main.js"></script>
 </head>
 <body>
-<header class="noPrint header d-flex flex-nowrap justify-content-between align-items-center">
-  <img src="../img/logo_starcar2x.png" alt="SC_Logo" width="276" height="53">
-  <div class="display-1 text-center"><?php echo $titel; ?></div>
-  <div class="dropdown">
-    <img src="../img/menu.svg" class="dropdown-toggle" width="30" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnDD">
-    <div class="dropdown-menu dropdown-menu-right" aria-lab>
-      <a class="dropdown-item" href="../eintragen/index.php">Eintragen</a>
-      <a class="dropdown-item" href="../auswerten/index.php">Arbeitszeitnachweis</a>
-      <a class="dropdown-item priv disabled" href="../abrechnung/index.php">Abrechnung</a>
-      <a class="dropdown-item priv disabled" href="../aushilfen/index.php">Aushilfen</a>
-      <a class="dropdown-item priv disabled" href="../mitarbeiter/index.php">Mitarbeiter</a>
-      <a class="dropdown-item" href="../admin/index.php" id="admin" style="display:none">Admin</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="../doc/readme.php">Hilfe</a>
-      <a class="dropdown-item" href="../scripts/logout.php">Abmelden</a>
-    </div>
+<header class="noPrint">
+  <div class="logowrapper">
+    <img src="../img/logo_starcar2x.png" alt="SC_Logo" class="logo">
   </div>
+  <div class="display-1 text-center"><?php echo $titel; ?></div>
 </header>
+<nav>
+    <ul class="cnav">
+      <li><a id="eintragen" href="../eintragen/index.php">Eintragen</a></li>
+      <li><a id="auswerten" href="../auswerten/index.php">Arbeitszeitnachweis</a></li>
+      <li class="slmenu" style="display:none"><a id="abrechnung" href="../abrechnung/index.php">Abrechnung</a></li>
+      <li class="slmenu" style="display:none"><a id="aushilfen" href="../aushilfen/index.php">Aushilfen</a></li>
+      <li class="slmenu" style="display:none"><a id="mitarbeiter" href="../mitarbeiter/index.php">Mitarbeiter</a></li>
+      <li id="adminmenu" style="display:none"><a id="adminnav" href="../admin/index.php">Admin</a></li>
+      <li><a id="readme" href="../doc/readme.php">Hilfe</a></li>
+      <li><a class="logout" href="../scripts/logout.php">Abmelden</a></li>
+    </ul>
+  </nav>
 <main class="main">
 <div class="alert alert-danger" role="alert" id="fehlerAlert">
   <span id="fehlerText"></span>

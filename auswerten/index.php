@@ -4,6 +4,11 @@ $titel = "Arbeitszeitnachweis";
 include "../req/header.php";
 ?>
 
+<script>
+  $('nav li').removeClass('current');
+  $('#auswerten').addClass('current');
+</script>
+
 <div class="flex-wrapper">
   <span class="tabelle-links noPrint">
     <form method="post" id="eaform" autocomplete="off">

@@ -88,6 +88,10 @@ include '../req/header.php';
 </html>
 
 <script>
+
+$('nav li').removeClass('current');
+$('#adminnav').addClass('current');
+
 let station;
 $.get('../scripts/getdata.php', data => {
   const result = JSON.parse(data);

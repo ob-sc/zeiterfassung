@@ -81,7 +81,7 @@
 
 <script>
   $(document).ready(function() {
-    if (window.location.hash == '#expire') {
+    if (window.location.hash === '#expire') {
       $('#fehlerAlert').show();
       $('#fehlerText').html(
         '<strong>Sitzung abgelaufen, bitte neu anmelden!</strong>'
@@ -89,15 +89,15 @@
       history.replaceState(null, null, ' ');
     }
 
-    if (window.location.hash == '#neu') {
+    if (window.location.hash === '#neu') {
       $('#fehlerAlert').show();
       $('#fehlerText').html(
-        '<strong>Status ist "neu", lass deinen Account von deinem Stationsleiter bestätigen.</strong>'
+        '<strong>Lass deinen Account von deinem Stationsleiter bestätigen.</strong>'
       );
       history.replaceState(null, null, ' ');
     }
 
-    if (window.location.hash == '#loginerror') {
+    if (window.location.hash === '#loginerror') {
       $('#fehlerAlert').show();
       $('#fehlerText').html('<strong>Benutzername / Passwort falsch!</strong>');
       history.replaceState(null, null, ' ');

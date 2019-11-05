@@ -169,14 +169,6 @@ const roundTF = v => {
 };
 
 $(document).ready(() => {
-  /* auf einzelnen seiten
-
-  // für jeden input Datum - automatisch Datum heute
-  const datumInput = document.getElementById('datum');
-  if (datumInput) datumInput.valueAsDate = new Date();
-
-  */
-
   // NACH DRUCKEN
   window.onafterprint = () => {
     $('.tabelle-rechts').css('width', '70%');
@@ -184,40 +176,7 @@ $(document).ready(() => {
 });
 
 $(document).ajaxComplete(() => {
-  /* auf einzelnen seiten
-
-  // AUTOCOMPLETE - Station
-  $('#nameInput').autoComplete({
-    minChars: 1,
-    delay: 0,
-    source(term, suggest) {
-      term = term.toLowerCase();
-      let matches = [];
-      for (let i = 0; i < stationNamen.length; i++)
-        if (~stationNamen[i].toLowerCase().indexOf(term))
-          matches.push(stationNamen[i]);
-      suggest(matches);
-    }
-  });
-
-  // AUTOCOMPLETE - Alle
-  $('#alleInput').autoComplete({
-    minChars: 1,
-    delay: 0,
-    source(term, suggest) {
-      term = term.toLowerCase();
-      let matches = [];
-      for (let i = 0; i < alleNamen.length; i++)
-        if (~alleNamen[i].toLowerCase().indexOf(term))
-          matches.push(alleNamen[i]);
-      suggest(matches);
-    }
-  });
-
-  */
-
   // ADMIN / SL für Menü
-  if (userStatus === 'admin') $('#admin').show();
-  if (userStatus === 'admin' || userStatus === 'sl')
-    $('.priv').removeClass('disabled');
+  if (userStatus === 'admin') $('#adminmenu, .slmenu').show();
+  if (userStatus === 'sl') $('.slmenu').show();
 });

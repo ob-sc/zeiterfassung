@@ -4,6 +4,11 @@ $titel = "Eintragen";
 include "../req/header.php";
 ?>
 
+<script>
+  $('nav li').removeClass('current');
+  $('#eintragen').addClass('current');
+</script>
+
 <div class="flex-wrapper">
   <div class="eintragen-links">
     <form method="post" id="eform" autocomplete="off">
