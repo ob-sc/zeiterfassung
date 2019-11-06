@@ -22,7 +22,7 @@
   <img src="../img/logo_starcar2x.png" alt="SC_Logo" class="logo">
   <div class="pagetitle"><?php echo $titel; ?></div>
 </header>
-<nav>
+<nav class="noPrint">
     <ul class="cnav">
       <li><a id="eintragen" href="../eintragen/index.php">Eintragen</a></li>
       <li><a id="auswerten" href="../auswerten/index.php">Auswerten</a></li>

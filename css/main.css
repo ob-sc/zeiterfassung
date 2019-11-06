@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond|Raleway:500,800&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway:500,800&display=swap');
 
 @media print {
   .noPrint {
@@ -22,11 +22,10 @@ header {
 }
 
 .pagetitle {
-  /* font-family: 'Bad Script', cursive; */
-  font-family: 'Raleway', sans-serif;
   font-size: 7em;
-  padding-top: 45px;
+  padding-top: 15px;
   text-align: center;
+  font-weight: 200;
 }
 
 nav {
