@@ -1,6 +1,4 @@
 /* global moment */
-const moment = require('moment');
-import { moment } from 'moment';
 
 moment.locale('de');
 
@@ -55,6 +53,7 @@ const firstBy = (function() {
 const sortByNachname = firstBy('nachname');
 
 // Fehler Alert
+// eslint-disable-next-line no-unused-vars
 function fehler(tx) {
   $('#fehlerText').html(tx);
   $('#fehlerAlert').fadeIn('fast');
@@ -64,6 +63,7 @@ function fehler(tx) {
 }
 
 // Info Alert
+// eslint-disable-next-line no-unused-vars
 function info(tx) {
   $('#infoText').html(tx);
   $('#infoAlert').fadeIn('fast');
@@ -101,6 +101,7 @@ $.get('../scripts/getdata.php', data => {
 });
 
 // moment.js duration kann man nicht auf HH:mm formatieren. Daher string aus arbeitszeit minuten:
+// eslint-disable-next-line no-unused-vars
 function zuStunden(azMinuten) {
   let stunden = Math.floor(azMinuten / 60);
   let minuten = azMinuten % 60;
@@ -111,12 +112,14 @@ function zuStunden(azMinuten) {
 }
 
 // DRUCKEN
+// eslint-disable-next-line no-unused-vars
 function drucken() {
   $('.tabelle-rechts').css('width', '100%');
   window.print();
 }
 
 // RUNDEN to fixed 2 / return als string
+// eslint-disable-next-line no-unused-vars
 const roundTF = v => {
   // value als string
   const value = String(v);
