@@ -1,0 +1,17 @@
+{
+  "name": "zeiterfassung",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ob-sc/zeiterfassung.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^4.41.2"
+  }
+}
