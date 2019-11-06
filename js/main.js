@@ -1,6 +1,6 @@
 /* global moment */
 const moment = require('moment');
-import {moment} from 'moment';
+import { moment } from 'moment';
 
 moment.locale('de');
 
