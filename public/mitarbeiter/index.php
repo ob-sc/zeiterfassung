@@ -26,5 +26,3 @@ include '../req/header.php';
 </main>
 </body>
 </html>
-
-<script src="mitarbeiter.js"></script>

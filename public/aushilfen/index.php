@@ -76,5 +76,3 @@ include "../req/header.php";
 </main>
 </body>
 </html>
-
-<script src="aushilfen.js"></script>

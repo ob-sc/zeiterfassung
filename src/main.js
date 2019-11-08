@@ -4,55 +4,6 @@ moment.locale('de');
 
 let userStatus;
 
-// den hier mit lodash machen
-// sortieren
-const firstBy = (function() {
-  function n(n) {
-    return n;
-  }
-  function t(n) {
-    return 'string' === typeof n ? n.toLowerCase() : n;
-  }
-  function r(r, e) {
-    if (
-      ((e = 'number' === typeof e ? { direction: e } : e || {}),
-      'function' !== typeof r)
-    ) {
-      let u = r;
-      r = function(n) {
-        return n[u] ? n[u] : '';
-      };
-    }
-    if (1 === r.length) {
-      let i = r;
-      let o = e.ignoreCase ? t : n;
-      r = function(n, t) {
-        return o(i(n)) < o(i(t)) ? -1 : o(i(n)) > o(i(t)) ? 1 : 0;
-      };
-    }
-    return -1 === e.direction
-      ? function(n, t) {
-          return -r(n, t);
-        }
-      : r;
-  }
-  function e(n, t) {
-    return (n = r(n, t)), (n.thenBy = u), n;
-  }
-  function u(n, t) {
-    let u = this;
-    return (
-      (n = r(n, t)),
-      e(function(t, r) {
-        return u(t, r) || n(t, r);
-      })
-    );
-  }
-  return e;
-})();
-// prepare sort by nachname
-const sortByNachname = firstBy('nachname');
-
 // Fehler Alert
 // eslint-disable-next-line no-unused-vars
 function fehler(tx) {

@@ -47,5 +47,3 @@ include "../req/header.php";
 </main>
 </body>
 </html>
-
-<script src="eintragen.js"></script>

@@ -24,5 +24,3 @@ include "../req/header.php";
 </main>
 </body>
 </html>
-
-<script src="abrechnung.js"></script>

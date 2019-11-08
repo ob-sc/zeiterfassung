@@ -30,5 +30,3 @@ include "../req/header.php";
 </body>
 </html>
 
-<script src="auswerten.js"></script>
-
