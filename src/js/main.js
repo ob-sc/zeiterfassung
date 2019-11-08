@@ -4,6 +4,7 @@ moment.locale('de');
 
 let userStatus;
 
+// den hier mit lodash machen
 // sortieren
 const firstBy = (function() {
   function n(n) {
