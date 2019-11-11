@@ -8,7 +8,7 @@ $daten = [
 ];
 
 // Pfad setzen
-$iniFile = __DIR__ . '/../config.ini';
+$iniFile = __DIR__ . '/../../config.ini';
 
 // prüfen ob existiert und lesbar
 if (!file_exists($iniFile) || !is_readable($iniFile)) {

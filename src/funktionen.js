@@ -1,12 +1,5 @@
-/* global moment */
-
-moment.locale('de');
-
-let userStatus;
-
 // Fehler Alert
-// eslint-disable-next-line no-unused-vars
-function fehler(tx) {
+export function fehler(tx) {
   $('#fehlerText').html(tx);
   $('#fehlerAlert').fadeIn('fast');
   $('#fehlerClose').click(() => {
@@ -15,8 +8,7 @@ function fehler(tx) {
 }
 
 // Info Alert
-// eslint-disable-next-line no-unused-vars
-function info(tx) {
+export function info(tx) {
   $('#infoText').html(tx);
   $('#infoAlert').fadeIn('fast');
   $('#infoClose').click(() => {
@@ -24,37 +16,8 @@ function info(tx) {
   });
 }
 
-// CONFIG
-$.get('../scripts/getconfig.php', data => {
-  const config = JSON.parse(data);
-  const { settings } = config.daten;
-  if (settings.devmode === '1') console.log('dev');
-});
-
-/* in einzelnen seiten
-
-// namen, löhne und station für alle
-$.get('../scripts/getdata.php', data => {
-  const result = JSON.parse(data);
-  stationNamen = result.stationNamen;
-  alleNamen = result.alleNamen;
-  ahDaten = result.ahDaten;
-  alleDaten = result.alleDaten;
-  maDaten = result.maDaten;
-  stationid = result.stationid;
-  station = result.station;
-  userStatus = result.status;
-});
-
-*/
-$.get('../scripts/getdata.php', data => {
-  const result = JSON.parse(data);
-  userStatus = result.status;
-});
-
 // moment.js duration kann man nicht auf HH:mm formatieren. Daher string aus arbeitszeit minuten:
-// eslint-disable-next-line no-unused-vars
-function zuStunden(azMinuten) {
+export function zuStunden(azMinuten) {
   let stunden = Math.floor(azMinuten / 60);
   let minuten = azMinuten % 60;
   if (stunden < 10) stunden = `0${stunden}`;
@@ -64,15 +27,13 @@ function zuStunden(azMinuten) {
 }
 
 // DRUCKEN
-// eslint-disable-next-line no-unused-vars
-function drucken() {
+export function drucken() {
   $('.tabelle-rechts').css('width', '100%');
   window.print();
 }
 
 // RUNDEN to fixed 2 / return als string
-// eslint-disable-next-line no-unused-vars
-const roundTF = v => {
+export function roundTF(v) {
   // value als string
   const value = String(v);
 
@@ -123,17 +84,4 @@ const roundTF = v => {
 
   // wenn kein Zehnersprung, dann "0" und einstellig zurückgeben
   return String(`${decimal}.0${lastPlace}`);
-};
-
-$(document).ready(() => {
-  // NACH DRUCKEN
-  window.onafterprint = () => {
-    $('.tabelle-rechts').css('width', '70%');
-  };
-});
-
-$(document).ajaxComplete(() => {
-  // ADMIN / SL für Menü
-  if (userStatus === 'admin') $('#adminmenu, .slmenu').show();
-  if (userStatus === 'sl') $('.slmenu').show();
-});
+}

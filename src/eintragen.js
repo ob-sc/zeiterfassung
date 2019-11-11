@@ -1,4 +1,8 @@
-/* global moment, roundTF, fehler, info */
+import { roundTF, info, fehler } from './funktionen';
+
+const moment = require('moment');
+
+moment.locale('de');
 
 let alleAH = [];
 let stationNamen = [];
@@ -19,8 +23,7 @@ $.get('../scripts/getdata.php', data => {
   alleNamen = daten.alleNamen;
 });
 
-function senden() {
-  // benutzt in eintragen/index
+window.senden = () => {
   $.ajax({
     url: 'send.php',
     method: 'POST',
@@ -45,7 +48,7 @@ function senden() {
     });
 
   $('#esend').hide();
-}
+};
 
 function formBerechnung() {
   // Input name, je nachdem ob der normale leer ist

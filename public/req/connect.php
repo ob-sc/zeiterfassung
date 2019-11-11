@@ -1,6 +1,6 @@
 <?php
 
-$iniFile = __DIR__ . '/../config.ini';
+$iniFile = __DIR__ . '/../../config.ini';
 
 if(!file_exists($iniFile) || !is_readable($iniFile)) {
   die('<h4>config.ini existiert nicht oder ist nicht lesbar</h4>');
