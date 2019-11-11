@@ -20,11 +20,6 @@ $.get('../scripts/getdata.php', data => {
 });
 
 $(document).ready(() => {
-  // NACH DRUCKEN
-  window.onafterprint = () => {
-    $('.tabelle-rechts').css('width', '70%');
-  };
-
   // für jeden input Datum - automatisch Datum heute
   const datumInput = document.getElementById('datum');
   if (datumInput) datumInput.valueAsDate = new Date();
