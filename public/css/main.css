@@ -123,15 +123,15 @@ main {
 }
 
 .scc {
-  background-color: #fafafa;
-  color: #000;
+  background-color: #000;
+  color: #fafafa;
   border: 1px solid #000;
   font-weight: 500;
 }
 
 .scc:hover {
+  background-color: #fafafa;
   color: #000;
-  background-color: #ededed;
 }
 
 .readmeText {

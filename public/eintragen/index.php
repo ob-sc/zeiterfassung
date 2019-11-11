@@ -14,8 +14,8 @@ include "../req/header.php";
     <form method="post" id="eform" autocomplete="off">
       <div class="form-group">
         <label for="name">Aushilfe:</label>
-        <input type="text" class="form-control" placeholder="Name" name="stationName" id="nameInput">
-        <input type="text" class="form-control" placeholder="Name" name="alleName" id="alleInput" style="display:none">
+        <input type="text" class="form-control" placeholder="Name" name="stationName" id="autoComplete">
+        <!-- <input type="text" class="form-control" placeholder="Name" name="alleName" id="alleInput" style="display:none"> -->
       </div>
       <div class="form-check mb-3">
         <input type="checkbox" class="form-check-input" id="stationCheck">

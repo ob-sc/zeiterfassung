@@ -207,17 +207,17 @@ $(document).ready(() => {
   };
 });
 
-$(document).ajaxComplete(() => {
-  $('#nameInput').autoComplete({
-    minChars: 1,
-    delay: 0,
-    source(term, suggest) {
-      term = term.toLowerCase();
-      let matches = [];
-      for (let i = 0; i < stationNamen.length; i++)
-        if (~stationNamen[i].toLowerCase().indexOf(term))
-          matches.push(stationNamen[i]);
-      suggest(matches);
-    }
-  });
-});
+// $(document).ajaxComplete(() => {
+//   $('#nameInput').autoComplete({
+//     minChars: 1,
+//     delay: 0,
+//     source(term, suggest) {
+//       term = term.toLowerCase();
+//       let matches = [];
+//       for (let i = 0; i < stationNamen.length; i++)
+//         if (~stationNamen[i].toLowerCase().indexOf(term))
+//           matches.push(stationNamen[i]);
+//       suggest(matches);
+//     }
+//   });
+// });

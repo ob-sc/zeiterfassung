@@ -1,4 +1,3 @@
-require('./jquery.auto-complete');
 require('./eintragen');
 require('./auswerten');
 require('./abrechnung');

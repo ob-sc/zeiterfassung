@@ -1,6 +1,7 @@
 import { roundTF, info, fehler } from './funktionen';
 
 const moment = require('moment');
+const autoComplete = require('@tarekraafat/autocomplete.js/dist/js/autoComplete');
 
 moment.locale('de');
 
@@ -157,31 +158,53 @@ $(document).ready(() => {
 });
 
 $(document).ready(() => {
-  // AUTOCOMPLETE - Station
-  $('#nameInput').autoComplete({
-    minChars: 1,
-    delay: 0,
-    source(term, suggest) {
-      term = term.toLowerCase();
-      let matches = [];
-      for (let i = 0; i < stationNamen.length; i++)
-        if (~stationNamen[i].toLowerCase().indexOf(term))
-          matches.push(stationNamen[i]);
-      suggest(matches);
-    }
-  });
-
-  // AUTOCOMPLETE - Alle
-  $('#alleInput').autoComplete({
-    minChars: 1,
-    delay: 0,
-    source(term, suggest) {
-      term = term.toLowerCase();
-      let matches = [];
-      for (let i = 0; i < alleNamen.length; i++)
-        if (~alleNamen[i].toLowerCase().indexOf(term))
-          matches.push(alleNamen[i]);
-      suggest(matches);
-    }
-  });
+  // AUTOCOMPLETE - Station / source: stationNamen, alleNamen / id="autocomplete"
+});
+// eslint-disable-next-line
+new autoComplete({
+  data: {
+    src: stationNamen,
+    cache: true
+  },
+  sort: (a, b) => {
+    if (a.match < b.match) return -1;
+    if (a.match > b.match) return 1;
+    return 0;
+  },
+  selector: '#autoComplete',
+  threshold: 1,
+  // debounce: 100,
+  searchEngine: 'loose',
+  // resultsList: {
+  //   // Rendered results list object      | (Optional)
+  //   render: true,
+  //   container: source => {
+  //     const resultsListID = 'food_List';
+  //     return resultsListID;
+  //   },
+  //   destination: document.querySelector('#autoComplete'),
+  //   position: 'afterend',
+  //   element: 'ul'
+  // },
+  maxResults: 5,
+  highlight: true, // Highlight matching results      | (Optional)
+  resultItem: {
+    // Rendered result item            | (Optional)
+    content: (data, source) => {
+      source.innerHTML = data.match;
+    },
+    element: 'li'
+  },
+  noResults: () => {
+    // Action script on noResults      | (Optional)
+    const result = document.createElement('li');
+    result.setAttribute('class', 'no_result');
+    result.setAttribute('tabindex', '1');
+    result.innerHTML = 'No Results';
+    document.querySelector('#autoComplete_list').appendChild(result);
+  },
+  onSelection: feedback => {
+    // Action script onSelection event | (Optional)
+    console.log(feedback.selection.value.image_url);
+  }
 });
