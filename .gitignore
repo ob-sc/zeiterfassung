@@ -3,8 +3,5 @@ todo.txt
 tables.txt
 changelog.txt
 
-package-lock.json
-.eslintrc.js
-
 .vscode/
 node_modules/
