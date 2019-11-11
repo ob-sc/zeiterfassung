@@ -1,4 +1,9 @@
-/* global moment, zuStunden, roundTF, sortByNachname, fehler */
+import * as JsPDF from 'jspdf';
+import 'jspdf-autotable';
+import { zuStunden, roundTF, fehler } from './funktionen';
+
+const moment = require('moment');
+const sortBy = require('lodash.sortby');
 
 let abDaten = [];
 let titel;
@@ -12,8 +17,8 @@ $.get('../scripts/getdata.php', data => {
 });
 
 // ABRECHNUNG PDF speichern
-function printpdf() {
-  const doc = new jsPDF();
+window.printpdf = () => {
+  const doc = new JsPDF();
   doc.autoTable({
     html: '#abrechnungTable',
     useCss: true,
@@ -22,7 +27,7 @@ function printpdf() {
     }
   });
   doc.save(`${titel}.pdf`);
-}
+};
 
 function abtabelle() {
   let summeAZ = 0;
@@ -49,6 +54,7 @@ function abtabelle() {
     const urlaub = Math.floor((24 / 312) * key.urlaub * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
     const abgehalt = key.gehalt;
 
+    // eslint-disable-next-line eqeqeq
     if (key.ahstation != stationid && key.arbeitszeit !== 0)
       html += '<tr class="table-warning">';
     else html += '<tr>';
@@ -57,6 +63,7 @@ function abtabelle() {
     html += `<td>${zuStunden(key.arbeitszeit)}</td>`;
     html += `<td>${roundTF(abgehalt)}</td>`;
     html += `<td>${key.datum}</td>`;
+    // eslint-disable-next-line eqeqeq
     if (key.ahstation != stationid && key.arbeitszeit !== 0)
       html += '<td>&nbsp</td>';
     else html += `<td>${urlaub}</td>`;
@@ -77,10 +84,6 @@ function abtabelle() {
 }
 
 $(document).ready(() => {
-  // für jeden input Datum - automatisch Datum heute
-  const datumInput = document.getElementById('datum');
-  datumInput.valueAsDate = new Date();
-
   $('#aform').submit(e => {
     e.preventDefault();
     $('#fehlerAlert').hide();
@@ -93,7 +96,7 @@ $(document).ready(() => {
     })
       .done(data => {
         const dieseStation = data.daten;
-        abDaten = dieseStation.sort(sortByNachname);
+        abDaten = sortBy(dieseStation, [o => o.nachname]);
         abtabelle();
       })
       .fail(data => {

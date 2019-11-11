@@ -1,4 +1,6 @@
-/* global moment, zuStunden, roundTF, zuStunden, fehler, info */
+import { roundTF, zuStunden, fehler, info } from './funktionen';
+
+const moment = require('moment');
 
 let html = '';
 let sonderRow = '';
@@ -197,10 +199,6 @@ $(document).ready(() => {
   window.onafterprint = () => {
     $('.tabelle-rechts').css('width', '70%');
   };
-
-  // automatisch Datum heute
-  const datumInput = document.getElementById('datum');
-  datumInput.valueAsDate = new Date();
 });
 
 $(document).ajaxComplete(() => {

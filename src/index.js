@@ -10,6 +10,7 @@ let userStatus;
 $.get('../scripts/getconfig.php', data => {
   const config = JSON.parse(data);
   const { settings } = config.daten;
+  // eslint-disable-next-line no-console
   if (settings.devmode === '1') console.log('dev');
 });
 
@@ -23,6 +24,10 @@ $(document).ready(() => {
   window.onafterprint = () => {
     $('.tabelle-rechts').css('width', '70%');
   };
+
+  // für jeden input Datum - automatisch Datum heute
+  const datumInput = document.getElementById('datum');
+  if (datumInput) datumInput.valueAsDate = new Date();
 });
 
 $(document).ajaxComplete(() => {

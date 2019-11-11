@@ -1,4 +1,4 @@
-/* global roundTF, fehler, info */
+import { roundTF, fehler, info } from './funktionen';
 
 let ahDaten = {};
 
@@ -28,6 +28,7 @@ function ahBearbeiten() {
   $('#ahTab').html(ahRow);
 
   // Bei klick auf Bearbeiten-img
+  // eslint-disable-next-line func-names
   $('.edit').click(function() {
     const editableTD = $(this)
       .parents('tr')
@@ -37,6 +38,7 @@ function ahBearbeiten() {
     // Alle anderen gelben Zeilen abwählen
     $('.edit')
       .not(this)
+      // eslint-disable-next-line func-names
       .each(function() {
         $(this)
           .parents('tr')
@@ -50,6 +52,7 @@ function ahBearbeiten() {
 
     // Bei Stift-Bild: Zeile kann bearbeitet werden, ändert sich auf speichern
     if ($(this).attr('src') === '../img/edit.svg') {
+      // eslint-disable-next-line func-names
       $.each(editableTD, function() {
         $(this).prop('contenteditable', true);
       });
@@ -63,6 +66,7 @@ function ahBearbeiten() {
     // Bei Disketten-Bild: Zeile wird gespeichert -> variablen aus IDs der Zellen werden erstellt und dann per ajax an php gesendet
 
     if ($(this).attr('src') === '../img/save.svg') {
+      // eslint-disable-next-line func-names
       $.each(editableTD, function() {
         $(this).prop('contenteditable', false);
       });

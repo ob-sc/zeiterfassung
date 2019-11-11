@@ -154,10 +154,6 @@ $(document).ready(() => {
   $('#eform').change(() => {
     $('#esend').hide();
   });
-
-  // automatisch Datum heute
-  const datumInput = document.getElementById('datum');
-  datumInput.valueAsDate = new Date();
 });
 
 $(document).ready(() => {
