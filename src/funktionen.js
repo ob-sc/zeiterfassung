@@ -26,12 +26,6 @@ export function zuStunden(azMinuten) {
   return azString;
 }
 
-// DRUCKEN
-export function drucken() {
-  $('.tabelle-rechts').css('width', '100%');
-  window.print();
-}
-
 // RUNDEN to fixed 2 / return als string
 export function roundTF(v) {
   // value als string

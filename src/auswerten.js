@@ -18,6 +18,12 @@ $.get('../scripts/getdata.php', data => {
   ahDaten = result.ahDaten;
 });
 
+// DRUCKEN
+window.drucken = () => {
+  $('.tabelle-rechts').css('width', '100%');
+  window.print();
+};
+
 function eatabelle() {
   // Ende Funktion wenn keine Einträge
   if (tage.length === 0) {
