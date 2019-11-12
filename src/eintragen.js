@@ -18,12 +18,12 @@ let gehalt;
 let ahStation;
 
 // AUTOCOMPLETE - Station / source: stationNamen, alleNamen / id="autocomplete"
-function createAutoComplete(nameSelector) {
+function createAutoComplete() {
   document.addEventListener('DOMContentLoaded', () => {
     // eslint-disable-next-line
-    new autoComplete({
+    const autoCompleteInput = new autoComplete({
       data: {
-        src: nameSelector,
+        src: stationNamen,
         cache: true
       },
       sort: (a, b) => {
@@ -38,8 +38,15 @@ function createAutoComplete(nameSelector) {
         render: true,
         position: 'afterend'
       },
-      maxResults: 7,
+      maxResults: 6,
       highlight: true,
+      noResults: () => {
+        const result = document.createElement('li');
+        result.setAttribute('class', 'autoComplete_result');
+        result.setAttribute('tabindex', '1');
+        result.innerHTML = 'Kein Ergebnis';
+        document.querySelector('#autoComplete_list').appendChild(result);
+      },
       onSelection: feedback => {
         document.querySelector('#autoComplete').blur();
         const selection = feedback.selection.value;
@@ -59,6 +66,24 @@ function createAutoComplete(nameSelector) {
             resultsList.style.display = 'block';
           }
         });
+    });
+
+    // eslint-disable-next-line func-names
+    $('#stationCheck').change(function() {
+      $('#autoComplete').val('');
+      if (this.checked) {
+        autoCompleteInput.data = {
+          src: alleNamen,
+          cache: true
+        };
+        autoCompleteInput.dataStream = alleNamen;
+      } else {
+        autoCompleteInput.data = {
+          src: stationNamen,
+          cache: true
+        };
+        autoCompleteInput.dataStream = stationNamen;
+      }
     });
   });
 }
@@ -100,13 +125,6 @@ window.senden = () => {
 };
 
 function formBerechnung() {
-  // Input name, je nachdem ob der normale leer ist / todo noch ändern
-  if ($('#nameInput').val() !== '') {
-    ausName = $('#nameInput').val();
-  } else {
-    ausName = $('#alleInput').val();
-  }
-
   ausName = $('#autoComplete').val();
 
   // Station der Aushilfe
@@ -182,15 +200,6 @@ function formBerechnung() {
 }
 
 $(document).ready(() => {
-  // eslint-disable-next-line func-names
-  $('#stationCheck').change(function() {
-    if (this.checked) {
-      createAutoComplete(alleNamen);
-    } else {
-      createAutoComplete(stationNamen);
-    }
-  });
-
   $('#eform').submit(e => {
     e.preventDefault();
     $('#fehlerAlert').hide();
