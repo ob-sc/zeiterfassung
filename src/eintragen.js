@@ -17,11 +17,59 @@ let diff;
 let gehalt;
 let ahStation;
 
+// AUTOCOMPLETE - Station / source: stationNamen, alleNamen / id="autocomplete"
+function createAutoComplete(nameSelector) {
+  document.addEventListener('DOMContentLoaded', () => {
+    // eslint-disable-next-line
+    new autoComplete({
+      data: {
+        src: nameSelector,
+        cache: true
+      },
+      sort: (a, b) => {
+        if (a.match < b.match) return -1;
+        if (a.match > b.match) return 1;
+        return 0;
+      },
+      selector: '#autoComplete',
+      threshold: 0,
+      searchEngine: 'strict', // todo strict oder loose?
+      resultsList: {
+        render: true,
+        position: 'afterend'
+      },
+      maxResults: 7,
+      highlight: true,
+      onSelection: feedback => {
+        document.querySelector('#autoComplete').blur();
+        const selection = feedback.selection.value;
+        document.querySelector('#autoComplete').value = selection;
+      }
+    });
+
+    ['focus', 'blur'].forEach(eventType => {
+      const resultsList = document.querySelector('#autoComplete_list');
+
+      document
+        .querySelector('#autoComplete')
+        .addEventListener(eventType, () => {
+          if (eventType === 'blur') {
+            resultsList.style.display = 'none';
+          } else if (eventType === 'focus') {
+            resultsList.style.display = 'block';
+          }
+        });
+    });
+  });
+}
+
 $.get('../scripts/getdata.php', data => {
   const daten = JSON.parse(data);
   alleAH = daten.alleDaten;
   stationNamen = daten.stationNamen;
   alleNamen = daten.alleNamen;
+}).done(() => {
+  createAutoComplete(stationNamen);
 });
 
 window.senden = () => {
@@ -52,19 +100,21 @@ window.senden = () => {
 };
 
 function formBerechnung() {
-  // Input name, je nachdem ob der normale leer ist
+  // Input name, je nachdem ob der normale leer ist / todo noch ändern
   if ($('#nameInput').val() !== '') {
     ausName = $('#nameInput').val();
   } else {
     ausName = $('#alleInput').val();
   }
 
+  ausName = $('#autoComplete').val();
+
   // Station der Aushilfe
   ahStation = alleAH[ausName].station;
 
   // Check ob Aushilfe existiert
   if (!alleAH[ausName]) {
-    fehler('Aushilfe nicht gefunden!'); // definiert in main.js
+    fehler('Aushilfe nicht gefunden!');
     return;
   }
 
@@ -110,7 +160,7 @@ function formBerechnung() {
 
   // Check ob AZ 0 oder negativ
   if (diff < 1) {
-    fehler('Beginn und Ende überprüfen!'); // definiert in main.js
+    fehler('Beginn und Ende überprüfen!');
     return;
   }
 
@@ -132,16 +182,12 @@ function formBerechnung() {
 }
 
 $(document).ready(() => {
-  // checkbox andere Station
-  $('#stationCheck').change(() => {
+  // eslint-disable-next-line func-names
+  $('#stationCheck').change(function() {
     if (this.checked) {
-      $('#nameInput').hide();
-      $('#alleInput').show();
-      $('#nameInput, #alleInput').val('');
+      createAutoComplete(alleNamen);
     } else {
-      $('#nameInput').show();
-      $('#alleInput').hide();
-      $('#nameInput, #alleInput').val('');
+      createAutoComplete(stationNamen);
     }
   });
 
@@ -155,56 +201,4 @@ $(document).ready(() => {
   $('#eform').change(() => {
     $('#esend').hide();
   });
-});
-
-$(document).ready(() => {
-  // AUTOCOMPLETE - Station / source: stationNamen, alleNamen / id="autocomplete"
-});
-// eslint-disable-next-line
-new autoComplete({
-  data: {
-    src: stationNamen,
-    cache: true
-  },
-  sort: (a, b) => {
-    if (a.match < b.match) return -1;
-    if (a.match > b.match) return 1;
-    return 0;
-  },
-  selector: '#autoComplete',
-  threshold: 1,
-  // debounce: 100,
-  searchEngine: 'loose',
-  // resultsList: {
-  //   // Rendered results list object      | (Optional)
-  //   render: true,
-  //   container: source => {
-  //     const resultsListID = 'food_List';
-  //     return resultsListID;
-  //   },
-  //   destination: document.querySelector('#autoComplete'),
-  //   position: 'afterend',
-  //   element: 'ul'
-  // },
-  maxResults: 5,
-  highlight: true, // Highlight matching results      | (Optional)
-  resultItem: {
-    // Rendered result item            | (Optional)
-    content: (data, source) => {
-      source.innerHTML = data.match;
-    },
-    element: 'li'
-  },
-  noResults: () => {
-    // Action script on noResults      | (Optional)
-    const result = document.createElement('li');
-    result.setAttribute('class', 'no_result');
-    result.setAttribute('tabindex', '1');
-    result.innerHTML = 'No Results';
-    document.querySelector('#autoComplete_list').appendChild(result);
-  },
-  onSelection: feedback => {
-    // Action script onSelection event | (Optional)
-    console.log(feedback.selection.value.image_url);
-  }
 });

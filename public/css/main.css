@@ -51,7 +51,7 @@ main {
 
 #fehlerAlert,
 #infoAlert {
-  position: fixed;
+  position: relative;
   display: none;
   font-size: 1.3rem;
   width: 40%;
