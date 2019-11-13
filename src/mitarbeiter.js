@@ -1,9 +1,10 @@
-/* global fehler */
-let maDaten = [];
+import { fehler } from './funktionen';
+import { dataJSON } from './request';
 
-$.get('../scripts/getdata.php', data => {
-  const result = JSON.parse(data);
-  maDaten = result.maDaten;
+let maDaten;
+
+$(document).ajaxComplete(() => {
+  maDaten = dataJSON.responseJSON.maDaten;
 });
 
 $(document).ajaxComplete(() => {

@@ -1,11 +1,10 @@
 import { roundTF, fehler, info } from './funktionen';
+import { dataJSON } from './request';
 
-let ahDaten = {};
+let ahDaten;
 
-// namen, löhne und station für alle
-$.get('../scripts/getdata.php', data => {
-  const result = JSON.parse(data);
-  ahDaten = result.ahDaten;
+$(document).ajaxComplete(() => {
+  ahDaten = dataJSON.responseJSON.ahDaten;
 });
 
 // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt

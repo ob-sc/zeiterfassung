@@ -1,22 +1,10 @@
+import { dataJSON, configJSON } from './request';
+
 require('./eintragen');
 require('./auswerten');
 require('./abrechnung');
 require('./aushilfen');
 require('./mitarbeiter');
-
-let userStatus;
-
-$.get('../scripts/getconfig.php', data => {
-  const config = JSON.parse(data);
-  const { settings } = config.daten;
-  // eslint-disable-next-line no-console
-  if (settings.devmode === '1') console.log('dev');
-});
-
-$.get('../scripts/getdata.php', data => {
-  const result = JSON.parse(data);
-  userStatus = result.status;
-});
 
 $(document).ready(() => {
   // für jeden input Datum - automatisch Datum heute
@@ -25,7 +13,12 @@ $(document).ready(() => {
 });
 
 $(document).ajaxComplete(() => {
+  const userStatus = dataJSON.responseJSON.status;
   // ADMIN / SL für Menü
   if (userStatus === 'admin') $('#adminmenu, .slmenu').show();
   if (userStatus === 'sl') $('.slmenu').show();
+
+  const { settings } = configJSON.responseJSON.daten;
+  // eslint-disable-next-line no-console
+  if (settings.devmode === '1') console.log('dev');
 });

@@ -1,21 +1,21 @@
 import { roundTF, zuStunden, fehler, info } from './funktionen';
+import { dataJSON } from './request';
 
 const moment = require('moment');
 
 let html = '';
 let sonderRow = '';
-let stationNamen = [];
-let ahDaten = [];
 
 let tage = [];
 let summe = [];
 let eaBeginn = [];
 let eaEnde = [];
 
-$.get('../scripts/getdata.php', data => {
-  const result = JSON.parse(data);
-  stationNamen = result.stationNamen;
-  ahDaten = result.ahDaten;
+let ahDaten;
+
+$(document).ajaxComplete(() => {
+  ahDaten = dataJSON.responseJSON.ahDaten;
+  const { stationNamen } = dataJSON.responseJSON;
 });
 
 // DRUCKEN
@@ -206,18 +206,3 @@ $(document).ready(() => {
     $('.tabelle-rechts').css('width', '70%');
   };
 });
-
-// $(document).ajaxComplete(() => {
-//   $('#nameInput').autoComplete({
-//     minChars: 1,
-//     delay: 0,
-//     source(term, suggest) {
-//       term = term.toLowerCase();
-//       let matches = [];
-//       for (let i = 0; i < stationNamen.length; i++)
-//         if (~stationNamen[i].toLowerCase().indexOf(term))
-//           matches.push(stationNamen[i]);
-//       suggest(matches);
-//     }
-//   });
-// });

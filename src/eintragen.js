@@ -1,13 +1,14 @@
 import { roundTF, info, fehler } from './funktionen';
+import { dataJSON } from './request';
 
 const moment = require('moment');
 const autoComplete = require('@tarekraafat/autocomplete.js/dist/js/autoComplete');
 
 moment.locale('de');
 
-let alleAH = [];
-let stationNamen = [];
-let alleNamen = [];
+let alleAH;
+let stationNamen;
+let alleNamen;
 let aushilfenId;
 let ausName;
 let datum;
@@ -88,13 +89,11 @@ function createAutoComplete() {
   });
 }
 
-$.get('../scripts/getdata.php', data => {
-  const daten = JSON.parse(data);
-  alleAH = daten.alleDaten;
-  stationNamen = daten.stationNamen;
-  alleNamen = daten.alleNamen;
-}).done(() => {
-  createAutoComplete(stationNamen);
+$(document).ajaxComplete(() => {
+  alleAH = dataJSON.responseJSON.alleAH;
+  stationNamen = dataJSON.responseJSON.stationNamen;
+  alleNamen = dataJSON.responseJSON.alleNamen;
+  createAutoComplete();
 });
 
 window.senden = () => {
