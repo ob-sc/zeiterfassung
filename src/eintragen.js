@@ -6,7 +6,7 @@ const autoComplete = require('@tarekraafat/autocomplete.js/dist/js/autoComplete'
 
 moment.locale('de');
 
-let alleAH;
+let alleDaten;
 let stationNamen;
 let alleNamen;
 let aushilfenId;
@@ -90,7 +90,7 @@ function createAutoComplete() {
 }
 
 $(document).ajaxComplete(() => {
-  alleAH = dataJSON.responseJSON.alleAH;
+  alleDaten = dataJSON.responseJSON.alleDaten;
   stationNamen = dataJSON.responseJSON.stationNamen;
   alleNamen = dataJSON.responseJSON.alleNamen;
   createAutoComplete();
@@ -127,21 +127,21 @@ function formBerechnung() {
   ausName = $('#autoComplete').val();
 
   // Station der Aushilfe
-  ahStation = alleAH[ausName].station;
+  ahStation = alleDaten[ausName].station;
 
   // Check ob Aushilfe existiert
-  if (!alleAH[ausName]) {
+  if (!alleDaten[ausName]) {
     fehler('Aushilfe nicht gefunden!');
     return;
   }
 
-  aushilfenId = alleAH[ausName].id;
+  aushilfenId = alleDaten[ausName].id;
 
   $('#etext').html(`<p><strong>Name:</strong> ${ausName}</p>`);
 
-  const { norlohn } = alleAH[ausName];
-  const { samlohn } = alleAH[ausName];
-  const { sonlohn } = alleAH[ausName];
+  const { norlohn } = alleDaten[ausName];
+  const { samlohn } = alleDaten[ausName];
+  const { sonlohn } = alleDaten[ausName];
   let lohn;
 
   datum = $('#datum').val();

@@ -103,9 +103,6 @@ main {
   width: 300px;
   margin: 20px;
   padding: 20px;
-  /* background-color: #2b2b28; */
-  /* box-shadow: 12px 12px 2px 1px #62c4c3; */
-  /* border-radius: 5px; */
 }
 
 .eintragen-rechts {
@@ -220,13 +217,12 @@ main {
 }
 
 .autoComplete_result {
-  /* margin: 0.15rem auto; */
+  margin: 0.15rem auto;
   padding: 0.6rem;
   max-width: 280px;
   border: 0.05rem solid #e3e3e3;
   list-style: none;
   text-align: left;
-  /* font-size: 1.1rem; */
   color: rgb(123, 123, 123);
   transition: all 0.1s ease-in-out;
   background-color: #fff;
