@@ -12,13 +12,15 @@ $(document).ready(() => {
   if (datumInput) datumInput.valueAsDate = new Date();
 });
 
+$.getJSON('../scripts/getconfig.php').done(data => {
+  const { settings } = data.daten;
+  // eslint-disable-next-line no-console
+  if (settings.devmode === '1') console.log('dev');
+});
+
 $(document).ajaxComplete(() => {
   const userStatus = dataJSON.responseJSON.status;
   // ADMIN / SL für Menü
   if (userStatus === 'admin') $('#adminmenu, .slmenu').show();
   if (userStatus === 'sl') $('.slmenu').show();
-
-  const { settings } = configJSON.responseJSON.daten;
-  // eslint-disable-next-line no-console
-  if (settings.devmode === '1') console.log('dev');
 });

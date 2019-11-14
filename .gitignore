@@ -3,5 +3,9 @@ todo.txt
 tables.txt
 changelog.txt
 
+package-lock.json
+
+public/js/main.js
+
 .vscode/
 node_modules/
