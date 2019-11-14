@@ -1,4 +1,4 @@
-import { dataJSON, configJSON } from './request';
+import { dataJSON } from './request';
 
 require('./eintragen');
 require('./auswerten');

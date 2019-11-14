@@ -1,6 +1,5 @@
 const path = require('path');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -12,8 +11,5 @@ module.exports = {
     new MomentLocalesPlugin({
       localesToKeep: ['de']
     })
-  ],
-  optimization: {
-    minimizer: [new TerserPlugin()]
-  }
+  ]
 };

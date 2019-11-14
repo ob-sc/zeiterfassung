@@ -20,10 +20,10 @@
     <ul class="cnav">
       <li><a id="eintragen" href="../eintragen/index.php">Eintragen</a></li>
       <li><a id="auswerten" href="../auswerten/index.php">Auswerten</a></li>
-      <li class="slmenu" style="display:none"><a id="abrechnung" href="../abrechnung/index.php">Abrechnung</a></li>
-      <li class="slmenu" style="display:none"><a id="aushilfen" href="../aushilfen/index.php">Aushilfen</a></li>
-      <li class="slmenu" style="display:none"><a id="mitarbeiter" href="../mitarbeiter/index.php">Mitarbeiter</a></li>
-      <li id="adminmenu" style="display:none"><a id="adminnav" href="../admin/index.php">Admin</a></li>
+      <li class="slmenu" style="display:none"><a id="abrechnung" href="../abrechnung/">Abrechnung</a></li>
+      <li class="slmenu" style="display:none"><a id="aushilfen" href="../aushilfen/">Aushilfen</a></li>
+      <li class="slmenu" style="display:none"><a id="mitarbeiter" href="../mitarbeiter/">Mitarbeiter</a></li>
+      <li id="adminmenu" style="display:none"><a id="adminnav" href="../admin/">Admin</a></li>
       <li><a id="readme" href="../doc/readme.php">Hilfe</a></li>
       <li><a class="logout" href="../scripts/logout.php">Abmelden</a></li>
     </ul>

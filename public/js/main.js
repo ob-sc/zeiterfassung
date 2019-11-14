@@ -273,11 +273,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _fun
 /*!************************!*\
   !*** ./src/request.js ***!
   \************************/
-/*! exports provided: dataJSON, configJSON */
+/*! exports provided: dataJSON */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"dataJSON\", function() { return dataJSON; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"configJSON\", function() { return configJSON; });\nconst dataJSON = $.getJSON('../scripts/getdata.php');\r\n\r\nconst configJSON = $.getJSON('../scripts/getconfig.php');\r\n\n\n//# sourceURL=webpack:///./src/request.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"dataJSON\", function() { return dataJSON; });\nconst dataJSON = $.getJSON('../scripts/getdata.php');\r\n\n\n//# sourceURL=webpack:///./src/request.js?");
 
 /***/ })
 
