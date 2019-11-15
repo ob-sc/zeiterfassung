@@ -3,6 +3,7 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
+  mode: 'production',
   entry: './src/index.js',
   output: {
     filename: 'main.js',

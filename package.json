@@ -1,12 +1,13 @@
 {
   "name": "zeiterfassung",
-  "version": "1.2.0",
+  "version": "1.2.1",
+  "private": true,
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-dev": "webpack --mode=development --config webpack.config-dev.js",
-    "watch": "webpack --mode=development --watch --config webpack.config-dev.js",
-    "build": "webpack --mode=production --config webpack.config.js"
+    "build-dev": "webpack --config webpack.config-dev.js",
+    "watch": "webpack --watch --config webpack.config-dev.js",
+    "build": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
