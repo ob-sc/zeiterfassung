@@ -1,14 +1,11 @@
-import { roundTF, info, fehler } from './funktionen';
-import { dataJSON } from './request';
+import { createAutoComplete, roundTF, info, fehler } from './funktionen';
+import dataJSON from './request';
 
 const moment = require('moment');
-const autoComplete = require('@tarekraafat/autocomplete.js/dist/js/autoComplete');
 
 moment.locale('de');
 
 let alleDaten;
-let stationNamen;
-let alleNamen;
 let aushilfenId;
 let ausName;
 let datum;
@@ -18,82 +15,12 @@ let diff;
 let gehalt;
 let ahStation;
 
-// AUTOCOMPLETE - Station / source: stationNamen, alleNamen / id="autocomplete"
-function createAutoComplete() {
-  document.addEventListener('DOMContentLoaded', () => {
-    // eslint-disable-next-line
-    const autoCompleteInput = new autoComplete({
-      data: {
-        src: stationNamen,
-        cache: true
-      },
-      sort: (a, b) => {
-        if (a.match < b.match) return -1;
-        if (a.match > b.match) return 1;
-        return 0;
-      },
-      selector: '#autoComplete',
-      threshold: 0,
-      searchEngine: 'strict', // todo strict oder loose?
-      resultsList: {
-        render: true,
-        position: 'afterend'
-      },
-      maxResults: 6,
-      highlight: true,
-      noResults: () => {
-        const result = document.createElement('li');
-        result.setAttribute('class', 'autoComplete_result');
-        result.setAttribute('tabindex', '1');
-        result.innerHTML = 'Kein Ergebnis';
-        document.querySelector('#autoComplete_list').appendChild(result);
-      },
-      onSelection: feedback => {
-        document.querySelector('#autoComplete').blur();
-        const selection = feedback.selection.value;
-        document.querySelector('#autoComplete').value = selection;
-      }
-    });
-
-    ['focus', 'blur'].forEach(eventType => {
-      const resultsList = document.querySelector('#autoComplete_list');
-
-      document
-        .querySelector('#autoComplete')
-        .addEventListener(eventType, () => {
-          if (eventType === 'blur') {
-            resultsList.style.display = 'none';
-          } else if (eventType === 'focus') {
-            resultsList.style.display = 'block';
-          }
-        });
-    });
-
-    // eslint-disable-next-line func-names
-    $('#stationCheck').change(function() {
-      $('#autoComplete').val('');
-      if (this.checked) {
-        autoCompleteInput.data = {
-          src: alleNamen,
-          cache: true
-        };
-        autoCompleteInput.dataStream = alleNamen;
-      } else {
-        autoCompleteInput.data = {
-          src: stationNamen,
-          cache: true
-        };
-        autoCompleteInput.dataStream = stationNamen;
-      }
-    });
-  });
-}
-
 $(document).ajaxComplete(() => {
   alleDaten = dataJSON.responseJSON.alleDaten;
-  stationNamen = dataJSON.responseJSON.stationNamen;
-  alleNamen = dataJSON.responseJSON.alleNamen;
-  createAutoComplete();
+  const { stationNamen } = dataJSON.responseJSON;
+  const { alleNamen } = dataJSON.responseJSON;
+  createAutoComplete('#eintragenAuto', stationNamen, alleNamen);
+  console.log('alle ajax eintragen');
 });
 
 window.senden = () => {

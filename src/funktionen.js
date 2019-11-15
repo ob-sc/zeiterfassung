@@ -1,3 +1,77 @@
+const autoComplete = require('@tarekraafat/autocomplete.js/dist/js/autoComplete');
+
+// Autocomplete, srcArray1 = normal, 2 = alle
+// eventuell läd er den spaß hier bevor der dom geladen ist -> findet die id nicht
+export function createAutoComplete(id, srcArray1, srcArray2) {
+  // eslint-disable-next-line
+  const autoCompleteInput = new autoComplete({
+    data: {
+      src: srcArray1,
+      cache: true
+    },
+    sort: (a, b) => {
+      if (a.match < b.match) return -1;
+      if (a.match > b.match) return 1;
+      return 0;
+    },
+    selector: id,
+    threshold: 0,
+    searchEngine: 'strict', // todo strict oder loose?
+    resultsList: {
+      render: true,
+      position: 'afterend'
+    },
+    maxResults: 6,
+    highlight: true,
+    noResults: () => {
+      const result = document.createElement('li');
+      result.setAttribute('class', 'autoComplete_result');
+      result.setAttribute('tabindex', '1');
+      result.innerHTML = 'Kein Ergebnis';
+      document.querySelector('#autoComplete_list').appendChild(result);
+    },
+    onSelection: feedback => {
+      document.querySelector(id).blur();
+      const selection = feedback.selection.value;
+      document.querySelector(id).value = selection;
+    }
+  });
+
+  const resultsList = document.querySelector('#autoComplete_list');
+
+  ['focus', 'blur'].forEach(eventType => {
+    document.querySelector(id).addEventListener(eventType, () => {
+      if (eventType === 'blur') {
+        resultsList.style.display = 'none';
+      } else if (eventType === 'focus') {
+        resultsList.style.display = 'block';
+      }
+    });
+  });
+
+  const stationCheck = document.getElementById('stationCheck');
+  if (stationCheck) {
+    // eslint-disable-next-line func-names
+    $('#stationCheck').change(function() {
+      $(id).val('');
+      resultsList.innerHTML = '';
+      if (this.checked) {
+        autoCompleteInput.data = {
+          src: srcArray2,
+          cache: true
+        };
+        autoCompleteInput.dataStream = srcArray2;
+      } else {
+        autoCompleteInput.data = {
+          src: srcArray1,
+          cache: true
+        };
+        autoCompleteInput.dataStream = srcArray1;
+      }
+    });
+  }
+}
+
 // Fehler Alert
 export function fehler(tx) {
   $('#fehlerText').html(tx);

@@ -1,7 +1,15 @@
-import { roundTF, zuStunden, fehler, info } from './funktionen';
-import { dataJSON } from './request';
+import {
+  createAutoComplete,
+  roundTF,
+  zuStunden,
+  fehler,
+  info
+} from './funktionen';
+import dataJSON from './request';
 
 const moment = require('moment');
+
+moment.locale('de');
 
 let html = '';
 let sonderRow = '';
@@ -16,6 +24,9 @@ let ahDaten;
 $(document).ajaxComplete(() => {
   ahDaten = dataJSON.responseJSON.ahDaten;
   const { stationNamen } = dataJSON.responseJSON;
+  window.addEventListener('DOMContentLoaded', () => {
+    createAutoComplete('#auswertenAuto', stationNamen);
+  });
 });
 
 // DRUCKEN

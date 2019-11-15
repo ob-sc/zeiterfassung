@@ -14,7 +14,7 @@ include "../req/header.php";
     <form method="post" id="eaform" autocomplete="off">
       <div class="form-group">
         <label for="name">Name:</label>
-        <input type="text" class="form-control" placeholder="Name" name="name" id="nameInput" required>
+        <input type="text" class="form-control" placeholder="Name" name="name" id="auswertenAuto" required>
       </div>
       <div class="form-group">
         <label for="monat">Zeitraum:</label>

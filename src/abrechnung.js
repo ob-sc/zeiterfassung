@@ -1,10 +1,12 @@
 import * as JsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { zuStunden, roundTF, fehler } from './funktionen';
-import { dataJSON } from './request';
+import dataJSON from './request';
 
 const moment = require('moment');
 const sortBy = require('lodash.sortby');
+
+moment.locale('de');
 
 let abDaten = [];
 let titel;

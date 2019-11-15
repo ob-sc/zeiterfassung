@@ -1,10 +1,38 @@
-import { dataJSON } from './request';
+import dataJSON from './request';
 
-require('./eintragen');
-require('./auswerten');
-require('./abrechnung');
-require('./aushilfen');
-require('./mitarbeiter');
+// eslint-disable-next-line default-case
+switch (window.location.pathname) {
+  case '/eintragen':
+  case '/eintragen/':
+  case '/eintragen/index.php':
+    // eslint-disable-next-line global-require
+    require('./eintragen');
+    break;
+  case '/auswerten':
+  case '/auswerten/':
+  case '/auswerten/index.php':
+    // eslint-disable-next-line global-require
+    require('./auswerten');
+    break;
+  case '/abrechnung':
+  case '/abrechnung/':
+  case '/abrechnung/index.php':
+    // eslint-disable-next-line global-require
+    require('./abrechnung');
+    break;
+  case '/aushilfen':
+  case '/aushilfen/':
+  case '/aushilfen/index.php':
+    // eslint-disable-next-line global-require
+    require('./aushilfen');
+    break;
+  case '/mitarbeiter':
+  case '/mitarbeiter/':
+  case '/mitarbeiter/index.php':
+    // eslint-disable-next-line global-require
+    require('./mitarbeiter');
+    break;
+}
 
 $(document).ready(() => {
   // für jeden input Datum - automatisch Datum heute

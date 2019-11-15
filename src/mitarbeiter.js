@@ -1,5 +1,5 @@
 import { fehler } from './funktionen';
-import { dataJSON } from './request';
+import dataJSON from './request';
 
 let maDaten;
 

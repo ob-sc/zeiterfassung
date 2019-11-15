@@ -1,1 +1,3 @@
-export const dataJSON = $.getJSON('../scripts/getdata.php');
+const dataJSON = $.getJSON('../scripts/getdata.php');
+
+export default dataJSON;
