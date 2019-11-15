@@ -23,6 +23,7 @@ let ahDaten;
 
 $(document).ajaxComplete(() => {
   ahDaten = dataJSON.responseJSON.ahDaten;
+  console.log(ahDaten);
   const { stationNamen } = dataJSON.responseJSON;
   window.addEventListener('DOMContentLoaded', () => {
     createAutoComplete('#auswertenAuto', stationNamen);
@@ -186,7 +187,7 @@ $(document).ready(() => {
     $('#fehlerAlert').hide();
     $('#infoAlert').hide();
 
-    const AHName = $('#nameInput').val();
+    const AHName = $('#auswertenAuto').val();
     const { id } = ahDaten[AHName];
 
     const datum = $('#datum').val();
