@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="../css/main.css" />
     <script src="../js/jquery-3.4.1.min.js"></script>
     <script src="../js/bootstrap.bundle.min.js"></script>
+    <script>
+      // IE CHECK
+      var ua = window.navigator.userAgent;
+      var isIE = /MSIE|Trident/.test(ua);
+
+      if (isIE) {
+        document.getElementById('loginForm').innerHTML =
+          'Bitte benutze Google Chrome statt den Internet Explorer';
+        alert('Bitte benutze Google Chrome statt den Internet Explorer');
+      }
+    </script>
   </head>
   <body>
     <header class="noPrint">
@@ -85,17 +96,5 @@
     $('#fehlerAlert').show();
     $('#fehlerText').html('Benutzername / Passwort falsch!');
     history.replaceState(null, null, ' ');
-  }
-
-  var ua = window.navigator.userAgent;
-  var isIE = /MSIE|Trident/.test(ua);
-
-  console.log(ua);
-  console.log(isIE);
-
-  if (isIE) {
-    document.getElementById('loginForm').innerHTML =
-      'Bitte benutze Google Chrome statt den Internet Explorer';
-    alert('Bitte benutze Google Chrome statt den Internet Explorer');
   }
 </script>
