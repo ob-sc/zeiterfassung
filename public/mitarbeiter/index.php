@@ -15,8 +15,8 @@ include '../req/header.php';
       <tr>
         <th style="width:50%">Name</th>
         <th style="width:20%">Status</th>
-        <th style="width:15%">Bestätigen</th>
-        <th style="width:15%">Löschen</th>
+        <th style="width:15%" class="text-center">Bestätigen</th>
+        <th style="width:15%" class="text-center">Löschen</th>
       </tr>
     </thead>
     <tbody id="maTab">

@@ -28,7 +28,7 @@ function ahBearbeiten() {
       key.id
     }">${roundTF(key.sonlohn)}</td>`;
     ahRow += `<th><img src="../img/user-edit-solid.svg" width="18" class="edit" data-editid="${key.id}"></th>`;
-    ahRow += `<th><img src="../img/user-minus-solid.svg" width="18" class="delete" data-deletename="${key.vorname} ${key.nachname}" data-deleteid="${key.id}"></th></tr>`;
+    ahRow += `<th><img src="../img/times-circle-regular.svg" width="18" class="delete" data-deletename="${key.vorname} ${key.nachname}" data-deleteid="${key.id}"></th></tr>`;
   });
   $('#ahTab').html(ahRow);
 
