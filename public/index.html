@@ -14,8 +14,6 @@
       var isIE = /MSIE|Trident/.test(ua);
 
       if (isIE) {
-        document.getElementById('loginForm').innerHTML =
-          'Bitte benutze Google Chrome statt den Internet Explorer';
         alert('Bitte benutze Google Chrome statt den Internet Explorer');
       }
     </script>
@@ -96,5 +94,10 @@
     $('#fehlerAlert').show();
     $('#fehlerText').html('Benutzername / Passwort falsch!');
     history.replaceState(null, null, ' ');
+  }
+
+  if (isIE) {
+    document.getElementById('loginForm').innerHTML =
+      'Bitte benutze Google Chrome statt den Internet Explorer';
   }
 </script>
