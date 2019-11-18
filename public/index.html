@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <div class="container m-4">
+      <div class="container m-4" id="loginForm">
         <form action="scripts/login.php" method="post">
           <div class="form-group col-md-4">
             <label for="username" class="m-1">Benutzername:</label>
@@ -67,25 +67,34 @@
 </html>
 
 <script>
-  $(document).ready(function() {
-    if (window.location.hash === '#expire') {
-      $('#fehlerAlert').show();
-      $('#fehlerText').html('Sitzung abgelaufen, bitte neu anmelden!');
-      history.replaceState(null, null, ' ');
-    }
+  if (window.location.hash === '#expire') {
+    $('#fehlerAlert').show();
+    $('#fehlerText').html('Sitzung abgelaufen, bitte neu anmelden!');
+    history.replaceState(null, null, ' ');
+  }
 
-    if (window.location.hash === '#neu') {
-      $('#fehlerAlert').show();
-      $('#fehlerText').html(
-        'Lass deinen Account von deinem Stationsleiter bestätigen.'
-      );
-      history.replaceState(null, null, ' ');
-    }
+  if (window.location.hash === '#neu') {
+    $('#fehlerAlert').show();
+    $('#fehlerText').html(
+      'Lass deinen Account von deinem Stationsleiter bestätigen.'
+    );
+    history.replaceState(null, null, ' ');
+  }
 
-    if (window.location.hash === '#loginerror') {
-      $('#fehlerAlert').show();
-      $('#fehlerText').html('Benutzername / Passwort falsch!');
-      history.replaceState(null, null, ' ');
-    }
-  });
+  if (window.location.hash === '#loginerror') {
+    $('#fehlerAlert').show();
+    $('#fehlerText').html('Benutzername / Passwort falsch!');
+    history.replaceState(null, null, ' ');
+  }
+
+  const ua = window.navigator.userAgent;
+  const isIE = /MSIE|Trident/.test(ua);
+
+  console.log(ua);
+  console.log(isIE);
+
+  if (isIE) {
+    $('#loginForm').html('');
+    fehler('Bitte benutze Google CHrome statt den Internet Explorer');
+  }
 </script>
