@@ -50,13 +50,14 @@ window.senden = () => {
 };
 
 function formBerechnung() {
-  ausName = $('#autoComplete').val();
+  ausName = $('#eintragenAuto').val();
 
   // Check ob Aushilfe existiert
   if (!alleDaten[ausName]) {
     fehler('Aushilfe nicht gefunden!');
     return;
   }
+
   // Station der Aushilfe
   ahStation = alleDaten[ausName].station;
 

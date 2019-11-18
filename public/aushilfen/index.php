@@ -61,11 +61,12 @@ include "../req/header.php";
   <table class="table table-hover table-sm" style="width:100%;margin:auto;">
     <thead>
       <tr>
-        <th width="8%">PN</th>
+        <th width="6%">PN</th>
         <th width="54%">Name</th>
         <th width="12%">Lohn Wochentag</th>
         <th width="12%">Lohn Samstag</th>
         <th width="12%">Lohn Sonntag</th>
+        <th width="2%">&nbsp</th>
         <th width="2%">&nbsp</th>
       </tr>
     </thead>
@@ -76,3 +77,24 @@ include "../req/header.php";
 </main>
 </body>
 </html>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          Möchtest du <strong><span id="deleteName"></span></strong> wirklich löschen?
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="deleteConfirm">Ja</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Nein</button>
+      </div>
+    </div>
+  </div>
+</div>

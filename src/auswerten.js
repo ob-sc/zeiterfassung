@@ -105,7 +105,7 @@ function eatabelle() {
 
   // Variable mit String für Tabelle
   // prettier-ignore
-  html = `<h3 style="text-align:center">Arbeitszeitnachweis ${$('#nameInput').val()}<br>${moment(monatfuerTage, 'M').format('MMMM')}-${moment($('#datum').val(),'YYYY-MM').format('MMMM YYYY')}</h3>`;
+  html = `<h3 style="text-align:center">Arbeitszeitnachweis ${$('#auswertenAuto').val()}<br>${moment(monatfuerTage, 'M').format('MMMM')}-${moment($('#datum').val(),'YYYY-MM').format('MMMM YYYY')}</h3>`;
   html +=
     '<table class="table table-bordered table-sm" style="width:100%"><caption>Gelb = In anderer Station gearbeitet</caption><thead><tr>';
   html += '<th style="width:20%">Tag</th>';

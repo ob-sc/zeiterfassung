@@ -146,7 +146,8 @@ main {
 }
 
 .edit:hover,
-.confirm:hover {
+.confirm:hover,
+.delete:hover {
   cursor: pointer;
 }
 

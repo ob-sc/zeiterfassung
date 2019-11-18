@@ -12,8 +12,8 @@ $(document).ajaxComplete(() => {
   maDaten.forEach(key => {
     if (key.status === 'neu') {
       maRow += `<tr class="table-danger"><td>${key.username}</td>`;
-      maRow += `<td>${key.status}</td>`;
-      maRow += `<th><img src="../img/confirm.svg" width="18" class="confirm" id="${key.id}"></th></tr>`;
+      maRow += '<td>Neu</td>';
+      maRow += `<th><img src="../img/check-square-regular.svg" width="18" class="confirm" id="${key.id}"></th></tr>`;
     } else {
       maRow += `<tr><td>${key.username}</td>`;
       maRow += '<td>Bestätigt</td>';

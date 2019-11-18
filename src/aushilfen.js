@@ -10,6 +10,7 @@ $(document).ajaxComplete(() => {
 // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
 function ahBearbeiten() {
   let ahRow;
+  console.log(ahDaten);
   Object.entries(ahDaten).forEach(([key, value]) => {
     ahRow += `<tr><td>${value.personalnr}</td>`;
     ahRow += `<td>${key}</td>`;
@@ -22,7 +23,8 @@ function ahBearbeiten() {
     ahRow += `<td class="editable" contenteditable="false" id="son${
       value.id
     }">${roundTF(value.sonlohn)}</td>`;
-    ahRow += `<th><img src="../img/edit.svg" width="18" class="edit" id="${value.id}"></th></tr>`;
+    ahRow += `<th><img src="../img/user-edit-solid.svg" width="18" class="edit" data-editid="${value.id}"></th>`;
+    ahRow += `<th><img src="../img/user-minus-solid.svg" width="18" class="delete" data-deletename="${key}" data-deleteid="${value.id}"></th></tr>`;
   });
   $('#ahTab').html(ahRow);
 
@@ -32,7 +34,7 @@ function ahBearbeiten() {
     const editableTD = $(this)
       .parents('tr')
       .find('td.editable');
-    const id = $(this).attr('id');
+    const id = $(this).data('editid');
 
     // Alle anderen gelben Zeilen abwählen
     $('.edit')
@@ -46,11 +48,11 @@ function ahBearbeiten() {
         $(this)
           .parents('tr')
           .removeClass('table-warning');
-        $(this).attr('src', '../img/edit.svg');
+        $(this).attr('src', '../img/user-edit-solid.svg');
       });
 
     // Bei Stift-Bild: Zeile kann bearbeitet werden, ändert sich auf speichern
-    if ($(this).attr('src') === '../img/edit.svg') {
+    if ($(this).attr('src') === '../img/user-edit-solid.svg') {
       // eslint-disable-next-line func-names
       $.each(editableTD, function() {
         $(this).prop('contenteditable', true);
@@ -58,13 +60,13 @@ function ahBearbeiten() {
       $(this)
         .parents('tr')
         .addClass('table-warning');
-      $(this).attr('src', '../img/save.svg');
+      $(this).attr('src', '../img/user-check-solid.svg');
       return;
     }
 
     // Bei Disketten-Bild: Zeile wird gespeichert -> variablen aus IDs der Zellen werden erstellt und dann per ajax an php gesendet
 
-    if ($(this).attr('src') === '../img/save.svg') {
+    if ($(this).attr('src') === '../img/user-check-solid.svg') {
       // eslint-disable-next-line func-names
       $.each(editableTD, function() {
         $(this).prop('contenteditable', false);
@@ -72,7 +74,7 @@ function ahBearbeiten() {
       $(this)
         .parents('tr')
         .removeClass('table-warning');
-      $(this).attr('src', '../img/edit.svg');
+      $(this).attr('src', '../img/user-edit-solid.svg');
 
       // Werte aus contenteditable Feldern
       const norval = $(`#nor${id}`).text();
@@ -102,6 +104,31 @@ function ahBearbeiten() {
     }
   });
 
+  // eslint-disable-next-line func-names
+  $('.delete').click(function() {
+    const deleteId = $(this).data('deleteid');
+    const deletename = $(this).data('deletename');
+
+    $('#deleteName').html(deletename);
+    $('#deleteModal').modal();
+
+    // eslint-disable-next-line func-names
+    $('#deleteConfirm').click(function() {
+      $.ajax({
+        url: 'adelete.php',
+        method: 'POST',
+        data: { id: deleteId }
+      })
+        .done(() => {
+          window.location.reload();
+        })
+        .fail(data => {
+          fehler(data.responseText);
+        });
+    });
+    // Senden an adelete.php
+  });
+
   // Bei Enter: keine neue Zeile
   $('td[contenteditable]').keydown(e => {
     if (e.keyCode === 13) {
@@ -116,7 +143,7 @@ $(document).ready(() => {
   $('#newForm').submit(e => {
     e.preventDefault();
     // Check ob Aushilfe schon existiert
-    const ahName = String(`${$('#vorn').val()} ${$('#nachn').val()}`);
+    const ahName = `${$('#vorn').val()} ${$('#nachn').val()}`;
     if (ahDaten[ahName] !== undefined) {
       fehler('Aushilfe existiert bereits!');
       return;
