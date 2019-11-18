@@ -15,22 +15,20 @@ function ahBearbeiten() {
 
   ahDaten = sortBy(ahDaten, [o => o.nachname]);
 
-  console.log(ahDaten);
-
-  Object.entries(ahDaten).forEach(([key, value]) => {
-    ahRow += `<tr><td>${value.personalnr}</td>`;
-    ahRow += `<td>${value.nachname}, ${value.vorname}</td>`;
+  ahDaten.forEach(key => {
+    ahRow += `<tr><td>${key.personalnr}</td>`;
+    ahRow += `<td>${key.nachname}, ${key.vorname}</td>`;
     ahRow += `<td class="editable" contenteditable="false" id="nor${
-      value.id
-    }">${roundTF(value.norlohn)}</td>`;
+      key.id
+    }">${roundTF(key.norlohn)}</td>`;
     ahRow += `<td class="editable" contenteditable="false" id="sam${
-      value.id
-    }">${roundTF(value.samlohn)}</td>`;
+      key.id
+    }">${roundTF(key.samlohn)}</td>`;
     ahRow += `<td class="editable" contenteditable="false" id="son${
-      value.id
-    }">${roundTF(value.sonlohn)}</td>`;
-    ahRow += `<th><img src="../img/user-edit-solid.svg" width="18" class="edit" data-editid="${value.id}"></th>`;
-    ahRow += `<th><img src="../img/user-minus-solid.svg" width="18" class="delete" data-deletename="${key}" data-deleteid="${value.id}"></th></tr>`;
+      key.id
+    }">${roundTF(key.sonlohn)}</td>`;
+    ahRow += `<th><img src="../img/user-edit-solid.svg" width="18" class="edit" data-editid="${key.id}"></th>`;
+    ahRow += `<th><img src="../img/user-minus-solid.svg" width="18" class="delete" data-deletename="${key.vorname} ${key.nachname}" data-deleteid="${key.id}"></th></tr>`;
   });
   $('#ahTab').html(ahRow);
 

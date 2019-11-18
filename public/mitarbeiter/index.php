@@ -13,9 +13,10 @@ include '../req/header.php';
   <table class="table table-hover table-sm">
     <thead>
       <tr>
-        <th style="width:60%">Name</th>
+        <th style="width:50%">Name</th>
         <th style="width:20%">Status</th>
-        <th style="width:20%">Bestätigen</th>
+        <th style="width:15%">Bestätigen</th>
+        <th style="width:15%">Löschen</th>
       </tr>
     </thead>
     <tbody id="maTab">

@@ -2,12 +2,10 @@
 require '../req/session.php';
 require '../req/connect.php';
 
-$id = $_POST['id'];
-
-$sql = "UPDATE benutzer SET status = null WHERE id = ?";
+$sql = "DELETE FROM benutzer WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
 
-$stmt->execute(array($id));
+$stmt->execute(array($_POST['id']));
 
 $conn = null;
