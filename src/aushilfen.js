@@ -10,7 +10,6 @@ $(document).ajaxComplete(() => {
 // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
 function ahBearbeiten() {
   let ahRow;
-  console.log(ahDaten);
   Object.entries(ahDaten).forEach(([key, value]) => {
     ahRow += `<tr><td>${value.personalnr}</td>`;
     ahRow += `<td>${key}</td>`;
