@@ -20,7 +20,6 @@ $(document).ajaxComplete(() => {
   const { stationNamen } = dataJSON.responseJSON;
   const { alleNamen } = dataJSON.responseJSON;
   createAutoComplete('#eintragenAuto', stationNamen, alleNamen);
-  console.log('alle ajax eintragen');
 });
 
 window.senden = () => {
@@ -53,14 +52,13 @@ window.senden = () => {
 function formBerechnung() {
   ausName = $('#autoComplete').val();
 
-  // Station der Aushilfe
-  ahStation = alleDaten[ausName].station;
-
   // Check ob Aushilfe existiert
   if (!alleDaten[ausName]) {
     fehler('Aushilfe nicht gefunden!');
     return;
   }
+  // Station der Aushilfe
+  ahStation = alleDaten[ausName].station;
 
   aushilfenId = alleDaten[ausName].id;
 

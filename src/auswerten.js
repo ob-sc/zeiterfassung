@@ -23,11 +23,8 @@ let ahDaten;
 
 $(document).ajaxComplete(() => {
   ahDaten = dataJSON.responseJSON.ahDaten;
-  console.log(ahDaten);
   const { stationNamen } = dataJSON.responseJSON;
-  window.addEventListener('DOMContentLoaded', () => {
-    createAutoComplete('#auswertenAuto', stationNamen);
-  });
+  createAutoComplete('#auswertenAuto', stationNamen);
 });
 
 // DRUCKEN
@@ -162,7 +159,7 @@ function eatabelle() {
   const sumGehalt = summe.gehalt;
   $('#eaText').append(`<br><strong>Gehalt:</strong> ${roundTF(sumGehalt)}€`);
   // wieviel bis maximales monatsgehalt / schon drüber
-  const statusMax = parseInt(ahDaten[$('#nameInput').val()].ahStatus, 10);
+  const statusMax = parseInt(ahDaten[$('#auswertenAuto').val()].ahStatus, 10);
   const bisMax = statusMax - sumGehalt;
   if (sumGehalt <= roundTF(statusMax)) {
     $('#eaText').append(
