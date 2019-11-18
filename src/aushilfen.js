@@ -1,6 +1,8 @@
 import { roundTF, fehler, info } from './funktionen';
 import dataJSON from './request';
 
+const sortBy = require('lodash.sortby');
+
 let ahDaten;
 
 $(document).ajaxComplete(() => {
@@ -10,9 +12,14 @@ $(document).ajaxComplete(() => {
 // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
 function ahBearbeiten() {
   let ahRow;
+
+  ahDaten = sortBy(ahDaten, [o => o.nachname]);
+
+  console.log(ahDaten);
+
   Object.entries(ahDaten).forEach(([key, value]) => {
     ahRow += `<tr><td>${value.personalnr}</td>`;
-    ahRow += `<td>${key}</td>`;
+    ahRow += `<td>${value.nachname}, ${value.vorname}</td>`;
     ahRow += `<td class="editable" contenteditable="false" id="nor${
       value.id
     }">${roundTF(value.norlohn)}</td>`;

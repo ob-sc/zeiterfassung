@@ -20,6 +20,8 @@ foreach ($ahResult as $value) {
   $ahDaten[$vollerName] = [
     'id' => $value['id'], 
     'personalnr' => $value['personalnr'], 
+    'vorname' => $value['vorname'],
+    'nachname' => $value['nachname'],
     'norlohn' => $value['norlohn'], 
     'samlohn' => $value['samlohn'], 
     'sonlohn' => $value['sonlohn'], 
