@@ -51,6 +51,13 @@ header {
   background-color: #fafafa;
 }
 
+#devdiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 2rem;
+}
+
 .pagetitle {
   font-family: 'Quicksand', Arial, sans-serif;
   font-size: 7em;
@@ -177,13 +184,16 @@ form > .form-group {
   padding: 20px;
 }
 
-.admin-item {
-  height: 350px;
+#adminmenu {
+  position: absolute;
   width: 300px;
+  height: 200px;
+  top: 0;
+  right: 0;
   padding: 20px;
-  margin: 20px;
 }
 
+/* todo evtl raus */
 #filter {
   padding: 30px;
   border: 1px solid;

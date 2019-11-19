@@ -1,5 +1,4 @@
 <?php
-require "../req/session.php";
 $titel = "Abrechnung";
 include "../req/header.php";
 ?>

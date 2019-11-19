@@ -43,7 +43,7 @@ $(document).ready(() => {
 $.getJSON('../scripts/getconfig.php').done(data => {
   const { settings } = data.daten;
   // eslint-disable-next-line no-console
-  if (settings.devmode === '1') console.log('dev');
+  if (settings.devmode === '1') $('#devdiv').text('🦺');
 });
 
 $(document).ajaxComplete(() => {

@@ -1,3 +1,6 @@
+<?php
+require "../req/session.php";
+?>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -15,6 +18,8 @@
 <header class="noPrint">
   <img src="../img/logo_starcar2x.png" alt="SC_Logo" class="logo">
   <div class="pagetitle"><?php echo $titel; ?></div>
+  <div id="adminmenu" style="display:none"><?php include '../admin/admin.php'; ?></div>
+</div>
 </header>
 <nav class="noPrint">
     <ul class="cnav">
@@ -23,7 +28,6 @@
       <li class="slmenu" style="display:none"><a id="abrechnung" href="../abrechnung/">Abrechnung</a></li>
       <li class="slmenu" style="display:none"><a id="aushilfen" href="../aushilfen/">Aushilfen</a></li>
       <li class="slmenu" style="display:none"><a id="mitarbeiter" href="../mitarbeiter/">Mitarbeiter</a></li>
-      <li id="adminmenu" style="display:none"><a id="adminnav" href="../admin/">Admin</a></li>
       <li><a id="readme" href="../doc/readme.php">Hilfe</a></li>
       <li><a class="logout" href="../scripts/logout.php">Abmelden</a></li>
     </ul>
@@ -37,3 +41,4 @@
   <span id="infoText"></span>
   <button type="button" id="infoClose" class="close" aria-label="Close">&times;</button>
 </div>
+<div id="devdiv"></div>

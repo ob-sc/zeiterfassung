@@ -1,5 +1,4 @@
 <?php
-require "../req/session.php";
 $titel = "Mitarbeiter";
 include '../req/header.php';
 ?>

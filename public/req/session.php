@@ -12,6 +12,10 @@ if (isset($_SESSION['aktiv'])) {
   }
 }
 
+if (!isset($_SESSION['aktiv'])) {
+  die("<script type='text/javascript'>window.location.href='../index.html#expire';</script>");
+}
+
 if ($_SESSION['status'] == 'neu') {
   die("<script type='text/javascript'>window.location.href='../index.html#neu';</script>");
 }
