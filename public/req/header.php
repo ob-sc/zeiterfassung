@@ -16,7 +16,9 @@ require "../req/session.php";
 </head>
 <body>
 <header class="noPrint">
+  <div class="logoWrapper">
   <img src="../img/logo_starcar2x.png" alt="SC_Logo" class="logo">
+</div>
   <div class="pagetitle"><?php echo $titel; ?></div>
   <div id="adminmenu" style="display:none"><?php include '../admin/admin.php'; ?></div>
 </div>
