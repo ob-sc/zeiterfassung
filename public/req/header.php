@@ -23,8 +23,8 @@ require "../req/session.php";
 </header>
 <nav class="noPrint">
     <ul class="cnav">
-      <li><a id="eintragen" href="../eintragen/index.php">Eintragen</a></li>
-      <li><a id="auswerten" href="../auswerten/index.php">Auswerten</a></li>
+      <li><a id="eintragen" href="../eintragen/">Eintragen</a></li>
+      <li><a id="auswerten" href="../auswerten/">Auswerten</a></li>
       <li class="slmenu" style="display:none"><a id="abrechnung" href="../abrechnung/">Abrechnung</a></li>
       <li class="slmenu" style="display:none"><a id="aushilfen" href="../aushilfen/">Aushilfen</a></li>
       <li class="slmenu" style="display:none"><a id="mitarbeiter" href="../mitarbeiter/">Mitarbeiter</a></li>
