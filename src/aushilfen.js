@@ -5,19 +5,13 @@ const sortBy = require('lodash.sortby');
 
 let ahDaten;
 
-$(document).ajaxComplete(() => {
-  ahDaten = dataJSON.responseJSON.ahDaten;
-});
-
 // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
 function ahBearbeiten() {
   let ahRow;
 
-  ahDaten = sortBy(ahDaten, [o => o.nachname]);
-
   ahDaten.forEach(key => {
     ahRow += `<tr><td>${key.personalnr}</td>`;
-    ahRow += `<td>${key.nachname}, ${key.vorname}</td>`;
+    ahRow += `<td class="table-ltr">${key.nachname}, ${key.vorname}</td>`;
     ahRow += `<td class="editable" contenteditable="false" id="nor${
       key.id
     }">${roundTF(key.norlohn)}</td>`;
@@ -185,6 +179,9 @@ $(document).ready(() => {
 });
 
 $(document).ajaxComplete(() => {
+  ahDaten = dataJSON.responseJSON.ahDaten;
+  ahDaten = sortBy(ahDaten, [o => o.nachname]);
+
   ahBearbeiten();
   // personalnummern
   let ahpnRow;

@@ -58,25 +58,22 @@ include "../req/header.php";
 <div id="bearbeitenContainer">
   <input type="button" class="btn scc mb-3" value="Neu anlegen" onclick="$('#anlegenContainer').show();$('#bearbeitenContainer').hide()">
   <input type="button" class="btn scc mb-3" value="Personalnummern" onclick="$('#pnContainer').show();$('#bearbeitenContainer').hide()">
-  <table class="table table-hover table-sm" style="width:100%;margin:auto;">
+  <table class="table table-hover table-sm">
     <thead>
       <tr>
         <th width="6%">PN</th>
-        <th width="54%">Name</th>
-        <th width="12%">Lohn Wochentag</th>
-        <th width="12%">Lohn Samstag</th>
-        <th width="12%">Lohn Sonntag</th>
-        <th width="2%">&nbsp</th>
-        <th width="2%">&nbsp</th>
+        <th width="60%" class="table-ltr">Name</th>
+        <th width="8%">Wochentag</th>
+        <th width="8%">Samstag</th>
+        <th width="8%">Sonntag</th>
+        <th width="5%">&nbsp</th>
+        <th width="5%">&nbsp</th>
       </tr>
     </thead>
     <tbody id="ahTab">
     </tbody>
   </table>
 </div>
-</main>
-</body>
-</html>
 
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -98,3 +95,7 @@ include "../req/header.php";
     </div>
   </div>
 </div>
+
+</main>
+</body>
+</html>

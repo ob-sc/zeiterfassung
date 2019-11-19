@@ -104,7 +104,6 @@ main {
   flex-flow: column wrap;
   justify-content: space-between;
   align-items: flex-start;
-  border: 1px solid black;
 }
 
 form > .form-group {
@@ -121,7 +120,6 @@ form > .form-group {
   flex-flow: column wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  border: 1px solid black;
 }
 
 .container-tabelle-control > .scc {
@@ -132,11 +130,16 @@ form > .form-group {
   width: 70%;
   margin: 20px;
   padding: 20px;
-  border: 1px solid black;
 }
 
 .container-tabelle-display > table {
   text-align: center;
+  width: 100%;
+}
+
+#bearbeitenContainer > table {
+  text-align: center;
+  width: 100%;
 }
 
 .table-ltr {
@@ -153,7 +156,6 @@ form > .form-group {
   margin: auto;
   padding: 20px;
   display: none;
-  border: 1px solid black;
 }
 
 #pnContainer {
@@ -161,7 +163,18 @@ form > .form-group {
   margin: auto;
   padding: 20px;
   display: none;
-  border: 1px solid black;
+}
+
+#bearbeitenContainer {
+  width: 70%;
+  margin: auto;
+  padding: 20px;
+}
+
+#maContainer {
+  width: 50%;
+  margin: auto;
+  padding: 20px;
 }
 
 .admin-item {
@@ -169,7 +182,6 @@ form > .form-group {
   width: 300px;
   padding: 20px;
   margin: 20px;
-  border: 1px solid;
 }
 
 #filter {
@@ -206,6 +218,7 @@ form > .form-group {
   text-align: center;
   text-transform: uppercase;
   font-weight: 500;
+  padding: 0;
 }
 .cnav * {
   box-sizing: border-box;

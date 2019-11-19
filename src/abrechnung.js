@@ -41,10 +41,10 @@ function abtabelle() {
 
   let html = `<h3 style="text-align:center">Monatsabrechnung ${titel}</h3>`;
   html +=
-    '<table class="table table-bordered table-sm table-hover" style="width:100%" id="abrechnungTable">';
+    '<table class="table table-bordered table-sm table-hover" id="abrechnungTable">';
   html += '<caption>Gelb = Aushilfe aus anderer Station</caption><thead><tr>';
   html += '<th style="width:5%">PN</th>';
-  html += '<th style="width:40%">Name</th>';
+  html += '<th class="table-ltr" style="width:40%">Name</th>';
   html += '<th style="width:5%">AZ</th>';
   html += '<th style="width:5%">Gehalt</th>';
   html += '<th style="width:5%">Tage</th>';

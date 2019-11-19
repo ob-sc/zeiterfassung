@@ -9,7 +9,7 @@ include '../req/header.php';
   $('#mitarbeiter').addClass('current');
 </script>
 
-<div id="maContainer" style="width:50%;margin:auto;border: 1px solid;">
+<div id="maContainer">
   <table class="table table-hover table-sm">
     <thead>
       <tr>
