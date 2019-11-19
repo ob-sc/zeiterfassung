@@ -118,6 +118,7 @@ function ahBearbeiten() {
 
     // eslint-disable-next-line func-names
     $('#deleteConfirm').click(function() {
+      // Senden an adelete.php
       $.ajax({
         url: 'adelete.php',
         method: 'POST',
@@ -130,7 +131,6 @@ function ahBearbeiten() {
           fehler(data.responseText);
         });
     });
-    // Senden an adelete.php
   });
 
   // Bei Enter: keine neue Zeile
