@@ -87,7 +87,6 @@ main {
   font-size: 1.3rem;
   width: 40%;
   left: 30%;
-  /* text-align: center; */
 }
 
 .flex-wrapper {
@@ -96,40 +95,73 @@ main {
   justify-content: space-evenly;
 }
 
-.eintragen-links {
+.container-main {
   width: 300px;
+  height: 450px;
   margin: 20px;
   padding: 20px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  border: 1px solid black;
 }
 
-.eintragen-rechts {
+form > .form-group {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.container-tabelle-control {
   width: 300px;
+  height: 300px;
   margin: 20px;
   padding: 20px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border: 1px solid black;
 }
 
-.tabelle-links {
-  width: 20%;
-  margin: 20px;
-  padding: 20px;
+.container-tabelle-control > .scc {
+  align-self: flex-start;
 }
 
-.tabelle-rechts {
+.container-tabelle-display {
   width: 70%;
   margin: 20px;
   padding: 20px;
+  border: 1px solid black;
+}
+
+.container-tabelle-display > table {
+  text-align: center;
+}
+
+.table-ltr {
+  text-align: left;
+}
+
+.table-rtl {
+  text-align: right;
 }
 
 #anlegenContainer {
   width: 300px;
+  height: 650px;
   margin: auto;
+  padding: 20px;
   display: none;
+  border: 1px solid black;
 }
 
 #pnContainer {
   width: 600px;
   margin: auto;
+  padding: 20px;
   display: none;
+  border: 1px solid black;
 }
 
 .admin-item {
@@ -212,12 +244,13 @@ main {
   padding: 0;
   margin-top: 0.15rem;
   width: 260px;
+  background-color: #fafafa;
 }
 
 .autoComplete_result {
   margin: 0.15rem auto;
   padding: 0.6rem;
-  max-width: 280px;
+  /* max-width: 300px; */
   border: 0.05rem solid #e3e3e3;
   list-style: none;
   text-align: left;

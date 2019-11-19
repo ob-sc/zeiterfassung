@@ -121,7 +121,7 @@ function eatabelle() {
     if (tag.station === false && wochenende === false)
       html += `<tr>${tag.tag}${tag.beginn}${tag.ende}${tag.arbeitszeit}${tag.gehalt}</tr>`;
     if (tag.station === false && wochenende === true)
-      html += `<tr class="table-info">${tag.tag}${tag.beginn}${tag.ende}${tag.arbeitszeit}${tag.gehalt}</tr>`;
+      html += `<tr class="table-secondary">${tag.tag}${tag.beginn}${tag.ende}${tag.arbeitszeit}${tag.gehalt}</tr>`;
     if (tag.station === true)
       html += `<tr class="table-warning">${tag.tag}${tag.beginn}${tag.ende}${tag.arbeitszeit}${tag.gehalt}</tr>`;
   });

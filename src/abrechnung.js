@@ -62,15 +62,15 @@ function abtabelle() {
       html += '<tr class="table-warning">';
     else html += '<tr>';
     html += `<td>${key.personalnr}</td>`;
-    html += `<td>${key.nachname}, ${key.vorname}</td>`;
-    html += `<td>${zuStunden(key.arbeitszeit)}</td>`;
-    html += `<td>${roundTF(abgehalt)}</td>`;
-    html += `<td>${key.datum}</td>`;
+    html += `<td class="table-ltr">${key.nachname}, ${key.vorname}</td>`;
+    html += `<td class="table-rtl">${zuStunden(key.arbeitszeit)}</td>`;
+    html += `<td class="table-rtl">${roundTF(abgehalt)}</td>`;
+    html += `<td class="table-rtl">${key.datum}</td>`;
     // eslint-disable-next-line eqeqeq
     if (key.ahstation != stationid && key.arbeitszeit !== 0)
       html += '<td>&nbsp</td>';
-    else html += `<td>${urlaub}</td>`;
-    html += `<td>${key.status}</td>`;
+    else html += `<td class="table-rtl">${urlaub}</td>`;
+    html += `<td class="table-rtl">${key.status}</td>`;
     html += '<td contenteditable="true">&nbsp</td></tr>';
 
     summeAZ += parseInt(key.arbeitszeit, 10);

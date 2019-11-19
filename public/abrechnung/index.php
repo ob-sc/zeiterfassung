@@ -10,8 +10,8 @@ include "../req/header.php";
 </script>
 
 <div class="flex-wrapper">
-  <div class="tabelle-links noPrint">
-    <form method="post" id="aform" autocomplete="off">
+  <div class="noPrint">
+    <form method="post" class="container-tabelle-control" id="aform" autocomplete="off">
       <div class="form-group">
         <label for="monat">Zeitraum:</label>
         <input type="month" class="form-control" name="monat" id="datum"> 
@@ -19,7 +19,7 @@ include "../req/header.php";
       <input type="submit" class="btn scc" value="OK">
     </form>
   </div>
-  <div class="tabelle-rechts" id="atext"></div>
+  <div class="container-tabelle-display" id="atext"></div>
 </div>
 </main>
 </body>

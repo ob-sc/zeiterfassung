@@ -10,8 +10,8 @@ include "../req/header.php";
 </script>
 
 <div class="flex-wrapper">
-  <span class="tabelle-links noPrint">
-    <form method="post" id="eaform" autocomplete="off">
+  <div class="noPrint">
+    <form method="post" class="container-tabelle-control" id="eaform" autocomplete="off">
       <div class="form-group">
         <label for="name">Name:</label>
         <input type="text" class="form-control" placeholder="Name" name="name" id="auswertenAuto" required>
@@ -22,8 +22,8 @@ include "../req/header.php";
       </div>
         <input type="submit" class="btn scc" value="OK">
     </form>
-  </span>
-  <span class="tabelle-rechts" id="eaText"></span>
+</div>
+  <div class="container-tabelle-display" id="eaText"></div>
 </div>
 
 </main>

@@ -33,8 +33,8 @@ include "../req/header.php";
       <label for="sonlohn">Lohn Sonntag:</label>
       <input type="number" class="form-control" name="sonlohn" id="anlegenSon" min="9.19" step="0.01" max="100" value="11.00">
     </div>
-    <input type="submit" class="btn scc mt-2" value="Anlegen">
-    <input type="button" class="btn scc mt-2" value="Zurück" onclick="location.reload();">
+    <input type="submit" class="btn scc" value="Anlegen">
+    <input type="button" class="btn scc" value="Zurück" onclick="location.reload();">
   </form>
 </div>
 
@@ -55,7 +55,7 @@ include "../req/header.php";
   </form>
 </div>
 
-<div class="container-fluid" id="bearbeitenContainer">
+<div id="bearbeitenContainer">
   <input type="button" class="btn scc mb-3" value="Neu anlegen" onclick="$('#anlegenContainer').show();$('#bearbeitenContainer').hide()">
   <input type="button" class="btn scc mb-3" value="Personalnummern" onclick="$('#pnContainer').show();$('#bearbeitenContainer').hide()">
   <table class="table table-hover table-sm" style="width:100%;margin:auto;">

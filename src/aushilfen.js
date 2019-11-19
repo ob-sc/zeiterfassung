@@ -188,10 +188,10 @@ $(document).ajaxComplete(() => {
   ahBearbeiten();
   // personalnummern
   let ahpnRow;
-  Object.entries(ahDaten).forEach(([key, value]) => {
-    if (value.personalnr === 0) {
-      ahpnRow += `<tr><td>${key}</td>`;
-      ahpnRow += `<td><input type="number" class="form-control" style="height:25px;" name="${value.id}"></td></tr>`;
+  ahDaten.forEach(key => {
+    if (key.personalnr === 0) {
+      ahpnRow += `<tr><td>${key.nachname}, ${key.vorname}</td>`;
+      ahpnRow += `<td><input type="number" class="form-control" style="height:25px;" name="${key.id}"></td></tr>`;
     }
   });
   $('#ahpnTab').html(ahpnRow);

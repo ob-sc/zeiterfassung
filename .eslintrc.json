@@ -4,7 +4,7 @@
     "es6": true,
     "jquery": true
   },
-  "extends": ["airbnb-base", "prettier"],
+  "extends": ["eslint:recommended", "airbnb-base", "prettier"],
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": ["error"]
