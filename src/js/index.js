@@ -1,3 +1,4 @@
+import '../css/alle.css';
 import dataJSON from './request';
 
 // eslint-disable-next-line default-case
@@ -26,6 +27,12 @@ switch (window.location.pathname) {
     // eslint-disable-next-line global-require
     require('./aushilfen');
     break;
+  // case '/zeiten':
+  // case '/zeiten/':
+  // case '/zeiten/index.php':
+  //   // eslint-disable-next-line global-require
+  //   require('./zeiten');
+  // break;
   case '/mitarbeiter':
   case '/mitarbeiter/':
   case '/mitarbeiter/index.php':
@@ -40,9 +47,9 @@ $(document).ready(() => {
   if (datumInput) datumInput.valueAsDate = new Date();
 });
 
+// devmode
 $.getJSON('../scripts/getconfig.php').done(data => {
   const { settings } = data.daten;
-  // eslint-disable-next-line no-console
   if (settings.devmode === '1') $('#devdiv').text('🦺');
 });
 
