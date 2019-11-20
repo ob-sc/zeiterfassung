@@ -10,10 +10,10 @@ $(document).ready(() => {
     const { settings } = data.daten;
     if (settings.devmode === '1') $('#devdiv').text('🦺');
   });
-});
 
-// ADMIN / SL für Menü
-getData(daten => {
-  if (daten.status === 'admin') $('#adminmenu, .slmenu').show();
-  if (daten.status === 'sl') $('.slmenu').show();
+  // ADMIN / SL für Menü
+  getData(daten => {
+    if (daten.status === 'admin') $('#adminmenu, .slmenu').show();
+    if (daten.status === 'sl') $('.slmenu').show();
+  });
 });
