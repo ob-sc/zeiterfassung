@@ -1,7 +1,6 @@
 import * as JsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { zuStunden, roundTF, fehler } from './funktionen';
-import dataJSON from './request';
+import { getData, zuStunden, roundTF, fehler } from './funktionen';
 
 const moment = require('moment');
 const sortBy = require('lodash.sortby');
@@ -14,9 +13,9 @@ let titel;
 let station;
 let stationid;
 
-$(document).ajaxComplete(() => {
-  station = dataJSON.responseJSON.station;
-  stationid = dataJSON.responseJSON.stationid;
+getData(daten => {
+  station = daten.station;
+  stationid = daten.stationid;
 });
 
 // ABRECHNUNG PDF speichern

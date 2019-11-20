@@ -1,11 +1,11 @@
 import {
+  getData,
   createAutoComplete,
   roundTF,
   zuStunden,
   fehler,
   info
 } from './funktionen';
-import dataJSON from './request';
 
 const moment = require('moment');
 
@@ -21,11 +21,18 @@ let eaEnde = [];
 
 let ahDaten;
 
-$(document).ajaxComplete(() => {
-  ahDaten = dataJSON.responseJSON.ahDaten;
-  const { stationNamen } = dataJSON.responseJSON;
-  createAutoComplete('#auswertenAuto', stationNamen);
+getData(daten => {
+  ahDaten = daten.ahDaten;
+  createAutoComplete('#auswertenAuto', daten.stationNamen);
 });
+
+// console.log(dataJSON());
+
+// $(document).ajaxComplete(() => {
+//   ahDaten = dataJSON.responseJSON.ahDaten;
+//   const { stationNamen } = dataJSON.responseJSON;
+//   createAutoComplete('#auswertenAuto', stationNamen);
+// });
 
 // DRUCKEN
 window.drucken = () => {

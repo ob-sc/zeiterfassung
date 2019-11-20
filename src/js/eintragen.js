@@ -1,11 +1,17 @@
-import { createAutoComplete, roundTF, info, fehler } from './funktionen';
-import dataJSON from './request';
+import {
+  getData,
+  createAutoComplete,
+  roundTF,
+  info,
+  fehler
+} from './funktionen';
 
 const moment = require('moment');
 
 moment.locale('de');
 
 let alleDaten;
+
 let aushilfenId;
 let ausName;
 let datum;
@@ -15,11 +21,9 @@ let diff;
 let gehalt;
 let ahStation;
 
-$(document).ajaxComplete(() => {
-  alleDaten = dataJSON.responseJSON.alleDaten;
-  const { stationNamen } = dataJSON.responseJSON;
-  const { alleNamen } = dataJSON.responseJSON;
-  createAutoComplete('#eintragenAuto', stationNamen, alleNamen);
+getData(daten => {
+  alleDaten = daten.alleDaten;
+  createAutoComplete('#eintragenAuto', daten.stationNamen, daten.alleNamen);
 });
 
 window.senden = () => {

@@ -1,5 +1,16 @@
 const autoComplete = require('@tarekraafat/autocomplete.js/dist/js/autoComplete');
 
+export const getData = callback => {
+  $.getJSON('../scripts/getdata.php').done(data => {
+    callback(data);
+  });
+};
+
+// zum benutzen:
+// dataJSON(daten => {
+//   console.log(daten);
+// });
+
 // Autocomplete, srcArray1 = normal, 2 = alle
 // eventuell läd er den spaß hier bevor der dom geladen ist -> findet die id nicht
 export function createAutoComplete(id, srcArray1, srcArray2) {

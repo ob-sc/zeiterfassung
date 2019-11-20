@@ -1,4 +1,4 @@
-import dataJSON from './request';
+import { getData } from './funktionen';
 
 $(document).ready(() => {
   // für jeden input Datum - automatisch Datum heute
@@ -12,9 +12,8 @@ $.getJSON('../scripts/getconfig.php').done(data => {
   if (settings.devmode === '1') $('#devdiv').text('🦺');
 });
 
-$(document).ajaxComplete(() => {
-  const userStatus = dataJSON.responseJSON.status;
-  // ADMIN / SL für Menü
-  if (userStatus === 'admin') $('#adminmenu, .slmenu').show();
-  if (userStatus === 'sl') $('.slmenu').show();
+// ADMIN / SL für Menü
+getData(daten => {
+  if (daten.status === 'admin') $('#adminmenu, .slmenu').show();
+  if (daten.status === 'sl') $('.slmenu').show();
 });

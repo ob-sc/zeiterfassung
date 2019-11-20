@@ -1,13 +1,7 @@
-import { fehler } from './funktionen';
-import dataJSON from './request';
+import { getData, fehler } from './funktionen';
 
-let maDaten;
-
-$(document).ajaxComplete(() => {
-  maDaten = dataJSON.responseJSON.maDaten;
-});
-
-$(document).ajaxComplete(() => {
+getData(daten => {
+  const { maDaten } = daten;
   let maRow;
   maDaten.forEach(key => {
     if (key.status === 'neu') {

@@ -1,5 +1,4 @@
-import { roundTF, fehler, info } from './funktionen';
-import dataJSON from './request';
+import { getData, roundTF, fehler, info } from './funktionen';
 
 const sortBy = require('lodash.sortby');
 
@@ -178,9 +177,8 @@ $(document).ready(() => {
   });
 });
 
-$(document).ajaxComplete(() => {
-  ahDaten = dataJSON.responseJSON.ahDaten;
-  ahDaten = sortBy(ahDaten, [o => o.nachname]);
+getData(daten => {
+  ahDaten = sortBy(daten.ahDaten, [o => o.nachname]);
 
   ahBearbeiten();
   // personalnummern
