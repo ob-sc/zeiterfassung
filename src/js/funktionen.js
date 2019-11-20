@@ -7,7 +7,7 @@ export const getData = callback => {
 };
 
 // zum benutzen:
-// dataJSON(daten => {
+// getData(daten => {
 //   console.log(daten);
 // });
 
