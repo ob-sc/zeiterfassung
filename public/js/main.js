@@ -185,14 +185,58 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 
 /***/ }),
 
-/***/ "./src/css/alle.css":
-/*!**************************!*\
-  !*** ./src/css/alle.css ***!
-  \**************************/
+/***/ "./src/css/autocomplete.css":
+/*!**********************************!*\
+  !*** ./src/css/autocomplete.css ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/css/alle.css?");
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/css/autocomplete.css?");
+
+/***/ }),
+
+/***/ "./src/css/container.css":
+/*!*******************************!*\
+  !*** ./src/css/container.css ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/css/container.css?");
+
+/***/ }),
+
+/***/ "./src/css/header.css":
+/*!****************************!*\
+  !*** ./src/css/header.css ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/css/header.css?");
+
+/***/ }),
+
+/***/ "./src/css/nav.css":
+/*!*************************!*\
+  !*** ./src/css/nav.css ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/css/nav.css?");
+
+/***/ }),
+
+/***/ "./src/css/style.css":
+/*!***************************!*\
+  !*** ./src/css/style.css ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/css/style.css?");
 
 /***/ }),
 
@@ -256,6 +300,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 /***/ }),
 
+/***/ "./src/js/general.js":
+/*!***************************!*\
+  !*** ./src/js/general.js ***!
+  \***************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./request */ \"./src/js/request.js\");\n\r\n\r\n$(document).ready(() => {\r\n  // für jeden input Datum - automatisch Datum heute\r\n  const datumInput = document.getElementById('datum');\r\n  if (datumInput) datumInput.valueAsDate = new Date();\r\n});\r\n\r\n// devmode\r\n$.getJSON('../scripts/getconfig.php').done(data => {\r\n  const { settings } = data.daten;\r\n  if (settings.devmode === '1') $('#devdiv').text('🦺');\r\n});\r\n\r\n$(document).ajaxComplete(() => {\r\n  const userStatus = _request__WEBPACK_IMPORTED_MODULE_0__[\"default\"].responseJSON.status;\r\n  // ADMIN / SL für Menü\r\n  if (userStatus === 'admin') $('#adminmenu, .slmenu').show();\r\n  if (userStatus === 'sl') $('.slmenu').show();\r\n});\r\n\n\n//# sourceURL=webpack:///./src/js/general.js?");
+
+/***/ }),
+
 /***/ "./src/js/index.js":
 /*!*************************!*\
   !*** ./src/js/index.js ***!
@@ -264,7 +320,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_alle_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/alle.css */ \"./src/css/alle.css\");\n/* harmony import */ var _css_alle_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_alle_css__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _request__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./request */ \"./src/js/request.js\");\n\r\n\r\n\r\n// eslint-disable-next-line default-case\r\nswitch (window.location.pathname) {\r\n  case '/eintragen':\r\n  case '/eintragen/':\r\n  case '/eintragen/index.php':\r\n    // eslint-disable-next-line global-require\r\n    __webpack_require__(/*! ./eintragen */ \"./src/js/eintragen.js\");\r\n    break;\r\n  case '/auswerten':\r\n  case '/auswerten/':\r\n  case '/auswerten/index.php':\r\n    // eslint-disable-next-line global-require\r\n    __webpack_require__(/*! ./auswerten */ \"./src/js/auswerten.js\");\r\n    break;\r\n  case '/abrechnung':\r\n  case '/abrechnung/':\r\n  case '/abrechnung/index.php':\r\n    // eslint-disable-next-line global-require\r\n    __webpack_require__(/*! ./abrechnung */ \"./src/js/abrechnung.js\");\r\n    break;\r\n  case '/aushilfen':\r\n  case '/aushilfen/':\r\n  case '/aushilfen/index.php':\r\n    // eslint-disable-next-line global-require\r\n    __webpack_require__(/*! ./aushilfen */ \"./src/js/aushilfen.js\");\r\n    break;\r\n  // case '/zeiten':\r\n  // case '/zeiten/':\r\n  // case '/zeiten/index.php':\r\n  //   // eslint-disable-next-line global-require\r\n  //   require('./zeiten');\r\n  // break;\r\n  case '/mitarbeiter':\r\n  case '/mitarbeiter/':\r\n  case '/mitarbeiter/index.php':\r\n    // eslint-disable-next-line global-require\r\n    __webpack_require__(/*! ./mitarbeiter */ \"./src/js/mitarbeiter.js\");\r\n    break;\r\n}\r\n\r\n$(document).ready(() => {\r\n  // für jeden input Datum - automatisch Datum heute\r\n  const datumInput = document.getElementById('datum');\r\n  if (datumInput) datumInput.valueAsDate = new Date();\r\n});\r\n\r\n// devmode\r\n$.getJSON('../scripts/getconfig.php').done(data => {\r\n  const { settings } = data.daten;\r\n  if (settings.devmode === '1') $('#devdiv').text('🦺');\r\n});\r\n\r\n$(document).ajaxComplete(() => {\r\n  const userStatus = _request__WEBPACK_IMPORTED_MODULE_1__[\"default\"].responseJSON.status;\r\n  // ADMIN / SL für Menü\r\n  if (userStatus === 'admin') $('#adminmenu, .slmenu').show();\r\n  if (userStatus === 'sl') $('.slmenu').show();\r\n});\r\n\n\n//# sourceURL=webpack:///./src/js/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/style.css */ \"./src/css/style.css\");\n/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_style_css__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _css_header_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../css/header.css */ \"./src/css/header.css\");\n/* harmony import */ var _css_header_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_css_header_css__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _css_nav_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../css/nav.css */ \"./src/css/nav.css\");\n/* harmony import */ var _css_nav_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_css_nav_css__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _css_container_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../css/container.css */ \"./src/css/container.css\");\n/* harmony import */ var _css_container_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_css_container_css__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _css_autocomplete_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../css/autocomplete.css */ \"./src/css/autocomplete.css\");\n/* harmony import */ var _css_autocomplete_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_css_autocomplete_css__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var _general__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./general */ \"./src/js/general.js\");\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n// eslint-disable-next-line default-case\r\nswitch (window.location.pathname) {\r\n  case '/eintragen':\r\n  case '/eintragen/':\r\n  case '/eintragen/index.php':\r\n    // eslint-disable-next-line global-require\r\n    __webpack_require__(/*! ./eintragen */ \"./src/js/eintragen.js\");\r\n    break;\r\n  case '/auswerten':\r\n  case '/auswerten/':\r\n  case '/auswerten/index.php':\r\n    // eslint-disable-next-line global-require\r\n    __webpack_require__(/*! ./auswerten */ \"./src/js/auswerten.js\");\r\n    break;\r\n  case '/abrechnung':\r\n  case '/abrechnung/':\r\n  case '/abrechnung/index.php':\r\n    // eslint-disable-next-line global-require\r\n    __webpack_require__(/*! ./abrechnung */ \"./src/js/abrechnung.js\");\r\n    break;\r\n  case '/aushilfen':\r\n  case '/aushilfen/':\r\n  case '/aushilfen/index.php':\r\n    // eslint-disable-next-line global-require\r\n    __webpack_require__(/*! ./aushilfen */ \"./src/js/aushilfen.js\");\r\n    break;\r\n  // case '/zeiten':\r\n  // case '/zeiten/':\r\n  // case '/zeiten/index.php':\r\n  //   // eslint-disable-next-line global-require\r\n  //   require('./zeiten');\r\n  // break;\r\n  case '/mitarbeiter':\r\n  case '/mitarbeiter/':\r\n  case '/mitarbeiter/index.php':\r\n    // eslint-disable-next-line global-require\r\n    __webpack_require__(/*! ./mitarbeiter */ \"./src/js/mitarbeiter.js\");\r\n    break;\r\n}\r\n\n\n//# sourceURL=webpack:///./src/js/index.js?");
 
 /***/ }),
 
