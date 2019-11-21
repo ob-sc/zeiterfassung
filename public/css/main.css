@@ -189,6 +189,12 @@ nav {
   align-items: flex-start;
 }
 
+.container-single {
+  width: 300px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
 form > .form-group {
   width: 100%;
   box-sizing: border-box;
@@ -243,20 +249,20 @@ form > .form-group {
 
 #pnContainer {
   width: 600px;
-  margin: auto;
+  margin: 20px auto;
   padding: 20px;
   display: none;
 }
 
 #bearbeitenContainer {
   width: 70%;
-  margin: auto;
+  margin: 20px auto;
   padding: 20px;
 }
 
 #maContainer {
   width: 50%;
-  margin: auto;
+  margin: 20px auto;
   padding: 20px;
 }
 

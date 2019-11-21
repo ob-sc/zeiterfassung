@@ -21,11 +21,6 @@ let diff;
 let gehalt;
 let ahStation;
 
-getData(daten => {
-  alleDaten = daten.alleDaten;
-  createAutoComplete('#eintragenAuto', daten.stationNamen, daten.alleNamen);
-});
-
 window.senden = () => {
   $.ajax({
     url: 'send.php',
@@ -138,5 +133,10 @@ $(document).ready(() => {
 
   $('#eform').change(() => {
     $('#esend').hide();
+  });
+
+  getData(daten => {
+    alleDaten = daten.alleDaten;
+    createAutoComplete('#eintragenAuto', daten.stationNamen, daten.alleNamen);
   });
 });

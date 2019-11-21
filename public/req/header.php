@@ -26,10 +26,10 @@ require "../req/session.php";
 <nav class="noPrint">
     <ul class="cnav">
       <li><a id="eintragen" href="../eintragen/">Eintragen</a></li>
+      <li class="slmenu" style="display:none"><a id="rufdienst" href="../rufdienst/">Rufdienst</a></li>
       <li><a id="auswerten" href="../auswerten/">Auswerten</a></li>
       <li class="slmenu" style="display:none"><a id="abrechnung" href="../abrechnung/">Abrechnung</a></li>
       <li class="slmenu" style="display:none"><a id="aushilfen" href="../aushilfen/">Aushilfen</a></li>
-      <!-- <li class="slmenu" style="display:none"><a id="zeiten" href="../zeiten/">Zeiten</a></li> -->
       <li class="slmenu" style="display:none"><a id="mitarbeiter" href="../mitarbeiter/">Mitarbeiter</a></li>
       <li><a id="readme" href="../doc/readme.php">Hilfe</a></li>
       <li><a class="logout" href="../scripts/logout.php">Abmelden</a></li>

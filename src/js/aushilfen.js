@@ -175,19 +175,19 @@ $(document).ready(() => {
         fehler(data.responseText);
       });
   });
-});
 
-getData(daten => {
-  ahDaten = sortBy(daten.ahDaten, [o => o.nachname]);
+  getData(daten => {
+    ahDaten = sortBy(daten.ahDaten, [o => o.nachname]);
 
-  ahBearbeiten();
-  // personalnummern
-  let ahpnRow;
-  ahDaten.forEach(key => {
-    if (key.personalnr === 0) {
-      ahpnRow += `<tr><td>${key.nachname}, ${key.vorname}</td>`;
-      ahpnRow += `<td><input type="number" class="form-control" style="height:25px;" name="${key.id}"></td></tr>`;
-    }
+    ahBearbeiten();
+    // personalnummern
+    let ahpnRow;
+    ahDaten.forEach(key => {
+      if (key.personalnr === 0) {
+        ahpnRow += `<tr><td>${key.nachname}, ${key.vorname}</td>`;
+        ahpnRow += `<td><input type="number" class="form-control" style="height:25px;" name="${key.id}"></td></tr>`;
+      }
+    });
+    $('#ahpnTab').html(ahpnRow);
   });
-  $('#ahpnTab').html(ahpnRow);
 });

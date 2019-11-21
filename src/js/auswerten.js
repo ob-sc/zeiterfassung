@@ -21,11 +21,6 @@ let eaEnde = [];
 
 let ahDaten;
 
-getData(daten => {
-  ahDaten = daten.ahDaten;
-  createAutoComplete('#auswertenAuto', daten.stationNamen);
-});
-
 // console.log(dataJSON());
 
 // $(document).ajaxComplete(() => {
@@ -221,4 +216,9 @@ $(document).ready(() => {
   window.onafterprint = () => {
     $('.tabelle-rechts').css('width', '70%');
   };
+
+  getData(daten => {
+    ahDaten = daten.ahDaten;
+    createAutoComplete('#auswertenAuto', daten.stationNamen);
+  });
 });
