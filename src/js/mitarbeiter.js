@@ -10,12 +10,12 @@ $(document).ready(() => {
     maDaten.forEach(key => {
       if (key.status === 'neu') {
         maRow += `<tr class="table-danger"><td>${key.username}</td>`;
-        maRow += '<td>Neu</td>';
+        maRow += '<td class="text-center">Neu</td>';
         maRow += `<th class="text-center"><img src="../img/check-square-regular.svg" width="18" class="confirm" data-confirmid="${key.id}"></th>`;
         maRow += `<th class="text-center"><img src="../img/trash-alt-regular.svg" width="18" class="delete" data-deleteid="${key.id}"></th></tr>`;
       } else {
         maRow += `<tr><td>${key.username}</td>`;
-        maRow += '<td>Bestätigt</td>';
+        maRow += '<td class="text-center">Bestätigt</td>';
         maRow += '<td>&nbsp</td>';
         maRow += `<th class="text-center"><img src="../img/trash-alt-regular.svg" width="18" class="delete" data-deleteid="${key.id}"></th></tr>`;
       }

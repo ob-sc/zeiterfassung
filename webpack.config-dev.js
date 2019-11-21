@@ -8,6 +8,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // FÜr dev Builds
 module.exports = {
   mode: 'development',
+  stats: {
+    colors: true,
+    maxModules: 1000,
+    excludeModules: false,
+    modulesSort: '!size'
+  },
   entry: './src/js/index.js',
   output: {
     filename: 'main.js',

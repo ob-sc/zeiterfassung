@@ -86,6 +86,12 @@ form > .form-group {
   padding: 20px;
 }
 
+#zeitenTable {
+  width: 90%;
+  margin: 20px auto;
+  padding: 20px;
+}
+
 #maContainer {
   width: 50%;
   margin: 20px auto;
