@@ -1,3 +1,6 @@
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import '../css/style.css';
 import '../css/header.css';
 import '../css/nav.css';
@@ -38,12 +41,12 @@ switch (window.location.pathname) {
     // eslint-disable-next-line global-require
     require('./aushilfen');
     break;
-  // case '/zeiten':
-  // case '/zeiten/':
-  // case '/zeiten/index.php':
-  //   // eslint-disable-next-line global-require
-  //   require('./zeiten');
-  // break;
+  case '/zeiten':
+  case '/zeiten/':
+  case '/zeiten/index.php':
+    // eslint-disable-next-line global-require
+    require('./zeiten');
+    break;
   case '/mitarbeiter':
   case '/mitarbeiter/':
   case '/mitarbeiter/index.php':

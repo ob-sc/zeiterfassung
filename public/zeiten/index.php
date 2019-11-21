@@ -3,11 +3,6 @@ $titel = "Zeiten";
 include "../req/header.php";
 ?>
 
-<script>
-  $('nav li').removeClass('current');
-  $('#zeiten').addClass('current');
-</script>
-
 <div id="zeitenTable"></div>
 
 <table id="example" class="display" style="width:100%">

@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -12,6 +13,10 @@ module.exports = {
     path: path.resolve(__dirname, 'public/js')
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    }),
     new MiniCssExtractPlugin({
       filename: '../css/main.css'
     }),

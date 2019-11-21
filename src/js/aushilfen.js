@@ -136,6 +136,9 @@ function ahBearbeiten() {
 }
 
 $(document).ready(() => {
+  $('nav li').removeClass('current');
+  $('#aushilfen').addClass('current');
+
   // anlegen / senden an anew.php
   $('#newForm').submit(e => {
     e.preventDefault();

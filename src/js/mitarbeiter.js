@@ -1,6 +1,9 @@
 import { getData, fehler } from './funktionen';
 
 $(document).ready(() => {
+  $('nav li').removeClass('current');
+  $('#mitarbeiter').addClass('current');
+
   getData(daten => {
     const { maDaten } = daten;
     let maRow;

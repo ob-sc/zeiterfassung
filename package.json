@@ -1,6 +1,6 @@
 {
   "name": "zeiterfassung",
-  "version": "1.8.4",
+  "version": "1.9.0",
   "private": true,
   "description": "",
   "main": "index.js",
@@ -17,13 +17,15 @@
   "license": "ISC",
   "dependencies": {
     "@tarekraafat/autocomplete.js": "^7.2.0",
+    "bootstrap": "^4.3.1",
     "datatables.net": "^1.10.20",
     "datatables.net-bs4": "^1.10.20",
     "jquery": "^3.4.1",
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.2.10",
     "lodash.sortby": "^4.7.0",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "popper.js": "^1.16.0"
   },
   "devDependencies": {
     "css-loader": "^3.2.0",

@@ -1,8 +1,8 @@
-// const $ = require('jquery');
-// // const dt = require('datatables.net')();
+import dt from 'datatables.net';
 
-// import dt from 'datatables.net';
+$(document).ready(function() {
+  $('nav li').removeClass('current');
+  $('#zeiten').addClass('current');
 
-// $(document).ready(function() {
-//   $('#example').DataTable();
-// });
+  $('#example').DataTable();
+});

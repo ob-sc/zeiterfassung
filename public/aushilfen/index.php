@@ -3,11 +3,6 @@ $titel = "Aushilfen";
 include "../req/header.php";
 ?>
 
-<script>
-  $('nav li').removeClass('current');
-  $('#aushilfen').addClass('current');
-</script>
-
 <div id="anlegenContainer">
   <form method="post" id="newForm" autocomplete="off">
     <div class="form-group">

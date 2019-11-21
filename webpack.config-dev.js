@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+const webpack = require('webpack');
 const path = require('path');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -13,6 +14,10 @@ module.exports = {
     path: path.resolve(__dirname, 'public/js')
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    }),
     new MiniCssExtractPlugin({
       filename: '../css/main.css'
     }),

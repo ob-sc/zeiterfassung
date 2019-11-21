@@ -21,14 +21,6 @@ let eaEnde = [];
 
 let ahDaten;
 
-// console.log(dataJSON());
-
-// $(document).ajaxComplete(() => {
-//   ahDaten = dataJSON.responseJSON.ahDaten;
-//   const { stationNamen } = dataJSON.responseJSON;
-//   createAutoComplete('#auswertenAuto', stationNamen);
-// });
-
 // DRUCKEN
 window.drucken = () => {
   $('.tabelle-rechts').css('width', '100%');
@@ -181,6 +173,9 @@ function eatabelle() {
 }
 
 $(document).ready(() => {
+  $('nav li').removeClass('current');
+  $('#auswerten').addClass('current');
+
   $('#eaform').submit(e => {
     e.preventDefault();
     $('#fehlerAlert').hide();

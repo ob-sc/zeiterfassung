@@ -3,11 +3,6 @@ $titel = "Mitarbeiter";
 include '../req/header.php';
 ?>
 
-<script>
-  $('nav li').removeClass('current');
-  $('#mitarbeiter').addClass('current');
-</script>
-
 <div id="maContainer">
   <table class="table table-hover table-sm">
     <thead>

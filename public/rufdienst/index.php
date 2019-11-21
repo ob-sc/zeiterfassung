@@ -3,11 +3,6 @@ $titel = "Rufdienst";
 include '../req/header.php';
 ?>
 
-<script>
-  $('nav li').removeClass('current');
-  $('#rufdienst').addClass('current');
-</script>
-
 <div class="container-single">
   <form id="ndform" autocomplete="off">
     <div class="form-group">

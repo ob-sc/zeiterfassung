@@ -86,6 +86,9 @@ function abtabelle() {
 }
 
 $(document).ready(() => {
+  $('nav li').removeClass('current');
+  $('#abrechnung').addClass('current');
+
   $('#aform').submit(e => {
     e.preventDefault();
     $('#fehlerAlert').hide();

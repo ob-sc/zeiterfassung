@@ -42,22 +42,3 @@ if (isset($_POST['newStation'])) {
     <option value="63">München</option>
   </select>
 </div>
-
-<script>
-$('#stationSelect').val('<?php echo $_SESSION['station'] ?>');
-
-$('#stationSelect').change(function() {
-  const newStation = $(this).val();
-  $.ajax({
-    method: 'post',
-    url: '../admin/admin.php',
-    data: { newStation }
-  })
-    .done(() => {
-      window.location.reload();
-    })
-    .fail(data => {
-      console.log('Fehler: ' + data);
-    });
-});
-</script>

@@ -124,6 +124,9 @@ function formBerechnung() {
 }
 
 $(document).ready(() => {
+  $('nav li').removeClass('current');
+  $('#eintragen').addClass('current');
+
   $('#eform').submit(e => {
     e.preventDefault();
     $('#fehlerAlert').hide();

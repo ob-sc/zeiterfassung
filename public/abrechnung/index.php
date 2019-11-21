@@ -3,11 +3,6 @@ $titel = "Abrechnung";
 include "../req/header.php";
 ?>
 
-<script>
-  $('nav li').removeClass('current');
-  $('#abrechnung').addClass('current');
-</script>
-
 <div class="flex-wrapper">
   <div class="noPrint">
     <form method="post" class="container-tabelle-control" id="aform" autocomplete="off">

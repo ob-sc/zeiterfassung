@@ -5,6 +5,9 @@ const moment = require('moment');
 moment.locale('de');
 
 $(document).ready(() => {
+  $('nav li').removeClass('current');
+  $('#rufdienst').addClass('current');
+
   getData(daten => {
     createAutoComplete('#notdienstAuto', daten.alleNamen);
   });
