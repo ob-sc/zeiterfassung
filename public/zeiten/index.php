@@ -4,8 +4,7 @@ include "../req/header.php";
 ?>
 
 <div id="zeitenTable">
-
-  <table id="example" class="table table-sm table-striped table-bordered" style="width:100%">
+  <table id="zeitenDataTable" class="table table-sm table-hover table-bordered" style="width:100%">
     <thead>
       <tr>
         <th>Datum</th>
@@ -16,6 +15,7 @@ include "../req/header.php";
         <th>Gehalt</th>
         <th>Disponent</th>
         <th>Reg-Datum</th>
+        <th>&nbsp</th>
       </tr>
     </thead>
     <tbody>
