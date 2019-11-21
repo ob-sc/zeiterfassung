@@ -15,6 +15,9 @@ moment.locale('de');
 
 // sortieren der datatable nach datum geht nicht
 
+// plug-ins/1.10.16/sorting/datetime-moment.js
+// https://datatables.net/blog/2014-12-18
+
 $.getJSON('zeitenget.php')
   .done(data => {
     const zeiten = [];
@@ -41,12 +44,16 @@ $.getJSON('zeitenget.php')
       zeiten.push(row);
     });
 
-    $('#zeitenDataTable').DataTable({
-      data: zeiten,
-      columnDefs: [{ targets: -1, className: 'text-center', orderable: false }],
-      language: {
-        url: './dataTables.german.json'
-      }
+    $(document).ready(() => {
+      $('#zeitenDataTable').DataTable({
+        data: zeiten,
+        columnDefs: [
+          { targets: -1, className: 'text-center', orderable: false }
+        ],
+        language: {
+          url: './dataTables.german.json'
+        }
+      });
     });
   })
   .fail(data => {

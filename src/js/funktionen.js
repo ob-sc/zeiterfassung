@@ -1,5 +1,6 @@
 const autoComplete = require('@tarekraafat/autocomplete.js/dist/js/autoComplete');
 
+// tfw kein API
 export const getData = callback => {
   $.getJSON('../scripts/getdata.php').done(data => {
     callback(data);
