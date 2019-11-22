@@ -9,8 +9,6 @@ const moment = require('moment');
 
 moment.locale('de');
 
-var error;
-
 // dies ist ein test
 
 // für filter -> ajax in api (bzw noch zeitenget) -> dann noch mal .DataTable(); ??
