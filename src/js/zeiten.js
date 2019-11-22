@@ -55,10 +55,28 @@ $.getJSON('zeitenget.php')
           // eslint-disable-next-line func-names
           $('.delete').click(function() {
             const deleteid = $(this).data('deleteid');
-            console.log(deleteid);
 
-            // alle td aus parent tr siehe aushilfen -> für modal inhalt
+            const tdArray = [];
 
+            $(this)
+              .parents('tr')
+              .find('td')
+              // eslint-disable-next-line func-names
+              .each(function() {
+                tdArray.push($(this).html());
+              });
+
+            tdArray.splice(-1, 1);
+
+            const deleteMsg = `Datum: ${tdArray[0]}<br>
+            Name: ${tdArray[1]}<br>Beginn: ${tdArray[2]}<br>
+            Ende: ${tdArray[3]}<br>
+            Arbeitszeit: ${tdArray[4]}<br>
+            Gehalt: ${tdArray[5]}€<br>
+            Eingetragen von: ${tdArray[6]}<br>
+            Eingetragen am: ${tdArray[7]}<br>`;
+
+            $('#deleteMsg').html(deleteMsg);
             $('#deleteModal').modal();
 
             $('#deleteConfirm').click(() => {

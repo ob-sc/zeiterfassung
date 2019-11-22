@@ -32,9 +32,8 @@ include "../req/header.php";
         </button>
       </div>
       <div class="modal-body">
-        <div>
-          Möchtest du <strong><span id="deleteName"></span></strong> wirklich löschen?
-        </div>
+        <div id="deleteMsg"></div>
+        <p><strong>Wirklich löschen?</strong></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" id="deleteConfirm">Ja</button>
