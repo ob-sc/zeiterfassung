@@ -1,6 +1,6 @@
 {
   "name": "zeiterfassung",
-  "version": "1.12.1",
+  "version": "1.12.2",
   "private": true,
   "description": "",
   "main": "index.js",
@@ -15,7 +15,7 @@
     "test": "npm run lint",
     "preversion": "npm run test",
     "version": "",
-    "postversion": "git push; git push --tags"
+    "postversion": "git push"
   },
   "repository": {
     "type": "git",
