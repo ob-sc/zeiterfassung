@@ -1,10 +1,11 @@
 {
   "name": "zeiterfassung",
-  "version": "1.11.3",
+  "version": "1.11.5",
   "private": true,
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint src/js/**",
     "build-dev": "webpack --config webpack.config-dev.js",
     "watch": "webpack --watch --config webpack.config-dev.js",
     "build": "webpack --config webpack.config.js"
