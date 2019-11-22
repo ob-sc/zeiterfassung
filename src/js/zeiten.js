@@ -9,9 +9,7 @@ const moment = require('moment');
 
 moment.locale('de');
 
-// datatables locale
-
-// für filter -> ajax in api (bzw noch zeitenget) -> dann noch mal .DataTable();
+// für filter -> ajax in api (bzw noch zeitenget) -> dann noch mal .DataTable(); ??
 
 // sortieren der datatable nach datum geht nicht
 
