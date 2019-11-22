@@ -13,7 +13,7 @@
     "build": "npm run clean; webpack --config webpack.config.js",
     "lint": "eslint --ignore-path .gitignore .",
     "test": "npm run lint",
-    "preversion": "npm run test",
+    "preversion": "npm run test; git commit -m %npm_package_version%",
     "version": "",
     "postversion": "git push"
   },
