@@ -76,24 +76,6 @@
 </html>
 
 <script>
-if (window.location.hash === '#expire') {
-  $('#fehlerAlert').show();
-  $('#fehlerText').html('Sitzung abgelaufen, bitte neu anmelden!');
-  history.replaceState(null, null, ' ');
-}
-
-if (window.location.hash === '#neu') {
-  $('#fehlerAlert').show();
-  $('#fehlerText').html('Lass deinen Account von deinem Stationsleiter bestätigen.');
-  history.replaceState(null, null, ' ');
-}
-
-if (window.location.hash === '#loginerror') {
-  $('#fehlerAlert').show();
-  $('#fehlerText').html('Benutzername / Passwort falsch!');
-  history.replaceState(null, null, ' ');
-}
-
 if (isIE) {
   document.getElementById('loginForm').innerHTML =
     '<h1>Bitte benutze Google Chrome statt den Internet Explorer</h1>';

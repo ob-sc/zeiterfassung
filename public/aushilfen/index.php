@@ -50,8 +50,8 @@ include "../req/header.php";
 </div>
 
 <div id="bearbeitenContainer">
-  <input type="button" class="btn scc mb-3" value="Neu anlegen" onclick="$('#anlegenContainer').show();$('#bearbeitenContainer').hide()">
-  <input type="button" class="btn scc mb-3" value="Personalnummern" onclick="$('#pnContainer').show();$('#bearbeitenContainer').hide()">
+  <input type="button" class="btn scc mb-3" value="Neu anlegen" onclick="anlegenZeigen();">
+  <input type="button" class="btn scc mb-3" value="Personalnummern" onclick="pnZeigen();">
   <table class="table table-hover table-sm">
     <thead>
       <tr>

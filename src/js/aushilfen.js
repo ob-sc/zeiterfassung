@@ -25,6 +25,16 @@ function ahBearbeiten() {
   });
   $('#ahTab').html(ahRow);
 
+  window.anlegenZeigen = () => {
+    $('#anlegenContainer').show();
+    $('#bearbeitenContainer').hide();
+  };
+
+  window.pnZeigen = () => {
+    $('#pnContainer').show();
+    $('#bearbeitenContainer').hide();
+  };
+
   // Bei klick auf Bearbeiten-img
   // eslint-disable-next-line func-names
   $('.edit').click(function() {
@@ -109,8 +119,7 @@ function ahBearbeiten() {
     $('#deleteName').html(deletename);
     $('#deleteModal').modal();
 
-    // eslint-disable-next-line func-names
-    $('#deleteConfirm').click(function() {
+    $('#deleteConfirm').click(() => {
       // Senden an adelete.php
       $.ajax({
         url: 'adelete.php',

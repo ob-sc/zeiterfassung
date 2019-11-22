@@ -40,5 +40,6 @@ if (isset($_POST['newStation'])) {
     <option value="57">Bad Homburg</option>
     <option value="60">Kiel</option>
     <option value="63">München</option>
+    <option value="89">Bußgeldmanagement</option>
   </select>
 </div>

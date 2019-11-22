@@ -17,10 +17,10 @@ moment.locale('de');
 // https://datatables.net/blog/2014-12-18
 
 $.getJSON('zeitenget.php')
-  .done(data => {
+  .done(daten => {
     const zeiten = [];
 
-    data.forEach(element => {
+    daten.forEach(element => {
       const datum = moment(element.datum, 'YYYY-MM-DD').format('DD.MM.YYYY');
       const az = zuStunden(element.arbeitszeit);
       const gehalt = roundTF(element.gehalt);
@@ -36,7 +36,7 @@ $.getJSON('zeitenget.php')
         gehalt,
         element.username,
         regDate,
-        `<th><img src="../img/times-circle-regular.svg" width="18" class="delete" data-deletename="" data-deleteid="${element.id}"></th>`
+        `<img src="../img/times-circle-regular.svg" width="18" class="delete" data-deleteid="${element.id}">`
       ];
 
       zeiten.push(row);
@@ -50,12 +50,37 @@ $.getJSON('zeitenget.php')
         ],
         language: {
           url: './dataTables.german.json'
+        },
+        drawCallback: () => {
+          // eslint-disable-next-line func-names
+          $('.delete').click(function() {
+            const deleteid = $(this).data('deleteid');
+            console.log(deleteid);
+
+            // alle td aus parent tr siehe aushilfen -> für modal inhalt
+
+            $('#deleteModal').modal();
+
+            $('#deleteConfirm').click(() => {
+              $.ajax({
+                url: 'zdelete.php',
+                method: 'POST',
+                data: { id: deleteid }
+              })
+                .done(() => {
+                  window.location.reload();
+                })
+                .fail(data => {
+                  fehler(data.responseText);
+                });
+            });
+          });
         }
       });
     });
   })
-  .fail(data => {
-    fehler(data.responseText);
+  .fail(daten => {
+    fehler(daten.responseText);
   });
 
 $(document).ready(() => {

@@ -4,10 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="../img/favicon.png" />
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/main.css" />
-    <script src="../js/jquery-3.4.1.min.js"></script>
-    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
   </head>
   <body>
     <header class="noPrint">
@@ -123,6 +121,7 @@
               <option value="57">Bad Homburg</option>
               <option value="60">Kiel</option>
               <option value="63">München</option>
+              <option value="89">Bußgeldmanagement</option>
             </select>
           </div>
           <input
@@ -137,61 +136,3 @@
     </main>
   </body>
 </html>
-
-<script>
-  $(document).ready(function() {
-    $('#regForm').submit(function(e) {
-      e.preventDefault();
-
-      $('#pwLaenge').hide();
-      $('#pwGleich').hide();
-      $('#fehlerAlert').hide();
-
-      let name = $('#username').val();
-      let pw1 = $('#password1').val();
-      let pw2 = $('#password2').val();
-
-      // check länge und ob passwörter gleich sind
-      if (pw1.length < 6) {
-        $('#pwLaenge').show();
-        return;
-      } else if (pw1 != pw2) {
-        $('#pwGleich').show();
-        return;
-      }
-
-      // check ob leer
-      if ($.trim(name) === '') {
-        $('#fehlerAlert').show();
-        $('#fehlerText').html('<strong>Benutzername ist leer!</strong>');
-        return;
-      }
-
-      /* TODO REGEX https://eloquentjavascript.net/09_regexp.html
-        // check ob nur kleinbuchstaben und .
-        let erlaubt = /^[a-z\.]/;
-        //let nameLowercase = name.toLowerCase();
-        if (erlaubt.test(name)) {
-            console.log('nicht ' + erlaubt.test(name));
-            return;
-        }
-        console.log('ok ' + erlaubt.test(name));
-        */
-
-      $('#regForm')[0].submit();
-    });
-
-    // Benutzername gibt es schon
-    if (window.location.hash == '#exists') {
-      $('#fehlerAlert').show();
-      $('#fehlerText').html('<strong>Benutzername existiert bereits!</strong>');
-      history.replaceState(null, null, ' ');
-    }
-    // Erfolg
-    if (window.location.hash == '#regsuccess') {
-      $('#erfolgAlert').show();
-      $('#erfolgText').html('<strong>Erfolgreich registriert!</strong>');
-      history.replaceState(null, null, ' ');
-    }
-  });
-</script>
