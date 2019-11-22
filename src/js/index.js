@@ -5,10 +5,6 @@ import './cssbundle';
 
 import './general';
 
-import './login';
-import './register';
-
-// eslint-disable-next-line default-case
 switch (window.location.pathname) {
   case '/eintragen':
   case '/eintragen/':
@@ -52,4 +48,9 @@ switch (window.location.pathname) {
     // eslint-disable-next-line global-require
     require('./mitarbeiter');
     break;
+  default:
+    // eslint-disable-next-line global-require
+    require('./login');
+    // eslint-disable-next-line global-require
+    require('./register');
 }

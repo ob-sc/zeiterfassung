@@ -23,7 +23,7 @@ $(document).ready(() => {
     // check ob leer
     if ($.trim(name) === '') {
       $('#fehlerAlert').show();
-      $('#fehlerText').html('<strong>Benutzername ist leer!</strong>');
+      $('#fehlerText').html('Benutzername ist leer!');
       return;
     }
 
@@ -44,13 +44,13 @@ $(document).ready(() => {
   // Benutzername gibt es schon
   if (window.location.hash === '#exists') {
     $('#fehlerAlert').show();
-    $('#fehlerText').html('<strong>Benutzername existiert bereits!</strong>');
+    $('#fehlerText').html('Benutzername existiert bereits!');
     window.history.replaceState(null, null, ' ');
   }
   // Erfolg
   if (window.location.hash === '#regsuccess') {
     $('#erfolgAlert').show();
-    $('#erfolgText').html('<strong>Erfolgreich registriert!</strong>');
+    $('#erfolgText').html('Erfolgreich registriert!');
     window.history.replaceState(null, null, ' ');
   }
 });
