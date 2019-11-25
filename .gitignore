@@ -1,8 +1,13 @@
 config.ini
-todo.txt
-tables.txt
+
+check-square-regular.svg:Zone.Identifier
+times-circle-regular.svg:Zone.Identifier
+trash-alt-regular.svg:Zone.Identifiercd 
+user-check-solid.svg:Zone.Identifier
+user-edit-solid.svg:Zone.Identifier
 
 public/js/main.js
+public/css/main.css
 
 node_modules/
 
