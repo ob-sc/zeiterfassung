@@ -13,9 +13,7 @@
     "build": "npm run clean && webpack --config webpack.config.js",
     "lint": "eslint --ignore-path .gitignore .",
     "test": "npm run lint",
-    "preversion": "npm run test",
-    "version": "",
-    "postversion": "git push"
+    "git": "git commit -a --allow-empty-message && git push"
   },
   "repository": {
     "type": "git",
