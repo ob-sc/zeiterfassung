@@ -1,7 +1,26 @@
 import { getData } from './funktionen';
 
 $.getJSON('../scripts/session.php').done(data => {
-  console.log(data);
+  switch (data.code) {
+    case 0:
+      window.location.href = '../index.html#neu';
+      break;
+    case 1:
+      window.location.href = '../index.html#expire';
+      break;
+    case 2:
+      window.location.href = '../index.html#expire';
+      break;
+    default:
+      // eslint-disable-next-line no-console
+      console.log(data);
+      break;
+  }
+
+  $(document).ready(() => {
+    if (data.userStatus === 'admin') $('#adminmenu, .slmenu').show();
+    if (data.userStatus === 'sl') $('.slmenu').show();
+  });
 });
 
 $(document).ready(() => {
@@ -11,15 +30,13 @@ $(document).ready(() => {
 
   // devmode
   $.getJSON('../scripts/getconfig.php').done(data => {
-    const { settings } = data.daten;
-    if (settings.devmode === '1') $('#devdiv').text('🦺');
+    if (data.daten.settings.devmode === '1') $('#devdiv').text('🦺');
+    // eslint-disable-next-line no-console
+    if (data.status !== 'OK') console.log(data);
   });
 
-  // ADMIN / SL für Menü
+  // ADMIN / SL für Menü -> nicht mehr getdata sonder session
   getData(daten => {
-    if (daten.status === 'admin') $('#adminmenu, .slmenu').show();
-    if (daten.status === 'sl') $('.slmenu').show();
-
     $('#stationSelect').val(daten.stationid);
   });
 

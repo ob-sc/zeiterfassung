@@ -7,11 +7,7 @@ scadmin1312
 ________________________
 
 ENRICO:
-- immer 10€ Lohn
-
 - bonus (provi)
-
-- muss von aus anderer getrennt werden?
 
 PAUSCHALEN:
 
@@ -45,6 +41,8 @@ KEHLER & FÖRSTER & WOHLER
 - soll auf normale stationsabrechnung?
 - eigene station
 
+- wie wirt förster jetzt informiert?
+
 KRAUSE
 - wer nutzt notdienst?
 
@@ -53,15 +51,18 @@ ___________
 PRE RELEASE
 ___________
 
+- abrechnungszeitraum 20.-19. -> ok laut jonas und kehler
+
+- css auf login und register noch mal vergleichen 
+    -> alert anders?
+    -> evtl auch template?
+
 "pretest": "npm install" ?
     -> https://stackoverflow.com/a/39396977/11918503
 
     https://stackoverflow.com/questions/13059991/update-package-json-version-automatically
     https://stackoverflow.com/questions/48609931/how-can-i-reference-package-version-in-npm-script/48619640
     https://stackoverflow.com/questions/52075039/update-the-version-in-package-json-without-clean-git-working-directory-without
-
-- doch noch sass?
-    -> dann auch bootstrap scss mit sass loader
 
 - notdienst kann eig zu eintragen
 
@@ -95,8 +96,6 @@ ___________
     -> bzw nur die überschrift und keine einträge obwohl es welche gibt -> ICH GLAUBE DER HIER!!
     -> test mit test test aus osdorf
 
-- abrechnungszeitraum 20.-19. -> vorher jonas (evtl kehler absprechen?)
-
 - ABRECHNUNG
     -> spalte abmelden
         -> haken, bei klick -> input date? feld contenteditable? -> haken weg
@@ -107,9 +106,6 @@ ___________
 - unbefugten zutritt auf zb abrechnung wie bei admin verhindern
     -> über php oder dann neue api?
 
-- knöpfe gleiche größe
-    -> besonders aushilfen löschen modal
-
 - feature passwort ändern
 
 - warnung/fehler wenn gleiche arbeitszeit eingetragen wird (zb 1.1.2019 13 uhr bis 15 uhr und 1.1.2019 14 uhr bis 15 uhr)
@@ -119,6 +115,12 @@ ____________
 
 POST RELEASE
 ____________
+
+- doch noch sass?
+    -> dann auch bootstrap scss mit sass loader
+
+- knöpfe gleiche größe
+    -> besonders aushilfen löschen modal
 
 - favicon ändern?
 

@@ -31,7 +31,6 @@ unset($config['sql']);
 
 // devmode
 if ($config['settings']['devmode'] == 1) {
-  $daten['status'] = 'DEV';
   $daten['meldung'] = 'devmode';
 }
 

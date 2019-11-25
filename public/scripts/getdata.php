@@ -66,7 +66,6 @@ $maResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 echo json_encode([
   'stationid' => $_SESSION['station'],
   'station' => $stationResult['name'],
-  'status' => $_SESSION['status'],
   'stationNamen' => $stationNamen,
   'ahDaten' => $ahDaten,
   'alleNamen' => $alleNamen,

@@ -12,8 +12,11 @@ $stmt->execute(array($username));
 
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+$loginerror = 'Location: ../index.html#loginerror';
+
 if ($user === false) {
-  die("<script type='text/javascript'>window.location.href='../index.html#loginerror';</script>");
+  header($loginerror);
+  exit;
 } else {
   $validPassword = password_verify($passwordAttempt, $user['password']);
   if ($validPassword) {
@@ -22,10 +25,11 @@ if ($user === false) {
     $_SESSION['status'] = $user['status'];
     $_SESSION['aktiv'] = time();
 
-    header("Location: ../eintragen/index.php");
+    header('Location: ../eintragen/index.html');
     exit;
   } else {
-    die("<script type='text/javascript'>window.location.href='../index.html#loginerror';</script>");
+    header($loginerror);
+    exit;
   }
 }
 
