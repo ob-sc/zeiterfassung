@@ -1,0 +1,3 @@
+ALTER TABLE `zeiten` ADD `ahstation` INT NOT NULL AFTER `station`;
+
+INSERT INTO `stationen`(`id`, `name`) VALUES (89, 'Bußgeldmanagement')

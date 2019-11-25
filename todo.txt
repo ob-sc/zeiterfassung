@@ -1,0 +1,173 @@
+    TODO
+________________________
+
+starc3662
+S22LuwG2WMqaYyvSwbX6qKgT
+scadmin1312
+________________________
+
+ENRICO:
+- immer 10€ Lohn
+
+- bonus (provi)
+
+- muss von aus anderer getrennt werden?
+
+PAUSCHALEN:
+
+- menüpunkt
+  -> pauschalen
+    -> welche
+    -> wieviel / anzahl einsätze
+    -> wer
+    -> wann
+
+- sören & christian absprechen umbuchen
+  -> + lohnkanzlei
+
+- nur notdienst
+
+- muss in max eingerechnet werden
+
+- jeweils 1 tag bei rufdienst für urlaub
+  -> mehrere einsätze nur 1 tag
+
+- spalte dazu pauschalen
+
+- auf stundenzettel eintragen
+  -> wie sondereinträge
+    -> pauschalen dadrunter
+
+- zusammenrechnen
+
+KEHLER & FÖRSTER & WOHLER
+- wie umbuchen?
+- soll auf normale stationsabrechnung?
+- eigene station
+
+KRAUSE
+- wer nutzt notdienst?
+
+___________
+
+PRE RELEASE
+___________
+
+"pretest": "npm install" ?
+    -> https://stackoverflow.com/a/39396977/11918503
+
+    https://stackoverflow.com/questions/13059991/update-package-json-version-automatically
+    https://stackoverflow.com/questions/48609931/how-can-i-reference-package-version-in-npm-script/48619640
+    https://stackoverflow.com/questions/52075039/update-the-version-in-package-json-without-clean-git-working-directory-without
+
+WICHTIG:
+    -> registrieren css und js
+
+- doch noch sass?
+    -> dann auch bootstrap scss mit sass loader
+
+- notdienst kann eig zu eintragen
+
+- wie mach ich das mit document.ready? eig ist alles document ready....
+    -> <script defer src=... ?
+    -> https://stackoverflow.com/questions/10808109/script-tag-async-defer/39711009#39711009
+
+- aushilfe auf 2 abrechnungen bei anderer station
+  -> klären mit detlef
+
+- css auf index anpassen
+
+- station / stationid aus getdata raus?
+    -> allg mal getdata überprüfen was ich alles nicht brauch
+
+- cache
+    -> webpack? -> mit hash?  https://webpack.js.org/guides/caching/
+    -> dann auch css  https://github.com/webpack-contrib/mini-css-extract-plugin
+    -> schwierig, da in header ohne hash ist
+        -> brauche html-webpack-plugin
+    -> wenn api dann seitentemplate über webpack mit html -> webpack fügt script mit cache ein
+
+- readme:
+    -> inhalt links kleiner
+    -> unbefugten zutritt satz weg
+    -> readme ordentlich stylen
+        -> angucken wie man ordentlich readmes macht
+
+- durchschnitt einbauen (5400 / 12 * aktuelle monate)
+    -> modal (ACHTUNG ÜBER DURCHSCNITT) wenn drüber?
+
+- sondereinträge werden angezeigt obwohl es keine gibt
+    -> bzw nur die überschrift und keine einträge obwohl es welche gibt -> ICH GLAUBE DER HIER!!
+    -> test mit test test aus osdorf
+
+- abrechnungszeitraum 20.-19. -> vorher jonas (evtl kehler absprechen?)
+
+- ABRECHNUNG
+    -> spalte abmelden
+        -> haken, bei klick -> input date? feld contenteditable? -> haken weg
+        -> bei print alle haken weg (.noPrint)
+    -> abrechnung nur wenn alle personalnummern da sind / einzelne ohne nicht aufführen mit warnung
+    -> evtl nur autotables
+    
+- unbefugten zutritt auf zb abrechnung wie bei admin verhindern
+    -> über php oder dann neue api?
+
+- knöpfe gleiche größe
+    -> besonders aushilfen löschen modal
+
+- feature passwort ändern
+
+- warnung/fehler wenn gleiche arbeitszeit eingetragen wird (zb 1.1.2019 13 uhr bis 15 uhr und 1.1.2019 14 uhr bis 15 uhr)
+    -> in vorschau?
+
+____________
+
+POST RELEASE
+____________
+
+- favicon ändern?
+
+- responsive machen?
+
+- von bootstrap js weg?
+    - komm ich ohne bootstrap aus?
+
+- fetch API statt $.ajax?
+
+- alerts müssen neu
+    -> do they tho?
+
+- wie dev behandeln?
+    -> anderes farbschema?
+
+- titel neu - auch zeiterfassung aushilfen
+    -> eintragen: zeit eintragen?
+    -> auswerten
+
+- trim (nur bei aushilfe anlegen?)
+
+- regex name (&passwort)
+
+- passwort ändern feature
+
+- eaget und eatabelle umschreiben? zeiten (tage) und summen in ein array? mit while($row = $stmt-fetch...) wie in abget?
+
+- admin tabelle https://datatables.net/
+    -> allg tabellen damit? aushilfen ...
+    -> ahstation muss rein
+
+- in aushilfen anlegen -> alleDaten statt ahDaten[name] um zu gucken ob es sie insgesamt schon gibt
+
+- jeweils element zu key? -> https://stackoverflow.com/a/41550077/11918503
+
+- fa:
+    -> user-edit für aushilfen
+    -> user-minus zum löschen
+    -> edit für allg edit in tabellen
+    -> address-book für mitarbeiter oder aushilfen
+
+- webpack cache
+
+
+- autocomplete
+    -> direkt ajax?
