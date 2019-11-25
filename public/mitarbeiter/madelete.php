@@ -1,6 +1,6 @@
 <?php
-require '../req/session.php';
-require '../req/connect.php';
+require '../scripts/session.php';
+require '../scripts/connect.php';
 
 $stmt = $conn->prepare("DELETE FROM benutzer WHERE id = ?");
 

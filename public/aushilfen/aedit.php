@@ -1,6 +1,6 @@
 <?php
-require '../req/session.php';
-require '../req/connect.php';
+require '../scripts/session.php';
+require '../scripts/connect.php';
 
 # TODO daten überprüfen und ggf. die(bla);
 # aktuell wird einfach nix eingetragen wenn typ nicht stimmt, obwohl alles als string kommt

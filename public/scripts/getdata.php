@@ -1,6 +1,6 @@
 <?php
-require '../req/session.php';
-require '../req/connect.php';
+require 'session.php';
+require 'connect.php';
 
 // aushilfen der Station mit löhnen -> station dazu?
 $aushilfenSql = "SELECT id, personalnr, vorname, nachname, norlohn, samlohn, sonlohn, status FROM aushilfen WHERE station = ?";

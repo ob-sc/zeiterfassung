@@ -1,5 +1,9 @@
 import { getData } from './funktionen';
 
+$.getJSON('../scripts/session.php').done(data => {
+  console.log(data);
+});
+
 $(document).ready(() => {
   // für jeden input Datum - automatisch Datum heute
   const datumInput = document.getElementById('datum');

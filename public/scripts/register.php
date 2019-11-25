@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../req/connect.php';
+require 'connect.php';
 
 /*
 status muss admin ändern?

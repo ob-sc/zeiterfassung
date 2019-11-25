@@ -1,6 +1,6 @@
 <?php
-require '../req/session.php';
-require '../req/connect.php';
+require '../scripts/session.php';
+require '../scripts/connect.php';
 
 // Eintragen in Tabelle zeiten
 $sql = "INSERT INTO zeiten (name, ahid, datum, beginn, ende, arbeitszeit, gehalt, disponent, station, ahstation) 

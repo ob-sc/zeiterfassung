@@ -60,9 +60,6 @@ ___________
     https://stackoverflow.com/questions/48609931/how-can-i-reference-package-version-in-npm-script/48619640
     https://stackoverflow.com/questions/52075039/update-the-version-in-package-json-without-clean-git-working-directory-without
 
-WICHTIG:
-    -> registrieren css und js
-
 - doch noch sass?
     -> dann auch bootstrap scss mit sass loader
 
