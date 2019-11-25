@@ -75,8 +75,6 @@ WICHTIG:
 - aushilfe auf 2 abrechnungen bei anderer station
   -> klären mit detlef
 
-- css auf index anpassen
-
 - station / stationid aus getdata raus?
     -> allg mal getdata überprüfen was ich alles nicht brauch
 
