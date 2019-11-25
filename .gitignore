@@ -4,7 +4,6 @@ tables.txt
 
 public/js/main.js
 
-.vscode/
 node_modules/
 
 webpack.config-cache.js

@@ -1,0 +1,14 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.disableLanguages": ["html"],
+  "prettier.requireConfig": true,
+
+  "eslint.enable": true,
+  "eslint.packageManager": "npm",
+  "eslint.options": {
+    "configFile": "C:/Users/Ole/cdng/zeiterfassung/.eslintrc.json"
+  },
+  "eslint.validate": ["javascript"],
+  "eslint.lintTask.enable": true
+}
