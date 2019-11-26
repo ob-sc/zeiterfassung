@@ -62,6 +62,7 @@ WICHTIG: testen ob session.php funktioniert
         -> alternativ nen sondertest in api
 
 - zeiten mit limit in php -> sonst zu viele daten
+- zeiten wirklich löschen? in header vom modal neben x
 
 - gucken ob ich daten in txtdatei auf server schreiben kann -> log bei session oder getconfig
 
