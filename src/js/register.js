@@ -49,8 +49,8 @@ $(document).ready(() => {
   }
   // Erfolg
   if (window.location.hash === '#regsuccess') {
-    $('#erfolgAlert').show();
-    $('#erfolgText').html('Erfolgreich registriert!');
+    $('#infoAlert').show();
+    $('#infoText').html('Erfolgreich registriert!');
     window.history.replaceState(null, null, ' ');
   }
 });
