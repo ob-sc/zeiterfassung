@@ -27,7 +27,7 @@ $(document).ready(() => {
       const maid = $(this).data('confirmid');
 
       $.ajax({
-        url: 'maedit.php',
+        url: '../shitapi/maedit.php',
         method: 'POST',
         data: { id: maid }
       })
@@ -44,7 +44,7 @@ $(document).ready(() => {
       const deleteid = $(this).data('deleteid');
 
       $.ajax({
-        url: 'madelete.php',
+        url: '../shitapi/madelete.php',
         method: 'POST',
         data: { id: deleteid }
       })

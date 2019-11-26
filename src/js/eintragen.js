@@ -23,7 +23,7 @@ let ahStation;
 
 window.senden = () => {
   $.ajax({
-    url: 'send.php',
+    url: '../shitapi/send.php',
     method: 'POST',
     data: {
       aushilfenId,

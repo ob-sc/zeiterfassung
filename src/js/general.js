@@ -47,7 +47,7 @@ $(document).ready(() => {
     const newStation = $(this).val();
     $.ajax({
       method: 'post',
-      url: '../admin/admin.php',
+      url: '../shitapi/admin.php',
       data: { newStation }
     })
       .done(() => {

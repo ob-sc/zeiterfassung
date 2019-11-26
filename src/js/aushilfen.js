@@ -98,7 +98,7 @@ function ahBearbeiten() {
 
       // Senden an aedit.php
       $.ajax({
-        url: 'aedit.php',
+        url: '../shitapi/aedit.php',
         method: 'POST',
         data: ahEdit
       })
@@ -122,7 +122,7 @@ function ahBearbeiten() {
     $('#deleteConfirm').click(() => {
       // Senden an adelete.php
       $.ajax({
-        url: 'adelete.php',
+        url: '../shitapi/adelete.php',
         method: 'POST',
         data: { id: deleteId }
       })
@@ -159,7 +159,7 @@ $(document).ready(() => {
     }
 
     $.ajax({
-      url: 'anew.php',
+      url: '../shitapi/anew.php',
       method: 'POST',
       data: $('#newForm').serialize()
     })
@@ -176,7 +176,7 @@ $(document).ready(() => {
   $('#ahpnForm').submit(e => {
     e.preventDefault();
     $.ajax({
-      url: 'ahpn.php',
+      url: '../shitapi/ahpn.php',
       method: 'POST',
       data: $('#ahpnForm').serialize()
     })
