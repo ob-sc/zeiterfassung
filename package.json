@@ -1,6 +1,6 @@
 {
   "name": "zeiterfassung",
-  "version": "1.12.5",
+  "version": "1.13.0",
   "private": true,
   "description": "",
   "main": "index.js",
@@ -9,11 +9,10 @@
     "watch": "webpack --watch --config webpack.config-dev.js",
     "clean": "cd public && rm -r index.html register.html js css abrechnung aushilfen auswerten eintragen mitarbeiter zeiten && mkdir js css abrechnung aushilfen auswerten eintragen mitarbeiter zeiten",
     "build-dev": "npm run clean && webpack --config webpack.config-dev.js",
-    "prebuild": "npm run test",
+    "prebuild": "npm test",
     "build": "npm run clean && webpack --config webpack.config.js",
-    "lint": "eslint --ignore-path .gitignore .",
-    "test": "npm run lint",
-    "git": "git commit -a --allow-empty-message -m '' && git push"
+    "test": "eslint src/js",
+    "git": "git add -A && git commit -a --allow-empty-message -m '' && git push"
   },
   "repository": {
     "type": "git",

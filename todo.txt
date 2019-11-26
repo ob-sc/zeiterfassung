@@ -57,6 +57,9 @@ ___________
 PRE RELEASE
 ___________
 
+- für API: 
+    -> lass ich die index.html jeweils in einem ordner oder alle in einen und umbenennen?
+
 - webpack filename .[contenthash]
     -> https://github.com/jantimon/html-webpack-plugin#long-term-caching
 
