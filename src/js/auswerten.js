@@ -1,4 +1,5 @@
 import {
+  session,
   getData,
   createAutoComplete,
   roundTF,
@@ -8,6 +9,8 @@ import {
 } from './funktionen';
 
 const moment = require('moment');
+
+session();
 
 moment.locale('de');
 

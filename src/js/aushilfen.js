@@ -1,6 +1,8 @@
-import { getData, roundTF, fehler, info } from './funktionen';
+import { session, getData, roundTF, fehler, info } from './funktionen';
 
 const sortBy = require('lodash.sortby');
+
+session();
 
 let ahDaten;
 

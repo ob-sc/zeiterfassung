@@ -1,4 +1,6 @@
-import { getData, fehler } from './funktionen';
+import { session, getData, fehler } from './funktionen';
+
+session();
 
 $(document).ready(() => {
   $('nav li').removeClass('current');

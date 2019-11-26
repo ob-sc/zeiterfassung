@@ -14,7 +14,7 @@ $sekInaktiv = time() - $_SESSION['aktiv'];
 // in sekunden, 10 Min (6000)
 $expireNach = 6000;
 
-// wenn admin dann 24 h session
+// wenn admin dann 86400 (24 h) session
 if ($_SESSION['status'] === 'admin') $expireNach = 86400;
 
 // prüfen ob status neu ist -> return #neu

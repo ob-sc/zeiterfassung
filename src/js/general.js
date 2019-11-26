@@ -1,30 +1,5 @@
 import { getData } from './funktionen';
 
-$.getJSON('../scripts/session.php').done(data => {
-  if (data.code !== 3) {
-    switch (data.code) {
-      case 0:
-        window.location.href = '../index.html#neu';
-        break;
-      case 1:
-        window.location.href = '../index.html#expire';
-        break;
-      case 2:
-        window.location.href = '../index.html#expire';
-        break;
-      default:
-        // eslint-disable-next-line no-console
-        console.log(data);
-        break;
-    }
-  }
-
-  $(document).ready(() => {
-    if (data.userStatus === 'admin') $('#adminmenu, .slmenu').show();
-    if (data.userStatus === 'sl') $('.slmenu').show();
-  });
-});
-
 $(document).ready(() => {
   // für jeden input Datum - automatisch Datum heute
   const datumInput = document.getElementById('datum');

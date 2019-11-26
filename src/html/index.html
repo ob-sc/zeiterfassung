@@ -1,3 +1,13 @@
+<script>
+  // IE CHECK
+  var ua = window.navigator.userAgent;
+  var isIE = /MSIE|Trident/.test(ua);
+  
+  if (isIE) {
+    alert('Bitte benutze Google Chrome statt den Internet Explorer');
+  }
+</script>
+
 <div class="container m-4" id="loginForm">
   <form action="scripts/login.php" method="post">
     <div class="form-group col-md-4">
@@ -36,12 +46,7 @@
 </html>
 
 <script>
-// IE CHECK
-var ua = window.navigator.userAgent;
-var isIE = /MSIE|Trident/.test(ua);
-
 if (isIE) {
-  alert('Bitte benutze Google Chrome statt den Internet Explorer');
   document.getElementById('loginForm').innerHTML =
     '<h1>Bitte benutze Google Chrome statt den Internet Explorer</h1>';
 }
