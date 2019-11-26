@@ -1,0 +1,151 @@
+<html lang="de">
+<head>
+  <title>Registrierung</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="../img/favicon.png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <script src="../js/main.js"></script>
+  <script>
+    // IE CHECK
+    var ua = window.navigator.userAgent;
+    var isIE = /MSIE|Trident/.test(ua);
+
+    if (isIE) {
+      alert('Bitte benutze Google Chrome statt den Internet Explorer');
+    }
+  </script>
+</head>
+<body>
+<header class="noPrint">
+  <div id="devdiv"></div>
+  <div class="logoWrapper">
+    <img src="../img/logo_starcar2x.png" alt="SC_Logo" class="logo">
+  </div>
+  <div class="pagetitle">Zeiterfassung Aushilfen</div>
+</header>
+<main class="main">
+  <div class="container">
+    <div
+      class="alert alert-danger alert-dismissible"
+      role="alert"
+      id="fehlerAlert"
+      style="display:none;"
+    >
+      <button type="button" class="close" data-dismiss="alert">
+        &times;
+      </button>
+      <div id="fehlerText"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div
+      class="alert alert-success alert-dismissible"
+      role="alert"
+      id="erfolgAlert"
+      style="display:none;"
+    >
+      <button type="button" class="close" data-dismiss="alert">
+        &times;
+      </button>
+      <div id="erfolgText"></div>
+    </div>
+  </div>
+
+  <div class="container m-4">
+    <form action="scripts/register.php" method="post" id="regForm">
+      <p>
+        Benutzername ist der Teil <strong>vor</strong> deiner @starcar.de
+        Adresse (z. B. <strong>bergen</strong>@starcar.de)
+      </p>
+      <div class="form-group col-md-4">
+        <label for="username" class="m-1">Benutzername:</label>
+        <input
+          type="text"
+          class="form-control m-1"
+          placeholder="Benutzername"
+          name="username"
+          id="username"
+          autocomplete="off"
+          required
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="password1">Passwort:</label>
+        <input
+          type="password"
+          class="form-control m-1"
+          placeholder="Passwort"
+          name="password1"
+          id="password1"
+          required
+        />
+      </div>
+      <p style="display:none;color:red;" id="pwLaenge">
+        <strong>Das Passwort muss mindestens 6 Zeichen haben</strong>
+      </p>
+      <div class="form-group col-md-4">
+        <label for="password2">Passwort wiederholen:</label>
+        <input
+          type="password"
+          class="form-control m-1"
+          placeholder="Passwort"
+          name="password2"
+          id="password2"
+          required
+        />
+      </div>
+      <p style="display:none;color:red;" id="pwGleich">
+        <strong>Passwörter stimmen nicht überein</strong>
+      </p>
+      <div class="form-group col-md-4">
+        <label for="stationSelect">Station:</label>
+        <select class="form-control m-1" name="station" id="station">
+          <option value="10">Hamburg Jenfeld</option>
+          <option value="11">Hamburg Eppendorf</option>
+          <option value="12">Hamburg Eiffestraße</option>
+          <option value="13">Hamburg Heimfeld</option>
+          <option value="14">Hamburg Billstedt</option>
+          <option value="15">Hamburg Altona</option>
+          <option value="18">Hamburg Osdorf</option>
+          <option value="113">Harburg Mitte</option>
+          <option value="32">Bremen</option>
+          <option value="19">Hamburg Wandsbek</option>
+          <option value="114">Hamburg Langenhorn</option>
+          <option value="30">Hannover</option>
+          <option value="33">Hannover Döhren</option>
+          <option value="36">Braunschweig</option>
+          <option value="52">Düsseldorf</option>
+          <option value="20">Berlin Tiergarten</option>
+          <option value="21">Berlin Neukölln</option>
+          <option value="22">Berlin Pankow</option>
+          <option value="23">Berlin Rudow</option>
+          <option value="24">Berlin Spandau</option>
+          <option value="40">Köln Sülz</option>
+          <option value="45">Köln Ehrenfeld</option>
+          <option value="46">Köln Kalk</option>
+          <option value="47">Köln Dellbrück</option>
+          <option value="50">Essen</option>
+          <option value="54">Dortmund</option>
+          <option value="55">Frankfurt Ostend</option>
+          <option value="56">Frankfurt Griesheim</option>
+          <option value="57">Bad Homburg</option>
+          <option value="60">Kiel</option>
+          <option value="63">München</option>
+          <option value="89">Bußgeldmanagement</option>
+        </select>
+      </div>
+      <input
+        type="submit"
+        name="register"
+        class="btn ml-3 scc"
+        value="Registrieren"
+      />
+    </form>
+    <a href="index.html" class="ml-3">Zurück</a>
+  </div>
+</main>
+
+</body>
+</html>
