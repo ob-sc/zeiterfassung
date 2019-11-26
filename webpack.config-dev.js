@@ -3,9 +3,20 @@ const webpack = require('webpack');
 const path = require('path');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const fs = require('fs');
 /* eslint-enable import/no-extraneous-dependencies */
 
-// FÜr dev Builds
+const newHWP = (dir, titel) => {
+  return new HtmlWebpackPlugin({
+    filename: `../${dir}/index.html`,
+    template: './src/html/template.html',
+    admin: fs.readFileSync('./src/html/admin.html'),
+    title: titel,
+    body: fs.readFileSync(`./src/html/${dir}.html`)
+  });
+};
+
 module.exports = {
   mode: 'development',
   stats: {
@@ -29,7 +40,28 @@ module.exports = {
     }),
     new MomentLocalesPlugin({
       localesToKeep: ['de']
-    })
+    }),
+    new HtmlWebpackPlugin({
+      filename: '../index.html',
+      template: './src/html/root.html',
+      admin: '',
+      title: 'Zeiterfassung Aushilfen',
+      body: fs.readFileSync('./src/html/index.html')
+    }),
+    new HtmlWebpackPlugin({
+      filename: '../register.html',
+      template: './src/html/root.html',
+      admin: '',
+      title: 'Zeiterfassung Aushilfen',
+      body: fs.readFileSync('./src/html/register.html')
+    }),
+    newHWP('abrechnung', 'Abrechnung'),
+    newHWP('aushilfen', 'Aushilfen'),
+    newHWP('auswerten', 'Arbeitszeitnachweis'),
+    newHWP('eintragen', 'Eintragen'),
+    newHWP('mitarbeiter', 'Mitarbeiter'),
+    newHWP('readme', 'Hilfe'),
+    newHWP('zeiten', 'Zeiten')
   ],
   module: {
     rules: [

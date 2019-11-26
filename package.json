@@ -7,8 +7,7 @@
   "scripts": {
     "start": "cd public && php -S localhost:8000",
     "watch": "webpack --watch --config webpack.config-dev.js",
-    "clean": "rm -r public/js &&  mkdir public/js && rm -r public/css && mkdir public/css",
-    "cleanhtml": "cd public && rm -r abrechnung aushilfen auswerten eintragen mitarbeiter zeiten && mkdir abrechnung aushilfen auswerten eintragen mitarbeiter zeiten",
+    "clean": "cd public && rm -r js css abrechnung aushilfen auswerten eintragen mitarbeiter zeiten && mkdir js css abrechnung aushilfen auswerten eintragen mitarbeiter zeiten",
     "build-dev": "npm run clean && webpack --config webpack.config-dev.js",
     "prebuild": "npm run test",
     "build": "npm run clean && webpack --config webpack.config.js",
