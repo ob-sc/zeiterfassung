@@ -1,6 +1,6 @@
 {
   "name": "zeiterfassung",
-  "version": "1.13.0",
+  "version": "1.13.1",
   "private": true,
   "description": "",
   "main": "index.js",
@@ -12,7 +12,9 @@
     "prebuild": "npm test",
     "build": "npm run clean && webpack --config webpack.config.js",
     "test": "eslint src/js",
-    "git": "git add -A && git commit -a --allow-empty-message -m '' && git push"
+    "pregit": "git add -A",
+    "git": "git commit --allow-empty-message -m",
+    "postgit": "git push"
   },
   "repository": {
     "type": "git",
@@ -42,6 +44,7 @@
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
     "moment-locales-webpack-plugin": "^1.1.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "prettier": "^1.18.2",
     "terser-webpack-plugin": "^2.2.1",
     "webpack": "^4.41.2",

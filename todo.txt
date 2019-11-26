@@ -6,6 +6,10 @@ S22LuwG2WMqaYyvSwbX6qKgT
 scadmin1312
 ________________________
 
+zenmode?
+zenMode.silentNotifications
+________________________
+
 KEHLER:
 
 - Wie oft kann eine Aushilfe über 450 € kommen?
@@ -22,7 +26,7 @@ relevant für die SV-pflichtige Beurteilung ist das aber nicht
 
 
 - Ist es in Ordnung wenn Aushilfen auf 2 Abrechnungen auftauchen?
-Nein, das ist so in Ordnung, da wir dann die Kostenstellen dem jeweiligen Anteil des Gehaltes zuordnen
+Das ist so in Ordnung, da wir dann die Kostenstellen dem jeweiligen Anteil des Gehaltes zuordnen
 
 - aus welcher station muss auch rein
 

@@ -1,10 +1,11 @@
 const webpack = require('webpack');
 const path = require('path');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const fs = require('fs');
+const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const newHWP = dir => {
   return new HtmlWebpackPlugin({
@@ -33,6 +34,22 @@ module.exports = {
     filename: 'js/main.[chunkhash].js',
     path: path.resolve(__dirname, 'public')
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              url: false
+            }
+          }
+        ]
+      }
+    ]
+  },
   plugins: [
     new webpack.ProvidePlugin({
       $: 'jquery',
@@ -55,22 +72,6 @@ module.exports = {
     newHWP('zeiten')
   ],
   optimization: {
-    minimizer: [new TerserPlugin()]
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              url: false
-            }
-          }
-        ]
-      }
-    ]
+    minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()]
   }
 };

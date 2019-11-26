@@ -1,4 +1,4 @@
-// eslint-disable import/no-extraneous-dependencies
+/* eslint-disable import/no-extraneous-dependencies */
 const webpack = require('webpack');
 const path = require('path');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
@@ -39,6 +39,23 @@ module.exports = {
     filename: 'js/main.js',
     path: path.resolve(__dirname, 'public')
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              url: false,
+              sourceMap: true
+            }
+          }
+        ]
+      }
+    ]
+  },
   plugins: [
     new webpack.ProvidePlugin({
       $: 'jquery',
@@ -59,22 +76,5 @@ module.exports = {
     newHWP('mitarbeiter'),
     newHWP('readme'),
     newHWP('zeiten')
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              url: false,
-              sourceMap: true
-            }
-          }
-        ]
-      }
-    ]
-  }
+  ]
 };
