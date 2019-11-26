@@ -1,11 +1,10 @@
-/* eslint-disable import/no-extraneous-dependencies */
+// eslint-disable import/no-extraneous-dependencies
 const webpack = require('webpack');
 const path = require('path');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const fs = require('fs');
-/* eslint-enable import/no-extraneous-dependencies */
 
 const newHWP = dir => {
   return new HtmlWebpackPlugin({

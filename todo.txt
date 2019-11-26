@@ -8,7 +8,21 @@ ________________________
 
 KEHLER:
 
-- siehe mail
+- Wie oft kann eine Aushilfe über 450 € kommen?
+Seit 2019 duldet die DRV, dass man mehrmals im Jahr über 450 € verdienen darf, wenn man im Durchschnitt unter 5.400 € bleibt.
+
+
+- Ist der Abrechnungszeitraum 20.x. bis 19.x. (also z.B. 20. Januar bis 19. Februar) in Ordnung für euch?
+Das ist okay
+
+- Wie wird der Notdienst erfasst / umgebucht?
+Die Notdienste werden von uns als Notdienst erfasst und der Kostenstelle der jeweiligen Station zugeordnet, wenn dieser als solches erkennbar ist, 
+relevant für die SV-pflichtige Beurteilung ist das aber nicht
+
+
+
+- Ist es in Ordnung wenn Aushilfen auf 2 Abrechnungen auftauchen?
+Nein, das ist so in Ordnung, da wir dann die Kostenstellen dem jeweiligen Anteil des Gehaltes zuordnen
 
 - aus welcher station muss auch rein
 
@@ -47,7 +61,7 @@ KEHLER & FÖRSTER & WOHLER
 - soll auf normale stationsabrechnung?
 - eigene station
 
-- wie wirt förster jetzt informiert?
+- wie wird förster jetzt informiert?
 
 KRAUSE
 - wer nutzt notdienst?
@@ -72,15 +86,12 @@ WICHTIG: testen ob session.php funktioniert
         -> alternativ nen sondertest in api
 
 - zeiten mit limit in php -> sonst zu viele daten
-- zeiten wirklich löschen? in header vom modal neben x
-
-- gucken ob ich daten in txtdatei auf server schreiben kann -> log bei session oder getconfig
+- text: zeiten wirklich löschen? in header vom modal neben x
 
 - abrechnungszeitraum 20.-19. -> ok laut jonas und kehler
 
 - css auf login und register noch mal vergleichen 
     -> alert anders?
-    -> evtl auch template?
 
 "pretest": "npm install" ?
     -> https://stackoverflow.com/a/39396977/11918503
