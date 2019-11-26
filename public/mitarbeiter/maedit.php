@@ -1,5 +1,4 @@
 <?php
-require '../scripts/session.php';
 require '../scripts/connect.php';
 
 $sql = "UPDATE benutzer SET status = null WHERE id = ?";

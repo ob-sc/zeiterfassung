@@ -6,6 +6,12 @@ S22LuwG2WMqaYyvSwbX6qKgT
 scadmin1312
 ________________________
 
+KEHLER:
+
+- siehe mail
+
+- aus welcher station muss auch rein
+
 ENRICO:
 - bonus (provi)
 
@@ -50,6 +56,14 @@ ___________
 
 PRE RELEASE
 ___________
+
+WICHTIG: testen ob session.php funktioniert
+    -> warsch brauche ich nen test in nem bestimmten intervall -> wenn man die seite nicht wechselt wird session nicht überprüft
+        -> alternativ nen sondertest in api
+
+- zeiten mit limit in php -> sonst zu viele daten
+
+- gucken ob ich daten in txtdatei auf server schreiben kann -> log bei session oder getconfig
 
 - abrechnungszeitraum 20.-19. -> ok laut jonas und kehler
 

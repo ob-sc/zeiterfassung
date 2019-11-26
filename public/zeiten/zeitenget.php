@@ -1,5 +1,5 @@
 <?php
-require '../scripts/session.php';
+session_start();
 require '../scripts/connect.php';
 
 # todo limit 

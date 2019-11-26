@@ -1,20 +1,22 @@
 import { getData } from './funktionen';
 
 $.getJSON('../scripts/session.php').done(data => {
-  switch (data.code) {
-    case 0:
-      window.location.href = '../index.html#neu';
-      break;
-    case 1:
-      window.location.href = '../index.html#expire';
-      break;
-    case 2:
-      window.location.href = '../index.html#expire';
-      break;
-    default:
-      // eslint-disable-next-line no-console
-      console.log(data);
-      break;
+  if (data.code !== 3) {
+    switch (data.code) {
+      case 0:
+        window.location.href = '../index.html#neu';
+        break;
+      case 1:
+        window.location.href = '../index.html#expire';
+        break;
+      case 2:
+        window.location.href = '../index.html#expire';
+        break;
+      default:
+        // eslint-disable-next-line no-console
+        console.log(data);
+        break;
+    }
   }
 
   $(document).ready(() => {
@@ -29,15 +31,15 @@ $(document).ready(() => {
   if (datumInput) datumInput.valueAsDate = new Date();
 
   // devmode
-  $.getJSON('../scripts/getconfig.php').done(data => {
-    if (data.daten.settings.devmode === '1') $('#devdiv').text('🦺');
+  $.getJSON('../scripts/getconfig.php').done(configdata => {
+    if (configdata.daten.settings.devmode === '1') $('#devdiv').text('🦺');
     // eslint-disable-next-line no-console
-    if (data.status !== 'OK') console.log(data);
+    if (configdata.status !== 'OK') console.log(configdata);
   });
 
-  // ADMIN / SL für Menü -> nicht mehr getdata sonder session
-  getData(daten => {
-    $('#stationSelect').val(daten.stationid);
+  // adminmenü richtig setzen
+  getData(menudaten => {
+    $('#stationSelect').val(menudaten.stationid);
   });
 
   // eslint-disable-next-line func-names
@@ -51,9 +53,9 @@ $(document).ready(() => {
       .done(() => {
         window.location.reload();
       })
-      .fail(data => {
+      .fail(admindata => {
         // eslint-disable-next-line no-console
-        console.log(data);
+        console.log(admindata);
       });
   });
 });

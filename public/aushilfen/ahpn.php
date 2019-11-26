@@ -1,5 +1,4 @@
 <?php
-require '../scripts/session.php';
 require '../scripts/connect.php';
 
 # todo check ob schon existiert dann die() oder echo mit fehler

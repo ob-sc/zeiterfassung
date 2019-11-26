@@ -10,12 +10,12 @@ $daten = [
 ];
 
 // session zeit berechnen
-if (isset($_SESSION['aktiv'])) {
-  $sekInaktiv = time() - $_SESSION['aktiv'];
-  // in sekunden, 10 Min (6000)
-  $expireNach = 6000;
-  #if ($_SESSION['status'] === 'admin') $expirenach = 86400;
-}
+$sekInaktiv = time() - $_SESSION['aktiv'];
+// in sekunden, 10 Min (6000)
+$expireNach = 6000;
+
+// wenn admin dann 24 h session
+if ($_SESSION['status'] === 'admin') $expireNach = 86400;
 
 // prüfen ob status neu ist -> return #neu
 if ($_SESSION['status'] === 'neu') {

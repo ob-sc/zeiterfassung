@@ -1,5 +1,5 @@
 <?php
-require '../req/session.php';
+session_start();
 require '../req/connect.php';
 
 // abrechnungszeitraum vorbereiten

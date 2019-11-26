@@ -99,13 +99,13 @@ $(document).ready(() => {
       dataType: 'json',
       data: $('#aform').serialize()
     })
-      .done(data => {
-        const dieseStation = data.daten;
+      .done(abdata => {
+        const dieseStation = abdata.daten;
         abDaten = sortBy(dieseStation, [o => o.nachname]);
         abtabelle();
       })
-      .fail(data => {
-        fehler(data.responseText);
+      .fail(abdata => {
+        fehler(abdata.responseText);
       });
   });
 });

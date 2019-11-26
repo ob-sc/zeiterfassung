@@ -1,5 +1,4 @@
 <?php
-require '../scripts/session.php';
 require '../scripts/connect.php';
 
 # TODO daten überprüfen und ggf. die(bla);
