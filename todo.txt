@@ -57,6 +57,13 @@ ___________
 PRE RELEASE
 ___________
 
+- webpack filename .[contenthash]
+    -> https://github.com/jantimon/html-webpack-plugin#long-term-caching
+
+- getdata ist doppelt (wegen general?)
+
+- neuer font für überschrift
+
 WICHTIG: testen ob session.php funktioniert
     -> warsch brauche ich nen test in nem bestimmten intervall -> wenn man die seite nicht wechselt wird session nicht überprüft
         -> alternativ nen sondertest in api

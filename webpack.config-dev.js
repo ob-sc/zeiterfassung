@@ -7,12 +7,22 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const fs = require('fs');
 /* eslint-enable import/no-extraneous-dependencies */
 
-const newHWP = (dir, titel) => {
+const newHWP = dir => {
   return new HtmlWebpackPlugin({
-    filename: `../${dir}/index.html`,
+    filename: `${dir}/index.html`,
     template: './src/html/template.html',
+    inject: 'head',
     admin: fs.readFileSync('./src/html/admin.html'),
-    title: titel,
+    title: dir,
+    body: fs.readFileSync(`./src/html/${dir}.html`)
+  });
+};
+
+const newRootHWP = dir => {
+  return new HtmlWebpackPlugin({
+    filename: `${dir}.html`,
+    template: './src/html/root.html',
+    inject: 'head',
     body: fs.readFileSync(`./src/html/${dir}.html`)
   });
 };
@@ -27,8 +37,8 @@ module.exports = {
   },
   entry: './src/js/index.js',
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'public/js')
+    filename: 'js/main.js',
+    path: path.resolve(__dirname, 'public')
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -36,32 +46,20 @@ module.exports = {
       jQuery: 'jquery'
     }),
     new MiniCssExtractPlugin({
-      filename: '../css/main.css'
+      filename: 'css/main.css'
     }),
     new MomentLocalesPlugin({
       localesToKeep: ['de']
     }),
-    new HtmlWebpackPlugin({
-      filename: '../index.html',
-      template: './src/html/root.html',
-      admin: '',
-      title: 'Zeiterfassung Aushilfen',
-      body: fs.readFileSync('./src/html/index.html')
-    }),
-    new HtmlWebpackPlugin({
-      filename: '../register.html',
-      template: './src/html/root.html',
-      admin: '',
-      title: 'Zeiterfassung Aushilfen',
-      body: fs.readFileSync('./src/html/register.html')
-    }),
-    newHWP('abrechnung', 'Abrechnung'),
-    newHWP('aushilfen', 'Aushilfen'),
-    newHWP('auswerten', 'Arbeitszeitnachweis'),
-    newHWP('eintragen', 'Eintragen'),
-    newHWP('mitarbeiter', 'Mitarbeiter'),
-    newHWP('readme', 'Hilfe'),
-    newHWP('zeiten', 'Zeiten')
+    newRootHWP('index'),
+    newRootHWP('register'),
+    newHWP('abrechnung'),
+    newHWP('aushilfen'),
+    newHWP('auswerten'),
+    newHWP('eintragen'),
+    newHWP('mitarbeiter'),
+    newHWP('readme'),
+    newHWP('zeiten')
   ],
   module: {
     rules: [
