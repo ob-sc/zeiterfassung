@@ -15,7 +15,7 @@
     "git": "git commit --allow-empty-message -m",
     "postgit": "git push",
     "preversion": "npm test",
-    "version": "npm run build && git add -A",
+    "version": "",
     "postversion": "git push && git push --tags"
   },
   "repository": {
