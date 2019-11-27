@@ -32,7 +32,7 @@ window.senden = () => {
       aushilfenId,
       ausName,
       datum,
-      beginnForm, // Beginn und Ende müssen rein wegen Tabelle Einzelauswertung
+      beginnForm,
       endeForm,
       diff,
       gehalt,
