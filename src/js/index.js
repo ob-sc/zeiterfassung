@@ -5,8 +5,6 @@ import './cssbundle';
 
 import './general';
 
-var test;
-
 switch (window.location.pathname) {
   case '/eintragen':
   case '/eintragen/':
