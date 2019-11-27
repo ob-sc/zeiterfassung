@@ -56,6 +56,16 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    contentBase: path.resolve(__dirname, 'public'),
+    proxy: {
+      '**': {
+        target: 'http://localhost:8000',
+        secure: false,
+        changeOrigin: true
+      }
+    }
+  },
   plugins: [
     new webpack.ProvidePlugin({
       $: 'jquery',

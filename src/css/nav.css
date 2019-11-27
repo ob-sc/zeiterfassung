@@ -47,7 +47,7 @@ nav {
   padding: 0.5em 0;
   color: #000;
   position: relative;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
   text-decoration: none;
 }
 .cnav a:hover {
