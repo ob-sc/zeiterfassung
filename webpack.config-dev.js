@@ -34,10 +34,15 @@ module.exports = {
     excludeModules: false,
     modulesSort: '!size'
   },
+  watch: true,
+  watchOptions: {
+    ignored: ['node_modules']
+  },
   entry: './src/js/index.js',
   output: {
     filename: 'js/main.js',
-    path: path.resolve(__dirname, 'public')
+    path: path.resolve(__dirname, 'public'),
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -57,13 +62,14 @@ module.exports = {
     ]
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'public'),
+    port: 8080,
+    publicPath: '/',
+    contentBase: 'src',
+    watchContentBase: true,
     proxy: {
       '**': {
         target: 'http://localhost:8000',
-        secure: false,
-        changeOrigin: true,
-        watchContentBase: true
+        secure: false
       }
     }
   },

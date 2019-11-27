@@ -46,6 +46,8 @@ function formBerechnung() {
     return;
   }
 
+  console.log('testt');
+
   // Station der Aushilfe
   fbData.ahStation = alleDaten[ausName].station;
 
