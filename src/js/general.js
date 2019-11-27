@@ -1,5 +1,3 @@
-import { getData } from './funktionen';
-
 $(document).ready(() => {
   // für jeden input Datum - automatisch Datum heute
   const datumInput = document.getElementById('datum');
@@ -10,11 +8,6 @@ $(document).ready(() => {
     if (configdata.daten.settings.devmode === '1') $('#devdiv').text('🦺');
     // eslint-disable-next-line no-console
     if (configdata.status !== 'OK') console.log(configdata);
-  });
-
-  // adminmenü richtig setzen
-  getData(menudaten => {
-    $('#stationSelect').val(menudaten.stationid);
   });
 
   // eslint-disable-next-line func-names

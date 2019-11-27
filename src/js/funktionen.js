@@ -30,6 +30,8 @@ export const session = () => {
     $(document).ready(() => {
       if (data.userStatus === 'admin') $('#adminmenu, .slmenu').show();
       if (data.userStatus === 'sl') $('.slmenu').show();
+
+      $('#stationSelect').val(data.stationID);
     });
   });
 };

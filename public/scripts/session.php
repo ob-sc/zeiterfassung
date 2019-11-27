@@ -6,7 +6,8 @@ $daten = [
   'status' => 'OK',
   'code' => '',
   'meldung' => '',
-  'userStatus' => $_SESSION['status']
+  'userStatus' => $_SESSION['status'],
+  'stationID' => $_SESSION['station']
 ];
 
 // session zeit berechnen
