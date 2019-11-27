@@ -7,14 +7,17 @@
   "scripts": {
     "start": "cd public && php -S localhost:8000",
     "watch": "webpack --watch --config webpack.config-dev.js",
-    "clean": "cd public && rm -r index.html register.html js css abrechnung aushilfen auswerten eintragen mitarbeiter zeiten && mkdir js css abrechnung aushilfen auswerten eintragen mitarbeiter zeiten",
+    "clean": "cd public && rm -rf index.html register.html js css abrechnung aushilfen auswerten eintragen mitarbeiter zeiten && mkdir js css abrechnung aushilfen auswerten eintragen mitarbeiter zeiten",
     "build-dev": "npm run clean && webpack --config webpack.config-dev.js",
+    "test": "eslint src/js",
     "prebuild": "npm test",
     "build": "npm run clean && webpack --config webpack.config.js",
-    "test": "eslint src/js",
     "pregit": "git add -A",
     "git": "git commit --allow-empty-message -m",
-    "postgit": "git push"
+    "postgit": "git push",
+    "preversion": "npm run build",
+    "version": "--no-git-tag-version",
+    "postversion": "npm run git %s"
   },
   "repository": {
     "type": "git",
