@@ -15,34 +15,19 @@ session();
 
 let alleDaten;
 
-let aushilfenId;
-let ausName;
-let datum;
-let beginnForm;
-let endeForm;
-let diff;
-let gehalt;
-let ahStation;
+const fbData = {};
 
 window.senden = () => {
   $.ajax({
     url: '../shitapi/send.php',
     method: 'POST',
-    data: {
-      aushilfenId,
-      ausName,
-      datum,
-      beginnForm,
-      endeForm,
-      diff,
-      gehalt,
-      ahStation
-    }
+    data: fbData
   })
     .done(data => {
       info(data);
       $('#eform')[0].reset();
       document.getElementById('datum').valueAsDate = new Date();
+      $('#etext').html('');
     })
     .fail(data => {
       fehler(data.responseText);
@@ -52,7 +37,8 @@ window.senden = () => {
 };
 
 function formBerechnung() {
-  ausName = $('#eintragenAuto').val();
+  const ausName = $('#eintragenAuto').val();
+  fbData.ausName = ausName;
 
   // Check ob Aushilfe existiert
   if (!alleDaten[ausName]) {
@@ -61,9 +47,9 @@ function formBerechnung() {
   }
 
   // Station der Aushilfe
-  ahStation = alleDaten[ausName].station;
+  fbData.ahStation = alleDaten[ausName].station;
 
-  aushilfenId = alleDaten[ausName].id;
+  fbData.aushilfenId = alleDaten[ausName].id;
 
   $('#etext').html(`<p><strong>Name:</strong> ${ausName}</p>`);
 
@@ -72,31 +58,33 @@ function formBerechnung() {
   const { sonlohn } = alleDaten[ausName];
   let lohn;
 
-  datum = $('#datum').val();
+  fbData.datum = $('#datum').val();
   $('#etext').append(
-    `<p><strong>Datum:</strong> ${moment(datum).format('DD.MM.YYYY')}</p>`
+    `<p><strong>Datum:</strong> ${moment(fbData.datum).format(
+      'DD.MM.YYYY'
+    )}</p>`
   );
 
   // Check ob Datum in der Zukunft ist
-  if (moment(datum).isAfter(new Date(), 'day') === true) {
+  if (moment(fbData.datum).isAfter(new Date(), 'day') === true) {
     $('#fehlerText').html('<strong>Datum ist in der Zukunft!</strong>');
     $('#fehlerAlert').show();
     return;
   }
 
   $('#etext').append(
-    `<p><strong>Wochentag:</strong> ${moment(datum).format('dddd')}</p>`
+    `<p><strong>Wochentag:</strong> ${moment(fbData.datum).format('dddd')}</p>`
   );
 
   const beginn = moment($('#beginn').val(), 'HH:mm');
-  beginnForm = moment(beginn).format('HH:mm');
-  $('#etext').append(`<p><strong>Beginn:</strong> ${beginnForm}</p>`);
+  fbData.beginnForm = moment(beginn).format('HH:mm');
+  $('#etext').append(`<p><strong>Beginn:</strong> ${fbData.beginnForm}</p>`);
 
   const ende = moment($('#ende').val(), 'HH:mm');
-  endeForm = moment(ende).format('HH:mm');
-  $('#etext').append(`<p><strong>Ende:</strong> ${endeForm}</p>`);
+  fbData.endeForm = moment(ende).format('HH:mm');
+  $('#etext').append(`<p><strong>Ende:</strong> ${fbData.endeForm}</p>`);
 
-  diff = ende.diff(beginn, 'minutes');
+  fbData.diff = ende.diff(beginn, 'minutes');
   $('#etext').append(
     `<p><strong>Arbeitszeit:</strong> ${moment
       .utc(ende.diff(beginn))
@@ -104,23 +92,23 @@ function formBerechnung() {
   );
 
   // Check ob AZ 0 oder negativ
-  if (diff < 1) {
+  if (fbData.diff < 1) {
     fehler('Beginn und Ende überprüfen!');
     return;
   }
 
   // Gehalt
-  if (moment(datum).isoWeekday() === 7) {
+  if (moment(fbData.datum).isoWeekday() === 7) {
     lohn = sonlohn;
-  } else if (moment(datum).isoWeekday() === 6) {
+  } else if (moment(fbData.datum).isoWeekday() === 6) {
     lohn = samlohn;
   } else {
     lohn = norlohn;
   }
   // Berechnung in Cent, da sonst falsch gerundet wird
-  const gehaltNoRund = (lohn * 100 * diff) / 60 / 100;
-  gehalt = roundTF(gehaltNoRund);
-  $('#etext').append(`<p><strong>Gehalt:</strong> ${gehalt}€</p>`);
+  const gehaltNoRund = (lohn * 100 * fbData.diff) / 60 / 100;
+  fbData.gehalt = roundTF(gehaltNoRund);
+  $('#etext').append(`<p><strong>Gehalt:</strong> ${fbData.gehalt}€</p>`);
 
   // senden knopf zeigen
   $('#esend').show();

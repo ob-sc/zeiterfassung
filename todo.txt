@@ -71,6 +71,9 @@ ___________
 PRE RELEASE
 ___________
 
+- login und register .js zusammenfassen?
+    -> info und fehler import
+
 - für API: 
     -> lass ich die index.html jeweils in einem ordner oder alle in einen und umbenennen?
 
