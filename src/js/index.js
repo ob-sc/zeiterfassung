@@ -54,5 +54,3 @@ switch (window.location.pathname) {
     // eslint-disable-next-line global-require
     require('./register');
 }
-
-console.log('aha');

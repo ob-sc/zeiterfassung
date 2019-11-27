@@ -1,17 +1,3 @@
 config.ini
 
-public/index.html
-public/register.html
-public/js/
-public/js/
-public/css/
-public/abrechnung/
-public/aushilfen/
-public/auswerten/
-public/eintragen/
-public/mitarbeiter/
-public/readme/
-public/zeiten/
-
-
 node_modules/

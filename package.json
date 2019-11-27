@@ -1,16 +1,16 @@
 {
   "name": "zeiterfassung",
-  "version": "1.14.3",
+  "version": "1.14.4",
   "private": true,
   "description": "",
   "main": "index.js",
   "scripts": {
     "clean": "cd public && rm -rf index.html register.html js css abrechnung aushilfen auswerten eintragen mitarbeiter readme zeiten && mkdir js css abrechnung aushilfen auswerten eintragen mitarbeiter readme zeiten",
-    "php": "cd public && php -S localhost:8000",
-    "start": " npm run clean && webpack-dev-server --config webpack.config-dev.js",
+    "prestart": "cd public && php -S localhost:8000",
+    "start": "npm run clean && webpack-dev-server --watch --config webpack.config-dev.js",
     "dev": "npm run clean && webpack --config webpack.config-dev.js",
     "test": "eslint src/js",
-    "build": "npm run clean && webpack --config webpack.config.js",
+    "build": "npm run clean && npm test && webpack --config webpack.config.js",
     "pregit": "git add -A",
     "git": "git commit --allow-empty-message -m",
     "postgit": "git push"
