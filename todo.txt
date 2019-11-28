@@ -93,21 +93,9 @@ WICHTIG: testen ob session.php funktioniert
 - css auf login und register noch mal vergleichen 
     -> alert anders?
 
-"pretest": "npm install" ?
-    -> https://stackoverflow.com/a/39396977/11918503
-
-    https://stackoverflow.com/questions/13059991/update-package-json-version-automatically
-    https://stackoverflow.com/questions/48609931/how-can-i-reference-package-version-in-npm-script/48619640
-    https://stackoverflow.com/questions/52075039/update-the-version-in-package-json-without-clean-git-working-directory-without
-
-- notdienst kann eig zu eintragen
-
 - wie mach ich das mit document.ready? eig ist alles document ready....
     -> <script defer src=... ?
     -> https://stackoverflow.com/questions/10808109/script-tag-async-defer/39711009#39711009
-
-- aushilfe auf 2 abrechnungen bei anderer station
-  -> klären mit detlef
 
 - station / stationid aus getdata raus?
     -> allg mal getdata überprüfen was ich alles nicht brauch

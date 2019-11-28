@@ -18,6 +18,7 @@ $stmt->bindValue(':id', $_POST['id']);
 $stmt->bindValue(':station', $_SESSION['station']);
 $stmt->bindValue(':beginnDate', $beginnDate->format('Y-m-d'));
 $stmt->bindValue(':endDate', $endDate->format('Y-m-d'));
+
 $stmt->execute();
 
 $zeiten = $stmt->fetchAll(PDO::FETCH_ASSOC);

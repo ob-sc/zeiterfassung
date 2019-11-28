@@ -45,6 +45,7 @@ function eatabelle() {
   const abrechnungsmonat = [];
   const sonderTabelle = [];
 
+  // Abrechnungszeitrum 1
   for (let i = 10; i <= monatsTage; i += 1) {
     const tempObjekt = {};
     tempObjekt.datum = `${i}.${eaMonatJahr}`;
@@ -54,9 +55,12 @@ function eatabelle() {
     tempObjekt.arbeitszeit = '<td>&nbsp;</td>';
     tempObjekt.gehalt = '<td>&nbsp;</td>';
     tempObjekt.eintrag = false;
-    tempObjekt.station = false; // wird true wenn in anderer station gearbeitet wurde
+    tempObjekt.station = false; // bei anderer station
+    tempObjekt.notdienst = false; // bei notdienst
     abrechnungsmonat.push(tempObjekt);
   }
+
+  // Abrechnungszeitrum 2
   eaMonatJahr = eaEnde;
   for (let i = 1; i < 10; i += 1) {
     const tempObjekt = {};
@@ -67,7 +71,8 @@ function eatabelle() {
     tempObjekt.arbeitszeit = '<td>&nbsp;</td>';
     tempObjekt.gehalt = '<td>&nbsp;</td>';
     tempObjekt.eintrag = false;
-    tempObjekt.station = false; // wird true wenn in anderer station gearbeitet wurde
+    tempObjekt.station = false; // bei anderer station
+    tempObjekt.notdienst = false; // bei notdienst
     abrechnungsmonat.push(tempObjekt);
   }
 
@@ -78,15 +83,20 @@ function eatabelle() {
         if (tabellenTag.eintrag === false) {
           const tagObjekt = tabellenTag;
           if (tag.station !== tag.ahstation) tagObjekt.station = true;
-          tagObjekt.beginn = `<td>${tag.beginn}</td>`;
-          tagObjekt.ende = `<td>${tag.ende}</td>`;
-          // prettier-ignore
-          tagObjekt.arbeitszeit = `<td>${moment.utc().startOf('day').add(tag.arbeitszeit, 'minutes').format('HH:mm')}</td>`;
+          if (tag.arbeitszeit === 0) tagObjekt.notdienst = true;
+          else {
+            tagObjekt.beginn = `<td>${tag.beginn}</td>`;
+            tagObjekt.ende = `<td>${tag.ende}</td>`;
+            // prettier-ignore
+            tagObjekt.arbeitszeit = `<td>${moment.utc().startOf('day').add(tag.arbeitszeit, 'minutes').format('HH:mm')}</td>`;
+          }
+
           tagObjekt.gehalt = `<td>${roundTF(tag.gehalt)}</td>`;
           tagObjekt.eintrag = true;
         } else {
           const sonderObjekt = {};
           if (tag.station !== tag.ahstation) sonderObjekt.station = true;
+          if (tag.arbeitszeit === 0) sonderObjekt.notdienst = true;
           else sonderObjekt.station = false;
           sonderObjekt.tag = `<td>${datenbankTag}</td>`;
           sonderObjekt.beginn = `<td>${tag.beginn}</td>`;
@@ -115,18 +125,30 @@ function eatabelle() {
     const wochentag = moment(tag.datum, 'DD.MM.YYYY').format('d');
     let wochenende = false;
     if (wochentag === '0' || wochentag === '6') wochenende = true;
-    if (tag.station === false && wochenende === false)
+    // prettier-ignore
+    if (tag.station === false && wochenende === false && tag.notdienst === false)
       html += `<tr>${tag.tag}${tag.beginn}${tag.ende}${tag.arbeitszeit}${tag.gehalt}</tr>`;
-    if (tag.station === false && wochenende === true)
+    if (tag.station === false && wochenende === true && tag.notdienst === false)
       html += `<tr class="table-secondary">${tag.tag}${tag.beginn}${tag.ende}${tag.arbeitszeit}${tag.gehalt}</tr>`;
-    if (tag.station === true)
+    if (tag.station === true && tag.notdienst === false)
       html += `<tr class="table-warning">${tag.tag}${tag.beginn}${tag.ende}${tag.arbeitszeit}${tag.gehalt}</tr>`;
+    if (tag.notdienst === true)
+      html += `<tr class="table-danger">${tag.tag}${tag.beginn}${tag.ende}${tag.arbeitszeit}${tag.gehalt}</tr>`;
   });
 
   // Wiedergeben der Tabelle
   $('#eaText').html(`${html}</tbody></table>`);
 
   // Tabelle für Sondereinträge
+  sonderTabelle.forEach(tag => {
+    if (tag.station === false)
+      sonderRow += `<tr>${tag.tag}${tag.beginn}${tag.ende}${tag.arbeitszeit}${tag.gehalt}</tr>`;
+    if (tag.station === true)
+      sonderRow += `<tr class="table-warning">${tag.tag}${tag.beginn}${tag.ende}${tag.arbeitszeit}${tag.gehalt}</tr>`;
+    if (tag.notdienst === true)
+      sonderRow += `<tr class="table-warning">${tag.tag}${tag.beginn}${tag.ende}${tag.arbeitszeit}${tag.gehalt}</tr>`;
+  });
+
   let sonderEintrag = '<h3 style="text-align:center;">Sondereinträge</h3>';
   sonderEintrag +=
     '<table class="table table-bordered table-sm" style="width:100%;"><thead><tr>';
@@ -136,13 +158,6 @@ function eatabelle() {
   sonderEintrag += '<th style="width:20%">Arbeitszeit</th>';
   sonderEintrag += '<th style="width:20%">Gehalt</th></tr></thead><tbody>';
   sonderEintrag += sonderRow;
-
-  sonderTabelle.forEach(tag => {
-    if (tag.station === false)
-      sonderRow += `<tr>${tag.tag}${tag.beginn}${tag.ende}${tag.arbeitszeit}${tag.gehalt}</tr>`;
-    if (tag.station === true)
-      sonderRow += `<tr class="table-warning">${tag.tag}${tag.beginn}${tag.ende}${tag.arbeitszeit}${tag.gehalt}</tr>`;
-  });
 
   // Wenn die Tabelle Sondereinträge nicht leer ist -> diese wiedergeben
   if (sonderRow.length > 0)
@@ -159,15 +174,11 @@ function eatabelle() {
   const statusMax = parseInt(ahDaten[$('#auswertenAuto').val()].ahStatus, 10);
   const bisMax = statusMax - sumGehalt;
   if (sumGehalt <= roundTF(statusMax)) {
-    $('#eaText').append(
-      `<br>Noch ${roundTF(bisMax)}€ bis ${roundTF(statusMax)}€<br>`
-    );
+    // prettier-ignore
+    $('#eaText').append(`<br>Noch ${roundTF(bisMax)}€ bis ${roundTF(statusMax)}€<br>`);
   } else if (sumGehalt > roundTF(statusMax)) {
-    $('#eaText').append(
-      `<br><strong style="color:red;">Schon ${roundTF(-bisMax)}€ über ${roundTF(
-        statusMax
-      )}€</strong><br>`
-    );
+    // prettier-ignore
+    $('#eaText').append(`<br><strong style="color:red;">Schon ${roundTF(-bisMax)}€ über ${roundTF(statusMax)}€</strong><br>`);
   }
   // Druckbutton
   $('#eaText').append(
