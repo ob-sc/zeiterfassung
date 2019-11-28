@@ -112,6 +112,16 @@ $(document).ready(() => {
   $('nav li').removeClass('current');
   $('#eintragen').addClass('current');
 
+  $('#ndCheck').change(e => {
+    if (e.currentTarget.checked === true) {
+      $('#zeit').hide();
+      $('#menge').show();
+    } else {
+      $('#zeit').show();
+      $('#menge').hide();
+    }
+  });
+
   $('#eform').submit(e => {
     e.preventDefault();
     $('#fehlerAlert').hide();
