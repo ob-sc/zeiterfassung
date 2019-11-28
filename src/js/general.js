@@ -15,7 +15,7 @@ $(document).ready(() => {
     const newStation = $(this).val();
     $.ajax({
       method: 'post',
-      url: '../shitapi/admin.php',
+      url: '../api/admin.php',
       data: { newStation }
     })
       .done(() => {

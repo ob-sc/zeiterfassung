@@ -152,6 +152,8 @@ ____________
 POST RELEASE
 ____________
 
+https://stackoverflow.com/questions/52013133/entrypoint-undefined-index-html-using-htmlwebpackplugin/57123167#57123167
+
 - doch noch sass?
     -> dann auch bootstrap scss mit sass loader
 

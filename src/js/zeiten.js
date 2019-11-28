@@ -18,7 +18,7 @@ session();
 // plug-ins/1.10.16/sorting/datetime-moment.js
 // https://datatables.net/blog/2014-12-18
 
-$.getJSON('../shitapi/zeitenget.php')
+$.getJSON('../api/zeitenget.php')
   .done(daten => {
     const zeiten = [];
 
@@ -126,7 +126,7 @@ $.getJSON('../shitapi/zeitenget.php')
 
             $('#deleteConfirm').click(() => {
               $.ajax({
-                url: '../shitapi/zdelete.php',
+                url: '../api/zdelete.php',
                 method: 'POST',
                 data: { id: deleteid }
               })

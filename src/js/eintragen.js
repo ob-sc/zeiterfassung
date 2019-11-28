@@ -19,7 +19,7 @@ const fbData = {};
 
 window.senden = () => {
   $.ajax({
-    url: '../shitapi/send.php',
+    url: '../api/send.php',
     method: 'POST',
     data: fbData
   })

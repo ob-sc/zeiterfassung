@@ -190,7 +190,7 @@ $(document).ready(() => {
     const datum = $('#datum').val();
 
     $.ajax({
-      url: '../shitapi/eaget.php',
+      url: '../api/eaget.php',
       type: 'POST',
       dataType: 'json',
       data: {

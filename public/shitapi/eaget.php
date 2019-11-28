@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../req/connect.php';
+require '../scripts/connect.php';
 
 // abrechnungszeitraum vorbereiten
 $beginnDate = new DateTime($_POST['datum'].'-10');

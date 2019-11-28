@@ -96,7 +96,7 @@ $(document).ready(() => {
     $('#fehlerAlert').hide();
     $('#infoAlert').hide();
     $.ajax({
-      url: '../shitapi/abget.php',
+      url: '../api/abget.php',
       type: 'POST',
       dataType: 'json',
       data: $('#aform').serialize()
