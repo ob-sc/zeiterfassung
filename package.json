@@ -23,7 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "@tarekraafat/autocomplete.js": "^7.2.0",
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^4.4.0",
     "datatables.net": "^1.10.20",
     "datatables.net-bs4": "^1.10.20",
     "jquery": "^3.4.1",
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "css-loader": "^3.2.0",
-    "eslint": "^6.1.0",
+    "eslint": "^6.7.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-import": "^2.18.2",

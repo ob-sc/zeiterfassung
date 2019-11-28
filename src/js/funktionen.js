@@ -36,10 +36,11 @@ export const session = () => {
   });
 };
 
-// zum benutzen:
-// getData(daten => {
-//   console.log(daten);
-// });
+/* zum benutzen:
+getData(daten => {
+  console.log(daten);
+});
+*/
 
 // Autocomplete, srcArray1 = normal, 2 = alle
 // eventuell läd er den spaß hier bevor der dom geladen ist -> findet die id nicht

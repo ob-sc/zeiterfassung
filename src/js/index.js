@@ -12,12 +12,6 @@ switch (window.location.pathname) {
     // eslint-disable-next-line global-require
     require('./eintragen');
     break;
-  case '/rufdienst':
-  case '/rufdienst/':
-  case '/rufdienst/index.html':
-    // eslint-disable-next-line global-require
-    require('./rufdienst');
-    break;
   case '/auswerten':
   case '/auswerten/':
   case '/auswerten/index.html':

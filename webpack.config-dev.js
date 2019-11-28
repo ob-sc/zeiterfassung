@@ -30,7 +30,7 @@ module.exports = {
   mode: 'development',
   stats: {
     colors: true,
-    maxModules: 1000,
+    maxModules: 500,
     excludeModules: false,
     modulesSort: '!size'
   },

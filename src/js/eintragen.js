@@ -46,8 +46,6 @@ function formBerechnung() {
     return;
   }
 
-  console.log('testt');
-
   // Station der Aushilfe
   fbData.ahStation = alleDaten[ausName].station;
 
@@ -61,11 +59,8 @@ function formBerechnung() {
   let lohn;
 
   fbData.datum = $('#datum').val();
-  $('#etext').append(
-    `<p><strong>Datum:</strong> ${moment(fbData.datum).format(
-      'DD.MM.YYYY'
-    )}</p>`
-  );
+  // prettier-ignore
+  $('#etext').append(`<p><strong>Datum:</strong> ${moment(fbData.datum).format('DD.MM.YYYY')}</p>`);
 
   // Check ob Datum in der Zukunft ist
   if (moment(fbData.datum).isAfter(new Date(), 'day') === true) {
@@ -87,11 +82,8 @@ function formBerechnung() {
   $('#etext').append(`<p><strong>Ende:</strong> ${fbData.endeForm}</p>`);
 
   fbData.diff = ende.diff(beginn, 'minutes');
-  $('#etext').append(
-    `<p><strong>Arbeitszeit:</strong> ${moment
-      .utc(ende.diff(beginn))
-      .format('HH:mm')}</p>`
-  );
+  // prettier-ignore
+  $('#etext').append(`<p><strong>Arbeitszeit:</strong> ${moment.utc(ende.diff(beginn)).format('HH:mm')}</p>`);
 
   // Check ob AZ 0 oder negativ
   if (fbData.diff < 1) {
