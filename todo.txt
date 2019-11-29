@@ -31,30 +31,10 @@ ENRICO:
 
 PAUSCHALEN:
 
-- menüpunkt
-  -> pauschalen
-    -> welche
-    -> wieviel / anzahl einsätze
-    -> wer
-    -> wann
-
-- sören & christian absprechen umbuchen
-  -> + lohnkanzlei
-
-- nur notdienst
+wie in monatsabrechnung? 
+    -> extra db spalte notdienst?
 
 - muss in max eingerechnet werden
-
-- jeweils 1 tag bei rufdienst für urlaub
-  -> mehrere einsätze nur 1 tag
-
-- spalte dazu pauschalen
-
-- auf stundenzettel eintragen
-  -> wie sondereinträge
-    -> pauschalen dadrunter
-
-- zusammenrechnen
 
 KEHLER & FÖRSTER & WOHLER
 - wie umbuchen?
@@ -62,9 +42,7 @@ KEHLER & FÖRSTER & WOHLER
 - eigene station
 
 - wie wird förster jetzt informiert?
-
-KRAUSE
-- wer nutzt notdienst?
+    -> ich kann ihm einen account machen auf dem alle notdienste angezeigt werden
 
 ___________
 
@@ -86,8 +64,6 @@ ___________
 
 - getdata ist doppelt (wegen general?)
 
-- neuer font für überschrift
-
 WICHTIG: testen ob session.php funktioniert
     -> warsch brauche ich nen test in nem bestimmten intervall -> wenn man die seite nicht wechselt wird session nicht überprüft
         -> alternativ nen sondertest in api
@@ -99,6 +75,9 @@ WICHTIG: testen ob session.php funktioniert
 
 - css auf login und register noch mal vergleichen 
     -> alert anders?
+
+- alerts überall angleichen (mal fett mal nicht, aushilfen anlegen)
+    -> fett weg
 
 - wie mach ich das mit document.ready? eig ist alles document ready....
     -> <script defer src=... ?

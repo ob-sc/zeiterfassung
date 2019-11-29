@@ -99,8 +99,8 @@ function formBerechnung() {
   }
 
   if (notdienst) {
-    fbData.beginnForm = 0;
-    fbData.endeForm = 0;
+    fbData.beginnForm = 'nd';
+    fbData.endeForm = 'nd';
     fbData.diff = 0;
 
     const menge = $('#anzahl').val();
@@ -118,21 +118,14 @@ $(document).ready(() => {
   $('nav li').removeClass('current');
   $('#eintragen').addClass('current');
 
-  // TODO ACHTUNG
-  // nur der check für andere Station geht raus
-  // namen die eingetragen wurden nicht.
-  // in createautocomplete ändern?
-  // reicht es das feld zu leeren und den switch von der function aufzurufen?
   $('#ndCheck').change(e => {
     if (e.currentTarget.checked === true) {
       $('#zeit').hide();
-      $('#stationCheckGroup').hide();
       $('#menge').show();
       $('#beginn, #ende').removeAttr('required');
       notdienst = true;
     } else {
       $('#zeit').show();
-      $('#stationCheckGroup').show();
       $('#menge').hide();
       $('#beginn, #ende').prop('required', true);
       notdienst = false;

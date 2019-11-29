@@ -10,18 +10,14 @@ import {
 
 const moment = require('moment');
 
-session();
-
 moment.locale('de');
+
+session();
 
 let html = '';
 let sonderRow = '';
 
-let tage = [];
-let summe = [];
-let eaBeginn = [];
-let eaEnde = [];
-
+let eaDaten;
 let ahDaten;
 
 // DRUCKEN
@@ -32,7 +28,7 @@ window.drucken = () => {
 
 function eatabelle() {
   // Ende Funktion wenn keine Einträge
-  if (tage.length === 0) {
+  if (eaDaten.tage.length === 0) {
     info('Keine Einträge für diesen Monat!');
     return;
   }
@@ -40,13 +36,13 @@ function eatabelle() {
   const monatSelect = moment($('#datum').val(), 'YYYY-MM').format('M');
   const monatfuerTage = monatSelect - 1;
   const monatsTage = moment(monatfuerTage, 'M').daysInMonth();
-  let eaMonatJahr = eaBeginn;
+  let eaMonatJahr = eaDaten.beginn;
 
   const abrechnungsmonat = [];
   const sonderTabelle = [];
 
   // Abrechnungszeitrum 1
-  for (let i = 10; i <= monatsTage; i += 1) {
+  for (let i = 20; i <= monatsTage; i += 1) {
     const tempObjekt = {};
     tempObjekt.datum = `${i}.${eaMonatJahr}`;
     tempObjekt.tag = `<td>${i}.${eaMonatJahr}</td>`;
@@ -61,8 +57,8 @@ function eatabelle() {
   }
 
   // Abrechnungszeitrum 2
-  eaMonatJahr = eaEnde;
-  for (let i = 1; i < 10; i += 1) {
+  eaMonatJahr = eaDaten.ende;
+  for (let i = 1; i < 20; i += 1) {
     const tempObjekt = {};
     tempObjekt.datum = `0${i}.${eaMonatJahr}`;
     tempObjekt.tag = `<td>0${i}.${eaMonatJahr}</td>`;
@@ -76,14 +72,14 @@ function eatabelle() {
     abrechnungsmonat.push(tempObjekt);
   }
 
-  tage.forEach(tag => {
+  eaDaten.tage.forEach(tag => {
     const datenbankTag = moment(tag.datum, 'YYYY-MM-DD').format('DD.MM.YYYY');
     abrechnungsmonat.forEach(tabellenTag => {
       if (tabellenTag.datum === datenbankTag) {
         if (tabellenTag.eintrag === false) {
           const tagObjekt = tabellenTag;
           if (tag.station !== tag.ahstation) tagObjekt.station = true;
-          if (tag.arbeitszeit === 0) tagObjekt.notdienst = true;
+          if (tag.beginn === 'nd') tagObjekt.notdienst = true;
           else {
             tagObjekt.beginn = `<td>${tag.beginn}</td>`;
             tagObjekt.ende = `<td>${tag.ende}</td>`;
@@ -96,7 +92,7 @@ function eatabelle() {
         } else {
           const sonderObjekt = {};
           if (tag.station !== tag.ahstation) sonderObjekt.station = true;
-          if (tag.arbeitszeit === 0) sonderObjekt.notdienst = true;
+          if (tag.beginn === 'nd') sonderObjekt.notdienst = true;
           else sonderObjekt.station = false;
           sonderObjekt.tag = `<td>${datenbankTag}</td>`;
           sonderObjekt.beginn = `<td>${tag.beginn}</td>`;
@@ -165,10 +161,12 @@ function eatabelle() {
 
   // Zusammenrechnung des Monats aus eaget.php
   $('#eaText').append(
-    `<strong>Arbeitszeit:</strong> ${zuStunden(summe.arbeitszeit)}`
+    `<strong>Arbeitszeit:</strong> ${zuStunden(eaDaten.summe.arbeitszeit)}`
   );
-  $('#eaText').append(`<br><strong>Arbeitstage:</strong> ${summe.datum}`);
-  const sumGehalt = summe.gehalt;
+  $('#eaText').append(
+    `<br><strong>Arbeitstage:</strong> ${eaDaten.summe.datum}`
+  );
+  const sumGehalt = eaDaten.summe.gehalt;
   $('#eaText').append(`<br><strong>Gehalt:</strong> ${roundTF(sumGehalt)}€`);
   // wieviel bis maximales monatsgehalt / schon drüber
   const statusMax = parseInt(ahDaten[$('#auswertenAuto').val()].ahStatus, 10);
@@ -209,12 +207,8 @@ $(document).ready(() => {
         datum
       }
     })
-      .done(data => {
-        const eaDaten = data;
-        tage = eaDaten.tage;
-        summe = eaDaten.summe;
-        eaBeginn = eaDaten.beginn;
-        eaEnde = eaDaten.ende;
+      .done(eadata => {
+        eaDaten = eadata;
         eatabelle();
       })
       .fail(data => {

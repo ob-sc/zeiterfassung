@@ -3,9 +3,9 @@ session_start();
 require '../scripts/connect.php';
 
 // abrechnungszeitraum vorbereiten
-$beginnDate = new DateTime($_POST['datum'].'-10');
+$beginnDate = new DateTime($_POST['datum'].'-20');
 $beginnDate->sub(new DateInterval('P1M'));
-$endDate = new DateTime($_POST['datum'].'-09');
+$endDate = new DateTime($_POST['datum'].'-19');
 
 #10.juli bis 9. august ist august
 

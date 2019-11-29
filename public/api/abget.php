@@ -12,16 +12,18 @@ $stmt = $conn->prepare($aushilfenSql);
 $stmt->execute(array($_SESSION['station']));
 
 $aushilfen = [];
+$ndAushilfen = [];
 
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 	$aushilfen[$row['id']] = $row;
+	$ndAushilfen[$row['id']] = $row;
 }
 
 
 // abrechnungszeitraum vorbereiten
-$beginnDate = new DateTime($_POST['monat'].'-10');
+$beginnDate = new DateTime($_POST['monat'].'-20');
 $beginnDate->sub(new DateInterval('P1M'));
-$endDate = new DateTime($_POST['monat'].'-09');
+$endDate = new DateTime($_POST['monat'].'-19');
 
 
 // alle arbeitszeiten holen für station
@@ -103,17 +105,43 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 	$aushilfen[$row['ahid']]['urlaub'] = $row['urlaub'];
 }
 
+// notdienst
+// notdienst wird durch beginn = 'nd' gekennzeichnet und in json als urlaub übertragen
+$notdienstSql = 
+"SELECT ahid, beginn, sum(gehalt) AS gehalt, ahstation
+FROM zeiten 
+WHERE datum BETWEEN :beginnDate AND :endDate AND station = :station AND beginn = 'nd' 
+GROUP BY ahid";
+
+$stmt = $conn->prepare($notdienstSql);
+
+$stmt->bindValue(':beginnDate', $beginnDate->format('Y-m-d'));
+$stmt->bindValue(':endDate', $endDate->format('Y-m-d'));
+$stmt->bindValue(':station', $_SESSION['station']);
+$stmt->execute();
+
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+	$ndAushilfen[$row['ahid']]['gehalt'] = $row['gehalt'];
+	$ndAushilfen[$row['ahid']]['ahstation'] = $row['ahstation'];
+	$ndAushilfen[$row['ahid']]['urlaub'] = $row['beginn'];
+}
+
 // array aus objekt
 $daten = [];
+$ndDaten = [];
 foreach($aushilfen as $entry) {
 	$daten[] = $entry;
 }
 foreach($fremdDaten as $entry) {
 	$daten[] = $entry;
 }
+foreach($ndAushilfen as $entry) {
+	$ndDaten[] = $entry;
+}
 
 echo json_encode([
 	'daten' => $daten,
+	'ndDaten' => $ndDaten
 ]);
 
 $conn = null;
