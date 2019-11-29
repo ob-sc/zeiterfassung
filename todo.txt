@@ -71,6 +71,13 @@ ___________
 PRE RELEASE
 ___________
 
+- readme:
+    -> notdienst
+    -> bla bla erklären
+    -> stationen die freigeschaltet sind: 
+        -> eppendorf für hamburg
+        -> ...
+
 - login und register .js zusammenfassen?
     -> info und fehler import
 
