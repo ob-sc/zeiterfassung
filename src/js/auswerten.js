@@ -1,5 +1,4 @@
 import {
-  session,
   getData,
   createAutoComplete,
   roundTF,
@@ -11,8 +10,6 @@ import {
 const moment = require('moment');
 
 moment.locale('de');
-
-session();
 
 let html = '';
 let sonderRow = '';

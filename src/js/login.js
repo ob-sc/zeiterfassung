@@ -47,6 +47,7 @@ $(document).ready(() => {
     fehler('Benutzername existiert bereits!');
     window.history.replaceState(null, null, ' ');
   }
+
   // Erfolg
   if (window.location.hash === '#regsuccess') {
     info('Erfolgreich registriert!');
@@ -66,6 +67,13 @@ $(document).ready(() => {
 
   if (window.location.hash === '#loginerror') {
     fehler('Benutzername / Passwort falsch!');
+    window.history.replaceState(null, null, ' ');
+  }
+
+  if (window.location.hash === '#verlaufen') {
+    fehler(
+      'Wenn du dich verlaufen hast: <a href="https://maps.google.de">Hier ist Hilfe</a>'
+    );
     window.history.replaceState(null, null, ' ');
   }
 });

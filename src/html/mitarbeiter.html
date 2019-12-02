@@ -4,13 +4,46 @@
       <tr>
         <th style="width:50%">Name</th>
         <th style="width:20%" class="text-center">Status</th>
-        <th style="width:15%" class="text-center">Bestätigen</th>
-        <th style="width:15%" class="text-center">Löschen</th>
+        <th style="width:10%" class="text-center">Bestätigen</th>
+        <th style="width:10%" class="text-center">Passwort</th>
+        <th style="width:10%" class="text-center">Löschen</th>
       </tr>
     </thead>
     <tbody id="maTab">
     </tbody>
   </table>
+</div>
+
+<div class="modal fade" id="pwModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Passwort aktualisieren</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="pwForm">
+          <div class="form-group">
+            <label for="pw1" class="col-form-label">Passwort:</label>
+            <input type="password" class="form-control" id="pw1">
+          </div>
+          <p style="display:none;color:red;" id="pwLaenge">
+            <strong>Das Passwort muss mindestens 6 Zeichen haben</strong>
+          </p>
+          <div class="form-group">
+            <label for="pw2" class="col-form-label">Bestätigen:</label>
+            <input type="password" class="form-control" id="pw2">
+          </div>
+          <p style="display:none;color:red;" id="pwGleich">
+            <strong>Passwörter stimmen nicht überein</strong>
+          </p>
+          <input type="submit" class="btn btn-success" id="updateConfirm" value="Bestätigen">
+          <input type="button" class="btn btn-danger" data-dismiss="modal" value="Abbrechen">
+        </form>
+    </div>
+  </div>
 </div>
 
 </main>

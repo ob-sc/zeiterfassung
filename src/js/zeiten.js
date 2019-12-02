@@ -3,13 +3,11 @@ import 'datatables.net-bs4';
 
 import 'datatables.net-bs4/css/dataTables.bootstrap4.min.css';
 
-import { session, roundTF, zuStunden, fehler } from './funktionen';
+import { roundTF, zuStunden, fehler } from './funktionen';
 
 const moment = require('moment');
 
 moment.locale('de');
-
-session();
 
 // für filter -> ajax in api (bzw noch zeitenget) -> dann noch mal .DataTable(); ??
 

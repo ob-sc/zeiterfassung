@@ -7,7 +7,13 @@ export const getData = callback => {
   });
 };
 
-export const session = () => {
+/* zum benutzen:
+getData(daten => {
+  console.log(daten);
+});
+*/
+
+export const session = status => {
   $.getJSON('../scripts/session.php').done(data => {
     if (data.code !== 3) {
       switch (data.code) {
@@ -27,6 +33,10 @@ export const session = () => {
       }
     }
 
+    if (status === 'sl')
+      if (data.userStatus !== 'admin' && data.userStatus !== 'sl')
+        window.location.href = '../index.html#verlaufen';
+
     $(document).ready(() => {
       if (data.userStatus === 'admin') $('#adminmenu, .slmenu').show();
       if (data.userStatus === 'sl') $('.slmenu').show();
@@ -35,12 +45,6 @@ export const session = () => {
     });
   });
 };
-
-/* zum benutzen:
-getData(daten => {
-  console.log(daten);
-});
-*/
 
 // Autocomplete, srcArray1 = normal, 2 = alle
 // eventuell läd er den spaß hier bevor der dom geladen ist -> findet die id nicht

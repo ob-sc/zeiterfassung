@@ -1,6 +1,6 @@
 import * as JsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { session, getData, zuStunden, roundTF, fehler } from './funktionen';
+import { getData, zuStunden, roundTF, fehler } from './funktionen';
 
 const moment = require('moment');
 const sortBy = require('lodash.sortby');
@@ -19,8 +19,6 @@ let station;
 let stationid;
 
 let notdienst = false;
-
-session();
 
 getData(daten => {
   station = daten.station;

@@ -2,14 +2,6 @@
 session_start();
 require 'connect.php';
 
-/*
-status muss admin ändern?
-
-passwort vergessen
-
-sl muss accounts überprüfen und sagen wer account machen darf
-*/
-
 $username = !empty($_POST['username']) ? trim($_POST['username']) : null;
 $password = !empty($_POST['password1']) ? trim($_POST['password1']) : null;
 $passCheck = !empty($_POST['password2']) ? trim($_POST['password2']) : null;
