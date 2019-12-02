@@ -1,43 +1,6 @@
     TODO
 ________________________
 
-starc3662
-S22LuwG2WMqaYyvSwbX6qKgT
-scadmin1312
-________________________
-
-HEUTE:
-
-- abrechnung: 
-    -> abmelden ab dem.. zu sonstiges
-    -> abmelden knopf
-        -> prompt oder so mit datum
-    -> da kommt "aus station" rein
-
-- ABRECHNUNG
-    -> spalte abmelden
-        -> haken, bei klick -> input date? feld contenteditable? -> haken weg
-        -> bei print alle haken weg (.noPrint)
-    -> evtl nur autotables
-
-- notdienst auf pdf
-
-________________________
-
-KEHLER:
-- aus welcher station muss auch rein
-
-ENRICO:
-- bonus (provi)
-
-KEHLER & FÖRSTER & WOHLER
-- wie umbuchen?
-- soll auf normale stationsabrechnung?
-- eigene station
-
-- wie wird förster jetzt informiert?
-    -> ich kann ihm einen account machen auf dem alle notdienste angezeigt werden
-
     _________________
     |               |
     |  PRE RELEASE  |
@@ -80,6 +43,9 @@ WICHTIG: testen ob session.php funktioniert
     |              |
     | POST RELEASE |
     |______________|
+
+- wie wird förster jetzt informiert?
+    -> ich kann ihm einen account machen auf dem alle notdienste angezeigt werden
 
 https://stackoverflow.com/questions/52013133/entrypoint-undefined-index-html-using-htmlwebpackplugin/57123167#57123167
 

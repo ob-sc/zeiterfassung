@@ -18,6 +18,8 @@ let titel;
 let station;
 let stationid;
 
+let notdienst = false;
+
 session();
 
 getData(daten => {
@@ -27,15 +29,37 @@ getData(daten => {
 
 // ABRECHNUNG PDF speichern
 window.printpdf = () => {
+  $('#abrechnungTable')
+    .find('td.abmelden')
+    // eslint-disable-next-line func-names
+    .each(function() {
+      $(this).html('');
+    });
+
   const doc = new JsPDF();
   doc.autoTable({
     html: '#abrechnungTable',
-    useCss: true,
+    theme: 'plain',
+    styles: { lineWidth: 0.1 },
     didDrawPage: () => {
       doc.text(titel, 14, 10);
     }
   });
+  if (notdienst) {
+    doc.autoTable({
+      html: '#notdienstTable',
+      theme: 'plain',
+      styles: { lineWidth: 0.1 }
+    });
+  }
   doc.save(`${titel}.pdf`);
+
+  $('#abrechnungTable')
+    .find('td.abmelden')
+    // eslint-disable-next-line func-names
+    .each(function() {
+      $(this).html('Abmelden');
+    });
 };
 
 function abtabelle() {
@@ -57,7 +81,7 @@ function abtabelle() {
   html += '<th style="width:5%">Tage</th>';
   html += '<th style="width:5%">Urlaub</th>';
   html += '<th style="width:5%">Status</th>';
-  html += '<th style="width:30%">Abmelden ab dem</th>';
+  html += '<th style="width:30%">Sonstiges</th>';
   html += '</tr></thead><tbody>';
 
   abDaten.forEach(key => {
@@ -78,7 +102,11 @@ function abtabelle() {
       html += '<td>&nbsp</td>';
     else html += `<td class="table-rtl">${urlaub}</td>`;
     html += `<td class="table-rtl">${key.status}</td>`;
-    html += '<td contenteditable="true">&nbsp</td></tr>';
+    // eslint-disable-next-line eqeqeq
+    if (key.ahstation != stationid && key.arbeitszeit !== 0)
+      html += `<td>Aus Station ${key.ahstation}</td></tr>`;
+    else
+      html += `<td contenteditable="false" class="abmelden">Abmelden</td></tr>`;
 
     summeAZ += parseInt(key.arbeitszeit, 10);
     summeGehalt += key.gehalt;
@@ -90,15 +118,13 @@ function abtabelle() {
   // Notdienst
   ndhtml = `<div id="ndTableContainer" style="display:none"><h3 style="text-align:center">Notdienst</h3>`;
   ndhtml +=
-    '<table class="table table-bordered table-sm table-hover" style="width:100%" id="notdienstTable"><thead style="font-size:0.8em"><tr>'; // ; margin-left:auto; margin-right:auto
+    '<table class="table table-bordered table-sm table-hover" style="width:100%" id="notdienstTable"><thead style="font-size:0.8em"><tr>';
   ndhtml += '<th style="width:5%">PN</th>';
   ndhtml += '<th class="table-ltr" style="width:40%">Name</th>';
   ndhtml += '<th style="width:5%">Anz.</th>';
   ndhtml += '<th style="width:5%">Gehalt</th>';
-  ndhtml += '<th style="width:45%">Abmelden ab dem</th>';
-  ndhtml += '</tr></thead><tbody></div>';
-
-  let notdienst = false;
+  ndhtml += '<th style="width:45%">Sonstiges</th>';
+  ndhtml += '</tr></thead><tbody>';
 
   ndDaten.forEach(key => {
     const ndabGehalt = key.gehalt;
@@ -111,13 +137,13 @@ function abtabelle() {
       ndhtml += `<td class="table-ltr">${key.nachname}, ${key.vorname}</td>`;
       ndhtml += `<td class="table-rtl">${menge}</td>`;
       ndhtml += `<td class="table-rtl">${roundTF(ndabGehalt)}</td>`;
-      ndhtml += '<td>&nbsp</td></tr>';
+      ndhtml += '<td contenteditable="true">&nbsp</td></tr>';
 
       notdienst = true;
     }
   });
 
-  ndhtml += '</tbody></table>';
+  ndhtml += '</tbody></table></div>';
 
   const pdfbtn =
     '<input type="button" onclick="printpdf();" value="Speichern" class="noPrint btn scc">';
@@ -125,7 +151,17 @@ function abtabelle() {
   $('#atext').html(html + ndhtml + pdfbtn);
 
   if (notdienst) $('#ndTableContainer').show();
-  else ndhtml = '';
+  // else ndhtml = '';
+
+  const heute = moment().format('DD.MM.YYYY');
+
+  $('.abmelden').click(e => {
+    if (e.currentTarget.contentEditable === 'false') {
+      e.currentTarget.contentEditable = 'true';
+      e.currentTarget.innerHTML = `Abmelden ab ${heute}`;
+      e.currentTarget.classList.remove('abmelden');
+    }
+  });
 }
 
 $(document).ready(() => {

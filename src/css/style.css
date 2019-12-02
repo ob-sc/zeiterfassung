@@ -20,7 +20,8 @@ main {
 
 .edit:hover,
 .confirm:hover,
-.delete:hover {
+.delete:hover,
+.abmelden:hover {
   cursor: pointer;
 }
 
