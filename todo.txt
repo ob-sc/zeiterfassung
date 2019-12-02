@@ -6,35 +6,29 @@ S22LuwG2WMqaYyvSwbX6qKgT
 scadmin1312
 ________________________
 
+HEUTE:
+
+- abrechnung: 
+    -> abmelden ab dem.. zu sonstiges
+    -> abmelden knopf
+        -> prompt oder so mit datum
+    -> da kommt "aus station" rein
+
+- ABRECHNUNG
+    -> spalte abmelden
+        -> haken, bei klick -> input date? feld contenteditable? -> haken weg
+        -> bei print alle haken weg (.noPrint)
+    -> evtl nur autotables
+
+- notdienst auf pdf
+
+________________________
+
 KEHLER:
-
-- Wie oft kann eine Aushilfe über 450 € kommen?
-Seit 2019 duldet die DRV, dass man mehrmals im Jahr über 450 € verdienen darf, wenn man im Durchschnitt unter 5.400 € bleibt.
-
-
-- Ist der Abrechnungszeitraum 20.x. bis 19.x. (also z.B. 20. Januar bis 19. Februar) in Ordnung für euch?
-Das ist okay
-
-
-- Wie wird der Notdienst erfasst / umgebucht?
-Die Notdienste werden von uns als Notdienst erfasst und der Kostenstelle der jeweiligen Station zugeordnet, wenn dieser als solches erkennbar ist, 
-relevant für die SV-pflichtige Beurteilung ist das aber nicht
-
-
-- Ist es in Ordnung wenn Aushilfen auf 2 Abrechnungen auftauchen?
-Das ist so in Ordnung, da wir dann die Kostenstellen dem jeweiligen Anteil des Gehaltes zuordnen
-
 - aus welcher station muss auch rein
 
 ENRICO:
 - bonus (provi)
-
-PAUSCHALEN:
-
-wie in monatsabrechnung? 
-    -> extra db spalte notdienst?
-
-- muss in max eingerechnet werden
 
 KEHLER & FÖRSTER & WOHLER
 - wie umbuchen?
@@ -44,40 +38,21 @@ KEHLER & FÖRSTER & WOHLER
 - wie wird förster jetzt informiert?
     -> ich kann ihm einen account machen auf dem alle notdienste angezeigt werden
 
-___________
-
-PRE RELEASE
-___________
-
-- readme:
-    -> notdienst
-    -> bla bla erklären
-    -> stationen die freigeschaltet sind: 
-        -> eppendorf für hamburg
-        -> ...
-
-- login und register .js zusammenfassen?
-    -> info und fehler import
+    _________________
+    |               |
+    |  PRE RELEASE  |
+    |_______________|
 
 - für API: 
     -> lass ich die index.html jeweils in einem ordner oder alle in einen und umbenennen?
-
-- getdata ist doppelt (wegen general?)
 
 WICHTIG: testen ob session.php funktioniert
     -> warsch brauche ich nen test in nem bestimmten intervall -> wenn man die seite nicht wechselt wird session nicht überprüft
         -> alternativ nen sondertest in api
 
 - zeiten mit limit in php -> sonst zu viele daten
+    -> sortieren dann limit
 - text: zeiten wirklich löschen? in header vom modal neben x
-
-- abrechnungszeitraum 20.-19. -> ok laut jonas und kehler
-
-- css auf login und register noch mal vergleichen 
-    -> alert anders?
-
-- alerts überall angleichen (mal fett mal nicht, aushilfen anlegen)
-    -> fett weg
 
 - wie mach ich das mit document.ready? eig ist alles document ready....
     -> <script defer src=... ?
@@ -93,26 +68,6 @@ WICHTIG: testen ob session.php funktioniert
         -> brauche html-webpack-plugin
     -> wenn api dann seitentemplate über webpack mit html -> webpack fügt script mit cache ein
 
-- readme:
-    -> inhalt links kleiner
-    -> unbefugten zutritt satz weg
-    -> readme ordentlich stylen
-        -> angucken wie man ordentlich readmes macht
-
-- durchschnitt einbauen (5400 / 12 * aktuelle monate)
-    -> modal (ACHTUNG ÜBER DURCHSCNITT) wenn drüber?
-
-- sondereinträge werden angezeigt obwohl es keine gibt
-    -> bzw nur die überschrift und keine einträge obwohl es welche gibt -> ICH GLAUBE DER HIER!!
-    -> test mit test test aus osdorf
-
-- ABRECHNUNG
-    -> spalte abmelden
-        -> haken, bei klick -> input date? feld contenteditable? -> haken weg
-        -> bei print alle haken weg (.noPrint)
-    -> abrechnung nur wenn alle personalnummern da sind / einzelne ohne nicht aufführen mit warnung
-    -> evtl nur autotables
-    
 - unbefugten zutritt auf zb abrechnung wie bei admin verhindern
     -> über php oder dann neue api?
 
@@ -121,10 +76,10 @@ WICHTIG: testen ob session.php funktioniert
 - warnung/fehler wenn gleiche arbeitszeit eingetragen wird (zb 1.1.2019 13 uhr bis 15 uhr und 1.1.2019 14 uhr bis 15 uhr)
     -> in vorschau?
 
-____________
-
-POST RELEASE
-____________
+    ________________
+    |              |
+    | POST RELEASE |
+    |______________|
 
 https://stackoverflow.com/questions/52013133/entrypoint-undefined-index-html-using-htmlwebpackplugin/57123167#57123167
 

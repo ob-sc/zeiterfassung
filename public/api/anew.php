@@ -18,9 +18,9 @@ $stmt->bindValue(':status', $_POST['status']);
 $stmt->execute();
 
 if ($stmt->rowCount() < 1) {
-  echo "<strong>Fehler!</strong>";
+  echo "Fehler!";
 } else {
-  echo "<strong>Aushilfe eingetragen!</strong>";
+  echo "Aushilfe eingetragen!";
 }
 
 $conn = null;

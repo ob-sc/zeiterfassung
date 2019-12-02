@@ -36,9 +36,15 @@ main {
   color: #000;
 }
 
+.readme-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  width: 700px;
+}
+
 .readmeText {
-  font-size: 1.3rem;
-  margin-bottom: 200px;
+  margin-bottom: 50px;
 }
 
 .page-item.active .page-link {

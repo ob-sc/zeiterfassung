@@ -5,6 +5,8 @@ import './cssbundle';
 
 import './general';
 
+import { session } from './funktionen';
+
 switch (window.location.pathname) {
   case '/eintragen':
   case '/eintragen/':
@@ -42,9 +44,13 @@ switch (window.location.pathname) {
     // eslint-disable-next-line global-require
     require('./mitarbeiter');
     break;
+  case '/readme':
+  case '/readme/':
+  case '/readme/index.html':
+    // eslint-disable-next-line global-require
+    session();
+    break;
   default:
     // eslint-disable-next-line global-require
     require('./login');
-    // eslint-disable-next-line global-require
-    require('./register');
 }

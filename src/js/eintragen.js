@@ -110,6 +110,37 @@ function formBerechnung() {
     $('#etext').append(`<p><strong>Gehalt:</strong> ${fbData.gehalt}€</p>`);
   }
 
+  // durchschnitt
+  $.ajax({
+    url: '../api/emedian.php',
+    method: 'POST',
+    data: { id: fbData.aushilfenId }
+  })
+    .done(data => {
+      // gehalt dieses Jahr (summe)
+      const durchschnittJSON = JSON.parse(data);
+      const summe = durchschnittJSON[0].gehalt + parseFloat(fbData.gehalt);
+
+      // so viele tage des Jahres schon vergangen
+      const tage = moment().format('DDD');
+
+      // max gehalt im gesamten jahr
+      const ganzesJahrTage = moment()
+        .endOf('year')
+        .format('DDD');
+      const maxGehaltJetzt = (5400 / ganzesJahrTage) * tage;
+
+      // erechnen des durchschnitts
+      const durchschnitt = maxGehaltJetzt - summe;
+
+      // prettier-ignore
+      if (durchschnitt >= 0) $('#etext').append(`<p><strong>${roundTF(durchschnitt)}€</strong> unter dem Durchschnitt</p>`);
+      else $('#etext').append(`<p><strong style="color:#c90000">${roundTF(durchschnitt)*-1}€ über dem Durchschnitt</strong></p>`);
+    })
+    .fail(data => {
+      fehler(data.responseText);
+    });
+
   // senden knopf zeigen
   return $('#esend').show();
 }

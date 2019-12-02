@@ -27,6 +27,8 @@ window.drucken = () => {
 };
 
 function eatabelle() {
+  sonderRow = '';
+
   // Ende Funktion wenn keine Einträge
   if (eaDaten.tage.length === 0) {
     info('Keine Einträge für diesen Monat!');
@@ -60,8 +62,13 @@ function eatabelle() {
   eaMonatJahr = eaDaten.ende;
   for (let i = 1; i < 20; i += 1) {
     const tempObjekt = {};
-    tempObjekt.datum = `0${i}.${eaMonatJahr}`;
-    tempObjekt.tag = `<td>0${i}.${eaMonatJahr}</td>`;
+    if (i < 10) {
+      tempObjekt.datum = `0${i}.${eaMonatJahr}`;
+      tempObjekt.tag = `<td>0${i}.${eaMonatJahr}</td>`;
+    } else {
+      tempObjekt.datum = `${i}.${eaMonatJahr}`;
+      tempObjekt.tag = `<td>${i}.${eaMonatJahr}</td>`;
+    }
     tempObjekt.beginn = '<td>&nbsp;</td>';
     tempObjekt.ende = '<td>&nbsp;</td>';
     tempObjekt.arbeitszeit = '<td>&nbsp;</td>';
