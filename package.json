@@ -15,7 +15,9 @@
     "pregit": "git add -A",
     "git": "git commit --allow-empty-message -m",
     "postgit": "git push",
-    "stable": "git checkout stable && git merge master"
+    "prestable": "npm run git 'stable'",
+    "stable": "git checkout stable && git merge master && git checkout master",
+    "poststable": "git push"
   },
   "repository": {
     "type": "git",
