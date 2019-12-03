@@ -39,18 +39,22 @@ $(document).ready(() => {
         console.log('ok ' + erlaubt.test(name));
         */
 
-    $('#regForm')[0].submit();
+    $.ajax({
+      url: '../scripts/register.php',
+      method: 'POST',
+      data: $('#regForm').serialize()
+    })
+      .done(data => {
+        info(data);
+      })
+      .fail(data => {
+        fehler(data.responseText);
+      });
   });
 
   // Benutzername gibt es schon
   if (window.location.hash === '#exists') {
     fehler('Benutzername existiert bereits!');
-    window.history.replaceState(null, null, ' ');
-  }
-
-  // Erfolg
-  if (window.location.hash === '#regsuccess') {
-    info('Erfolgreich registriert!');
     window.history.replaceState(null, null, ' ');
   }
 

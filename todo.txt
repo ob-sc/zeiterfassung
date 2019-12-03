@@ -3,8 +3,6 @@
     |  PRE RELEASE  |
     |_______________|
 
-- feature passwort ändern
-
 - zeiten filter
 
 WICHTIG: testen ob session.php funktioniert
@@ -19,9 +17,6 @@ WICHTIG: testen ob session.php funktioniert
 
 - warnung/fehler wenn gleiche arbeitszeit eingetragen wird (zb 1.1.2019 13 uhr bis 15 uhr und 1.1.2019 14 uhr bis 15 uhr)
     -> in vorschau?
-
-- register:
-    -> das echo kommt auch bei fehler?! mit row count siehe mapw?
 
     ________________
     |              |

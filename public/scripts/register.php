@@ -33,9 +33,13 @@ $stmt->bindValue(':status', 'neu');
 
 $result = $stmt->execute();
 
-// erfolg
-if($result){
-  die("<script type='text/javascript'>window.location.href='../register.html#regsuccess';</script>");
+$count = $stmt->rowCount();
+
+// erfolg (oder halt nicht)
+if ($count > 0) {
+  echo "Erfolgreich registriert";
+} else {
+  echo "Fehler";
 }
 
 $conn = null; 

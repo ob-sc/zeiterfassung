@@ -11,7 +11,7 @@ $(document).ready(() => {
   });
 
   // eslint-disable-next-line func-names
-  $('#stationSelect').change(function() {
+  $('.stationSelect').change(function() {
     const newStation = $(this).val();
     $.ajax({
       method: 'post',
@@ -21,9 +21,9 @@ $(document).ready(() => {
       .done(() => {
         window.location.reload();
       })
-      .fail(admindata => {
+      .fail(data => {
         // eslint-disable-next-line no-console
-        console.log(admindata);
+        console.log(data);
       });
   });
 });
