@@ -23,6 +23,10 @@
  * Date: 2019-04-08
  */
 
+/*! DataTables 1.10.20
+ * ©2008-2019 SpryMedia Ltd - datatables.net/license
+ */
+
 /** @license
    * jsPDF - PDF Document creation from JavaScript
    * Version 1.5.3 Built on 2018-12-27T14:11:42.696Z
@@ -155,10 +159,6 @@
    * 
    * ====================================================================
    */
-
-/*! DataTables 1.10.20
- * ©2008-2019 SpryMedia Ltd - datatables.net/license
- */
 
 /*!
   * Bootstrap v4.4.0 (https://getbootstrap.com/)

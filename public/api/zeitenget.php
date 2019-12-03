@@ -10,7 +10,8 @@ FROM zeiten AS z
 LEFT JOIN benutzer AS b ON z.disponent = b.id 
 WHERE z.station = ? 
 -- WHERE z.datum BETWEEN :von AND :bis
-ORDER BY z.datum ASC, z.beginn ASC";
+ORDER BY z.datum DESC, z.beginn DESC 
+LIMIT 1000";
 
 $stmt = $conn->prepare($zeitenSql);
 

@@ -3,18 +3,29 @@ import 'datatables.net-bs4';
 
 import 'datatables.net-bs4/css/dataTables.bootstrap4.min.css';
 
+import './datetime-moment';
+
 import { roundTF, zuStunden, fehler } from './funktionen';
 
 const moment = require('moment');
 
 moment.locale('de');
 
-// für filter -> ajax in api (bzw noch zeitenget) -> dann noch mal .DataTable(); ??
+$.fn.dataTable.ext.search.push((settings, data) => {
+  const min = moment($('#min').val(), 'YYYY-MM-DD');
+  const max = moment($('#max').val(), 'YYYY-MM-DD');
+  const date = moment(data[0], 'DD.MM.YYYY') || '';
 
-// sortieren der datatable nach datum geht nicht
+  if (
+    (min.isValid() === false && max.isValid() === false) || // nd && nd
+    (min.isValid() === false && date.diff(max) <= 0) || // nd && date <= max
+    (min.diff(date) <= 0 && max.isValid() === false) || // min <= date && nd
+    (min.diff(date) <= 0 && date.diff(max) <= 0) // min <= date && date <= max
+  )
+    return true;
 
-// plug-ins/1.10.16/sorting/datetime-moment.js
-// https://datatables.net/blog/2014-12-18
+  return false;
+});
 
 $.getJSON('../api/zeitenget.php')
   .done(daten => {
@@ -43,8 +54,11 @@ $.getJSON('../api/zeitenget.php')
     });
 
     $(document).ready(() => {
-      $('#zeitenDataTable').DataTable({
+      $.fn.dataTable.moment('DD.MM.YYYY', 'de');
+
+      const datatable = $('#zeitenDataTable').DataTable({
         data: zeiten,
+        order: [0, 'desc'],
         columnDefs: [
           { targets: -1, className: 'text-center', orderable: false }
         ],
@@ -137,6 +151,13 @@ $.getJSON('../api/zeitenget.php')
             });
           });
         }
+      });
+      $('#min, #max').keyup(() => {
+        if (
+          moment($('#min').val(), 'YYYY-MM-DD').isValid() === true ||
+          moment($('#max').val(), 'YYYY-MM-DD').isValid() === true
+        )
+          datatable.draw();
       });
     });
   })

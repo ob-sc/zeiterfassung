@@ -3,7 +3,7 @@
     |  PRE RELEASE  |
     |_______________|
 
-- zeiten filter
+- kalk auf porz
 
 WICHTIG: testen ob session.php funktioniert
     -> warsch brauche ich nen test in nem bestimmten intervall -> wenn man die seite nicht wechselt wird session nicht überprüft
