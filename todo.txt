@@ -3,14 +3,14 @@
     |  PRE RELEASE  |
     |_______________|
 
-- kalk auf porz
+- filter clear zeiten
+
+hash auf html
+    -> doof mit index und register löschen..
 
 WICHTIG: testen ob session.php funktioniert
     -> warsch brauche ich nen test in nem bestimmten intervall -> wenn man die seite nicht wechselt wird session nicht überprüft
         -> alternativ nen sondertest in api
-
-- zeiten mit limit in php -> sonst zu viele daten
-    -> sortieren dann limit
 
 - station / stationid aus getdata raus?
     -> allg mal getdata überprüfen was ich alles nicht brauch
@@ -45,12 +45,6 @@ https://stackoverflow.com/questions/52013133/entrypoint-undefined-index-html-usi
     - komm ich ohne bootstrap aus?
 
 - fetch API statt $.ajax?
-
-- alerts müssen neu
-    -> do they tho?
-
-- wie dev behandeln?
-    -> anderes farbschema?
 
 - titel neu - auch zeiterfassung aushilfen
     -> eintragen: zeit eintragen?

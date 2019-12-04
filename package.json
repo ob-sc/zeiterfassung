@@ -1,6 +1,6 @@
 {
   "name": "zeiterfassung",
-  "version": "1.15.0",
+  "version": "1.15.1",
   "private": true,
   "description": "",
   "main": "index.js",
@@ -16,8 +16,8 @@
     "git": "git commit --allow-empty-message -m",
     "postgit": "git push",
     "prestable": "npm run git 'stable'",
-    "stable": "git checkout stable && git merge master && git checkout master",
-    "poststable": "git push"
+    "stable": "git checkout stable && git merge master && git push",
+    "poststable": "git checkout master"
   },
   "repository": {
     "type": "git",

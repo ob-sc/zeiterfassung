@@ -39,19 +39,7 @@ export const session = status => {
 
     $(document).ready(() => {
       if (data.userStatus === 'admin') $('#adminmenu, .slmenu').show();
-      if (data.userStatus === 'sl') {
-        $('.slmenu').show();
-
-        if (data.stationID === 30 || data.stationID === 33)
-          $('#hannovermenu').show();
-
-        if (
-          data.stationID === 55 ||
-          data.stationID === 56 ||
-          data.stationID === 57
-        )
-          $('#frankfurtmenu').show();
-      }
+      if (data.userStatus === 'sl') $('.slmenu').show();
 
       $('#stationSelect').val(data.stationID);
     });

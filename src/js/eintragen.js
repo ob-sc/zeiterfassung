@@ -60,7 +60,7 @@ function formBerechnung() {
 
   // Check ob Datum in der Zukunft ist
   if (moment(fbData.datum).isAfter(new Date(), 'day') === true)
-    return fehler('Datum ist in der Zukunft!</strong>');
+    return fehler('Datum ist in der Zukunft!');
 
   // prettier-ignore
   $('#etext').append(`<p><strong>Wochentag:</strong> ${moment(fbData.datum).format('dddd')}</p>`);
