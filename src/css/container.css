@@ -93,3 +93,9 @@ form > .form-group {
   margin: 20px auto;
   padding: 20px;
 }
+
+#weContainer {
+  width: 70%;
+  margin: 20px auto;
+  padding: 20px;
+}
