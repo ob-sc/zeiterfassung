@@ -5,16 +5,11 @@
 
 - filter clear zeiten
 
-- bei mitarbeiter
-    -> wirklich löschen einbauen
-
 - studenten
     -> limit weglassen
     -> bei eintragen -> (450 || Student) auswählen
     -> bei auswerten -> Student wird nicht berechnet
     -> gucken wie ich durchschnitt mach (bei eintragen)
-
-- bei aushilfen (& andere) seite nicht neu laden sondern wie bei mitarbeiter we eintragen aktualisieren
 
 hash auf html
     -> doof mit index und register löschen..
@@ -26,10 +21,6 @@ WICHTIG: testen ob session.php funktioniert
 - warnung/fehler wenn gleiche arbeitszeit eingetragen wird (zb 1.1.2019 13 uhr bis 15 uhr und 1.1.2019 14 uhr bis 15 uhr)
     -> in vorschau?
 
-- selbstinvokende formel
-
-- löschen modal in header?
-
     ________________
     |              |
     | POST RELEASE |
@@ -37,6 +28,8 @@ WICHTIG: testen ob session.php funktioniert
 
 - für API: 
     -> lass ich die index.html jeweils in einem ordner oder alle in einen und umbenennen?
+
+- bei aushilfen (& andere) seite nicht neu laden sondern wie bei mitarbeiter we eintragen aktualisieren
 
 - wie wird förster jetzt informiert?
     -> ich kann ihm einen account machen auf dem alle notdienste angezeigt werden

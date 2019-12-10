@@ -108,13 +108,13 @@ $(document).ready(() => {
         maRow += '<td class="text-center">Neu</td>';
         maRow += `<th class="text-center"><img src="../img/check-square-regular.svg" width="18" class="confirm" data-confirmid="${key.id}"></th>`;
         maRow += `<th class="text-center"><img src="../img/edit-regular.svg" width="18" class="edit" data-pwid="${key.id}"></th>`;
-        maRow += `<th class="text-center"><img src="../img/trash-alt-regular.svg" width="18" class="delete" data-deleteid="${key.id}"></th></tr>`;
+        maRow += `<th class="text-center"><img src="../img/trash-alt-regular.svg" width="18" class="delete" data-deletename="${key.username}" data-deleteid="${key.id}"></th></tr>`;
       } else {
         maRow += `<tr><td>${key.username}</td>`;
         maRow += '<td class="text-center">Bestätigt</td>';
         maRow += '<td>&nbsp</td>';
         maRow += `<th class="text-center"><img src="../img/edit-regular.svg" width="18" class="edit" data-pwid="${key.id}"></th>`;
-        maRow += `<th class="text-center hideTD"><img src="../img/trash-alt-regular.svg" width="18" class="delete" data-deleteid="${key.id}"></th></tr>`;
+        maRow += `<th class="text-center hideTD"><img src="../img/trash-alt-regular.svg" width="18" class="delete" data-deletename="${key.username}" data-deleteid="${key.id}"></th></tr>`;
       }
     });
     $('#maTab').html(maRow);
@@ -179,18 +179,24 @@ $(document).ready(() => {
     // MA löschen,
     $('.delete').click(e => {
       const { deleteid } = e.currentTarget.dataset;
+      const { deletename } = e.currentTarget.dataset;
 
-      $.ajax({
-        url: '../api/madelete.php',
-        method: 'POST',
-        data: { id: deleteid }
-      })
-        .done(() => {
-          window.location.reload();
+      $('#deleteName').html(deletename);
+      $('#deleteModal').modal();
+
+      $('#deleteConfirm').click(() => {
+        $.ajax({
+          url: '../api/madelete.php',
+          method: 'POST',
+          data: { id: deleteid }
         })
-        .fail(data => {
-          fehler(data.responseText);
-        });
+          .done(() => {
+            window.location.reload();
+          })
+          .fail(data => {
+            fehler(data.responseText);
+          });
+      });
     });
   });
 
