@@ -1,9 +1,64 @@
 import { getData, fehler, info } from './funktionen';
 
+const moment = require('moment');
+
+moment.locale('de');
+
+/* für we iwie den zeitraum festlegen -> aktueller monat oder select? */
+
+// WE-Daten in Tabelle
+function weTabelle() {
+  $.getJSON('../api/weget.php').done(daten => {
+    let weTab = '';
+
+    console.log(daten);
+
+    if (daten.length === 0) {
+      info('Keine Einträge');
+      $('#weTab').html('');
+    }
+
+    daten.forEach(key => {
+      // prettier-ignore
+      weTab += `<tr><td class="text-center">${moment(key.datum, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>`;
+      weTab += `<td>${key.name}</td>`;
+      weTab += `<td class="text-center">${key.stunden}</td>`;
+      weTab += `<td class="text-center">${key.ausgleich}</td>`;
+      weTab += `<th class="text-center"><img src="../img/trash-alt-regular.svg" width="18" class="delete" data-weid="${key.id}"></th></tr>`;
+
+      $('#weTab').html(weTab);
+
+      $('.delete').click(e => {
+        const weId = e.currentTarget.dataset.weid;
+
+        $.ajax({
+          url: '../api/wedelete.php',
+          method: 'POST',
+          data: { id: weId }
+        })
+          .done(() => {
+            weTabelle();
+          })
+          .fail(data => {
+            fehler(data.responseText);
+          });
+      });
+    });
+  });
+}
+
 $(document).ready(() => {
   $('nav li').removeClass('current');
   $('#mitarbeiter').addClass('current');
 
+  $('#wochenende').click(() => {
+    $('#maContainer').hide();
+    $('#weContainer').show();
+
+    weTabelle();
+  });
+
+  // MA-Daten in Tabelle
   getData(daten => {
     const { maDaten } = daten;
     let maRow;
@@ -24,6 +79,7 @@ $(document).ready(() => {
     });
     $('#maTab').html(maRow);
 
+    // MA bestätigen
     // eslint-disable-next-line func-names
     $('.confirm').click(function() {
       const maid = $(this).data('confirmid');
@@ -41,15 +97,12 @@ $(document).ready(() => {
         });
     });
 
+    // PW bearbeiten
     // eslint-disable-next-line func-names
     $('.edit').click(function() {
       $('#pwModal').modal();
 
       const pwid = $(this).data('pwid');
-
-      $('#updateConfirm').click(() => {
-        $('#pwForm').submit();
-      });
 
       $('#pwForm').submit(e => {
         e.preventDefault();
@@ -85,6 +138,7 @@ $(document).ready(() => {
       });
     });
 
+    // MA löschen
     // eslint-disable-next-line func-names
     $('.delete').click(function() {
       const deleteid = $(this).data('deleteid');
@@ -101,5 +155,29 @@ $(document).ready(() => {
           fehler(data.responseText);
         });
     });
+  });
+
+  // WE eintragen-knopf
+  $('#weEintragen').click(() => {
+    $('#weModal').modal();
+  });
+
+  $('#weForm').submit(e => {
+    e.preventDefault();
+
+    $.ajax({
+      url: '../api/weeintragen.php',
+      method: 'POST',
+      data: $('#weForm').serialize()
+    })
+      .done(data => {
+        $('#weForm')[0].reset();
+        $('#weModal').modal('hide');
+        info(data);
+        weTabelle();
+      })
+      .fail(data => {
+        fehler(data.responseText);
+      });
   });
 });

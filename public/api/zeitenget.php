@@ -2,8 +2,6 @@
 session_start();
 require '../scripts/connect.php';
 
-# todo limit 
-
 $zeitenSql = 
 "SELECT z.id, z.name, z.datum, z.beginn, z.ende, z.arbeitszeit, z.gehalt, z.disponent, z.reg_date, b.username
 FROM zeiten AS z 
