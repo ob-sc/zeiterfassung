@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "cd public && rm -rf index.html register.html js css abrechnung aushilfen auswerten eintragen mitarbeiter readme zeiten && mkdir js css abrechnung aushilfen auswerten eintragen mitarbeiter readme zeiten",
+    "clean": "cd public && rm -rf *.html js css abrechnung aushilfen auswerten eintragen mitarbeiter readme zeiten && mkdir js css abrechnung aushilfen auswerten eintragen mitarbeiter readme zeiten",
     "php": "cd public && php -S localhost:8000",
     "start": "npm run clean && webpack-dev-server --config webpack.config-dev.js",
     "dev": "npm run clean && webpack --config webpack.config-dev.js",

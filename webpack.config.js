@@ -20,7 +20,7 @@ const newHWP = dir => {
 
 const newRootHWP = dir => {
   return new HtmlWebpackPlugin({
-    filename: `${dir}.[contenthash].html`,
+    filename: `${dir}.html`,
     template: './src/html/root.html',
     inject: 'head',
     body: fs.readFileSync(`./src/html/${dir}.html`)
