@@ -23,13 +23,12 @@ WICHTIG: testen ob session.php funktioniert
     -> warsch brauche ich nen test in nem bestimmten intervall -> wenn man die seite nicht wechselt wird session nicht überprüft
         -> alternativ nen sondertest in api
 
-- station / stationid aus getdata raus?
-    -> allg mal getdata überprüfen was ich alles nicht brauch
-
 - warnung/fehler wenn gleiche arbeitszeit eingetragen wird (zb 1.1.2019 13 uhr bis 15 uhr und 1.1.2019 14 uhr bis 15 uhr)
     -> in vorschau?
 
 - selbstinvokende formel
+
+- löschen modal in header?
 
     ________________
     |              |

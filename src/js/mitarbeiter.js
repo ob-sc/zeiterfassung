@@ -1,30 +1,40 @@
+import * as JsPDF from 'jspdf';
+import 'jspdf-autotable';
 import { getData, fehler, info } from './funktionen';
 
 const moment = require('moment');
 
 moment.locale('de');
 
-/* für we iwie den zeitraum festlegen -> aktueller monat oder select? */
+let station;
 
 // WE-Daten in Tabelle
 function weTabelle() {
-  $.getJSON('../api/weget.php').done(daten => {
+  $.ajax({
+    url: '../api/weget.php',
+    method: 'POST',
+    data: { monat: $('#monat').val() }
+  }).done(daten => {
     let weTab = '';
 
-    console.log(daten);
+    $('#pdfBtn').hide();
 
-    if (daten.length === 0) {
-      info('Keine Einträge');
+    const weDaten = JSON.parse(daten);
+
+    if (weDaten.length === 0) {
       $('#weTab').html('');
+      return info('Keine Einträge');
     }
 
-    daten.forEach(key => {
+    return weDaten.forEach(key => {
       // prettier-ignore
       weTab += `<tr><td class="text-center">${moment(key.datum, 'YYYY-MM-DD').format('DD.MM.YYYY')}</td>`;
       weTab += `<td>${key.name}</td>`;
       weTab += `<td class="text-center">${key.stunden}</td>`;
       weTab += `<td class="text-center">${key.ausgleich}</td>`;
       weTab += `<th class="text-center"><img src="../img/trash-alt-regular.svg" width="18" class="delete" data-weid="${key.id}"></th></tr>`;
+
+      $('#pdfBtn').show();
 
       $('#weTab').html(weTab);
 
@@ -47,9 +57,32 @@ function weTabelle() {
   });
 }
 
+window.printpdf = () => {
+  // prettier-ignore
+  const titel = `Wochenendliste ${station}, ${moment($('#monat').val(), 'YYYY-MM').format('MMMM YYYY')}`
+
+  $('.hideTD').hide();
+
+  const doc = new JsPDF();
+  doc.autoTable({
+    html: '#weTabelle',
+    theme: 'plain',
+    styles: { lineWidth: 0.1 },
+    didDrawPage: () => {
+      doc.text(titel, 14, 10);
+    }
+  });
+
+  doc.save(`${titel}.pdf`);
+
+  $('.hideTD').show();
+};
+
 $(document).ready(() => {
   $('nav li').removeClass('current');
   $('#mitarbeiter').addClass('current');
+
+  document.getElementById('monat').valueAsDate = new Date();
 
   $('#wochenende').click(() => {
     $('#maContainer').hide();
@@ -58,9 +91,16 @@ $(document).ready(() => {
     weTabelle();
   });
 
+  $('#monat').change(() => {
+    $('#infoAlert').hide();
+    weTabelle();
+  });
+
   // MA-Daten in Tabelle
   getData(daten => {
     const { maDaten } = daten;
+    station = daten.station;
+
     let maRow;
     maDaten.forEach(key => {
       if (key.status === 'neu') {
@@ -74,15 +114,14 @@ $(document).ready(() => {
         maRow += '<td class="text-center">Bestätigt</td>';
         maRow += '<td>&nbsp</td>';
         maRow += `<th class="text-center"><img src="../img/edit-regular.svg" width="18" class="edit" data-pwid="${key.id}"></th>`;
-        maRow += `<th class="text-center"><img src="../img/trash-alt-regular.svg" width="18" class="delete" data-deleteid="${key.id}"></th></tr>`;
+        maRow += `<th class="text-center hideTD"><img src="../img/trash-alt-regular.svg" width="18" class="delete" data-deleteid="${key.id}"></th></tr>`;
       }
     });
     $('#maTab').html(maRow);
 
     // MA bestätigen
-    // eslint-disable-next-line func-names
-    $('.confirm').click(function() {
-      const maid = $(this).data('confirmid');
+    $('.confirm').click(e => {
+      const maid = e.currentTarget.dataset.confirmid;
 
       $.ajax({
         url: '../api/maedit.php',
@@ -98,14 +137,13 @@ $(document).ready(() => {
     });
 
     // PW bearbeiten
-    // eslint-disable-next-line func-names
-    $('.edit').click(function() {
+    $('.edit').click(e => {
       $('#pwModal').modal();
 
-      const pwid = $(this).data('pwid');
+      const { pwid } = e.currentTarget.dataset;
 
-      $('#pwForm').submit(e => {
-        e.preventDefault();
+      $('#pwForm').submit(f => {
+        f.preventDefault();
 
         $('#pwLaenge').hide();
         $('#pwGleich').hide();
@@ -138,10 +176,9 @@ $(document).ready(() => {
       });
     });
 
-    // MA löschen
-    // eslint-disable-next-line func-names
-    $('.delete').click(function() {
-      const deleteid = $(this).data('deleteid');
+    // MA löschen,
+    $('.delete').click(e => {
+      const { deleteid } = e.currentTarget.dataset;
 
       $.ajax({
         url: '../api/madelete.php',
@@ -165,7 +202,13 @@ $(document).ready(() => {
   $('#weForm').submit(e => {
     e.preventDefault();
 
-    $.ajax({
+    // prettier-ignore
+    if (moment($('#datum').val(), 'YYYY-MM-DD').isoWeekday() !== 7) {
+      $('#weModal').modal('hide');
+      return fehler(`${moment($('#datum').val(), 'YYYY-MM-DD').format('DD.MM.YYYY')} ist kein Sonntag`)
+    }
+
+    return $.ajax({
       url: '../api/weeintragen.php',
       method: 'POST',
       data: $('#weForm').serialize()

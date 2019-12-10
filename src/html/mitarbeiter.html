@@ -16,20 +16,25 @@
 </div>
 
 <div id="weContainer" style="display:none">
-  <input type="button" class="btn scc mb-3" id="weEintragen" value="Eintragen">
-  <table class="table table-hover table-sm table-bordered">
+  <div class="form-row mb-3">
+    <input type="button" class="btn scc mr-3" id="weEintragen" value="Eintragen">
+    <input type="month" class="form-control" name="monat" id="monat" style="width: 200px">
+  </div>
+  <table class="table table-hover table-sm table-bordered" id="weTabelle">
     <thead>
       <tr>
         <th style="width:10%" class="text-center">Datum</th>
         <th style="width:50%">Name</th>
         <th style="width:10%" class="text-center">Stunden</th>
         <th style="width:10%" class="text-center">Vergütung</th>
-        <th style="width:10%" class="text-center">Löschen</th>
+        <th style="width:10%" class="text-center hideTD">Löschen</th>
       </tr>
     </thead>
     <tbody id="weTab">
     </tbody>
   </table>
+  <input type="button" onclick="window.location.reload();" value="Zurück" class="noPrint btn scc">
+  <input type="button" onclick="printpdf();" value="Speichern" class="noPrint btn scc" id="pdfBtn" style="display:none">
 </div>
 
 <div class="modal fade" id="pwModal" tabindex="-1" role="dialog" aria-hidden="true">
