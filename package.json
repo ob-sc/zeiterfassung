@@ -12,12 +12,7 @@
     "test": "eslint src/js",
     "prebuild": "npm run clean && npm test",
     "build": "webpack --config webpack.config.js",
-    "pregit": "git add -A",
-    "git": "git commit --allow-empty-message -m",
-    "postgit": "git push",
-    "prestable": "npm run git 'stable'",
-    "stable": "git checkout stable && git merge master && git push",
-    "poststable": "git checkout master"
+    "stable": "git checkout stable && git merge master && git push && git checkout master"
   },
   "repository": {
     "type": "git",
