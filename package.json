@@ -12,7 +12,10 @@
     "test": "eslint src/js",
     "prebuild": "npm run clean && npm test",
     "build": "webpack --config webpack.config.js",
-    "stable": "git checkout stable && git merge master && git push && git checkout master"
+    "stable": "git checkout stable && git merge master && git push && git checkout master",
+    "preversion": "npm test",
+    "version": "-m",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
