@@ -1,6 +1,6 @@
 {
   "name": "zeiterfassung",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "",
   "main": "index.js",
@@ -14,7 +14,7 @@
     "build": "webpack --config webpack.config.js",
     "stable": "git checkout stable && git merge master && git push && git checkout master",
     "preversion": "npm test",
-    "version": "-m",
+    "version": "",
     "postversion": "git push && git push --tags"
   },
   "repository": {
