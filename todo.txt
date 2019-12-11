@@ -3,8 +3,6 @@
     |  PRE RELEASE  |
     |_______________|
 
-    ACHTUNG abrechnungszeitraum januar (jahreswechsel geht nicht)
-
 - filter clear zeiten
 
 - studenten

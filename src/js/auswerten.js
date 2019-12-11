@@ -31,10 +31,11 @@ function eatabelle() {
     info('Keine Einträge für diesen Monat!');
     return;
   }
+
   // Tage im Monat
   const monatSelect = moment($('#datum').val(), 'YYYY-MM').format('M');
-  const monatfuerTage = monatSelect - 1;
-  const monatsTage = moment(monatfuerTage, 'M').daysInMonth();
+  const monatfuerTage = moment(monatSelect, 'M').subtract(1, 'months');
+  const monatsTage = monatfuerTage.daysInMonth();
   let eaMonatJahr = eaDaten.beginn;
 
   const abrechnungsmonat = [];
@@ -112,7 +113,7 @@ function eatabelle() {
 
   // Variable mit String für Tabelle
   // prettier-ignore
-  html = `<h3 style="text-align:center">Arbeitszeitnachweis ${$('#auswertenAuto').val()}<br>${moment(monatfuerTage, 'M').format('MMMM')}-${moment($('#datum').val(),'YYYY-MM').format('MMMM YYYY')}</h3>`;
+  html = `<h3 style="text-align:center">Arbeitszeitnachweis ${$('#auswertenAuto').val()}<br>${monatfuerTage.format('MMMM')}-${moment($('#datum').val(),'YYYY-MM').format('MMMM YYYY')}</h3>`;
   html +=
     '<table class="table table-bordered table-sm"><caption>Gelb = In anderer Station gearbeitet<br>Rot = Notdienst</caption><thead><tr>';
   html += '<th style="width:20%">Tag</th>';

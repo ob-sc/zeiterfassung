@@ -61,15 +61,18 @@ module.exports = {
     new MomentLocalesPlugin({
       localesToKeep: ['de']
     }),
-    newRootHWP('index'),
-    newRootHWP('register'),
-    newHWP('abrechnung'),
-    newHWP('aushilfen'),
-    newHWP('auswerten'),
-    newHWP('eintragen'),
-    newHWP('mitarbeiter'),
-    newHWP('readme'),
-    newHWP('zeiten')
+    // newRootHWP('index'),
+    // newRootHWP('register'),
+    // newHWP('abrechnung'),
+    // newHWP('aushilfen'),
+    // newHWP('auswerten'),
+    // newHWP('eintragen'),
+    // newHWP('mitarbeiter'),
+    // newHWP('readme'),
+    // newHWP('zeiten')
+    new HtmlWebpackPlugin({
+      filename: 'index.[contenthash].html'
+    })
   ],
   optimization: {
     minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()]
