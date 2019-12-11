@@ -204,5 +204,3 @@ $(document).ready(() => {
     $('#ahpnTab').html(ahpnRow);
   });
 });
-
-console.log('test');
