@@ -30,18 +30,12 @@ WICHTIG: testen ob session.php funktioniert
 
 https://stackoverflow.com/questions/52013133/entrypoint-undefined-index-html-using-htmlwebpackplugin/57123167#57123167
 
-- doch noch sass?
-    -> dann auch bootstrap scss mit sass loader
-
 - knöpfe gleiche größe
     -> besonders aushilfen löschen modal
 
 - favicon ändern?
 
 - responsive machen?
-
-- von bootstrap js weg?
-    - komm ich ohne bootstrap aus?
 
 - fetch API statt $.ajax?
 
@@ -56,10 +50,6 @@ https://stackoverflow.com/questions/52013133/entrypoint-undefined-index-html-usi
 - passwort ändern feature
 
 - eaget und eatabelle umschreiben? zeiten (tage) und summen in ein array? mit while($row = $stmt-fetch...) wie in abget?
-
-- admin tabelle https://datatables.net/
-    -> allg tabellen damit? aushilfen ...
-    -> ahstation muss rein
 
 - in aushilfen anlegen -> alleDaten statt ahDaten[name] um zu gucken ob es sie insgesamt schon gibt
 
