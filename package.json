@@ -1,6 +1,6 @@
 {
   "name": "zeiterfassung",
-  "version": "1.16.0",
+  "version": "1.14.5",
   "private": true,
   "description": "",
   "main": "index.js",

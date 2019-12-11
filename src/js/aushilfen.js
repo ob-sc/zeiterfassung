@@ -11,6 +11,7 @@ function ahBearbeiten() {
   ahDaten.forEach(key => {
     ahRow += `<tr><td>${key.personalnr}</td>`;
     ahRow += `<td class="table-ltr">${key.nachname}, ${key.vorname}</td>`;
+    ahRow += `<td>${key.ahStatus}</td>`;
     ahRow += `<td class="editable" contenteditable="false" id="nor${
       key.id
     }">${roundTF(key.norlohn)}</td>`;

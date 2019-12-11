@@ -173,19 +173,21 @@ function eatabelle() {
   );
   const sumGehalt = eaDaten.summe.gehalt;
   $('#eaText').append(`<br><strong>Gehalt:</strong> ${roundTF(sumGehalt)}€`);
+
   // wieviel bis maximales monatsgehalt / schon drüber
-  const statusMax = parseInt(ahDaten[$('#auswertenAuto').val()].ahStatus, 10);
-  const bisMax = statusMax - sumGehalt;
-  if (sumGehalt <= roundTF(statusMax)) {
-    // prettier-ignore
-    $('#eaText').append(`<br>Noch ${roundTF(bisMax)}€ bis ${roundTF(statusMax)}€<br>`);
-  } else if (sumGehalt > roundTF(statusMax)) {
-    // prettier-ignore
-    $('#eaText').append(`<br><strong style="color:red;">Schon ${roundTF(-bisMax)}€ über ${roundTF(statusMax)}€</strong><br>`);
+  const status = ahDaten[$('#auswertenAuto').val()].ahStatus;
+  if (status === '450') {
+    const bisMax = 450 - sumGehalt;
+    if (sumGehalt <= 450) {
+      $('#eaText').append(`<br>Noch ${roundTF(bisMax)}€ bis 450€`);
+    } else if (sumGehalt > 450) {
+      // prettier-ignore
+      $('#eaText').append(`<br><strong style="color:red;">Schon ${roundTF(-bisMax)}€ über 450€</strong>`);
+    }
   }
   // Druckbutton
   $('#eaText').append(
-    '<input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc my-3">'
+    '<br><input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc my-3">'
   );
 }
 

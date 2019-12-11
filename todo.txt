@@ -5,12 +5,6 @@
 
 - filter clear zeiten
 
-- studenten
-    -> limit weglassen
-    -> bei eintragen -> (450 || Student) auswählen
-    -> bei auswerten -> Student wird nicht berechnet
-    -> gucken wie ich durchschnitt mach (bei eintragen)
-
 hash auf html
     -> doof mit index und register löschen..
 
@@ -18,13 +12,13 @@ WICHTIG: testen ob session.php funktioniert
     -> warsch brauche ich nen test in nem bestimmten intervall -> wenn man die seite nicht wechselt wird session nicht überprüft
         -> alternativ nen sondertest in api
 
-- warnung/fehler wenn gleiche arbeitszeit eingetragen wird (zb 1.1.2019 13 uhr bis 15 uhr und 1.1.2019 14 uhr bis 15 uhr)
-    -> in vorschau?
-
     ________________
     |              |
     | POST RELEASE |
     |______________|
+
+- warnung/fehler wenn gleiche arbeitszeit eingetragen wird (zb 1.1.2019 13 uhr bis 15 uhr und 1.1.2019 14 uhr bis 15 uhr)
+    -> in vorschau?
 
 - für API: 
     -> lass ich die index.html jeweils in einem ordner oder alle in einen und umbenennen?

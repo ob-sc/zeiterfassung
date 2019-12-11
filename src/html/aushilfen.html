@@ -12,7 +12,11 @@
     </div>
     <div class="form-group">
       <label for="status">Status:</label>
-      <input type="number" class="form-control" placeholder="Status" value="450" name="status">
+      <select class="form-control" name="status">
+        <option value="450" selected>450</option>
+        <option value="Student">Werkstudent</option>
+        <option value="Andere">Andere</option>
+      </select>
     </div>
     <div class="form-group">
       <label for="norlohn">Lohn Wochentag:</label>
@@ -51,7 +55,8 @@
     <thead>
       <tr>
         <th width="6%">PN</th>
-        <th width="60%" class="table-ltr">Name</th>
+        <th width="52%" class="table-ltr">Name</th>
+        <th width="8%">Status</th>
         <th width="8%">Wochentag</th>
         <th width="8%">Samstag</th>
         <th width="8%">Sonntag</th>
