@@ -9,7 +9,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const newHWP = dir => {
   return new HtmlWebpackPlugin({
-    filename: `${dir}/index.[contenthash].html`,
+    filename: `${dir}/index.html`,
     template: './src/html/template.html',
     inject: 'head',
     admin: fs.readFileSync('./src/html/admin.html'),

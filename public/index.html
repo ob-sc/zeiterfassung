@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <title>STARCAR Aushilfen Zeiterfassung</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+<link href="css/main.0aeb861e6e775dced05e.css" rel="stylesheet"><script type="text/javascript" src="js/main.5e46e813af24780af467.js"></script></head>
+<body>
+<header class="noPrint">
+  <div class="logoWrapper">
+    <img src="../img/logo_starcar2x.png" alt="SC_Logo" class="logo">
+  </div>
+  <div class="pagetitle">Aushilfen</div>
+</div>
+</header>
+<main>
+<div class="alert alert-danger" role="alert" id="fehlerAlert">
+  <span id="fehlerText"></span>
+  <button type="button" id="fehlerClose" class="close" aria-label="Close">&times;</button>
+</div>
+<div class="alert alert-info" role="alert" id="infoAlert">
+  <span id="infoText"></span>
+  <button type="button" id="infoClose" class="close" aria-label="Close">&times;</button>
+</div>
+<div id="devdiv"></div>
+<script>
+  // IE CHECK
+  var ua = window.navigator.userAgent;
+  var isIE = /MSIE|Trident/.test(ua);
+  
+  if (isIE) {
+    alert('Bitte benutze Google Chrome statt den Internet Explorer');
+  }
+</script>
+
+<div class="container m-4" id="loginForm">
+  <form action="scripts/login.php" method="post">
+    <div class="form-group col-md-4">
+      <label for="username" class="m-1">Benutzername:</label>
+      <input
+        type="text"
+        class="form-control m-1"
+        placeholder="Benutzername"
+        name="username"
+        autocomplete="off"
+        required
+      />
+    </div>
+    <div class="form-group col-md-4">
+      <label for="password">Passwort:</label>
+      <input
+        type="password"
+        class="form-control m-1"
+        placeholder="Passwort"
+        name="password"
+        required
+      />
+    </div>
+    <input
+      type="submit"
+      name="login"
+      class="btn ml-3 scc"
+      value="Login"
+    />
+  </form>
+  <a href="register.html" class="ml-3">Registrieren</a>
+</div>
+
+</main>
+</body>
+</html>
+
+<script>
+if (isIE) {
+  document.getElementById('loginForm').innerHTML =
+    '<h1>Bitte benutze Google Chrome statt den Internet Explorer</h1>';
+}
+</script>
