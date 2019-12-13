@@ -24,12 +24,7 @@ const newHWP = (dir, loc) => {
 
 module.exports = {
   mode: 'development',
-  stats: {
-    colors: true,
-    maxModules: 500,
-    excludeModules: false,
-    modulesSort: '!size'
-  },
+  stats: 'minimal',
   watch: true,
   watchOptions: {
     ignored: ['node_modules']

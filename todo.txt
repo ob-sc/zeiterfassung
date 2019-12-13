@@ -26,6 +26,9 @@ hash auf html
 
     modal partial in index?
 
+    webpack config umschreiben?
+        -> eine config dann wenn dev ...
+
     ________________
     |              |
     | POST RELEASE |
