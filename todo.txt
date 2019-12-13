@@ -3,14 +3,24 @@
     |  PRE RELEASE  |
     |_______________|
 
+- mindestlohn per sql verändern
+
+- cookies mit session ablaufen
+    -> einen dauerhaften cookie mit username
+    -> https://www.phpacademy.xyz/phpmyadmin/cookie_authentication.html
+        -> mehr links suchen?!
+    -> session.php schauen, evtl damit integrieren?
+        -> cookies sollten ja auch mit php gehen
+
+- ejs templates gucken
+    -> siehe zettel
+
 - filter clear zeiten
 
 hash auf html
-    -> doof mit index und register löschen..
 
-WICHTIG: testen ob session.php funktioniert
-    -> warsch brauche ich nen test in nem bestimmten intervall -> wenn man die seite nicht wechselt wird session nicht überprüft
-        -> alternativ nen sondertest in api
+- wenn login für kehler
+    -> wie machen wir die info "abmelden ab"
 
     ________________
     |              |
@@ -54,6 +64,3 @@ https://stackoverflow.com/questions/52013133/entrypoint-undefined-index-html-usi
 - in aushilfen anlegen -> alleDaten statt ahDaten[name] um zu gucken ob es sie insgesamt schon gibt
 
 - jeweils element zu key? -> https://stackoverflow.com/a/41550077/11918503
-
-- autocomplete
-    -> direkt ajax?

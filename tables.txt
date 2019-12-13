@@ -1,6 +1,9 @@
 ALTER TABLE `zeiten` ADD `ahstation` INT NOT NULL AFTER `station`;
+fertig
 
 INSERT INTO `stationen`(`id`, `name`) VALUES (89, 'Bußgeldmanagement')
+fertig
 
 CREATE TABLE `starcar_prod`.`wochenende` ( `id` INT NOT NULL AUTO_INCREMENT , `datum` DATE NOT NULL , `name` VARCHAR(45) NOT NULL , `stunden` INT(1) NOT NULL , `ausgleich` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 ALTER TABLE `wochenende` ADD `station` INT(3) NOT NULL AFTER `ausgleich`;
+fertig
