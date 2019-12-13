@@ -4,25 +4,21 @@ const path = require('path');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const fs = require('fs');
 
-const newHWP = dir => {
+const newHWP = (dir, loc) => {
+  if (loc === 'root') {
+    return new HtmlWebpackPlugin({
+      filename: `${dir}.html`,
+      template: './src/hbs/root.hbs',
+      inject: 'head',
+      title: dir
+    });
+  }
   return new HtmlWebpackPlugin({
     filename: `${dir}/index.html`,
-    template: './src/html/template.html',
+    template: './src/hbs/index.hbs',
     inject: 'head',
-    admin: fs.readFileSync('./src/html/admin.html'),
-    title: dir,
-    body: fs.readFileSync(`./src/html/${dir}.html`)
-  });
-};
-
-const newRootHWP = dir => {
-  return new HtmlWebpackPlugin({
-    filename: `${dir}.html`,
-    template: './src/html/root.html',
-    inject: 'head',
-    body: fs.readFileSync(`./src/html/${dir}.html`)
+    title: dir
   });
 };
 
@@ -58,7 +54,8 @@ module.exports = {
             }
           }
         ]
-      }
+      },
+      { test: /\.hbs$/, loader: 'handlebars-loader' }
     ]
   },
   devServer: {
@@ -84,8 +81,8 @@ module.exports = {
     new MomentLocalesPlugin({
       localesToKeep: ['de']
     }),
-    newRootHWP('index'),
-    newRootHWP('register'),
+    newHWP('index', 'root'),
+    newHWP('register', 'root'),
     newHWP('abrechnung'),
     newHWP('aushilfen'),
     newHWP('auswerten'),

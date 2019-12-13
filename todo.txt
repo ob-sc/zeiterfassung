@@ -22,6 +22,10 @@ hash auf html
 - wenn login für kehler
     -> wie machen wir die info "abmelden ab"
 
+    favicon als ico
+
+    modal partial in index?
+
     ________________
     |              |
     | POST RELEASE |
