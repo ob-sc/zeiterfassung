@@ -3,6 +3,19 @@
     |  PRE RELEASE  |
     |_______________|
 
+    
+  watch: true,
+  watchOptions: {
+    ignored: ['node_modules']
+  },
+
+- register: 
+    if($row['num'] > 0){
+    die("<script type='text/javascript'>window.location.href='../register.html#exists';</script>");
+    }
+
+    mit header?
+
 - mindestlohn per sql verändern
 
 - cookies mit session ablaufen
@@ -22,12 +35,19 @@ hash auf html
 - wenn login für kehler
     -> wie machen wir die info "abmelden ab"
 
-    favicon als ico
+- favicon als ico
 
-    modal partial in index?
+- modal partial in index?
 
-    webpack config umschreiben?
-        -> eine config dann wenn dev ...
+- webpack config umschreiben?
+    -> eine config dann wenn dev ...
+
+    - devtool
+
+    - edge auch nicht benutzen
+
+    - admin alle zeiten
+        -> extra knopf
 
     ________________
     |              |

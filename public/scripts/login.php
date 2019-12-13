@@ -25,7 +25,7 @@ if ($user === false) {
     $_SESSION['status'] = $user['status'];
     $_SESSION['aktiv'] = time();
 
-    header('Location: ../eintragen/index.html');
+    header('Location: ../eintragen/');
     exit;
   } else {
     header($loginerror);

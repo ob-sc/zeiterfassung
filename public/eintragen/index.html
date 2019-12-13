@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <title>eintragen</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../img/favicon.png">
+<link href="/css/main.css" rel="stylesheet"><script type="text/javascript" src="/js/main.js"></script></head>
+<body>
+
+<header>
+  <div class="header-container noPrint">
+    <div class="logoWrapper">
+      <img src="../img/logo_starcar2x.png" alt="SC_Logo" class="logo">
+    </div>    <div class="pagetitle">eintragen</div>
+    <div id="adminmenu" style="display:none">
+      <select class="form-control" id="stationSelect" name="stationSelect">
+        <option value="70">Verwaltung</option>
+        <option value="10">Hamburg Jenfeld</option>
+        <option value="11">Hamburg Eppendorf</option>
+        <option value="12">Hamburg Eiffestraße</option>
+        <option value="13">Hamburg Heimfeld</option>
+        <option value="14">Hamburg Billstedt</option>
+        <option value="15">Hamburg Altona</option>
+        <option value="18">Hamburg Osdorf</option>
+        <option value="113">Harburg Mitte</option>
+        <option value="32">Bremen</option>
+        <option value="19">Hamburg Wandsbek</option>
+        <option value="114">Hamburg Langenhorn</option>
+        <option value="30">Hannover</option>
+        <option value="33">Hannover Döhren</option>
+        <option value="36">Braunschweig</option>
+        <option value="52">Düsseldorf</option>
+        <option value="20">Berlin Tiergarten</option>
+        <option value="21">Berlin Neukölln</option>
+        <option value="22">Berlin Pankow</option>
+        <option value="23">Berlin Rudow</option>
+        <option value="24">Berlin Spandau</option>
+        <option value="40">Köln Sülz</option>
+        <option value="45">Köln Ehrenfeld</option>
+        <option value="46">Köln Porz</option>
+        <option value="47">Köln Dellbrück</option>
+        <option value="50">Essen</option>
+        <option value="54">Dortmund</option>
+        <option value="55">Frankfurt Ostend</option>
+        <option value="56">Frankfurt Griesheim</option>
+        <option value="57">Bad Homburg</option>
+        <option value="60">Kiel</option>
+        <option value="63">München</option>
+        <option value="89">Bußgeldmanagement</option>
+      </select>
+    </div>
+  </div>
+  <nav class="noPrint">
+    <ul class="cnav">
+      <li><a id="eintragen" href="../eintragen/">Eintragen</a></li>
+      <li><a id="auswerten" href="../auswerten/">Auswerten</a></li>
+      <li class="slmenu" style="display:none"><a id="abrechnung" href="../abrechnung/">Abrechnung</a></li>
+      <li class="slmenu" style="display:none"><a id="aushilfen" href="../aushilfen/">Aushilfen</a></li>
+      <li class="slmenu" style="display:none"><a id="zeiten" href="../zeiten/">Zeiten</a></li>
+      <li class="slmenu" style="display:none"><a id="mitarbeiter" href="../mitarbeiter/">Mitarbeiter</a></li>
+      <li><a id="readme" href="../readme/index.html">Hilfe</a></li>
+      <li><a class="logout" href="../scripts/logout.php">Abmelden</a></li>
+    </ul>
+  </nav>  <div id="devdiv"></div>
+</header>
+
+<main>
+<div class="alert alert-danger" role="alert" id="fehlerAlert">
+  <span id="fehlerText"></span>
+  <button type="button" id="fehlerClose" class="close" aria-label="Close">&times;</button>
+</div>
+
+<div class="alert alert-info" role="alert" id="infoAlert">
+  <span id="infoText"></span>
+  <button type="button" id="infoClose" class="close" aria-label="Close">&times;</button>
+</div>
+   <div class="flex-wrapper">
+  <div>
+    <form method="post" id="eform" autocomplete="off" class="container-main">
+      <div class="form-group">
+        <label for="name">Aushilfe:</label>
+        <input type="text" class="form-control" placeholder="Name" name="stationName" id="eintragenAuto">
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="stationCheck">
+        <label class="form-check-label" for="stationCheck">Aus anderer Station</label>
+      </div>
+      <div class="form-check" id="ndCheckContainer">
+        <input type="checkbox" class="form-check-input" id="ndCheck">
+        <label class="form-check-label" for="ndCheck">Notdienst</label>
+      </div>
+      <div class="form-group">
+        <label for="date">Datum:</label>
+        <input type="date" class="form-control" placeholder="dd-mm-yyyy" name="date" id="datum" required>
+      </div>
+      <div class="form-group" id="zeit">
+        <label for="beginn">Beginn:</label>
+        <input type="time" class="form-control" name="beginn" id="beginn" required>
+        <label for="ende">Ende:</label>
+        <input type="time" class="form-control" name="ende" id="ende" required>
+      </div>
+      <div class="form-group" id="menge" style="display:none">
+        <label for="menge">Einsätze:</label>
+        <input type="number" class="form-control" placeholder="Anzahl" name="menge" id="anzahl" value="1" min="1">
+      </div>
+      <input type="submit" class="btn scc" value="OK">
+    </form>
+  </div>
+  <div class="container-main">
+    <div id="etext"></div>
+    <input type="button" id="esend" class="btn scc" value="Senden" style="display:none" onclick="senden();">
+  </div>
+</div>
+  
+   
+   
+   
+   
+   
+   
+
+</main>
+</body>
+</html>
