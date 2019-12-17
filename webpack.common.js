@@ -42,6 +42,6 @@ module.exports = {
     new HtmlWebpackPlugin(hwp('aushilfen')),
     new HtmlWebpackPlugin(hwp('zeiten')),
     new HtmlWebpackPlugin(hwp('mitarbeiter')),
-    new HtmlWebpackPlugin(hwp('hilfe'))
+    new HtmlWebpackPlugin(hwp('readme'))
   ]
 };

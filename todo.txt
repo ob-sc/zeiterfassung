@@ -3,7 +3,6 @@
     |  PRE RELEASE  |
     |_______________|
 
-    
   watch: true,
   watchOptions: {
     ignored: ['node_modules']
@@ -30,7 +29,9 @@
 
 - filter clear zeiten
 
-hash auf html
+- hash auf html?!?!?
+    -> erkennt dann index nicht mehr
+    -> [chunkhash] geht
 
 - wenn login für kehler
     -> wie machen wir die info "abmelden ab"

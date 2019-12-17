@@ -1,36 +1,30 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <title>{{ htmlWebpackPlugin.options.title }}</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="../img/favicon.png">
-</head>
+{{> partials/head }}
+
 <body>
 
 <header>
   <div class="header-container noPrint">
-    {{> partials/logo}}
+    {{> partials/logo }}
     <div class="pagetitle">{{ htmlWebpackPlugin.options.title }}</div>
     {{> partials/admin }}
   </div>
-  {{> partials/nav}}
+  {{> partials/nav }}
   <div id="devdiv"></div>
 </header>
 
 <main>
-{{> partials/alert}}
+{{> partials/alert }}
 
-{{#switch htmlWebpackPlugin.options.title}} 
-  {{#case 'eintragen'}} {{> partials/seiten/eintragen}} {{/case}} 
-  {{#case 'auswerten'}} {{> partials/seiten/auswerten}} {{/case}} 
-  {{#case 'abrechnung'}} {{> partials/seiten/abrechnung}} {{/case}} 
-  {{#case 'aushilfen'}} {{> partials/seiten/aushilfen}} {{/case}} 
-  {{#case 'zeiten'}} {{> partials/seiten/zeiten}} {{/case}} 
-  {{#case 'mitarbeiter'}} {{> partials/seiten/mitarbeiter}} {{/case}} 
-  {{#case 'readme'}} {{> partials/seiten/readme}} {{/case}} 
+{{#switch htmlWebpackPlugin.options.title }} 
+  {{#case 'eintragen' }} {{> partials/seiten/eintragen }} {{/case}} 
+  {{#case 'auswerten' }} {{> partials/seiten/auswerten }} {{/case}} 
+  {{#case 'abrechnung' }} {{> partials/seiten/abrechnung }} {{/case}} 
+  {{#case 'aushilfen' }} {{> partials/seiten/aushilfen }} {{/case}} 
+  {{#case 'zeiten' }} {{> partials/seiten/zeiten }} {{/case}} 
+  {{#case 'mitarbeiter' }} {{> partials/seiten/mitarbeiter }} {{/case}} 
+  {{#case 'readme' }} {{> partials/seiten/readme }} {{/case}} 
 {{/switch}}
-
 </main>
+
 </body>
 </html>

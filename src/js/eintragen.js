@@ -58,6 +58,14 @@ function formBerechnung() {
   // prettier-ignore
   $('#etext').append(`<p><strong>Datum:</strong> ${moment(fbData.datum).format('DD.MM.YYYY')}</p>`);
 
+  // Keine Daten vor Abrechnungszeitraum Januar 2019 (17.12.2019)
+  if (
+    moment(fbData.datum).isBefore(moment('17.12.2019', 'DD.MM.YYYY')) === true
+  )
+    return fehler(
+      'Datum ist im Abrechnungszeitraum 2019. Bitte nur Datum ab dem 17.12.2019 eintragen. Siehe Mail von Melanie vom 17.12.2019'
+    );
+
   // Check ob Datum in der Zukunft ist
   if (moment(fbData.datum).isAfter(new Date(), 'day') === true)
     return fehler('Datum ist in der Zukunft!');

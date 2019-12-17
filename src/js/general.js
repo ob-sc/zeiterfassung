@@ -1,3 +1,7 @@
+// import Cookies from 'js-cookie';
+
+// console.log(Cookies.get());
+
 $(document).ready(() => {
   // für jeden input Datum - automatisch Datum heute
   const datumInput = document.getElementById('datum');

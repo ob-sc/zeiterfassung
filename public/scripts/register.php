@@ -17,19 +17,19 @@ $stmt->execute(array($username));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if($row['num'] > 0){
-  die("<script type='text/javascript'>window.location.href='../register.html#exists';</script>");
+  header('../register.html#exists');
+  exit;
 }
 
 // hash & eintragen
 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-$sql = "INSERT INTO benutzer (username, password, station, status) VALUES (:username, :password, :station, :status)";
+$sql = "INSERT INTO benutzer (username, password, station, status) VALUES (:username, :password, :station, 'neu')";
 $stmt = $conn->prepare($sql);
 
 $stmt->bindValue(':username', $username);
 $stmt->bindValue(':password', $passwordHash);
 $stmt->bindValue(':station', $_POST['station']);
-$stmt->bindValue(':status', 'neu');
 
 $result = $stmt->execute();
 
