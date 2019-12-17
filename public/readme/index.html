@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <title>STARCAR Aushilfen</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../img/favicon.png">
+<link href="../css/main.16026684aa2329d85a28.css" rel="stylesheet"><script type="text/javascript" src="../js/main.1e55bf704203c8662a2f.js"></script></head>
+
+<body>
+
+<header>
+  <div class="header-container noPrint">
+    <div class="logoWrapper">
+      <img src="../img/logo_starcar2x.png" alt="SC_Logo" class="logo">
+    </div>    <div class="pagetitle">readme</div>
+    <div id="adminmenu" style="display:none">
+      <select class="form-control" id="stationSelect" name="stationSelect">
+        <option value="70">Verwaltung</option>
+        <option value="10">Hamburg Jenfeld</option>
+        <option value="11">Hamburg Eppendorf</option>
+        <option value="12">Hamburg Eiffestraße</option>
+        <option value="13">Hamburg Heimfeld</option>
+        <option value="14">Hamburg Billstedt</option>
+        <option value="15">Hamburg Altona</option>
+        <option value="18">Hamburg Osdorf</option>
+        <option value="113">Harburg Mitte</option>
+        <option value="32">Bremen</option>
+        <option value="19">Hamburg Wandsbek</option>
+        <option value="114">Hamburg Langenhorn</option>
+        <option value="30">Hannover</option>
+        <option value="33">Hannover Döhren</option>
+        <option value="36">Braunschweig</option>
+        <option value="52">Düsseldorf</option>
+        <option value="20">Berlin Tiergarten</option>
+        <option value="21">Berlin Neukölln</option>
+        <option value="22">Berlin Pankow</option>
+        <option value="23">Berlin Rudow</option>
+        <option value="24">Berlin Spandau</option>
+        <option value="40">Köln Sülz</option>
+        <option value="45">Köln Ehrenfeld</option>
+        <option value="46">Köln Porz</option>
+        <option value="47">Köln Dellbrück</option>
+        <option value="50">Essen</option>
+        <option value="54">Dortmund</option>
+        <option value="55">Frankfurt Ostend</option>
+        <option value="56">Frankfurt Griesheim</option>
+        <option value="57">Bad Homburg</option>
+        <option value="60">Kiel</option>
+        <option value="63">München</option>
+        <option value="89">Bußgeldmanagement</option>
+      </select>
+    </div>
+  </div>
+  <nav class="noPrint">
+    <ul class="cnav">
+      <li><a id="eintragen" href="../eintragen/">Eintragen</a></li>
+      <li><a id="auswerten" href="../auswerten/">Auswerten</a></li>
+      <li class="slmenu" style="display:none"><a id="abrechnung" href="../abrechnung/">Abrechnung</a></li>
+      <li class="slmenu" style="display:none"><a id="aushilfen" href="../aushilfen/">Aushilfen</a></li>
+      <li class="slmenu" style="display:none"><a id="zeiten" href="../zeiten/">Zeiten</a></li>
+      <li class="slmenu" style="display:none"><a id="mitarbeiter" href="../mitarbeiter/">Mitarbeiter</a></li>
+      <li><a id="readme" href="../readme/index.html">Hilfe</a></li>
+      <li><a class="logout" href="../scripts/logout.php">Abmelden</a></li>
+    </ul>
+  </nav>  <div id="devdiv"></div>
+</header>
+
+<main>
+<div class="alert alert-danger" role="alert" id="fehlerAlert">
+  <span id="fehlerText"></span>
+  <button type="button" id="fehlerClose" class="close" aria-label="Close">&times;</button>
+</div>
+
+<div class="alert alert-info" role="alert" id="infoAlert">
+  <span id="infoText"></span>
+  <button type="button" id="infoClose" class="close" aria-label="Close">&times;</button>
+</div>
+   
+   
+   
+   
+   
+   
+   <div class="readme-container">
+  <p class="display-3">Inhalt</p>
+    <ul class="list-unstyled" style="margin-bottom: 60px">
+      <li><a href="#hilfe_anmelden">Anmelden</a></li>
+      <li><a href="#hilfe_eintragen">Eintragen</a></li>
+      <li><a href="#hilfe_arbeitszeitnachweis">Arbeitszeitnachweis</a></li>
+      <li><a href="#hilfe_abrechnung">Abrechnung</a></li>
+      <li><a href="#hilfe_aushilfen">Aushilfen</a></li>
+      <li><a href="#hilfe_mitarbeiter">Mitarbeiter</a></li>
+      <li><a href="#hilfe_zeiten">Zeiten</a></li>
+    </ul>
+
+  <div class="display-4" id="hilfe_anmelden">Anmelden</div>
+  <div class="readmeText"><br>
+    <p>Jeder festangestellte Disponent muss sich seinen Account selber erstellen (auf dem Link <i>registrieren</i>).</p>
+    <p>Nachdem ein Account erstellt wurde, muss dieser von dem Stationsleiter bestätigt werden. Der Stationsleiter hat einen extra Account.</p>
+    <p>Der Account des Stationsleiters ist zusätzlich dazu berechtigt eine Monatsabrechnung für das Steuerberater-Büro Kehler durchzuführen, die Löhne der Aushilfen einzusehen und zu bearbeiten, 
+    neue Aushilfen anzulegen, die Mitarbeiter zu verwalten, sowie die Zeiten, die eingetragen wurden auszulesen und zu löschen.</p>
+  </div>
+
+  <div class="display-4" id="hilfe_eintragen">Eintragen</div>
+  <div class="readmeText"><br>
+    <p>Hier werden die Arbeitszeiten der Aushilfen eingetragen. Es gibt die folgenden Felder:</p>
+    <ul>
+      <li><strong>Aushilfe:</strong> Der Name der Aushilfe</li>
+      <li><strong>Aus anderer Station:</strong> Aushilfe aus einer anderen Station ist im Feld <i>Aushilfe</i> auswählbar</li>
+      <li><strong>Notdienst:</strong> Wenn ein Notdienst eingetragen werden soll</li>
+      <li><strong>Datum:</strong> Das Datum des Arbeitstages</li>
+      <li><strong>Beginn:</strong> Beginn der Schicht</li>
+      <li><strong>Ende:</strong> Ende der Schicht</li>
+      <li><strong>OK:</strong> Dieser Knopf öffnet die Vorschau auf der rechten Seite</li>
+    </ul>
+    <p><strong>Vorschau:</strong> Hier werden die eingegebenen Daten, sowie die Arbeitszeit und das Gehalt angezeigt.</p>
+    <p>Der Abschnitt <strong>Durchschnitt</strong> berechnet, wie die Aushilfe im Jahresdurchschnitt zu dem maximum steht (bei 450€ monatlich).</p>
+    <p><strong>Überprüfe die Daten bevor du auf <i>Senden</i> klickst!</strong></p>
+    <p>Nach Klick auf <i>Senden</i> erscheint die Nachricht <i>Eintrag erfolgreich!</i></p>
+  </div>
+
+  <div class="display-4" id="hilfe_arbeitszeitnachweis">Arbeitszeitnachweis</div>
+  <div class="readmeText"><br>
+    <p>Eine Übersicht aller Schichten der Aushilfe im gewählten Monat.</p>
+    <p>Wenn es an einem Tag mehrere Einträge gibt, dann wird diese Zeit unter der Tabelle als <i>Sondereintrag</i> aufgeführt.</p>
+    <p>Schichten in einer anderen Station werden gelb hinterlegt. Notdienste werden rot hinterlegt.</p>
+    <p>Diese Seite lässt sich auf dem <i>Drucken</i>-Knopf ausdrucken.</p>
+  </div>
+
+  <div class="display-4" id="hilfe_abrechnung">Abrechnung</div>
+  <div class="readmeText"><br>
+    <p><strong>Nur für Stationsleiter</strong></p>
+    <p>Die Abrechnung für den ausgewählten Abrechnungszeitraum.</p>
+    <p>Schichten einer Aushilfe aus einer anderen Station werden gelb hinterlegt.</p>
+    <p>Die Felder bedeuten:</p>
+    <ul>
+      <li><strong>PN:</strong> Personalnummer</li>
+      <li><strong>Name:</strong> Name der Aushilfe</li>
+      <li><strong>AZ:</strong> Arbeitszeit</li>
+      <li><strong>Gehalt:</strong> Gehalt für diesen Monat</li>
+      <li><strong>Tage:</strong> Arbeitstage für diesen Monat</li>
+      <li><strong>Urlaub:</strong> Urlaubstage insgesamt für das gesamte Jahr <strong>(nicht nur Abrechnungszeitraum)</strong></li>
+      <li><strong>Status:</strong> Maximaler Verdienst (450 o. a.)</li>
+      <li><strong>Sonstiges:</strong> Datum der Abmeldung <strong>(immer mit Datum)</strong> oder Station einer fremden Aushilfe</li>
+    </ul>
+    <p>Bei Klick auf Abmelden wird das heutige Datum eingefügt. Auf wunsch kann dieses direkt in der Zelle bearbeitet werden.</p>
+    <p>Wenn eine Aushilfe der Station Notdienste gemacht hat, werden diese in einer Tabelle darunter angezeigt. Die Notdienste werden sowohl in der Tabelle oben als auch unten mit einberechnet.</p>
+    <p>Die Tabelle wird auf dem Knopf <i>Speichern</i> als PDF gespeichert. Überprüfe sie auf mögliche Fehler und schicke sie dann per Mail an <a href="mailto:starcarlohn@steuerberater-kehler.de">
+    starcarlohn@steuerberater-kehler.de</a>.</p>
+  </div>
+
+  <div class="display-4" id="hilfe_aushilfen">Aushilfen</div>
+  <div class="readmeText"><br>
+    <p><strong>Nur für Stationsleiter</strong></p>
+    <p>Hier findest du eine Übersicht über alle Aushilfen deiner Station.</p>
+    <p>Löhne lassen sich per Klick auf das Stift-Symbol bearbeiten.</p>
+    <p>Auf dem X-Symbol kannst du Aushilfen löschen.</p>
+    <p><strong>Neu Anlegen</strong></p>
+    <p>Hier kannst du Aushilfen neu anlegen.</p>
+    <p>Wenn die Personalnummer nicht bekannt ist oder es noch keine gibt, lasse das Feld leer.</p>
+    <p>Achte auf die richtige Schreibweise des Namens, dieser kann später nur von der Personalabteilung bearbeitet werden.</p>
+    <p><strong>Personalnummern</strong></p>
+    <p>Hier kannst du Aushilfen neu anlegen.</p>
+    <p>Wenn eine Aushilfe vom Stationsleiter angelegt wird, gibt es nicht immer direkt auch eine Personalnummer für diese. 
+    Sobald ihr die vom Steuerberater-Büro Kehler erhaltet könnt ihr diese hier eintragen.</p>
+  </div>
+
+  <div class="display-4" id="hilfe_mitarbeiter">Mitarbeiter</div>
+  <div class="readmeText"><br>
+    <p><strong>Nur für Stationsleiter</strong></p>
+    <p>Hier kann der Stationsleiter die Mitarbeiter-Accounts seiner Station einsehen.</p>
+    <p>Wenn ein Mitarbeiter einen Account erstellt, muss dieser vom Stationsleiter bestätigt werden, 
+    damit nur Mitarbeiter aus dieser Station Zugriff auf die Zeiten der jeweiligen Aushilfen haben.</p>
+    <p>Überprüfe auch die Namen der Mitarbeiter. Wer einen Account erhält, entscheidet der Stationsleiter, 
+    d. h. falls jemand in der Probezeit keine Zeiten eintragen soll, muss dieser nicht bestätigt werden.</p>
+    <p><strong>Wochenende</strong></p>
+    <p>Die Wochenendliste. Die Wochenendschichten der Festangestellten werden hier auf die Sonntage eingetragen und bis zum 5. des Folgemonats an Kehler geschickt.</p>
+  </div>
+
+  <div class="display-4" id="hilfe_zeiten">Zeiten</div>
+  <div class="readmeText"><br>
+    <p><strong>Nur für Stationsleiter</strong></p>
+    <p>Alle Zeiten von Aushilfen der Station. Diese Zeiten können gelöscht werden.</p>
+    <p>Hier sind alle wichtigen Daten zu den jeweiligen Zeiten.</p>
+    <p>Reg-Datum ist der Zeitpunkt, an dem die Zeit eingetragen wurde.</p>
+    <p>Wenn bei <strong>Beginn</strong> und <strong>Ende</strong> "nd" steht, ist die eingetragene Zeit ein Notdienst.</p> 
+  </div>
+</div>
+  
+</main>
+
+</body>
+</html>
