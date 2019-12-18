@@ -42,7 +42,7 @@ function eatabelle() {
   const sonderTabelle = [];
 
   // Abrechnungszeitrum 1
-  for (let i = 20; i <= monatsTage; i += 1) {
+  for (let i = 17; i <= monatsTage; i += 1) {
     const tempObjekt = {};
     tempObjekt.datum = `${i}.${eaMonatJahr}`;
     tempObjekt.tag = `<td>${i}.${eaMonatJahr}</td>`;
@@ -58,7 +58,7 @@ function eatabelle() {
 
   // Abrechnungszeitrum 2
   eaMonatJahr = eaDaten.ende;
-  for (let i = 1; i < 20; i += 1) {
+  for (let i = 1; i < 17; i += 1) {
     const tempObjekt = {};
     if (i < 10) {
       tempObjekt.datum = `0${i}.${eaMonatJahr}`;

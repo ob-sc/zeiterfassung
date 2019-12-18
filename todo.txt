@@ -3,7 +3,7 @@
     |  PRE RELEASE  |
     |_______________|
 
-    aushilfe ole doppelt in 70?!
+- durchschnitt ist falsch (sollte iwie 2 € unter durchschnitt statt 5000)
 
 - register: 
     if($row['num'] > 0){
