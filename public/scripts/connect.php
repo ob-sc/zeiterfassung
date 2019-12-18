@@ -21,6 +21,11 @@ if(
   die('<h4>Fehler bei Konfiguration - leer</h4>');
 }
 
+// devmode
+if ($config['settings']['devmode'] == 1) {
+  $daten['meldung'] = 'devmode';
+}
+
 try {
   $conn = new PDO('mysql:host='.$config['sql']['servername'].';dbname='.$config['sql']['dbname'].';charset=utf8mb4', $config['sql']['username'], $config['sql']['password']);
   $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);

@@ -5,6 +5,8 @@ import './cssbundle';
 
 import './general';
 
+import './cookies';
+
 import { session } from './funktionen';
 
 switch (window.location.pathname) {

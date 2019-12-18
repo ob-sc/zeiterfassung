@@ -3,14 +3,7 @@
     |  PRE RELEASE  |
     |_______________|
 
-- durchschnitt ist falsch (sollte iwie 2 € unter durchschnitt statt 5000)
-
-- register: 
-    if($row['num'] > 0){
-    die("<script type='text/javascript'>window.location.href='../register.html#exists';</script>");
-    }
-
-    mit header?
+- getconfig.php weg
 
 - aushilfen: 
     -> fehler wenn es eine aushilfen schon gibt?

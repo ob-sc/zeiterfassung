@@ -17,20 +17,21 @@ $loginerror = 'Location: ../index.html#loginerror';
 if ($user === false) {
   header($loginerror);
   exit;
-} else {
-  $validPassword = password_verify($passwordAttempt, $user['password']);
-  if ($validPassword) {
-    $_SESSION['userid'] = $user['id'];
-    $_SESSION['station'] = $user['station'];
-    $_SESSION['status'] = $user['status'];
-    $_SESSION['aktiv'] = time();
-
-    header('Location: ../eintragen/');
-    exit;
-  } else {
-    header($loginerror);
-    exit;
-  }
 }
+
+$validPassword = password_verify($passwordAttempt, $user['password']);
+
+if ($validPassword) {
+  $_SESSION['userid'] = $user['id'];
+  $_SESSION['station'] = $user['station'];
+  $_SESSION['status'] = $user['status'];
+  $_SESSION['aktiv'] = time();
+
+  header('Location: ../eintragen/');
+  exit;
+}
+
+header($loginerror);
+exit;
 
 $conn = null;
