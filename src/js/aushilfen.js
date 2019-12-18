@@ -3,6 +3,7 @@ import { getData, roundTF, fehler, info } from './funktionen';
 const sortBy = require('lodash.sortby');
 
 let ahDaten;
+let namen;
 
 // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
 function ahBearbeiten() {
@@ -154,7 +155,8 @@ $(document).ready(() => {
     e.preventDefault();
     // Check ob Aushilfe schon existiert
     const ahName = `${$('#vorn').val()} ${$('#nachn').val()}`;
-    if (ahDaten[ahName] !== undefined) {
+
+    if (namen[ahName] !== undefined) {
       fehler('Aushilfe existiert bereits!');
       return;
     }
@@ -190,6 +192,7 @@ $(document).ready(() => {
   });
 
   getData(daten => {
+    namen = daten.ahDaten;
     ahDaten = sortBy(daten.ahDaten, [o => o.nachname]);
 
     ahBearbeiten();

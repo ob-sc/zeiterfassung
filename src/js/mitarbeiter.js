@@ -102,6 +102,7 @@ $(document).ready(() => {
     station = daten.station;
 
     let maRow;
+
     maDaten.forEach(key => {
       if (key.status === 'neu') {
         maRow += `<tr class="table-danger"><td>${key.username}</td>`;
@@ -109,6 +110,12 @@ $(document).ready(() => {
         maRow += `<th class="text-center"><img src="../img/check-square-regular.svg" width="18" class="confirm" data-confirmid="${key.id}"></th>`;
         maRow += `<th class="text-center"><img src="../img/edit-regular.svg" width="18" class="edit" data-pwid="${key.id}"></th>`;
         maRow += `<th class="text-center"><img src="../img/trash-alt-regular.svg" width="18" class="delete" data-deletename="${key.username}" data-deleteid="${key.id}"></th></tr>`;
+      } else if (key.status === 'sl') {
+        maRow += `<tr><td>${key.username}</td>`;
+        maRow += '<td class="text-center">Bestätigt</td>';
+        maRow += '<td>&nbsp</td>';
+        maRow += `<th class="text-center"><img src="../img/edit-regular.svg" width="18" class="edit" data-pwid="${key.id}"></th>`;
+        maRow += `<th class="text-center hideTD">&nbsp</th></tr>`;
       } else {
         maRow += `<tr><td>${key.username}</td>`;
         maRow += '<td class="text-center">Bestätigt</td>';
