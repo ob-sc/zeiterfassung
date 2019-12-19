@@ -66,7 +66,7 @@ export const session = status => {
   // jede minute (60000) check ob session abgelaufen
   setInterval(() => {
     $.getJSON('../scripts/session.php').done(data => {
-      console.warn(`Session ${data.status}`);
+      console.warn(`Session ${data.status}, ${data.timestamp} sekunden`);
       if (data.status === 'invalid')
         window.location.href = '../index.html#expire';
     });
