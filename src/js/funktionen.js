@@ -40,7 +40,6 @@ export const session = status => {
     dataType: 'json'
   })
     .done(data => {
-      console.log(data);
       if (data.status === 'invalid')
         window.location.href = '../index.html#expire';
 
@@ -68,6 +67,12 @@ export const session = status => {
   setInterval(() => {
     $.getJSON('../scripts/session.php').done(data => {
       console.warn(`Session ${data.status}, ${data.timestamp} sekunden`);
+
+      if (data.timestamp >= 480)
+        info(
+          'Du wirst in 2 Minuten wegen Inaktivität abgemeldet. Bitte lade die Seite neu.'
+        );
+
       if (data.status === 'invalid')
         window.location.href = '../index.html#expire';
     });

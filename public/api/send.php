@@ -1,5 +1,4 @@
 <?php
-session_start();
 require '../scripts/connect.php';
 
 // Eintragen in Tabelle zeiten

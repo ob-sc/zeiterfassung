@@ -3,46 +3,35 @@
     |  PRE RELEASE  |
     |_______________|
 
+- mindestlohn per sql verändern
+
+- favicon als ico
+
+- edge auch nicht benutzen
+
+- admin alle zeiten
+    -> extra knopf
+    -> auch gbl?
+
+    ________________
+    |              |
+    | POST RELEASE |
+    |______________|
+
 - php mail versenden
     -> https://pear.php.net/package/Mail_Mime/
     -> https://wkhtmltopdf.org/
     -> mails in db hinterlegen
         -> mail von station@starcar.de an kehler
 
-- auf jeder php seite check admin oder sl
-
-- stationid statt getdata cookie
-
-- aushilfen: 
-    -> fehler wenn es eine aushilfen schon gibt?
-    -> ein array -> namen pushen -> nächster name -> gucken obs schon gibt -> pushen oder halt fehler
-
-- mindestlohn per sql verändern
-
 - filter clear zeiten
-
-- hash auf html?!?!?
-    -> erkennt dann index nicht mehr
-    -> [chunkhash] geht
 
 - wenn login für kehler
     -> wie machen wir die info "abmelden ab"
 
-- favicon als ico
-
-- modal partial in index?
-
-- devtool
-
-- edge auch nicht benutzen
-
-- admin alle zeiten
-    -> extra knopf
-
-    ________________
-    |              |
-    | POST RELEASE |
-    |______________|
+- aushilfen: 
+    -> fehler wenn es eine aushilfen schon gibt?
+    -> ein array -> namen pushen -> nächster name -> gucken obs schon gibt -> pushen oder halt fehler
 
 - warnung/fehler wenn gleiche arbeitszeit eingetragen wird (zb 1.1.2019 13 uhr bis 15 uhr und 1.1.2019 14 uhr bis 15 uhr)
     -> in vorschau?

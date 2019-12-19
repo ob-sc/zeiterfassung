@@ -1,5 +1,4 @@
 <?php
-session_start();
 require 'connect.php';
 
 $username = !empty($_POST['username']) ? trim($_POST['username']) : null;

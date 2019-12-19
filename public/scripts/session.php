@@ -9,16 +9,19 @@ $daten = [
   'stationID' => $_SESSION['station']
 ];
 
-// wenn aus js setTime kommt -> session aktiv jetzt setzen
-if (isset($_POST['setTime'])) $_SESSION['aktiv'] = time();
-
 if (!isset($_SESSION['aktiv'])) {
   $daten = [
     'status' => 'invalid',
     'userStatus' => '',
     'stationID' => ''
   ];
+
+  echo json_encode($daten);
+  exit;
 }
+
+// wenn aus js setTime kommt -> session aktiv jetzt setzen
+if (isset($_POST['setTime'])) $_SESSION['aktiv'] = time();
 
 // session zeit berechnen
 $sekInaktiv = time() - $_SESSION['aktiv'];

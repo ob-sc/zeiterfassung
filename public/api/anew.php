@@ -1,5 +1,4 @@
 <?php
-session_start();
 require '../scripts/connect.php';
 
 $sql = "INSERT INTO aushilfen (personalnr, vorname, nachname, norlohn, samlohn, sonlohn, station, status) VALUES (:personalnr, :vorname, :nachname, :norlohn, :samlohn, :sonlohn, :station, :status)";

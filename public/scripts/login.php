@@ -1,5 +1,4 @@
 <?php
-session_start();
 require 'connect.php';
 
 $username = !empty($_POST['username']) ? trim($_POST['username']) : null;
@@ -25,7 +24,6 @@ if ($validPassword) {
   $_SESSION['userid'] = $user['id'];
   $_SESSION['station'] = $user['station'];
   $_SESSION['status'] = $user['status'];
-  $_SESSION['aktiv'] = time();
 
   header('Location: ../eintragen/');
   exit;

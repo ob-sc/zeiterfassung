@@ -54,13 +54,13 @@ $(document).ready(() => {
 
   // Benutzername gibt es schon
   if (window.location.hash === '#exists') {
-    fehler('Benutzername existiert bereits!');
+    fehler('Benutzername existiert bereits.');
     window.history.replaceState(null, null, ' ');
   }
 
   // Login:
   if (window.location.hash === '#expire') {
-    fehler('Sitzung abgelaufen, bitte neu anmelden!');
+    fehler('Sitzung abgelaufen, bitte neu anmelden.');
     window.history.replaceState(null, null, ' ');
   }
 
@@ -70,14 +70,12 @@ $(document).ready(() => {
   }
 
   if (window.location.hash === '#loginerror') {
-    fehler('Benutzername / Passwort falsch!');
+    fehler('Benutzername / Passwort falsch.');
     window.history.replaceState(null, null, ' ');
   }
 
   if (window.location.hash === '#verlaufen') {
-    fehler(
-      'Wenn du dich verlaufen hast: <a href="https://maps.google.de">Hier ist Hilfe</a>'
-    );
+    fehler('Du bist nicht angemeldet.');
     window.history.replaceState(null, null, ' ');
   }
 });

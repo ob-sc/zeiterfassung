@@ -1,4 +1,6 @@
 <?php
+session_start();
+$_SESSION['aktiv'] = time();
 
 $iniFile = __DIR__ . '/../../config.ini';
 

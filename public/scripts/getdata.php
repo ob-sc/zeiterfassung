@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 require 'connect.php';
 
 // aushilfen der Station mit löhnen -> station dazu?
