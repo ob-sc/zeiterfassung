@@ -31,6 +31,7 @@ export function info(tx) {
   });
 }
 
+// session
 export const session = status => {
   $.ajax({
     url: '../scripts/session.php',
