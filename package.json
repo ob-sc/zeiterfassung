@@ -29,7 +29,6 @@
     "datatables.net": "^1.10.20",
     "datatables.net-bs4": "^1.10.20",
     "jquery": "^3.4.1",
-    "js-cookie": "^2.2.1",
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.2.11",
     "lodash.sortby": "^4.7.0",

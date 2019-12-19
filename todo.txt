@@ -3,23 +3,21 @@
     |  PRE RELEASE  |
     |_______________|
 
-- getconfig.php weg
+- php mail versenden
+    -> https://pear.php.net/package/Mail_Mime/
+    -> https://wkhtmltopdf.org/
+    -> mails in db hinterlegen
+        -> mail von station@starcar.de an kehler
+
+- auf jeder php seite check admin oder sl
+
+- stationid statt getdata cookie
 
 - aushilfen: 
     -> fehler wenn es eine aushilfen schon gibt?
     -> ein array -> namen pushen -> nächster name -> gucken obs schon gibt -> pushen oder halt fehler
 
 - mindestlohn per sql verändern
-
-- cookies mit session ablaufen
-    -> einen dauerhaften cookie mit username
-    -> https://www.phpacademy.xyz/phpmyadmin/cookie_authentication.html
-        -> mehr links suchen?!
-    -> session.php schauen, evtl damit integrieren?
-        -> cookies sollten ja auch mit php gehen
-
-- ejs templates gucken
-    -> siehe zettel
 
 - filter clear zeiten
 
@@ -34,15 +32,12 @@
 
 - modal partial in index?
 
-- webpack config umschreiben?
-    -> eine config dann wenn dev ...
+- devtool
 
-    - devtool
+- edge auch nicht benutzen
 
-    - edge auch nicht benutzen
-
-    - admin alle zeiten
-        -> extra knopf
+- admin alle zeiten
+    -> extra knopf
 
     ________________
     |              |

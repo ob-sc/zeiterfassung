@@ -13,37 +13,64 @@ getData(daten => {
 });
 */
 
-export const session = status => {
-  $.getJSON('../scripts/session.php').done(data => {
-    if (data.code !== 3) {
-      switch (data.code) {
-        case 0:
-          window.location.href = '../index.html#neu';
-          break;
-        case 1:
-          window.location.href = '../index.html#expire';
-          break;
-        case 2:
-          window.location.href = '../index.html#expire';
-          break;
-        default:
-          // eslint-disable-next-line no-console
-          console.log(data);
-          break;
-      }
-    }
-
-    if (status === 'sl')
-      if (data.userStatus !== 'admin' && data.userStatus !== 'sl')
-        window.location.href = '../index.html#verlaufen';
-
-    $(document).ready(() => {
-      if (data.userStatus === 'admin') $('#adminmenu, .slmenu').show();
-      if (data.userStatus === 'sl') $('.slmenu').show();
-
-      $('#stationSelect').val(data.stationID);
-    });
+// Fehler Alert
+export function fehler(tx) {
+  $('#fehlerText').html(tx);
+  $('#fehlerAlert').fadeIn('fast');
+  $('#fehlerClose').click(() => {
+    $('#fehlerAlert').fadeOut('fast');
   });
+}
+
+// Info Alert
+export function info(tx) {
+  $('#infoText').html(tx);
+  $('#infoAlert').fadeIn('fast');
+  $('#infoClose').click(() => {
+    $('#infoAlert').fadeOut('fast');
+  });
+}
+
+export const session = status => {
+  $.ajax({
+    url: '../scripts/session.php',
+    method: 'POST',
+    data: 'setTime',
+    dataType: 'json'
+  })
+    .done(data => {
+      console.log(data);
+      if (data.status === 'invalid')
+        window.location.href = '../index.html#expire';
+
+      if (data.userStatus === 'neu') window.location.href = '../index.html#neu';
+
+      if (status === 'sl')
+        if (data.userStatus !== 'admin' && data.userStatus !== 'sl')
+          window.location.href = '../index.html#verlaufen';
+
+      $(document).ready(() => {
+        if (data.userStatus === 'admin') $('#adminmenu, .slmenu').show();
+        if (data.userStatus === 'sl') $('.slmenu').show();
+
+        $('#stationSelect').val(data.stationID);
+      });
+    })
+    .fail(() => {
+      fehler('Fehler bei Authentifizierung! Du wirst abgemeldet.');
+      setTimeout(() => {
+        window.location.href = '../index.html';
+      }, 5000);
+    });
+
+  // jede minute (60000) check ob session abgelaufen
+  setInterval(() => {
+    $.getJSON('../scripts/session.php').done(data => {
+      console.warn(`Session ${data.status}`);
+      if (data.status === 'invalid')
+        window.location.href = '../index.html#expire';
+    });
+  }, 60000);
 };
 
 // Autocomplete, srcArray1 = normal, 2 = alle
@@ -116,24 +143,6 @@ export function createAutoComplete(id, srcArray1, srcArray2) {
       }
     });
   }
-}
-
-// Fehler Alert
-export function fehler(tx) {
-  $('#fehlerText').html(tx);
-  $('#fehlerAlert').fadeIn('fast');
-  $('#fehlerClose').click(() => {
-    $('#fehlerAlert').fadeOut('fast');
-  });
-}
-
-// Info Alert
-export function info(tx) {
-  $('#infoText').html(tx);
-  $('#infoAlert').fadeIn('fast');
-  $('#infoClose').click(() => {
-    $('#infoAlert').fadeOut('fast');
-  });
 }
 
 // moment.js duration kann man nicht auf HH:mm formatieren. Daher string aus arbeitszeit minuten:

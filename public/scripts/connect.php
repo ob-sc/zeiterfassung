@@ -2,28 +2,23 @@
 
 $iniFile = __DIR__ . '/../../config.ini';
 
-if(!file_exists($iniFile) || !is_readable($iniFile)) {
+if (!file_exists($iniFile) || !is_readable($iniFile)) {
   die('<h4>config.ini existiert nicht oder ist nicht lesbar</h4>');
 }
 
 $config = parse_ini_file($iniFile, true);
 
-if($config === false) {
+if ($config === false) {
   die('<h4>Fehler bei Konfiguration - parse</h4>');
 }
 
-if(
+if (
   $config['sql']['servername'] == ''
   || $config['sql']['username'] == ''
   || $config['sql']['password'] == ''
   || $config['sql']['dbname'] == ''
 ) {
   die('<h4>Fehler bei Konfiguration - leer</h4>');
-}
-
-// devmode
-if ($config['settings']['devmode'] == 1) {
-  $daten['meldung'] = 'devmode';
 }
 
 try {
