@@ -3,9 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './cssbundle';
 
-import './general';
-
-import { session } from './funktionen';
+import { session, datumHeute } from './funktionen';
 
 switch (window.location.pathname) {
   case '/eintragen':
@@ -60,3 +58,5 @@ switch (window.location.pathname) {
     // eslint-disable-next-line global-require
     require('./login');
 }
+
+datumHeute();

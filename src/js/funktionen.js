@@ -33,23 +33,6 @@ export function info(tx) {
   });
 }
 
-function createStationSelect(berechtigung) {
-  // in db : berechtigung
-
-  // wenn berechtigung === 0 return false
-  let selecthtml = '';
-  console.warn('start');
-  stationen.forEach((value, key) => {
-    value.region.forEach(region => {
-      if (region === berechtigung)
-        selecthtml += `<option value='${key}'>${value.name}</option>`;
-    });
-  });
-  console.warn('ende');
-
-  return selecthtml;
-}
-
 // session
 export const session = status => {
   $.ajax({
@@ -59,7 +42,6 @@ export const session = status => {
     dataType: 'json'
   })
     .done(data => {
-      console.error(data);
       // antwort = session ist abgelaufen: logout (abgelaufen)
       if (data.status === 'invalid')
         window.location.href = '../index.html#expire';
@@ -78,9 +60,18 @@ export const session = status => {
 
       // station select erstellen laut berechtigung aus php
       $(document).ready(() => {
-        const stationSelectHTML = createStationSelect(data.region);
-        $('#stationSelectContainer').show();
-        $('#stationSelect').html(stationSelectHTML);
+        if (data.region) {
+          $('#stationSelectContainer').show();
+
+          stationen.forEach((value, key) => {
+            value.region.forEach(region => {
+              if (region === data.region)
+                $('#stationSelect').append(
+                  `<option value='${key}'>${value.name}</option>`
+                );
+            });
+          });
+        }
 
         if (
           data.userStatus === 'admin' ||
@@ -90,6 +81,21 @@ export const session = status => {
           $('.slmenu').show();
 
         $('#stationSelect').val(data.stationID);
+
+        $('#stationSelect').change(e => {
+          $.ajax({
+            method: 'post',
+            url: '../api/selectStation.php',
+            data: { newStation: e.currentTarget.value }
+          })
+            .done(() => {
+              window.location.reload();
+            })
+            .fail(daten => {
+              // eslint-disable-next-line no-console
+              console.warn(daten);
+            });
+        });
       });
     })
     .fail(() => {
@@ -187,6 +193,14 @@ export function createAutoComplete(id, srcArray1, srcArray2) {
   }
 }
 
+// für jeden input Datum - automatisch Datum heute
+export function datumHeute() {
+  $(document).ready(() => {
+    const datumInput = document.getElementById('datum');
+    if (datumInput) datumInput.valueAsDate = new Date();
+  });
+}
+
 // moment.js duration kann man nicht auf HH:mm formatieren. Daher string aus arbeitszeit minuten:
 export function zuStunden(azMinuten) {
   let stunden = Math.floor(azMinuten / 60);
@@ -212,17 +226,14 @@ export function roundTF(v) {
   const twoPlaces = decimalPlaceTotal.substr(0, 2);
 
   // Prüfen auf kleiner drei Nachkommastellen
-  if (decimalPlaceTotal.length < 3) {
+  if (decimalPlaceTotal.length < 3)
     return String(`${decimal}.${twoPlaces.padEnd(2, '0')}`);
-  }
 
   // dritte Nachkommastelle zur Prüfung auf- oder abrunden
   const decider = parseInt(decimalPlaceTotal[2], 10);
 
   // prüfen, ob auf- oder abrunden
-  if (decider < 5) {
-    return String(`${decimal}.${twoPlaces}`);
-  }
+  if (decider < 5) return String(`${decimal}.${twoPlaces}`);
 
   // Prüfen ob Dezimalsprung
   if (twoPlaces === '99') {
@@ -243,9 +254,7 @@ export function roundTF(v) {
   let lastPlace = parseInt(decimalPlaceTotal[1], 10);
   lastPlace += 1;
   // prüfen ob Zehnersprung nach Aufrunden, dann zweistellig zurückgeben
-  if (lastPlace > 9) {
-    return String(`${decimal}.${lastPlace}`);
-  }
+  if (lastPlace > 9) return String(`${decimal}.${lastPlace}`);
 
   // wenn kein Zehnersprung, dann "0" und einstellig zurückgeben
   return String(`${decimal}.0${lastPlace}`);

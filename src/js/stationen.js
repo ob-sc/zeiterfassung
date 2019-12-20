@@ -1,4 +1,4 @@
-// alle = 1; nord = 2; berlin = 3; mitte = 4; hannover = 5; süd = 6; frankfurt = 7; Bußgeld = 8
+// alle = 1; nord = 2; berlin = 3; mitte = 4; hannover = 5; süd = 6; frankfurt = 7; Verwaltung = 8
 
 const stationen = new Map([
   [
@@ -208,7 +208,7 @@ const stationen = new Map([
     70,
     {
       name: 'Verwaltung',
-      region: [1]
+      region: [1, 8]
     }
   ],
   [
