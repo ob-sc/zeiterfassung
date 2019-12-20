@@ -6,7 +6,8 @@ $daten = [
   'status' => 'valid',
   'timestamp' => '',
   'userStatus' => $_SESSION['status'],
-  'stationID' => $_SESSION['station']
+  'stationID' => $_SESSION['station'],
+  'region' => $_SESSION['region']
 ];
 
 if (!isset($_SESSION['aktiv'])) {

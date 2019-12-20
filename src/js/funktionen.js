@@ -1,3 +1,5 @@
+import stationen from './stationen';
+
 const autoComplete = require('@tarekraafat/autocomplete.js/dist/js/autoComplete');
 
 // tfw keine API
@@ -31,9 +33,22 @@ export function info(tx) {
   });
 }
 
-// function createStationSelect(data, status) {
+function createStationSelect(berechtigung) {
+  // in db : berechtigung
 
-// }
+  // wenn berechtigung === 0 return false
+  let selecthtml = '';
+  console.warn('start');
+  stationen.forEach((value, key) => {
+    value.region.forEach(region => {
+      if (region === berechtigung)
+        selecthtml += `<option value='${key}'>${value.name}</option>`;
+    });
+  });
+  console.warn('ende');
+
+  return selecthtml;
+}
 
 // session
 export const session = status => {
@@ -44,19 +59,35 @@ export const session = status => {
     dataType: 'json'
   })
     .done(data => {
+      console.error(data);
+      // antwort = session ist abgelaufen: logout (abgelaufen)
       if (data.status === 'invalid')
         window.location.href = '../index.html#expire';
 
+      // antwort = status ist neu: logout (bestätigen lassen)
       if (data.userStatus === 'neu') window.location.href = '../index.html#neu';
 
+      // wenn nur sl seite benutzen darf (in index.js festgelegt) & jemand ohne berechtigung es versucht
       if (status === 'sl')
-        if (data.userStatus !== 'admin' && data.userStatus !== 'sl')
+        if (
+          data.userStatus !== 'admin' &&
+          data.userStatus !== 'sl' &&
+          data.userStatus !== 'gbl'
+        )
           window.location.href = '../index.html#verlaufen';
 
+      // station select erstellen laut berechtigung aus php
       $(document).ready(() => {
-        // nicht mehr #adminmenu
-        if (data.userStatus === 'admin') $('#adminmenu, .slmenu').show();
-        if (data.userStatus === 'sl') $('.slmenu').show();
+        const stationSelectHTML = createStationSelect(data.region);
+        $('#stationSelectContainer').show();
+        $('#stationSelect').html(stationSelectHTML);
+
+        if (
+          data.userStatus === 'admin' ||
+          data.userStatus === 'sl' ||
+          data.userStatus === 'gbl'
+        )
+          $('.slmenu').show();
 
         $('#stationSelect').val(data.stationID);
       });

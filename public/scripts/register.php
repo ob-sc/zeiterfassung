@@ -16,7 +16,8 @@ $stmt->execute(array($username));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if($row['num'] > 0){
-  header('../register.html#exists');
+  echo 'Benutzername existiert bereits';
+  $conn = null; 
   exit;
 }
 

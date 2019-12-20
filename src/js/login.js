@@ -45,18 +45,13 @@ $(document).ready(() => {
       data: $('#regForm').serialize()
     })
       .done(data => {
-        info(data);
+        if (data === 'Erfolgreich registriert') info(data);
+        else fehler(data);
       })
       .fail(data => {
         fehler(data.responseText);
       });
   });
-
-  // Benutzername gibt es schon
-  if (window.location.hash === '#exists') {
-    fehler('Benutzername existiert bereits.');
-    window.history.replaceState(null, null, ' ');
-  }
 
   // Login:
   if (window.location.hash === '#expire') {

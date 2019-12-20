@@ -13,6 +13,9 @@
     -> extra knopf
     -> auch gbl?
 
+- regex registrieren
+    -> alle @starcar.de ändern
+
     ________________
     |              |
     | POST RELEASE |

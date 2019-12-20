@@ -1,233 +1,235 @@
+// alle = 1; nord = 2; berlin = 3; mitte = 4; hannover = 5; süd = 6; frankfurt = 7; Bußgeld = 8
+
 const stationen = new Map([
   [
     10,
     {
       name: 'Hamburg-Jenfeld',
-      gebiet: 'nord'
+      region: [1, 2]
     }
   ],
   [
     11,
     {
       name: 'Hamburg-Eppendorf',
-      gebiet: 'nord'
+      region: [1, 2]
     }
   ],
   [
     12,
     {
       name: 'Hamburg-Eiffestraße',
-      gebiet: 'nord'
+      region: [1, 2]
     }
   ],
   [
     13,
     {
       name: 'Hamburg-Heimfeld',
-      gebiet: 'nord'
+      region: [1, 2]
     }
   ],
   [
     14,
     {
       name: 'Hamburg-Billstedt',
-      gebiet: 'nord'
+      region: [1, 2]
     }
   ],
   [
     15,
     {
       name: 'Hamburg-Altona',
-      gebiet: 'nord'
+      region: [1, 2]
     }
   ],
   [
     18,
     {
       name: 'Hamburg-Osdorf',
-      gebiet: 'nord'
+      region: [1, 2]
     }
   ],
   [
     19,
     {
       name: 'Hamburg-Wandsbek',
-      gebiet: 'nord'
+      region: [1, 2]
     }
   ],
   [
     20,
     {
       name: 'Berlin-Tiergarten',
-      gebiet: 'berlin'
+      region: [1, 3]
     }
   ],
   [
     21,
     {
       name: 'Berlin-Neukölln',
-      gebiet: 'berlin'
+      region: [1, 3]
     }
   ],
   [
     22,
     {
       name: 'Berlin-Pankow',
-      gebiet: 'berlin'
+      region: [1, 3]
     }
   ],
   [
     23,
     {
       name: 'Berlin-Rudow',
-      gebiet: 'berlin'
+      region: [1, 3]
     }
   ],
   [
     24,
     {
       name: 'Berlin-Spandau',
-      gebiet: 'berlin'
+      region: [1, 3]
     }
   ],
   [
     30,
     {
       name: 'Hannover',
-      gebiet: 'hannover'
+      region: [1, 5]
     }
   ],
   [
     32,
     {
       name: 'Bremen',
-      gebiet: 'nord'
+      region: [1, 2]
     }
   ],
   [
     33,
     {
       name: 'Hannover-Döhren',
-      gebiet: 'hannover'
+      region: [1, 5]
     }
   ],
   [
     36,
     {
       name: 'Braunschweig',
-      gebiet: 'nord'
+      region: [1, 2]
     }
   ],
   [
     40,
     {
       name: 'Köln-Sülz',
-      gebiet: 'mitte'
+      region: [1, 4]
     }
   ],
   [
     45,
     {
       name: 'Köln-Ehrenfeld',
-      gebiet: 'mitte'
+      region: [1, 4]
     }
   ],
   [
     46,
     {
       name: 'Köln-Porz',
-      gebiet: 'mitte'
+      region: [1, 4]
     }
   ],
   [
     47,
     {
       name: 'Köln-Dellbrück',
-      gebiet: 'mitte'
+      region: [1, 4]
     }
   ],
   [
     50,
     {
       name: 'Essen',
-      gebiet: 'mitte'
+      region: [1, 4]
     }
   ],
   [
     52,
     {
       name: 'Düsseldorf',
-      gebiet: 'mitte'
+      region: [1, 4]
     }
   ],
   [
     54,
     {
       name: 'Dortmund',
-      gebiet: 'mitte'
+      region: [1, 4]
     }
   ],
   [
     55,
     {
       name: 'Frankfurt-Ostend',
-      gebiet: 'mitte'
+      region: [1, 4]
     }
   ],
   [
     56,
     {
       name: 'Frankfurt-Griesheim',
-      gebiet: 'mitte'
+      region: [1, 4]
     }
   ],
   [
     57,
     {
       name: 'Bad Homburg',
-      gebiet: 'mitte'
+      region: [1, 4]
     }
   ],
   [
     60,
     {
       name: 'Kiel',
-      gebiet: 'nord'
+      region: [1, 2]
     }
   ],
   [
     63,
     {
       name: 'München',
-      gebiet: 'süd'
+      region: [1, 6]
     }
   ],
   [
     70,
     {
       name: 'Verwaltung',
-      gebiet: 'hv'
+      region: [1]
     }
   ],
   [
     89,
     {
       name: 'Bußgeldmanagement',
-      gebiet: 'hv'
+      region: [1, 8]
     }
   ],
   [
     113,
     {
       name: 'Harburg-Mitte',
-      gebiet: 'nord'
+      region: [1, 2]
     }
   ],
   [
     114,
     {
       name: 'Hamburg-Langenhorn',
-      gebiet: 'nord'
+      region: [1, 2]
     }
   ]
 ]);

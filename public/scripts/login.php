@@ -4,7 +4,7 @@ require 'connect.php';
 $username = !empty($_POST['username']) ? trim($_POST['username']) : null;
 $passwordAttempt = !empty($_POST['password']) ? trim($_POST['password']) : null;
 
-$sql = "SELECT id, username, password, station, status FROM benutzer WHERE username = ?";
+$sql = "SELECT id, username, password, station, status, region FROM benutzer WHERE username = ?";
 $stmt = $conn->prepare($sql);
 
 $stmt->execute(array($username));
@@ -24,6 +24,7 @@ if ($validPassword) {
   $_SESSION['userid'] = $user['id'];
   $_SESSION['station'] = $user['station'];
   $_SESSION['status'] = $user['status'];
+  $_SESSION['region'] = $user['region'];
 
   header('Location: ../eintragen/');
   exit;
