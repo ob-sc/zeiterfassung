@@ -31,6 +31,10 @@ export function info(tx) {
   });
 }
 
+// function createStationSelect(data, status) {
+
+// }
+
 // session
 export const session = status => {
   $.ajax({
@@ -50,6 +54,7 @@ export const session = status => {
           window.location.href = '../index.html#verlaufen';
 
       $(document).ready(() => {
+        // nicht mehr #adminmenu
         if (data.userStatus === 'admin') $('#adminmenu, .slmenu').show();
         if (data.userStatus === 'sl') $('.slmenu').show();
 
@@ -57,7 +62,7 @@ export const session = status => {
       });
     })
     .fail(() => {
-      fehler('Fehler bei Authentifizierung! Du wirst abgemeldet.');
+      fehler('Fehler bei der Authentifizierung! Du wirst abgemeldet.');
       setTimeout(() => {
         window.location.href = '../index.html';
       }, 5000);

@@ -5,7 +5,14 @@ import './cssbundle';
 
 import './general';
 
+import stationen from './stationen';
+
 import { session } from './funktionen';
+
+stationen.forEach((value, key) => {
+  console.warn(key);
+  console.log(value);
+});
 
 switch (window.location.pathname) {
   case '/eintragen':
