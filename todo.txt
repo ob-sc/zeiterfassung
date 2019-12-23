@@ -3,7 +3,23 @@
     |  PRE RELEASE  |
     |_______________|
 
+- Accounts:
+    -> Tim: 46 & St. Augustin 43 (neu anlegen)
+    -> Devid: 55 & 57
+    -> Griesheim löschen?
+    -> Danny Harburg?
+
+- register.html auch createselect()?
+
+- Aushilfen anmelden:
+    -> datum nur heute
+    -> beginn nicht leer
+    -> nicht doppelt anmelden (name)
+    -> ende nicht nicht leer
+
 - mindestlohn per sql verändern
+
+- readme anmelden bei eintragen
 
 - favicon als ico
 
@@ -15,6 +31,10 @@
 
 - regex registrieren
     -> alle @starcar.de ändern
+
+- Durchschnitt:
+    -> monat + jahr?
+    -> nur monat / nur jahr?
 
     ________________
     |              |

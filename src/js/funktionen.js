@@ -103,7 +103,7 @@ export const session = (status, callback) => {
         $.getJSON('../scripts/session.php').done(validity => {
           if (validity.timestamp >= 540)
             info(
-              'Du wirst in einer Minute wegen Inaktivität abgemeldet. Bitte lade die Seite neu.'
+              'Du wirst wegen Inaktivität abgemeldet. Bitte lade die Seite neu.'
             );
 
           if (validity.status === 'invalid')

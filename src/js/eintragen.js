@@ -216,7 +216,8 @@ const formBerechnung = () => {
 const angemeldetInsert = angemeldet => {
   let html = '';
   angemeldet.forEach(element => {
-    html += `<div class="angemeldetElement" data-id="${element.id}" data-name="${element.name}" data-beginn="${element.beginn}">${element.beginn} ${element.name}
+    html += `<div class="angemeldetElement" data-id="${element.id}" data-name="${element.name}" data-beginn="${element.beginn}">
+      ${element.beginn} ${element.name}
       <span class="aeDelete" data-id="${element.id}" style="display:none">&times;</span></div>`;
   });
   $('#angemeldet-container').html(html);
@@ -276,9 +277,7 @@ const anmelden = () => {
   return $.ajax({
     url: '../api/ahAnmelden.php',
     method: 'POST',
-    data: {
-      anmeldeData
-    }
+    data: { anmeldeData }
   })
     .done(data => {
       angemeldetInsert(JSON.parse(data));
