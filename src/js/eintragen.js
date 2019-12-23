@@ -1,4 +1,5 @@
 import {
+  session,
   getData,
   createAutoComplete,
   roundTF,
@@ -15,6 +16,8 @@ let alleDaten;
 const fbData = {};
 
 let notdienst = false;
+
+session('norm');
 
 window.senden = () => {
   $.ajax({

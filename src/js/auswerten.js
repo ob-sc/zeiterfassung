@@ -1,4 +1,5 @@
 import {
+  session,
   getData,
   createAutoComplete,
   roundTF,
@@ -16,6 +17,8 @@ let sonderRow = '';
 
 let eaDaten;
 let ahDaten;
+
+session('norm');
 
 // DRUCKEN
 window.drucken = () => {

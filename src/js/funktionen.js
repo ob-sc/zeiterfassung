@@ -34,7 +34,7 @@ export function info(tx) {
 }
 
 // session
-export const session = status => {
+export const session = (status, callback) => {
   $.ajax({
     url: '../scripts/session.php',
     method: 'POST',
@@ -97,6 +97,21 @@ export const session = status => {
             });
         });
       });
+
+      // jede minute (60000) check ob session abgelaufen
+      setInterval(() => {
+        $.getJSON('../scripts/session.php').done(validity => {
+          if (validity.timestamp >= 540)
+            info(
+              'Du wirst in einer Minute wegen Inaktivität abgemeldet. Bitte lade die Seite neu.'
+            );
+
+          if (validity.status === 'invalid')
+            window.location.href = '../index.html#expire';
+        });
+      }, 60000);
+
+      if (callback) callback(data);
     })
     .fail(() => {
       fehler('Fehler bei der Authentifizierung! Du wirst abgemeldet.');
@@ -104,21 +119,6 @@ export const session = status => {
         window.location.href = '../index.html';
       }, 5000);
     });
-
-  // jede minute (60000) check ob session abgelaufen
-  setInterval(() => {
-    $.getJSON('../scripts/session.php').done(data => {
-      console.warn(`Session ${data.status}, ${data.timestamp} sekunden`);
-
-      if (data.timestamp >= 480)
-        info(
-          'Du wirst in 2 Minuten wegen Inaktivität abgemeldet. Bitte lade die Seite neu.'
-        );
-
-      if (data.status === 'invalid')
-        window.location.href = '../index.html#expire';
-    });
-  }, 60000);
 };
 
 // Autocomplete, srcArray1 = normal, 2 = alle

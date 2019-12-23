@@ -1,6 +1,7 @@
 import * as JsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { getData, zuStunden, roundTF, fehler } from './funktionen';
+import { session, zuStunden, roundTF, fehler } from './funktionen';
+import stationen from './stationen';
 
 const moment = require('moment');
 const sortBy = require('lodash.sortby');
@@ -20,9 +21,10 @@ let stationid;
 
 let notdienst = false;
 
-getData(daten => {
-  station = daten.station;
-  stationid = daten.stationid;
+session('sl', data => {
+  stationid = parseInt(data.stationID, 10);
+  const stationObj = stationen.get(stationid);
+  station = stationObj.name;
 });
 
 // ABRECHNUNG PDF speichern

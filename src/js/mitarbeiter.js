@@ -1,12 +1,20 @@
 import * as JsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { getData, fehler, info } from './funktionen';
+import { session, getData, fehler, info } from './funktionen';
+
+import stationen from './stationen';
 
 const moment = require('moment');
 
 moment.locale('de');
 
 let station;
+
+session('sl', data => {
+  const stationid = parseInt(data.stationID, 10);
+  const stationObj = stationen.get(stationid);
+  station = stationObj.name;
+});
 
 // WE-Daten in Tabelle
 function weTabelle() {

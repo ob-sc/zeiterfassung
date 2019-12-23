@@ -48,11 +48,6 @@ foreach ($alleResult as $value) {
   ];
 }
 
-$stationSql = "SELECT name FROM stationen WHERE id = ?";
-
-$stmt = $conn->prepare($stationSql);
-$stmt->execute(array($_SESSION['station']));
-
 $stationResult = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $mitarbeiterSql = "SELECT id, username, status FROM benutzer WHERE station = ?";
@@ -63,8 +58,6 @@ $stmt->execute(array($_SESSION['station']));
 $maResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode([
-  'stationid' => $_SESSION['station'],
-  'station' => $stationResult['name'],
   'stationNamen' => $stationNamen,
   'ahDaten' => $ahDaten,
   'alleNamen' => $alleNamen,

@@ -5,11 +5,13 @@ import 'datatables.net-bs4/css/dataTables.bootstrap4.min.css';
 
 import './datetime-moment';
 
-import { roundTF, zuStunden, fehler } from './funktionen';
+import { session, roundTF, zuStunden, fehler } from './funktionen';
 
 const moment = require('moment');
 
 moment.locale('de');
+
+session('sl');
 
 $.fn.dataTable.ext.search.push((settings, data) => {
   const min = moment($('#min').val(), 'YYYY-MM-DD');

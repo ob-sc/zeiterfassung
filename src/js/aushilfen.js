@@ -1,9 +1,11 @@
-import { getData, roundTF, fehler, info } from './funktionen';
+import { session, getData, roundTF, fehler, info } from './funktionen';
 
 const sortBy = require('lodash.sortby');
 
 let ahDaten;
 let namen;
+
+session('sl');
 
 // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
 function ahBearbeiten() {
