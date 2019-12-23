@@ -1,4 +1,4 @@
-// alle = 1; nord = 2; berlin = 3; mitte = 4; hannover = 5; süd = 6; frankfurt = 7; Verwaltung = 8
+// alle = 1; nord = 2; berlin = 3; mitte = 4; hannover = 5; süd = 6; frankfurt = 7; Verwaltung = 8; köln 40+41 = 9;
 
 const stationen = new Map();
 
@@ -89,7 +89,12 @@ stationen.set(36, {
 
 stationen.set(40, {
   name: 'Köln-Sülz',
-  region: [1, 4]
+  region: [1, 4, 9]
+});
+
+stationen.set(41, {
+  name: 'Köln-Renault',
+  region: [1, 4, 9]
 });
 
 stationen.set(45, {

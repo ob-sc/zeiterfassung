@@ -65,3 +65,28 @@ main {
   background-color: #000 !important;
   border-color: #000 !important;
 }
+
+.angemeldetElement {
+  background-color: #000;
+  color: #fafafa;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 8px;
+}
+
+.angemeldetElement:hover {
+  cursor: pointer;
+  background-color: #fafafa;
+  color: #000;
+}
+
+.aeDelete {
+  float: right;
+  font-size: 30px;
+  line-height: 0.6;
+}
+
+.aeDelete:hover {
+  font-weight: 1000;
+}

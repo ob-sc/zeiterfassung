@@ -21,6 +21,9 @@
     | POST RELEASE |
     |______________|
 
+- kein window.location.reload mehr
+    -> entweder dom element löschen oder ajax neu
+
 - php mail versenden
     -> https://pear.php.net/package/Mail_Mime/
     -> https://wkhtmltopdf.org/

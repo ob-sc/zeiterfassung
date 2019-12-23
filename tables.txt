@@ -9,3 +9,11 @@ ALTER TABLE `wochenende` ADD `station` INT(3) NOT NULL AFTER `ausgleich`;
 fertig
 
 ALTER TABLE `benutzer` ADD `region` INT NOT NULL DEFAULT '0' AFTER `status`;
+fertig
+
+DROP TABLE `stationen`;
+fertig
+
+ALTER TABLE `angemeldet` ADD `name` TEXT NOT NULL AFTER `ahid`;
+ALTER TABLE `angemeldet` DROP `ahid`;
+fertig

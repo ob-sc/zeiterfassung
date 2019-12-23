@@ -14,8 +14,11 @@ moment.locale('de');
 let alleDaten;
 
 const fbData = {};
+const anmeldeData = {};
 
 let notdienst = false;
+
+let abmeldung;
 
 session('norm');
 
@@ -30,6 +33,20 @@ window.senden = () => {
       $('#eform')[0].reset();
       document.getElementById('datum').valueAsDate = new Date();
       $('#etext').html('');
+      if (abmeldung) {
+        $.ajax({
+          url: '../api/ahAnmelden.php',
+          method: 'POST',
+          data: { deleteid: abmeldung.dataset.id }
+        })
+          .done(() => {
+            abmeldung.remove();
+            abmeldung = false;
+          })
+          .fail(deletedata => {
+            fehler(deletedata.responseText);
+          });
+      }
     })
     .fail(data => {
       fehler(data.responseText);
@@ -38,7 +55,7 @@ window.senden = () => {
   $('#esend').hide();
 };
 
-function formBerechnung() {
+const formBerechnung = () => {
   const ausName = $('#eintragenAuto').val();
   fbData.ausName = ausName;
 
@@ -194,7 +211,82 @@ function formBerechnung() {
 
   // senden knopf zeigen
   return $('#esend').show();
-}
+};
+
+const angemeldetInsert = angemeldet => {
+  let html = '';
+  angemeldet.forEach(element => {
+    html += `<div class="angemeldetElement" data-id="${element.id}" data-name="${element.name}" data-beginn="${element.beginn}">${element.beginn} ${element.name}
+      <span class="aeDelete" data-id="${element.id}" style="display:none">&times;</span></div>`;
+  });
+  $('#angemeldet-container').html(html);
+
+  $('.angemeldetElement')
+    // eslint-disable-next-line func-names
+    .mouseenter(function() {
+      $(this)
+        .children('.aeDelete')
+        .show();
+    })
+    // eslint-disable-next-line func-names
+    .mouseleave(function() {
+      $(this)
+        .children('.aeDelete')
+        .hide();
+    });
+
+  $('.angemeldetElement').click(e => {
+    abmeldung = e.currentTarget;
+    $('#eintragenAuto').val(abmeldung.dataset.name);
+    $('#beginn').val(abmeldung.dataset.beginn);
+    $('#eintragenAuto').change(() => {
+      abmeldung = false;
+    });
+  });
+
+  $('.aeDelete').click(e => {
+    e.stopPropagation();
+    $.ajax({
+      url: '../api/ahAnmelden.php',
+      method: 'POST',
+      data: { deleteid: e.currentTarget.dataset.id }
+    })
+      .done(() => {
+        e.currentTarget.parentElement.remove();
+      })
+      .fail(data => {
+        fehler(data.responseText);
+      });
+  });
+};
+
+const anmelden = () => {
+  const ausAnmeldeName = $('#eintragenAuto').val();
+  anmeldeData.ahName = ausAnmeldeName;
+
+  // Check ob Aushilfe existiert
+  if (!alleDaten[ausAnmeldeName]) return fehler('Aushilfe nicht gefunden!');
+
+  anmeldeData.datum = $('#datum').val();
+  // wenn nicht ehute fehler {moment().format()}
+
+  const anmeldeBeginn = moment($('#beginn').val(), 'HH:mm');
+  anmeldeData.beginnForm = moment(anmeldeBeginn).format('HH:mm');
+
+  return $.ajax({
+    url: '../api/ahAnmelden.php',
+    method: 'POST',
+    data: {
+      anmeldeData
+    }
+  })
+    .done(data => {
+      angemeldetInsert(JSON.parse(data));
+    })
+    .fail(data => {
+      fehler(data.responseText);
+    });
+};
 
 $(document).ready(() => {
   $('nav li').removeClass('current');
@@ -223,6 +315,15 @@ $(document).ready(() => {
 
   $('#eform').change(() => {
     $('#esend').hide();
+  });
+
+  $('#ahAnmelden').click(() => {
+    $('#angemeldet-container').show();
+    anmelden();
+  });
+
+  $.getJSON('../api/ahAnmelden.php').done(daten => {
+    angemeldetInsert(daten);
   });
 
   getData(daten => {
