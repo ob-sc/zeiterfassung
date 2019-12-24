@@ -66,8 +66,9 @@ function abtabelle() {
   let summeAZ = 0;
   let summeGehalt = 0;
 
-  // prettier-ignore
-  titel = `${station}, ${moment($('#datum').val(), 'YYYY-MM').format('MMMM YYYY')}`;
+  titel = `${station}, ${moment($('#datum').val(), 'YYYY-MM').format(
+    'MMMM YYYY'
+  )}`;
 
   html = `<h3 style="text-align:center">Monatsabrechnung ${titel}</h3>`;
   html +=
@@ -112,8 +113,11 @@ function abtabelle() {
     summeGehalt += key.gehalt;
   });
 
-  // prettier-ignore
-  html += `<tr><td>&nbsp</td><td>&nbsp</td><th>${zuStunden(summeAZ)}</th><th>${roundTF(summeGehalt)}</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr></tbody></table>`;
+  html += `<tr><td>&nbsp</td><td>&nbsp</td><th>${zuStunden(
+    summeAZ
+  )}</th><th>${roundTF(
+    summeGehalt
+  )}</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr></tbody></table>`;
 
   // Notdienst
   ndhtml = `<div id="ndTableContainer" style="display:none"><h3 style="text-align:center">Notdienst</h3>`;

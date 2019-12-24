@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="img/favicon.png">
-<link href="css/main.30ac005f5733872a6b51.css" rel="stylesheet"><script type="text/javascript" src="js/main.c8bef9d2fc248ce987ab.js"></script></head>
+<link href="css/main.30ac005f5733872a6b51.css" rel="stylesheet"><script type="text/javascript" src="js/main.e79d0e95e4afaae735ba.js"></script></head>
 <body>
 
 <header>
@@ -32,9 +32,10 @@
   // IE CHECK
   var ua = window.navigator.userAgent;
   var isIE = /MSIE|Trident/.test(ua);
-
-  if (isIE) {
-    alert('Bitte benutze Google Chrome statt den Internet Explorer');
+  var isEdge = /Edge/.test(ua);
+  
+  if (isIE || isEdge) {
+    alert('Bitte benutze Google Chrome');
   }
 </script>
 
@@ -109,6 +110,7 @@
         <option value="24">Berlin Spandau</option>
         <option value="40">Köln Sülz</option>
         <option value="41">Köln Renault</option>
+        <option value="43">Köln St. Augustin</option>
         <option value="45">Köln Ehrenfeld</option>
         <option value="46">Köln Porz</option>
         <option value="47">Köln Dellbrück</option>
@@ -133,9 +135,9 @@
 </div>
 
 <script>
-if (isIE) {
-  document.getElementById('regForm').innerHTML =
-    '<h1>Bitte benutze Google Chrome statt den Internet Explorer</h1>';
+if (isIE || isEdge) {
+  document.getElementById('loginForm').innerHTML =
+    '<h1>Bitte benutze Google Chrome</h1>';
 }
 </script>
   

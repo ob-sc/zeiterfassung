@@ -2,9 +2,10 @@
   // IE CHECK
   var ua = window.navigator.userAgent;
   var isIE = /MSIE|Trident/.test(ua);
+  var isEdge = /Edge/.test(ua);
   
-  if (isIE) {
-    alert('Bitte benutze Google Chrome statt den Internet Explorer');
+  if (isIE || isEdge) {
+    alert('Bitte benutze Google Chrome');
   }
 </script>
 
@@ -42,8 +43,8 @@
 </div>
 
 <script>
-if (isIE) {
+if (isIE || isEdge) {
   document.getElementById('loginForm').innerHTML =
-    '<h1>Bitte benutze Google Chrome statt den Internet Explorer</h1>';
+    '<h1>Bitte benutze Google Chrome</h1>';
 }
 </script>

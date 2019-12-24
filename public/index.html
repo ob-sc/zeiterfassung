@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="img/favicon.png">
-<link href="css/main.30ac005f5733872a6b51.css" rel="stylesheet"><script type="text/javascript" src="js/main.c8bef9d2fc248ce987ab.js"></script></head>
+<link href="css/main.30ac005f5733872a6b51.css" rel="stylesheet"><script type="text/javascript" src="js/main.e79d0e95e4afaae735ba.js"></script></head>
 <body>
 
 <header>
@@ -31,9 +31,10 @@
   // IE CHECK
   var ua = window.navigator.userAgent;
   var isIE = /MSIE|Trident/.test(ua);
+  var isEdge = /Edge/.test(ua);
   
-  if (isIE) {
-    alert('Bitte benutze Google Chrome statt den Internet Explorer');
+  if (isIE || isEdge) {
+    alert('Bitte benutze Google Chrome');
   }
 </script>
 
@@ -71,9 +72,9 @@
 </div>
 
 <script>
-if (isIE) {
+if (isIE || isEdge) {
   document.getElementById('loginForm').innerHTML =
-    '<h1>Bitte benutze Google Chrome statt den Internet Explorer</h1>';
+    '<h1>Bitte benutze Google Chrome</h1>';
 }
 </script>
   

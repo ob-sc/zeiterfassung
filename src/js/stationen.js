@@ -1,4 +1,6 @@
-// alle = 1; nord = 2; berlin = 3; mitte = 4; hannover = 5; süd = 6; frankfurt = 7; Verwaltung = 8; köln 40+41 = 9;
+/*  alle = 1; nord = 2; berlin = 3; mitte = 4; hannover = 5; süd = 6; frankfurt = 7;
+ *  Verwaltung = 8; köln 40+41 = 9; köln 46+43 = 10; frankfurt 55+57 = 11;
+ */
 
 const stationen = new Map();
 
@@ -97,6 +99,11 @@ stationen.set(41, {
   region: [1, 4, 9]
 });
 
+stationen.set(43, {
+  name: 'Köln St. Augustin',
+  region: [1, 4, 10]
+});
+
 stationen.set(45, {
   name: 'Köln-Ehrenfeld',
   region: [1, 4]
@@ -104,7 +111,7 @@ stationen.set(45, {
 
 stationen.set(46, {
   name: 'Köln-Porz',
-  region: [1, 4]
+  region: [1, 4, 10]
 });
 
 stationen.set(47, {
@@ -129,7 +136,7 @@ stationen.set(54, {
 
 stationen.set(55, {
   name: 'Frankfurt-Ostend',
-  region: [1, 4]
+  region: [1, 4, 11]
 });
 
 stationen.set(56, {
@@ -139,7 +146,7 @@ stationen.set(56, {
 
 stationen.set(57, {
   name: 'Bad Homburg',
-  region: [1, 4]
+  region: [1, 4, 11]
 });
 
 stationen.set(60, {

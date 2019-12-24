@@ -189,7 +189,7 @@ const formBerechnung = () => {
         const durchschnittJSON = JSON.parse(data);
         const summe = durchschnittJSON[0].gehalt + parseFloat(fbData.gehalt);
 
-        // erechnen des durchschnitts
+        // berechnen des durchschnitts
         const durchschnitt = maxGehaltJetzt - summe;
 
         if (durchschnitt >= 0)
@@ -269,9 +269,14 @@ const anmelden = () => {
   if (!alleDaten[ausAnmeldeName]) return fehler('Aushilfe nicht gefunden!');
 
   anmeldeData.datum = $('#datum').val();
-  // wenn nicht ehute fehler {moment().format()}
+
+  if (!moment(anmeldeData.datum, 'YYYY-MM-DD').isSame(moment(), 'day'))
+    return fehler('Datum ist nicht heute.');
 
   const anmeldeBeginn = moment($('#beginn').val(), 'HH:mm');
+
+  if (anmeldeBeginn.isValid() === false) return fehler('Beginn ist ungültig.');
+
   anmeldeData.beginnForm = moment(anmeldeBeginn).format('HH:mm');
 
   return $.ajax({
