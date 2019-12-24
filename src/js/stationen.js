@@ -1,5 +1,5 @@
 /*  alle = 1; nord = 2; berlin = 3; mitte = 4; hannover = 5; süd = 6; frankfurt = 7;
- *  Verwaltung = 8; köln 40+41 = 9; köln 46+43 = 10; frankfurt 55+57 = 11;
+ *  Verwaltung = 8; köln 40+41 = 9; köln 46+43 = 10; frankfurt 55+57 = 11; harburg 13+113 = 12;
  */
 
 const stationen = new Map();
@@ -21,7 +21,7 @@ stationen.set(12, {
 
 stationen.set(13, {
   name: 'Hamburg-Heimfeld',
-  region: [1, 2]
+  region: [1, 2, 12]
 });
 
 stationen.set(14, {
@@ -171,7 +171,7 @@ stationen.set(89, {
 
 stationen.set(113, {
   name: 'Harburg-Mitte',
-  region: [1, 2]
+  region: [1, 2, 12]
 });
 
 stationen.set(114, {
