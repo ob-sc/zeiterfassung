@@ -139,11 +139,6 @@ stationen.set(55, {
   region: [1, 4, 11]
 });
 
-stationen.set(56, {
-  name: 'Frankfurt-Griesheim',
-  region: [1, 4]
-});
-
 stationen.set(57, {
   name: 'Bad Homburg',
   region: [1, 4, 11]

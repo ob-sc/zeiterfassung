@@ -6,7 +6,6 @@
 - Accounts:
     -> Devid: 55 & 57
         -> Griesheim löschen?
-    -> Danny Harburg?
 
 - register.html auch createselect()?
 
@@ -26,7 +25,6 @@
 - Durchschnitt:
     -> monat + jahr?
     -> nur monat / nur jahr?
-
     ________________
     |              |
     | POST RELEASE |

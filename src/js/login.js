@@ -1,6 +1,11 @@
 import { fehler, info } from './funktionen';
+import stationen from './stationen';
 
 $(document).ready(() => {
+  stationen.forEach((value, key) => {
+    $('#station').append(`<option value='${key}'>${value.name}</option>`);
+  });
+
   $('#regForm').submit(e => {
     e.preventDefault();
 
@@ -8,38 +13,28 @@ $(document).ready(() => {
     $('#pwGleich').hide();
     $('#fehlerAlert').hide();
 
-    const name = $('#username').val();
+    const name = $('#username')
+      .val()
+      .toLowerCase();
     const pw1 = $('#password1').val();
     const pw2 = $('#password2').val();
 
     // check länge und ob passwörter gleich sind
-    if (pw1.length < 6) {
-      $('#pwLaenge').show();
-      return;
-    }
-    if (pw1 !== pw2) {
-      $('#pwGleich').show();
-      return;
-    }
+    if (pw1.length < 6) return $('#pwLaenge').show();
+
+    if (pw1 !== pw2) return $('#pwGleich').show();
 
     // check ob leer
-    if ($.trim(name) === '') {
-      fehler('Benutzername ist leer!');
-      return;
-    }
+    if ($.trim(name) === '') return fehler('Benutzername ist leer!');
 
-    /* TODO REGEX https://eloquentjavascript.net/09_regexp.html
-        // check ob nur kleinbuchstaben und .
-        let erlaubt = /^[a-z\.]/;
-        //let nameLowercase = name.toLowerCase();
-        if (erlaubt.test(name)) {
-            console.log('nicht ' + erlaubt.test(name));
-            return;
-        }
-        console.log('ok ' + erlaubt.test(name));
-        */
+    // regex ob @starcar.de im name ist
+    if (/@starcar\.de/.test(name))
+      return fehler('Bitte lass <strong>@starcar.de</strong> weg.');
 
-    $.ajax({
+    // regex ob ein character enthalten ist, der nicht a-z oder . ist
+    if (/[^a-z.]/.test(name)) return fehler('Ungültiger Buchstabe / Zeichen');
+
+    return $.ajax({
       url: '../scripts/register.php',
       method: 'POST',
       data: $('#regForm').serialize()
