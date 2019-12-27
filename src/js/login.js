@@ -25,10 +25,16 @@ $(document).ready(() => {
     })
       .done(data => {
         const loginRes = JSON.parse(data);
-        if (loginRes.valid === false) fehler('Benutzername / Passwort falsch.');
+        if (loginRes.valid === false)
+          return fehler('Benutzername / Passwort falsch.');
         if (loginRes.status === 'neu')
-          fehler('Lass deinen Account von deinem Stationsleiter bestätigen.');
+          return fehler(
+            'Lass deinen Account von deinem Stationsleiter bestätigen.'
+          );
         if (loginRes.valid === true) window.location.href = '../eintragen';
+        return setTimeout(() => {
+          fehler('Loginfehler. Bitte versuche es erneut!');
+        }, 8000);
       })
       .fail(data => {
         fehler(data.responseText);
