@@ -215,14 +215,30 @@ const formBerechnung = () => {
 
 const angemeldetInsert = angemeldet => {
   let html = '';
+  let vergHTML = '';
   angemeldet.forEach(element => {
-    html += `<div class="angemeldetElement" data-id="${element.id}" data-name="${element.name}" data-beginn="${element.beginn}">
+    if (moment(element.datum, 'YYYY-MM-DD').isSame(moment(), 'day')) {
+      html += `<div class="angemeldetElement" data-id="${element.id}" data-name="${element.name}" data-beginn="${element.beginn}">
       ${element.beginn} ${element.name}
-      <span class="aeDelete" data-id="${element.id}" style="display:none">&times;</span></div>`;
+      <div class="aeDelete" data-id="${element.id}" style="display:none">&times;</div></div>`;
+    } else {
+      vergHTML += `<div class="angemeldetElementVergangen" data-id="${
+        element.id
+      }" data-name="${element.name}" data-beginn="${
+        element.beginn
+      }" data-datum="${element.datum}">
+      ${moment(element.datum, 'YYYY-MM-DD').format('DD.MM.YYYY')}, ${
+        element.beginn
+      } ${element.name}
+      <span class="aeDelete" data-id="${
+        element.id
+      }" style="display:none">&times;</span></div>`;
+    }
   });
+  html += vergHTML;
   $('#angemeldet-container').html(html);
 
-  $('.angemeldetElement')
+  $('.angemeldetElement, .angemeldetElementVergangen')
     // eslint-disable-next-line func-names
     .mouseenter(function() {
       $(this)
@@ -236,10 +252,11 @@ const angemeldetInsert = angemeldet => {
         .hide();
     });
 
-  $('.angemeldetElement').click(e => {
+  $('.angemeldetElement, .angemeldetElementVergangen').click(e => {
     abmeldung = e.currentTarget;
     $('#eintragenAuto').val(abmeldung.dataset.name);
     $('#beginn').val(abmeldung.dataset.beginn);
+    if (abmeldung.dataset.datum) $('#datum').val(abmeldung.dataset.datum);
     $('#eintragenAuto').change(() => {
       abmeldung = false;
     });

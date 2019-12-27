@@ -67,6 +67,7 @@ main {
 }
 
 .angemeldetElement {
+  position: relative;
   background-color: #000;
   color: #fafafa;
   border: 1px solid #000;
@@ -75,16 +76,29 @@ main {
   margin-bottom: 8px;
 }
 
-.angemeldetElement:hover {
+.angemeldetElementVergangen {
+  position: relative;
+  background-color: #7a0000;
+  color: #fafafa;
+  border: 1px solid #7a0000;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 8px;
+}
+
+.angemeldetElement:hover,
+.angemeldetElementVergangen:hover {
   cursor: pointer;
   background-color: #fafafa;
   color: #000;
 }
 
 .aeDelete {
-  float: right;
+  position: absolute;
+  top: 14px;
+  right: 2px;
   font-size: 30px;
-  line-height: 0.6;
+  line-height: 0;
 }
 
 .aeDelete:hover {

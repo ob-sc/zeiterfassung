@@ -22,7 +22,7 @@ if (isset($_POST['deleteid'])) {
   $stmt->execute(array($_POST['deleteid']));
 }
 
-$angemeldetSQL = "SELECT id, name, datum, beginn FROM angemeldet WHERE station = ? AND datum = CURDATE()"; 
+$angemeldetSQL = "SELECT id, name, datum, beginn FROM angemeldet WHERE station = ?"; 
 
 $stmt = $conn->prepare($angemeldetSQL);
 
