@@ -6,6 +6,35 @@ $(document).ready(() => {
     $('#station').append(`<option value='${key}'>${value.name}</option>`);
   });
 
+  $('#loginForm').submit(e => {
+    e.preventDefault();
+
+    const name = $('#username').val();
+
+    const lowercaseName = name.toLowerCase();
+
+    const noSCName = lowercaseName.replace(/@starcar\.de/, '');
+
+    $.ajax({
+      url: '../scripts/login.php',
+      method: 'POST',
+      data: {
+        username: noSCName,
+        password: $('#password').val()
+      }
+    })
+      .done(data => {
+        const loginRes = JSON.parse(data);
+        if (loginRes.valid === false) fehler('Benutzername / Passwort falsch.');
+        if (loginRes.status === 'neu')
+          fehler('Lass deinen Account von deinem Stationsleiter bestätigen.');
+        if (loginRes.valid === true) window.location.href = '../eintragen';
+      })
+      .fail(data => {
+        fehler(data.responseText);
+      });
+  });
+
   $('#regForm').submit(e => {
     e.preventDefault();
 
@@ -56,11 +85,6 @@ $(document).ready(() => {
 
   if (window.location.hash === '#neu') {
     fehler('Lass deinen Account von deinem Stationsleiter bestätigen.');
-    window.history.replaceState(null, null, ' ');
-  }
-
-  if (window.location.hash === '#loginerror') {
-    fehler('Benutzername / Passwort falsch.');
     window.history.replaceState(null, null, ' ');
   }
 

@@ -10,7 +10,7 @@
 </script>
 
 <div class="container m-4" id="loginForm">
-  <form action="scripts/login.php" method="post">
+  <form>
     <div class="form-group col-md-4">
       <label for="username" class="m-1">Benutzername:</label>
       <input
@@ -19,6 +19,7 @@
         placeholder="Benutzername"
         name="username"
         autocomplete="off"
+        id="username"
         required
       />
     </div>
@@ -29,6 +30,7 @@
         class="form-control m-1"
         placeholder="Passwort"
         name="password"
+        id="password"
         required
       />
     </div>

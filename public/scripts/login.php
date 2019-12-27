@@ -1,6 +1,11 @@
 <?php
 require 'connect.php';
 
+$daten = [
+  'valid' => false,
+  'status' => ''
+];
+
 $username = !empty($_POST['username']) ? trim($_POST['username']) : null;
 $passwordAttempt = !empty($_POST['password']) ? trim($_POST['password']) : null;
 
@@ -11,13 +16,6 @@ $stmt->execute(array($username));
 
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$loginerror = 'Location: ../index.html#loginerror';
-
-if ($user === false) {
-  header($loginerror);
-  exit;
-}
-
 $validPassword = password_verify($passwordAttempt, $user['password']);
 
 if ($validPassword) {
@@ -26,11 +24,10 @@ if ($validPassword) {
   $_SESSION['status'] = $user['status'];
   $_SESSION['region'] = $user['region'];
 
-  header('Location: ../eintragen/');
-  exit;
+  $daten['valid'] = true;
+  $daten['status'] = $user['status'];
 }
 
-header($loginerror);
-exit;
+echo json_encode($daten);
 
 $conn = null;

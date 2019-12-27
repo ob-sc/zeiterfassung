@@ -19,12 +19,12 @@
     -> extra knopf
     -> auch gbl?
 
-- regex registrieren
-    -> alle @starcar.de ändern
-
 - Durchschnitt:
     -> monat + jahr?
     -> nur monat / nur jahr?
+
+- Angemeldet -> nicht nur aktueller tag sondern alle
+    -> wenn tag nicht heute: mit datum anzeigen
     ________________
     |              |
     | POST RELEASE |
