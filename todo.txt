@@ -1,17 +1,16 @@
     _________________
     |               |
-    |  PRE RELEASE  |
+    |    ISSUES     |
     |_______________|
 
-- Accounts:
-    -> Devid: 55 & 57
-        -> Griesheim löschen?
-
-- register.html auch createselect()?
-
-- mindestlohn per sql verändern
-    -> UPDATE `aushilfen` SET `norlohn`= 9.35 WHERE `norlohn` < 9.35
-    -> auch in aushilfen anlegen
+- Durchschnitt:
+    -> Moment objekt zieht 1 Jahr ab?
+        -> entweder auf fix warten oder umgehen
+    -> aktuell einfach rausgenommen
+    ________________
+    |              |
+    |     TODO     |
+    |______________|
 
 - favicon als ico
 
@@ -25,10 +24,6 @@
 
 - Angemeldet -> nicht nur aktueller tag sondern alle
     -> wenn tag nicht heute: mit datum anzeigen
-    ________________
-    |              |
-    | POST RELEASE |
-    |______________|
 
 - kein window.location.reload mehr
     -> entweder dom element löschen oder ajax neu

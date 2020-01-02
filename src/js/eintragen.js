@@ -143,8 +143,13 @@ const formBerechnung = () => {
   }
 
   // durchschnitt
+  /* raus weil yok, siehe todo
   if (alleDaten[ausName].ahStatus === '450') {
-    const jetzt = moment();
+    const heute = new Date();
+    const jetzt = moment(heute);
+
+    console.log(jetzt.format('DD.MM.YYYY'));
+    console.log(heute);
 
     const jahr = jetzt;
 
@@ -155,7 +160,8 @@ const formBerechnung = () => {
     );
 
     // wenn heute schon im neuen Abrechnungszeitraum ist (Januar Folgejahr) also nach letzterTagAktuell
-    if (jetzt.isAfter(letzterTagAktuell)) jahr.add(1, 'years');
+    if (jetzt.isAfter(moment(letzterTagAktuell, 'YYYY-MM-DD')))
+      jahr.add(1, 'years');
 
     // letzter tag im abrechnungszeitraum
     const letzterTag = moment(`${jahr.format('YYYY')}-12-16`, 'YYYY-MM-DD');
@@ -168,12 +174,17 @@ const formBerechnung = () => {
 
     // gesamt tage im jahr
     const ganzesJahrTage = letzterTag.diff(ersterTag, 'days');
+    console.log(ersterTag);
+    console.log(jetzt);
+    console.log(ganzesJahrTage);
 
     // so viele tage im Abrechnungszeitraum schon vergangen
-    const tageVergangen = jetzt.diff(ersterTag, 'days');
+    const tageVergangen = jetzt.diff(moment(ersterTag, 'YYYY-MM-DD'), 'days');
+    console.log(tageVergangen);
 
     // max gehalt im gesamten jahr
     const maxGehaltJetzt = (5400 / ganzesJahrTage) * tageVergangen;
+    console.log(maxGehaltJetzt);
 
     $.ajax({
       url: '../api/emedian.php',
@@ -208,6 +219,7 @@ const formBerechnung = () => {
         fehler(data.responseText);
       });
   }
+  */
 
   // senden knopf zeigen
   return $('#esend').show();
