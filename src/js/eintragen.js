@@ -146,7 +146,28 @@ const formBerechnung = () => {
   if (alleDaten[ausName].ahStatus === '450') {
     const jetzt = moment();
 
-    const jahr = jetzt;
+    // erster tag im aktuellen Abrechnungszeitraum
+    const tag = jetzt.format('DD');
+
+    let ersterTagZeitraum = '';
+
+    // wenn tag größer ist als 16, der monat also vor dem abrechnungszeitraumsmonat ist
+    if (tag > 16)
+      ersterTagZeitraum = `${jetzt.format('YYYY')}-${jetzt.format('MM')}-17`;
+
+    // wenn tag kleiner ist als 16, der monat also im abrechnungszeitraumsmonat ist
+    if (tag <= 16)
+      ersterTagZeitraum = `${jetzt.format('YYYY')}-${moment()
+        .subtract(1, 'months')
+        .format('MM')}-17`;
+
+    // wenn tag kleiner ist als 16, der monat also im abrechnungszeitraumsmonat ist und der monat januar ist, dann also dezember wird
+    if (tag <= 16 && moment().format('MM') === '01')
+      ersterTagZeitraum = `${moment()
+        .subtract(1, 'years')
+        .format('YYYY')}-${moment()
+        .subtract(1, 'months')
+        .format('MM')}-17`;
 
     // letzter tag im abrechnungszeitraum des aktuellen jahres
     const letzterTagAktuell = moment(
@@ -156,13 +177,18 @@ const formBerechnung = () => {
 
     // wenn heute schon im neuen Abrechnungszeitraum ist (Januar Folgejahr) also nach letzterTagAktuell
     if (jetzt.isAfter(moment(letzterTagAktuell, 'YYYY-MM-DD')))
-      jahr.add(1, 'years');
+      jetzt.add(1, 'years');
 
     // letzter tag im abrechnungszeitraum
-    const letzterTag = moment(`${jahr.format('YYYY')}-12-16`, 'YYYY-MM-DD');
+    const letzterTag = moment(`${jetzt.format('YYYY')}-12-16`, 'YYYY-MM-DD');
 
     // erster tag im abrechnungszeitraum
-    const ersterTag = moment(`${jahr.format('YYYY') - 1}-12-17`, 'YYYY-MM-DD');
+    const ersterTag = moment(
+      `${moment()
+        .subtract(1, 'years')
+        .format('YYYY')}-12-17`,
+      'YYYY-MM-DD'
+    );
 
     // gesamt tage im jahr
     const ganzesJahrTage = letzterTag.diff(ersterTag, 'days');
@@ -177,31 +203,55 @@ const formBerechnung = () => {
       url: '../api/emedian.php',
       method: 'POST',
       data: {
+        ersterTagZeitraum,
         ersterTag: ersterTag.format('YYYY-MM-DD'),
         letzterTag: letzterTag.format('YYYY-MM-DD'),
         id: fbData.aushilfenId
       }
     })
       .done(data => {
-        // gehalt dieses Jahr (summe)
         const durchschnittJSON = JSON.parse(data);
-        const summe = durchschnittJSON[0].gehalt + parseFloat(fbData.gehalt);
 
-        // berechnen des durchschnitts
-        const durchschnitt = maxGehaltJetzt - summe;
+        // gehalt dieser monat
+        const summeMonat =
+          parseFloat(roundTF(durchschnittJSON.monat)) +
+          parseFloat(fbData.gehalt);
 
-        if (durchschnitt >= 0)
+        // gehalt dieses Jahr
+        const summe =
+          parseFloat(roundTF(durchschnittJSON.jahr)) +
+          parseFloat(fbData.gehalt);
+
+        if (summeMonat < 450)
           $('#etext').append(
-            `<p><strong>${roundTF(
-              durchschnitt
-            )}€</strong style="font-size: 0.8em"> unter Jahresdurchschnitt</p>`
+            `<p><strong>Monat:</strong> ${summeMonat}€ (noch ${450 -
+              summeMonat}€)</p>`
           );
-        else
+
+        if (summeMonat === 450)
+          $('#etext').append(`<p><strong>Monat:</strong> ${summeMonat}€</p>`);
+
+        if (summeMonat > 450) {
           $('#etext').append(
-            `<p><strong style="color:#c90000;font-size: 0.8em">${roundTF(
-              durchschnitt
-            ) * -1}€ über Jahresdurchschnitt</strong></p>`
+            `<p><strong>Monat:</strong> ${summeMonat}€ (${summeMonat -
+              450}€ zu viel)</p>`
           );
+
+          // berechnen des jahres durchschnitts
+          const durchschnitt = maxGehaltJetzt - summe;
+          if (durchschnitt >= 0)
+            $('#etext').append(
+              `<p><strong>${roundTF(
+                durchschnitt
+              )}€</strong style="font-size: 0.8em"> unter Jahresdurchschnitt</p>`
+            );
+          else
+            $('#etext').append(
+              `<p><strong style="color:#c90000;font-size: 0.8em">${roundTF(
+                durchschnitt
+              ) * -1}€ über Jahresdurchschnitt</strong></p>`
+            );
+        }
       })
       .fail(data => {
         fehler(data.responseText);

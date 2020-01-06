@@ -3,24 +3,25 @@
     |    ISSUES     |
     |_______________|
     
+- Urlaubsberechnung ist nicht beginn abrechnungszeitraum sondern beginn jahr
 
+- auswerten langsam?
     ________________
     |              |
     |     TODO     |
     |______________|
+
+- bei eintragen:
+    -> schon angemeldet heute (bei anmelden)
+    -> schon zeit heute ( bei eintragen)
+
+-> allg gucken obs probleme beim jahreswechsel gibt?
 
 - favicon als ico
 
 - admin alle zeiten
     -> extra knopf
     -> auch gbl?
-
-- Durchschnitt:
-    -> monat + jahr?
-    -> nur monat / nur jahr?
-
-- Angemeldet -> nicht nur aktueller tag sondern alle
-    -> wenn tag nicht heute: mit datum anzeigen
 
 - kein window.location.reload mehr
     -> entweder dom element löschen oder ajax neu
