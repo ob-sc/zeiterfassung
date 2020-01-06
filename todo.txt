@@ -2,14 +2,8 @@
     |               |
     |    ISSUES     |
     |_______________|
+    
 
-- Durchschnitt:
-    -> Moment objekt zieht 1 Jahr ab?
-        -> entweder auf fix warten oder umgehen
-    -> aktuell einfach rausgenommen
-
-- Angemeldete Aushilfen eintragen
-    -> Datum wird nicht eingetragen
     ________________
     |              |
     |     TODO     |

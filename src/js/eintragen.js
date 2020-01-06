@@ -217,7 +217,8 @@ const angemeldetInsert = angemeldet => {
   let vergHTML = '';
   angemeldet.forEach(element => {
     if (moment(element.datum, 'YYYY-MM-DD').isSame(moment(), 'day')) {
-      html += `<div class="angemeldetElement" data-id="${element.id}" data-name="${element.name}" data-beginn="${element.beginn}">
+      html += `<div class="angemeldetElement" data-id="${element.id}" data-name="${element.name}" 
+      data-beginn="${element.beginn}" data-datum="${element.datum}">
       ${element.beginn} ${element.name}
       <div class="aeDelete" data-id="${element.id}" style="display:none">&times;</div></div>`;
     } else {
