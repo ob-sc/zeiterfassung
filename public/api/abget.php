@@ -81,11 +81,6 @@ foreach ($fremdDaten as $value) {
 	}
 }
 
-
-// Zeitraum für urlaub -> anfang des jahres bis ende / nur stations-aushilfen
-$firstDay = new DateTime('first day of january '.$_POST['monat']);
-$lastDay = new DateTime('last day of december '.$_POST['monat']);
-
 // alle arbeitstage im ausgewählten kompletten jahr / auch in anderer Station
 $urlaubSql = 
 "SELECT ahid, COUNT(DISTINCT datum) AS urlaub 
@@ -95,8 +90,8 @@ GROUP BY ahid";
 
 $stmt = $conn->prepare($urlaubSql);
 
-$stmt->bindValue(':beginnDate', $firstDay->format('Y-m-d'));
-$stmt->bindValue(':endDate', $lastDay->format('Y-m-d'));
+$stmt->bindValue(':beginnDate', $beginnDate->format('Y-m-d'));
+$stmt->bindValue(':endDate', $endDate->format('Y-m-d'));
 $stmt->bindValue(':station', $_SESSION['station']);
 $stmt->execute();
 

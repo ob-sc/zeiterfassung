@@ -2,8 +2,6 @@
     |               |
     |    ISSUES     |
     |_______________|
-    
-- Urlaubsberechnung ist nicht beginn abrechnungszeitraum sondern beginn jahr
 
 - auswerten langsam?
     ________________
