@@ -232,9 +232,11 @@ const formBerechnung = () => {
           $('#etext').append(`<p><strong>Monat:</strong> ${summeMonat}€</p>`);
 
         if (summeMonat > 450) {
+          const rtfBugfix = summeMonat - 450;
           $('#etext').append(
-            `<p><strong>Monat:</strong> ${summeMonat}€ (${summeMonat -
-              450}€ zu viel)</p>`
+            `<p><strong>Monat:</strong> ${summeMonat}€ (${roundTF(
+              rtfBugfix
+            )}€ zu viel)</p>`
           );
 
           // berechnen des jahres durchschnitts

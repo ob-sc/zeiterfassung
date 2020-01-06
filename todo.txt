@@ -4,6 +4,27 @@
     |_______________|
 
 - auswerten langsam?
+
+- fehler: 
+Name: Jannes Holborn
+
+Datum: 06.01.2020
+
+Wochentag: Montag
+
+Beginn: 13:00
+
+Ende: 15:12
+
+Arbeitszeit: 02:12
+
+Gehalt: 20.57€
+
+Monat: 479.87€ (29.870000000000005€ zu viel)
+
+183.98€ über Jahresdurchschnitt
+
+
     ________________
     |              |
     |     TODO     |
@@ -11,7 +32,7 @@
 
 - bei eintragen:
     -> schon angemeldet heute (bei anmelden)
-    -> schon zeit heute ( bei eintragen)
+    -> schon zeit heute (bei eintragen)
 
 -> allg gucken obs probleme beim jahreswechsel gibt?
 
