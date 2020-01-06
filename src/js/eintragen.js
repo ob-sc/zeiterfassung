@@ -143,13 +143,8 @@ const formBerechnung = () => {
   }
 
   // durchschnitt
-  /* raus weil yok, siehe todo
   if (alleDaten[ausName].ahStatus === '450') {
-    const heute = new Date();
-    const jetzt = moment(heute);
-
-    console.log(jetzt.format('DD.MM.YYYY'));
-    console.log(heute);
+    const jetzt = moment();
 
     const jahr = jetzt;
 
@@ -167,24 +162,16 @@ const formBerechnung = () => {
     const letzterTag = moment(`${jahr.format('YYYY')}-12-16`, 'YYYY-MM-DD');
 
     // erster tag im abrechnungszeitraum
-    const ersterTag = moment(
-      `${jahr.subtract(1, 'years').format('YYYY')}-12-17`,
-      'YYYY-MM-DD'
-    );
+    const ersterTag = moment(`${jahr.format('YYYY') - 1}-12-17`, 'YYYY-MM-DD');
 
     // gesamt tage im jahr
     const ganzesJahrTage = letzterTag.diff(ersterTag, 'days');
-    console.log(ersterTag);
-    console.log(jetzt);
-    console.log(ganzesJahrTage);
 
     // so viele tage im Abrechnungszeitraum schon vergangen
     const tageVergangen = jetzt.diff(moment(ersterTag, 'YYYY-MM-DD'), 'days');
-    console.log(tageVergangen);
 
     // max gehalt im gesamten jahr
     const maxGehaltJetzt = (5400 / ganzesJahrTage) * tageVergangen;
-    console.log(maxGehaltJetzt);
 
     $.ajax({
       url: '../api/emedian.php',
@@ -207,19 +194,19 @@ const formBerechnung = () => {
           $('#etext').append(
             `<p><strong>${roundTF(
               durchschnitt
-            )}€</strong> unter dem Durchschnitt</p>`
+            )}€</strong style="font-size: 0.8em"> unter Jahresdurchschnitt</p>`
           );
         else
           $('#etext').append(
-            `<p><strong style="color:#c90000">${roundTF(durchschnitt) *
-              -1}€ über dem Durchschnitt</strong></p>`
+            `<p><strong style="color:#c90000;font-size: 0.8em">${roundTF(
+              durchschnitt
+            ) * -1}€ über Jahresdurchschnitt</strong></p>`
           );
       })
       .fail(data => {
         fehler(data.responseText);
       });
   }
-  */
 
   // senden knopf zeigen
   return $('#esend').show();
