@@ -29,6 +29,7 @@ session('sl', data => {
 
 // ABRECHNUNG PDF speichern
 window.printpdf = () => {
+  const timestamp = moment().format('DD.MM.YYYY HH:mm');
   $('#abrechnungTable')
     .find('td.abmelden')
     // eslint-disable-next-line func-names
@@ -43,6 +44,7 @@ window.printpdf = () => {
     styles: { lineWidth: 0.1 },
     didDrawPage: () => {
       doc.text(titel, 14, 10);
+      doc.text(timestamp, 150, 10);
     }
   });
   if (notdienst) {
