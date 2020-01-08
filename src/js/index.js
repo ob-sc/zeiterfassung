@@ -48,6 +48,12 @@ switch (window.location.pathname) {
     // eslint-disable-next-line global-require
     session('norm');
     break;
+  case '/kehler':
+  case '/kehler/':
+  case '/kehler/index.html':
+    // eslint-disable-next-line global-require
+    require('./kehler');
+    break;
   default:
     // eslint-disable-next-line global-require
     require('./login');

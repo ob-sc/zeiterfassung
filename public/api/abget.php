@@ -126,12 +126,15 @@ $ndDaten = [];
 foreach($aushilfen as $entry) {
 	$daten[] = $entry;
 }
+unset($entry);
 foreach($fremdDaten as $entry) {
 	$daten[] = $entry;
 }
+unset($entry);
 foreach($ndAushilfen as $entry) {
 	$ndDaten[] = $entry;
 }
+unset($entry);
 
 echo json_encode([
 	'daten' => $daten,

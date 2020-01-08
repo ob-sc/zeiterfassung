@@ -50,8 +50,6 @@
 - wie wird förster jetzt informiert?
     -> ich kann ihm einen account machen auf dem alle notdienste angezeigt werden
 
-https://stackoverflow.com/questions/52013133/entrypoint-undefined-index-html-using-htmlwebpackplugin/57123167#57123167
-
 - knöpfe gleiche größe
     -> besonders aushilfen löschen modal
 

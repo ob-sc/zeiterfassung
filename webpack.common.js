@@ -42,6 +42,11 @@ module.exports = {
     new HtmlWebpackPlugin(hwp('aushilfen')),
     new HtmlWebpackPlugin(hwp('zeiten')),
     new HtmlWebpackPlugin(hwp('mitarbeiter')),
-    new HtmlWebpackPlugin(hwp('readme'))
+    new HtmlWebpackPlugin(hwp('readme')),
+    new HtmlWebpackPlugin({
+      filename: 'kehler/index.html',
+      template: './src/hbs/partials/seiten/kehler.hbs',
+      inject: 'body'
+    })
   ]
 };
