@@ -1,6 +1,6 @@
 import XLSX from 'xlsx';
 
-import { session, fehler } from './funktionen';
+import { session, fehler, roundTF, zuStunden } from './funktionen';
 import stationen from './stationen';
 
 const moment = require('moment');
@@ -19,9 +19,6 @@ indexEntfernen.forEach(element => {
   stationMap.delete(element);
 });
 
-console.log(stationMap);
-console.warn(stationMap.get(11));
-
 // Array mit allen gewünschten Stationnummern
 const stationNummern = Array.from(stationMap.keys());
 
@@ -38,21 +35,111 @@ $.ajax({
   data: { statID: stationNummern }
 })
   .done(data => {
-    console.log(data);
-    let wsName = '';
-
+    // Loop durch alle Stationsergebnisse
     Object.entries(data).forEach(([key, val]) => {
-      const stationMapObj = stationMap.get(key);
-      console.log(stationMapObj);
-      console.error(key);
-      wsName = `${key} ${stationMapObj.name}`;
-      console.log(wsName);
-      console.log(key); // the name of the current key.
-      console.log(val); // the value of the current key.
-    });
+      const wsData = [];
+      // Worksheet name aus stationMap
+      const stationMapObj = stationMap.get(parseInt(key, 10));
+      const wsName = `${key} ${stationMapObj.name}`;
 
-    const ws = XLSX.utils.aoa_to_sheet(wsData);
-    XLSX.utils.book_append_sheet(wb, ws, wsName);
+      const wscols = [
+        { wpx: 40 },
+        { wpx: 125 },
+        { wpx: 125 },
+        { wpx: 50 },
+        { wpx: 50 },
+        { wpx: 50 },
+        { wpx: 50 },
+        { wpx: 50 }
+      ];
+
+      // Obere Reihe
+      wsData.push([
+        'PN',
+        'Nachname',
+        'Vorname',
+        'AZ',
+        'Gehalt',
+        'Tage',
+        'Urlaub',
+        'Status'
+      ]);
+
+      // Normal-Daten (sortiert)
+      const normalData = sortBy(val.normal, [o => o.nachname]);
+
+      // Zeilen erstellen
+      Object.values(normalData).forEach(element => {
+        const row = [];
+        row.length = 0;
+        const urlaubsberechnung =
+          Math.floor((24 / 312) * element.urlaub * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
+
+        const urlaub = element.urlaub ? urlaubsberechnung : 0;
+
+        row.push(element.personalnr);
+        row.push(element.nachname);
+        row.push(element.vorname);
+        row.push(zuStunden(element.arbeitszeit));
+        row.push(roundTF(element.gehalt));
+        row.push(element.datum);
+        row.push(urlaub);
+        if (!element.ahStatus) row.push(element.status);
+        else row.push(`aus ${element.ahStatus}`);
+        wsData.push(row);
+      });
+
+      // Notdienst
+      const notdienstData = [];
+      notdienstData.length = 0;
+
+      notdienstData.push([null], ['Notdienst'], [null]);
+      notdienstData.push(['PN', 'Nachname', 'Vorname', 'Menge', 'Gehalt']);
+
+      Object.values(val.notdienst).forEach(element => {
+        const notdienstRow = [];
+        notdienstRow.length = 0;
+        const notdienstGeld = element.gehalt;
+        const menge = notdienstGeld / 40;
+
+        if (notdienstGeld % 40 !== 0)
+          fehler('Fehler bei der Notdienstberechnung');
+
+        // wenn im objekt ein notdienst eingetragen ist
+        if (element.urlaub === 'nd') {
+          notdienstRow.push(element.personalnr);
+          notdienstRow.push(element.nachname);
+          notdienstRow.push(element.vorname);
+          notdienstRow.push(menge);
+          notdienstRow.push(roundTF(element.gehalt));
+          notdienstData.push(notdienstRow);
+        }
+      });
+
+      // Notdienst Daten in Worksheet Daten pushen, Zeile für Zeile (wenn nicht nur überschrift sondern daten vorhanden)
+      if (notdienstData.length > 4) {
+        notdienstData.forEach(element => {
+          wsData.push(element);
+        });
+      }
+
+      // Zellen formatieren:
+      // https://github.com/SheetJS/sheetjs#common-spreadsheet-format
+
+      const ws = XLSX.utils.aoa_to_sheet(wsData);
+      XLSX.utils.book_append_sheet(wb, ws, wsName);
+
+      ws['!cols'] = wscols;
+      ws['!margins'] = {
+        left: 0.25,
+        right: 0.25,
+        top: 0.75,
+        bottom: 0.75,
+        header: 0.3,
+        footer: 0.3
+      };
+    });
+    console.log(wb);
   })
   .fail(data => {
     fehler(data.responseText);
@@ -61,3 +148,7 @@ $.ajax({
 window.downloadXLSX = () => {
   XLSX.writeFile(wb, filename);
 };
+
+$('#insertBTN').click(() => {
+  XLSX.writeFile(wb, filename);
+});
