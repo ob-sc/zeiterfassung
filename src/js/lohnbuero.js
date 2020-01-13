@@ -8,7 +8,7 @@ const sortBy = require('lodash.sortby');
 
 moment.locale('de');
 
-session('kehler', data => {
+session('', data => {
   // nur kehler darf auf die seite
 });
 

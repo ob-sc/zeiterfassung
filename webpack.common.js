@@ -44,8 +44,8 @@ module.exports = {
     new HtmlWebpackPlugin(hwp('mitarbeiter')),
     new HtmlWebpackPlugin(hwp('readme')),
     new HtmlWebpackPlugin({
-      filename: 'kehler/index.html',
-      template: './src/hbs/partials/seiten/kehler.hbs',
+      filename: 'lohnbuero/index.html',
+      template: './src/hbs/partials/seiten/lohnbuero.hbs',
       inject: 'body'
     })
   ]
