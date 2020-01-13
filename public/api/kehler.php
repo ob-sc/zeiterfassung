@@ -10,7 +10,7 @@ foreach ($stationen as $v) {
 
 	// alle aushilfen der station -> leer
 	$aushilfenSql = 
-	"SELECT id, personalnr, nachname, vorname, 0 AS arbeitszeit, 0 AS gehalt, 0 AS datum, 0 AS urlaub , status 
+	"SELECT id, personalnr, nachname, vorname, 0 AS arbeitszeit, 0 AS gehalt, 0 AS datum, 0 AS urlaub , status, station as ahstation 
 	FROM aushilfen 
 	WHERE station = ?";
 

@@ -6,6 +6,8 @@ import stationen from './stationen';
 const moment = require('moment');
 const sortBy = require('lodash.sortby');
 
+moment.locale('de');
+
 session('kehler', data => {
   // nur kehler darf auf die seite
 });
@@ -24,8 +26,8 @@ const stationNummern = Array.from(stationMap.keys());
 
 const abZeitraum = moment().format('MMMM YYYY');
 
-const filename = `${moment().format('YYYY-MM')}-SC-aushilfen.xlsx`;
-const wb = XLSX.utils.book_new();
+const abrechnungFilename = `${moment().format('YYYY-MM')}-SC-aushilfen.xlsx`;
+const abrechnungWB = XLSX.utils.book_new();
 
 // ajax mit allen Stationen an API
 $.ajax({
@@ -41,17 +43,6 @@ $.ajax({
       // Worksheet name aus stationMap
       const stationMapObj = stationMap.get(parseInt(key, 10));
       const wsName = `${key} ${stationMapObj.name}`;
-
-      const wscols = [
-        { wpx: 40 },
-        { wpx: 125 },
-        { wpx: 125 },
-        { wpx: 50 },
-        { wpx: 50 },
-        { wpx: 50 },
-        { wpx: 50 },
-        { wpx: 50 }
-      ];
 
       // Obere Reihe
       wsData.push([
@@ -84,8 +75,9 @@ $.ajax({
         row.push(roundTF(element.gehalt));
         row.push(element.datum);
         row.push(urlaub);
-        if (!element.ahStatus) row.push(element.status);
-        else row.push(`aus ${element.ahStatus}`);
+        if (element.ahstation !== parseInt(key, 10))
+          row.push(`aus ${element.ahstation}`);
+        else row.push(element.status);
         wsData.push(row);
       });
 
@@ -93,7 +85,7 @@ $.ajax({
       const notdienstData = [];
       notdienstData.length = 0;
 
-      notdienstData.push([null], ['Notdienst'], [null]);
+      notdienstData.push([null], ['Notdienst']);
       notdienstData.push(['PN', 'Nachname', 'Vorname', 'Menge', 'Gehalt']);
 
       Object.values(val.notdienst).forEach(element => {
@@ -127,9 +119,19 @@ $.ajax({
       // https://github.com/SheetJS/sheetjs#common-spreadsheet-format
 
       const ws = XLSX.utils.aoa_to_sheet(wsData);
-      XLSX.utils.book_append_sheet(wb, ws, wsName);
+      XLSX.utils.book_append_sheet(abrechnungWB, ws, wsName);
 
-      ws['!cols'] = wscols;
+      ws['!cols'] = [
+        { wpx: 40 },
+        { wpx: 125 },
+        { wpx: 125 },
+        { wpx: 50 },
+        { wpx: 50 },
+        { wpx: 50 },
+        { wpx: 50 },
+        { wpx: 50 }
+      ];
+
       ws['!margins'] = {
         left: 0.25,
         right: 0.25,
@@ -139,16 +141,22 @@ $.ajax({
         footer: 0.3
       };
     });
-    console.log(wb);
+    $('.XLSXwrapper').show();
   })
   .fail(data => {
     fehler(data.responseText);
   });
 
-window.downloadXLSX = () => {
+const downloadXLSX = (wb, filename) => {
   XLSX.writeFile(wb, filename);
 };
 
-$('#insertBTN').click(() => {
-  XLSX.writeFile(wb, filename);
+$(document).ready(() => {
+  $('#abrechnungXLSX').click(() => {
+    downloadXLSX(abrechnungWB, abrechnungFilename);
+  });
+  $('#weListeXLSX').click(() => {
+    downloadXLSX(weWB, weFilename);
+  });
+  $('.pagetitle').html(abZeitraum);
 });

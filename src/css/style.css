@@ -104,3 +104,7 @@ main {
 .aeDelete:hover {
   font-weight: 1000;
 }
+
+.imgXLSX {
+  height: 100px;
+}

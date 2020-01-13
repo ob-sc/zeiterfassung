@@ -5,23 +5,16 @@
 <header class="noPrint">
   <div class="header-container">
     {{> ../logo }}
-    <div class="pagetitle">Abrechnungen</div>
+    <div class="pagetitle"></div>
   </div>
 </header>
 
 <main>
 {{> ../alert }}
 
-<div class="flexwrapper">
-  <div 
-    id="insertBTN"
-    style="
-      height: 50px;
-      width: 50px;
-      border: 1px solid black;
-      position: absolute;
-      left: 50%;
-      top: 50;"></div>
+<div class="XLSXwrapper" style="display:none">
+  <div class="XLSXcontainer" id="abrechnungXLSX"><img src="../img/xlsx.svg" alt="we" class="imgXLSX"><p>Abrechnungen</p></div>
+  <div class="XLSXcontainer" id="weListeXLSX"><img src="../img/xlsx.svg" alt="abrechnung" class="imgXLSX"><p>Wochenendlisten</p></div>
 </div>
 
 </main>
