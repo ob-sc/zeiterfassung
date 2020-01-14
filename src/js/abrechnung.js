@@ -75,21 +75,18 @@ function abtabelle() {
   html = `<h3 style="text-align:center">Monatsabrechnung ${titel}</h3>`;
   html +=
     '<table class="table table-bordered table-sm table-hover" style="width:100%" id="abrechnungTable">';
-  html +=
-    '<caption>Gelb = Aushilfe aus anderer Station</caption><thead style="font-size:0.8em"><tr>';
+  html += '<caption>Gelb = Aushilfe aus anderer Station</caption><thead><tr>';
   html += '<th style="width:5%">PN</th>';
-  html += '<th class="table-ltr" style="width:40%">Name</th>';
-  html += '<th style="width:5%">AZ</th>';
-  html += '<th style="width:5%">Gehalt</th>';
-  html += '<th style="width:5%">Tage</th>';
-  html += '<th style="width:5%">Urlaub</th>';
-  html += '<th style="width:5%">Status</th>';
-  html += '<th style="width:30%">Sonstiges</th>';
+  html += '<th class="table-ltr" style="width:45%">Name</th>';
+  html += '<th style="width:10%">AZ</th>';
+  html += '<th style="width:10%">Gehalt</th>';
+  html += '<th style="width:10%">Tage</th>';
+  html += '<th style="width:10%">Urlaub</th>';
+  html += '<th style="width:10%">Status</th>';
   html += '</tr></thead><tbody>';
 
   abDaten.forEach(key => {
     const urlaub = Math.floor((24 / 312) * key.urlaub * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
-    const abGehalt = key.gehalt;
 
     // eslint-disable-next-line eqeqeq
     if (key.ahstation != stationid && key.arbeitszeit !== 0)
@@ -98,18 +95,17 @@ function abtabelle() {
     html += `<td>${key.personalnr}</td>`;
     html += `<td class="table-ltr">${key.nachname}, ${key.vorname}</td>`;
     html += `<td class="table-rtl">${zuStunden(key.arbeitszeit)}</td>`;
-    html += `<td class="table-rtl">${roundTF(abGehalt)}</td>`;
+    if (key.status === '450' && key.gehalt > 450)
+      html += `<td class="table-rtl" style="color:red">${roundTF(
+        key.gehalt
+      )}</td>`;
+    else html += `<td class="table-rtl">${roundTF(key.gehalt)}</td>`;
     html += `<td class="table-rtl">${key.datum}</td>`;
     // eslint-disable-next-line eqeqeq
     if (key.ahstation != stationid && key.arbeitszeit !== 0)
       html += '<td>&nbsp</td>';
     else html += `<td class="table-rtl">${urlaub}</td>`;
-    html += `<td class="table-rtl">${key.status}</td>`;
-    // eslint-disable-next-line eqeqeq
-    if (key.ahstation != stationid && key.arbeitszeit !== 0)
-      html += `<td>Aus Station ${key.ahstation}</td></tr>`;
-    else
-      html += `<td contenteditable="false" class="abmelden">Abmelden</td></tr>`;
+    html += `<td class="table-rtl">${key.status}</td></tr>`;
 
     summeAZ += parseInt(key.arbeitszeit, 10);
     summeGehalt += key.gehalt;
@@ -119,17 +115,16 @@ function abtabelle() {
     summeAZ
   )}</th><th>${roundTF(
     summeGehalt
-  )}</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr></tbody></table>`;
+  )}</th><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td></tr></tbody></table>`;
 
   // Notdienst
   ndhtml = `<div id="ndTableContainer" style="display:none"><h3 style="text-align:center">Notdienst</h3>`;
   ndhtml +=
-    '<table class="table table-bordered table-sm table-hover" style="width:100%" id="notdienstTable"><thead style="font-size:0.8em"><tr>';
-  ndhtml += '<th style="width:5%">PN</th>';
-  ndhtml += '<th class="table-ltr" style="width:40%">Name</th>';
-  ndhtml += '<th style="width:5%">Anz.</th>';
-  ndhtml += '<th style="width:5%">Gehalt</th>';
-  ndhtml += '<th style="width:45%">Sonstiges</th>';
+    '<table class="table table-bordered table-sm table-hover" style="width:100%" id="notdienstTable"><thead><tr>';
+  ndhtml += '<th style="width:15%">PN</th>';
+  ndhtml += '<th class="table-ltr" style="width:55%">Name</th>';
+  ndhtml += '<th style="width:15%">Anzahl</th>';
+  ndhtml += '<th style="width:15%">Gehalt</th>';
   ndhtml += '</tr></thead><tbody>';
 
   ndDaten.forEach(key => {
@@ -142,8 +137,7 @@ function abtabelle() {
       ndhtml += `<tr><td>${key.personalnr}</td>`;
       ndhtml += `<td class="table-ltr">${key.nachname}, ${key.vorname}</td>`;
       ndhtml += `<td class="table-rtl">${menge}</td>`;
-      ndhtml += `<td class="table-rtl">${roundTF(ndabGehalt)}</td>`;
-      ndhtml += '<td contenteditable="true">&nbsp</td></tr>';
+      ndhtml += `<td class="table-rtl">${roundTF(ndabGehalt)}</td></tr>`;
 
       notdienst = true;
     }
@@ -157,17 +151,6 @@ function abtabelle() {
   $('#atext').html(html + ndhtml + pdfbtn);
 
   if (notdienst) $('#ndTableContainer').show();
-  // else ndhtml = '';
-
-  const heute = moment().format('DD.MM.YYYY');
-
-  $('.abmelden').click(e => {
-    if (e.currentTarget.contentEditable === 'false') {
-      e.currentTarget.contentEditable = 'true';
-      e.currentTarget.innerHTML = `Abmelden ab ${heute}`;
-      e.currentTarget.classList.remove('abmelden');
-    }
-  });
 }
 
 $(document).ready(() => {
