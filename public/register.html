@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <title>STARCAR Aushilfen Zeiterfassung</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+<link href="css/main.3de5cf9fd6b392dd7313.css" rel="stylesheet"><script type="text/javascript" src="js/main.c1eee089dd8565bb936f.js"></script></head>
+<body>
+
+<header>
+  <div class="header-container noPrint">
+    <div class="logoWrapper">
+      <img src="../img/logo_starcar2x.png" alt="SC_Logo" class="logo">
+    </div>    <div class="pagetitle">Aushilfen</div>
+  </div>
+  <div id="devdiv"></div>
+</header>
+
+<main>
+<div class="alert alert-danger" role="alert" id="fehlerAlert">
+  <span id="fehlerText"></span>
+  <button type="button" id="fehlerClose" class="close" aria-label="Close">&times;</button>
+</div>
+
+<div class="alert alert-info" role="alert" id="infoAlert">
+  <span id="infoText"></span>
+  <button type="button" id="infoClose" class="close" aria-label="Close">&times;</button>
+</div>
+   
+   <script>
+  // IE CHECK
+  var ua = window.navigator.userAgent;
+  var isIE = /MSIE|Trident/.test(ua);
+  var isEdge = /Edge/.test(ua);
+  
+  if (isIE || isEdge) {
+    alert('Bitte benutze Google Chrome');
+  }
+</script>
+
+<div class="container m-4">
+  <form id="regForm">
+    <p>
+      Benutzername ist der Teil <strong>vor</strong> deiner @starcar.de
+      Adresse (z. B. <strong>bergen</strong>@starcar.de)
+    </p>
+    <div class="form-group col-md-4">
+      <label for="username" class="m-1">Benutzername:</label>
+      <input
+        type="text"
+        class="form-control m-1"
+        placeholder="Benutzername"
+        name="username"
+        id="username"
+        autocomplete="off"
+        required
+      />
+    </div>
+    <div class="form-group col-md-4">
+      <label for="password1">Passwort:</label>
+      <input
+        type="password"
+        class="form-control m-1"
+        placeholder="Passwort"
+        name="password1"
+        id="password1"
+        required
+      />
+    </div>
+    <p style="display:none;color:red;" id="pwLaenge">
+      <strong>Das Passwort muss mindestens 6 Zeichen haben</strong>
+    </p>
+    <div class="form-group col-md-4">
+      <label for="password2">Passwort wiederholen:</label>
+      <input
+        type="password"
+        class="form-control m-1"
+        placeholder="Passwort"
+        name="password2"
+        id="password2"
+        required
+      />
+    </div>
+    <p style="display:none;color:red;" id="pwGleich">
+      <strong>Passwörter stimmen nicht überein</strong>
+    </p>
+    <div class="form-group col-md-4">
+      <label for="stationSelect">Station:</label>
+      <select class="form-control m-1" name="station" id="station">
+      </select>
+    </div>
+    <input
+      type="submit"
+      name="register"
+      class="btn ml-3 scc"
+      value="Registrieren"
+    />
+  </form>
+  <a href="index.html" class="ml-3">Zurück</a>
+</div>
+
+<script>
+if (isIE || isEdge) {
+  document.getElementById('loginForm').innerHTML =
+    '<h1>Bitte benutze Google Chrome</h1>';
+}
+</script>
+  
+
+</main>
+</body>
+</html>
