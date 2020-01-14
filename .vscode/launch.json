@@ -8,8 +8,8 @@
       "type": "chrome",
       "request": "launch",
       "name": "Chrome debug",
-      "url": "http://localhost:4000",
-      "webRoot": "${workspaceFolder}"
+      "url": "http://localhost:8000",
+      "webRoot": "/public"
     }
   ]
 }

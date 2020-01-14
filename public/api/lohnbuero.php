@@ -129,6 +129,28 @@ foreach ($stationen as $v) {
 		$ndAushilfen[$row['ahid']]['urlaub'] = $row['beginn'];
 	}
 
+	// WE-Listen
+	// abrechnungszeitraum vorbereiten
+	$weBeginnDate = new DateTime('first day of last month');
+	$weEndDate = new DateTime('last day of last month');
+
+	$weSql = 
+	"SELECT id, datum, name, stunden, ausgleich
+	FROM wochenende
+	WHERE station = :station 
+	AND datum BETWEEN :von AND :bis 
+	ORDER BY datum ASC";
+
+	$stmt = $conn->prepare($weSql);
+
+	$stmt->bindValue(':von', $weBeginnDate->format('Y-m-d'));
+	$stmt->bindValue(':bis', $weEndDate->format('Y-m-d'));
+	$stmt->bindValue(':station', $station);
+
+	$stmt->execute();
+
+  $weListe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 	// array aus objekt
 	$normal = [];
 	$notdienst = [];
@@ -148,6 +170,7 @@ foreach ($stationen as $v) {
 	// Abrechnung für diese Station
 	$result[$v]['normal'] = $normal;
 	$result[$v]['notdienst'] = $notdienst;
+	$result[$v]['we'] = $weListe;
 }
 
 echo json_encode($result);

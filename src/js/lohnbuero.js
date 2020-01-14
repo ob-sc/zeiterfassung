@@ -8,9 +8,7 @@ const sortBy = require('lodash.sortby');
 
 moment.locale('de');
 
-session('', data => {
-  // nur kehler darf auf die seite
-});
+session('lohnbuero');
 
 const stationMap = stationen;
 
@@ -29,9 +27,36 @@ const abZeitraum = moment().format('MMMM YYYY');
 const abrechnungFilename = `${moment().format('YYYY-MM')}-SC-aushilfen.xlsx`;
 const abrechnungWB = XLSX.utils.book_new();
 
+const weFilename = `${moment()
+  .subtract(1, 'months')
+  .format('YYYY-MM')}-SC-wochenende.xlsx`;
+const weWB = XLSX.utils.book_new();
+
+const wsAbrechnungCols = [
+  { wpx: 40 },
+  { wpx: 125 },
+  { wpx: 125 },
+  { wpx: 50 },
+  { wpx: 50 },
+  { wpx: 50 },
+  { wpx: 50 },
+  { wpx: 50 }
+];
+
+const wsWeCols = [{ wpx: 80 }, { wpx: 300 }, { wpx: 80 }, { wpx: 80 }];
+
+const wsMargins = {
+  left: 0.25,
+  right: 0.25,
+  top: 0.75,
+  bottom: 0.75,
+  header: 0.3,
+  footer: 0.3
+};
+
 // ajax mit allen Stationen an API
 $.ajax({
-  url: '../api/kehler.php',
+  url: '../api/lohnbuero.php',
   type: 'POST',
   dataType: 'json',
   data: { statID: stationNummern }
@@ -39,13 +64,14 @@ $.ajax({
   .done(data => {
     // Loop durch alle Stationsergebnisse
     Object.entries(data).forEach(([key, val]) => {
-      const wsData = [];
-      // Worksheet name aus stationMap
+      /* Abrechnung */
+      const wsAbrechnungData = [];
+      // Abrechnung Worksheet name aus stationMap
       const stationMapObj = stationMap.get(parseInt(key, 10));
-      const wsName = `${key} ${stationMapObj.name}`;
+      const wsAbrechnungName = `${key} ${stationMapObj.name}`;
 
-      // Obere Reihe
-      wsData.push([
+      // Abrechnung Obere Reihe
+      wsAbrechnungData.push([
         'PN',
         'Nachname',
         'Vorname',
@@ -56,10 +82,10 @@ $.ajax({
         'Status'
       ]);
 
-      // Normal-Daten (sortiert)
+      // Abrechnung Normal-Daten (sortiert)
       const normalData = sortBy(val.normal, [o => o.nachname]);
 
-      // Zeilen erstellen
+      // Abrechnung Zeilen erstellen
       Object.values(normalData).forEach(element => {
         const row = [];
         row.length = 0;
@@ -78,10 +104,10 @@ $.ajax({
         if (element.ahstation !== parseInt(key, 10))
           row.push(`aus ${element.ahstation}`);
         else row.push(element.status);
-        wsData.push(row);
+        wsAbrechnungData.push(row);
       });
 
-      // Notdienst
+      // Abrechnung Notdienst
       const notdienstData = [];
       notdienstData.length = 0;
 
@@ -111,35 +137,44 @@ $.ajax({
       // Notdienst Daten in Worksheet Daten pushen, Zeile für Zeile (wenn nicht nur überschrift sondern daten vorhanden)
       if (notdienstData.length > 4) {
         notdienstData.forEach(element => {
-          wsData.push(element);
+          wsAbrechnungData.push(element);
         });
       }
 
-      // Zellen formatieren:
-      // https://github.com/SheetJS/sheetjs#common-spreadsheet-format
+      const wsAbrechnung = XLSX.utils.aoa_to_sheet(wsAbrechnungData);
+      XLSX.utils.book_append_sheet(
+        abrechnungWB,
+        wsAbrechnung,
+        wsAbrechnungName
+      );
 
-      const ws = XLSX.utils.aoa_to_sheet(wsData);
-      XLSX.utils.book_append_sheet(abrechnungWB, ws, wsName);
+      wsAbrechnung['!cols'] = wsAbrechnungCols;
+      wsAbrechnung['!margins'] = wsMargins;
 
-      ws['!cols'] = [
-        { wpx: 40 },
-        { wpx: 125 },
-        { wpx: 125 },
-        { wpx: 50 },
-        { wpx: 50 },
-        { wpx: 50 },
-        { wpx: 50 },
-        { wpx: 50 }
-      ];
+      /* WE LISTE */
+      const wsWeData = [];
+      // WE-Liste Worksheet name aus stationMap
+      const wsWeName = `${key} ${stationMapObj.name}`;
 
-      ws['!margins'] = {
-        left: 0.25,
-        right: 0.25,
-        top: 0.75,
-        bottom: 0.75,
-        header: 0.3,
-        footer: 0.3
-      };
+      // WE-Liste Obere Reihe
+      wsWeData.push(['Datum', 'Name', 'Stunden', 'Vergütung']);
+
+      // WE-Liste Zeilen
+      Object.values(val.we).forEach(element => {
+        const weRow = [];
+        weRow.length = 0;
+        weRow.push(moment(element.datum, 'YYYY-MM-DD').format('DD.MM.YYYY'));
+        weRow.push(element.name);
+        weRow.push(element.stunden);
+        weRow.push(element.ausgleich);
+        wsWeData.push(weRow);
+      });
+
+      const wsWe = XLSX.utils.aoa_to_sheet(wsWeData);
+      XLSX.utils.book_append_sheet(weWB, wsWe, wsWeName);
+
+      wsWe['!cols'] = wsWeCols;
+      wsWe['!margins'] = wsMargins;
     });
     $('.XLSXwrapper').show();
   })
@@ -155,8 +190,18 @@ $(document).ready(() => {
   $('#abrechnungXLSX').click(() => {
     downloadXLSX(abrechnungWB, abrechnungFilename);
   });
+
   $('#weListeXLSX').click(() => {
     downloadXLSX(weWB, weFilename);
   });
+
   $('.pagetitle').html(abZeitraum);
+
+  $('#abrechnungZeitraum').html(`${moment().format('MMMM')}`);
+
+  $('#weZeitraum').html(
+    `${moment()
+      .subtract(1, 'months')
+      .format('MMMM')}`
+  );
 });

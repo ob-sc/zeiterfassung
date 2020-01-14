@@ -1,20 +1,10 @@
-import * as JsPDF from 'jspdf';
-import 'jspdf-autotable';
 import { session, getData, fehler, info } from './funktionen';
-
-import stationen from './stationen';
 
 const moment = require('moment');
 
 moment.locale('de');
 
-let station;
-
-session('sl', data => {
-  const stationid = parseInt(data.stationID, 10);
-  const stationObj = stationen.get(stationid);
-  station = stationObj.name;
-});
+session('sl');
 
 // WE-Daten in Tabelle
 function weTabelle() {
@@ -24,8 +14,6 @@ function weTabelle() {
     data: { monat: $('#monat').val() }
   }).done(daten => {
     let weTab = '';
-
-    $('#pdfBtn').hide();
 
     const weDaten = JSON.parse(daten);
 
@@ -41,8 +29,6 @@ function weTabelle() {
       weTab += `<td class="text-center">${key.stunden}</td>`;
       weTab += `<td class="text-center">${key.ausgleich}</td>`;
       weTab += `<th class="text-center"><img src="../img/trash-alt-regular.svg" width="18" class="delete" data-weid="${key.id}"></th></tr>`;
-
-      $('#pdfBtn').show();
 
       $('#weTab').html(weTab);
 
@@ -65,27 +51,6 @@ function weTabelle() {
   });
 }
 
-window.printpdf = () => {
-  // prettier-ignore
-  const titel = `Wochenendliste ${station}, ${moment($('#monat').val(), 'YYYY-MM').format('MMMM YYYY')}`
-
-  $('.hideTD').hide();
-
-  const doc = new JsPDF();
-  doc.autoTable({
-    html: '#weTabelle',
-    theme: 'plain',
-    styles: { lineWidth: 0.1 },
-    didDrawPage: () => {
-      doc.text(titel, 14, 10);
-    }
-  });
-
-  doc.save(`${titel}.pdf`);
-
-  $('.hideTD').show();
-};
-
 $(document).ready(() => {
   $('nav li').removeClass('current');
   $('#mitarbeiter').addClass('current');
@@ -107,7 +72,6 @@ $(document).ready(() => {
   // MA-Daten in Tabelle
   getData(daten => {
     const { maDaten } = daten;
-    station = daten.station;
 
     let maRow;
 

@@ -58,6 +58,11 @@ export const session = (status, callback) => {
         )
           window.location.href = '../index.html#verlaufen';
 
+      // nur für lohnbüro
+      if (status === 'lohnbuero')
+        if (data.userStatus !== 'admin' && data.userStatus !== 'lohnbuero')
+          window.location.href = '../index.html#verlaufen';
+
       // station select erstellen laut berechtigung aus php
       $(document).ready(() => {
         if (data.region) {

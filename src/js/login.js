@@ -31,6 +31,10 @@ $(document).ready(() => {
           return fehler(
             'Lass deinen Account von deinem Stationsleiter bestätigen.'
           );
+        if (loginRes.valid === true && loginRes.status === 'lohnbuero') {
+          window.location.href = '../lohnbuero';
+          return false;
+        }
         if (loginRes.valid === true) window.location.href = '../eintragen';
         return setTimeout(() => {
           fehler('Loginfehler. Bitte versuche es erneut!');
