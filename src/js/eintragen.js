@@ -20,7 +20,11 @@ let notdienst = false;
 
 let abmeldung;
 
-session('norm');
+let station;
+
+session('norm', data => {
+  station = parseInt(data.stationID, 10);
+});
 
 window.senden = () => {
   $.ajax({
@@ -124,6 +128,12 @@ const formBerechnung = () => {
     } else {
       lohn = norlohn;
     }
+    // Wenn Berlin Tiergarten (020) dann am Montag pauschal 10€
+    if (station === 20 && moment(fbData.datum).isoWeekday() === 1) {
+      lohn = 10;
+      $('#etext').append('<p>Montag, Stundenlohn 10€</p>');
+    }
+
     // Berechnung in Cent, da sonst falsch gerundet wird
     const gehaltNoRund = (lohn * 100 * fbData.diff) / 60 / 100;
     fbData.gehalt = roundTF(gehaltNoRund);
@@ -224,17 +234,20 @@ const formBerechnung = () => {
 
         if (summeMonat < 450)
           $('#etext').append(
-            `<p><strong>Monat:</strong> ${summeMonat}€ (noch ${450 -
-              summeMonat}€)</p>`
+            `<p><strong>Monat:</strong> ${roundTF(summeMonat)}€ (noch ${roundTF(
+              450 - summeMonat
+            )}€)</p>`
           );
 
         if (summeMonat === 450)
-          $('#etext').append(`<p><strong>Monat:</strong> ${summeMonat}€</p>`);
+          $('#etext').append(
+            `<p><strong>Monat:</strong> ${roundTF(summeMonat)}€</p>`
+          );
 
         if (summeMonat > 450) {
-          const rtfBugfix = summeMonat - 450;
+          const rtfBugfix = roundTF(summeMonat) - 450;
           $('#etext').append(
-            `<p><strong>Monat:</strong> ${summeMonat}€ (${roundTF(
+            `<p><strong>Monat:</strong> ${roundTF(summeMonat)}€ (${roundTF(
               rtfBugfix
             )}€ zu viel)</p>`
           );
