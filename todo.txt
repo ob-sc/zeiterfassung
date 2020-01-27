@@ -3,7 +3,7 @@
     |    ISSUES     |
     |_______________|
 
-- auswerten langsam?
+- bei monatsberechnung schaut er nicht in welchen monat eingetragen wird
     ________________
     |              |
     |     TODO     |
@@ -16,24 +16,12 @@
 -> allg gucken obs probleme beim jahreswechsel gibt?
 
 - favicon als ico
-
-- admin alle zeiten
-    -> extra knopf
-    -> auch gbl?
+    -> neu machen?
 
 - kein window.location.reload mehr
     -> entweder dom element löschen oder ajax neu
 
-- php mail versenden
-    -> https://pear.php.net/package/Mail_Mime/
-    -> https://wkhtmltopdf.org/
-    -> mails in db hinterlegen
-        -> mail von station@starcar.de an kehler
-
 - filter clear zeiten
-
-- wenn login für kehler
-    -> wie machen wir die info "abmelden ab"
 
 - aushilfen: 
     -> fehler wenn es eine aushilfen schon gibt?
@@ -41,9 +29,6 @@
 
 - warnung/fehler wenn gleiche arbeitszeit eingetragen wird (zb 1.1.2019 13 uhr bis 15 uhr und 1.1.2019 14 uhr bis 15 uhr)
     -> in vorschau?
-
-- für API: 
-    -> lass ich die index.html jeweils in einem ordner oder alle in einen und umbenennen?
 
 - bei aushilfen (& andere) seite nicht neu laden sondern wie bei mitarbeiter we eintragen aktualisieren
 
@@ -57,17 +42,7 @@
 
 - responsive machen?
 
-- fetch API statt $.ajax?
-
-- titel neu - auch zeiterfassung aushilfen
-    -> eintragen: zeit eintragen?
-    -> auswerten
-
 - trim (nur bei aushilfe anlegen?)
-
-- regex name (&passwort)
-
-- passwort ändern feature
 
 - eaget und eatabelle umschreiben? zeiten (tage) und summen in ein array? mit while($row = $stmt-fetch...) wie in abget?
 
