@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <title>STARCAR Aushilfen</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../img/favicon.png">
+<link href="../css/main.3de5cf9fd6b392dd7313.css" rel="stylesheet"><script type="text/javascript" src="../js/main.547cefe32a8b9413a077.js"></script></head>
+
+<body>
+
+<header class="noPrint">
+  <div class="header-container">
+    <div class="logoWrapper">
+      <img src="../img/logo_starcar2x.png" alt="SC_Logo" class="logo">
+    </div>    <div class="pagetitle">mitarbeiter</div>
+    <div id="stationSelectContainer" style="display:none">
+      <select class="form-control" id="stationSelect" name="stationSelect"></select>
+    </div>
+  </div>
+  <nav class="noPrint">
+    <ul class="cnav">
+      <li><a id="eintragen" href="../eintragen/">Eintragen</a></li>
+      <li><a id="auswerten" href="../auswerten/">Auswerten</a></li>
+      <li class="slmenu" style="display:none"><a id="abrechnung" href="../abrechnung/">Abrechnung</a></li>
+      <li class="slmenu" style="display:none"><a id="aushilfen" href="../aushilfen/">Aushilfen</a></li>
+      <li class="slmenu" style="display:none"><a id="zeiten" href="../zeiten/">Zeiten</a></li>
+      <li class="slmenu" style="display:none"><a id="mitarbeiter" href="../mitarbeiter/">Mitarbeiter</a></li>
+      <li><a id="readme" href="../readme/index.html">Hilfe</a></li>
+      <li><a class="logout" href="../scripts/logout.php">Abmelden</a></li>
+    </ul>
+  </nav></header>
+
+<main>
+<div class="alert alert-danger" role="alert" id="fehlerAlert">
+  <span id="fehlerText"></span>
+  <button type="button" id="fehlerClose" class="close" aria-label="Close">&times;</button>
+</div>
+
+<div class="alert alert-info" role="alert" id="infoAlert">
+  <span id="infoText"></span>
+  <button type="button" id="infoClose" class="close" aria-label="Close">&times;</button>
+</div>
+   
+   
+   
+   
+   
+   <div id="maContainer">
+  <input type="button" class="btn scc mb-3" id="wochenende" value="Wochenende">
+  <table class="table table-hover table-sm table-bordered">
+    <thead>
+      <tr>
+        <th style="width:50%">Name</th>
+        <th style="width:20%" class="text-center">Status</th>
+        <th style="width:10%" class="text-center">Bestätigen</th>
+        <th style="width:10%" class="text-center">Passwort</th>
+        <th style="width:10%" class="text-center">Löschen</th>
+      </tr>
+    </thead>
+    <tbody id="maTab">
+    </tbody>
+  </table>
+</div>
+
+<div id="weContainer" style="display:none">
+  <div class="form-row mb-3">
+    <input type="button" class="btn scc mr-3" id="weEintragen" value="Eintragen">
+    <input type="month" class="form-control" name="monat" id="monat" style="width: 200px">
+  </div>
+  <table class="table table-hover table-sm table-bordered" id="weTabelle">
+    <thead>
+      <tr>
+        <th style="width:10%" class="text-center">Datum</th>
+        <th style="width:50%">Name</th>
+        <th style="width:10%" class="text-center">Stunden</th>
+        <th style="width:10%" class="text-center">Vergütung</th>
+        <th style="width:10%" class="text-center hideTD">Löschen</th>
+      </tr>
+    </thead>
+    <tbody id="weTab">
+    </tbody>
+  </table>
+  <input type="button" onclick="window.location.reload();" value="Zurück" class="noPrint btn scc">
+</div>
+
+<div class="modal fade" id="pwModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Passwort ändern</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span> 
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="pwForm">
+          <div class="form-group">
+            <label for="pw1" class="col-form-label">Passwort:</label>
+            <input type="password" class="form-control" id="pw1">
+          </div>
+          <p style="display:none;color:red;" id="pwLaenge">
+            <strong>Das Passwort muss mindestens 6 Zeichen haben</strong>
+          </p>
+          <div class="form-group">
+            <label for="pw2" class="col-form-label">Passwort wiederholen:</label>
+            <input type="password" class="form-control" id="pw2">
+          </div>
+          <p style="display:none;color:red;" id="pwGleich">
+            <strong>Passwörter stimmen nicht überein</strong>
+          </p>
+          <input type="submit" class="btn scc" id="updateConfirm" value="Bestätigen">
+          <input type="button" class="btn scc" data-dismiss="modal" value="Abbrechen">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="weModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Wochenend-Dienst eintragen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span> 
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="weForm">
+          <div class="form-group">
+            <label for="date">Datum:</label>
+            <input type="date" class="form-control" placeholder="dd-mm-yyyy" name="date" id="datum" required>
+          </div>
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" placeholder="Name" name="name">
+          </div>
+          <div class="form-group">
+            <label>Stunden:</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="stunden" id="4std" value="4" checked>
+              <label class="form-check-label" for="4std">
+                4 Stunden
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="stunden" id="6std" value="6" checked>
+              <label class="form-check-label" for="6std">
+                6 Stunden
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="stunden" id="8std" value="8">
+              <label class="form-check-label" for="8std">
+                8 Stunden
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Vergütung:</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="verguetung" id="auszahlung" value="Auszahlung" checked>
+              <label class="form-check-label" for="auszahlung">
+                Auszahlung
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="verguetung" id="ausgleich" value="Ausgleich">
+              <label class="form-check-label" for="ausgleich">
+                Ausgleich
+              </label>
+            </div>
+          </div>
+          <input type="submit" class="btn scc" id="weConfirm" value="Bestätigen">
+          <input type="button" class="btn scc" data-dismiss="modal" value="Abbrechen">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Wirklich löschen?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          Möchtest du <strong><span id="deleteName"></span></strong> wirklich löschen?
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn scc" id="deleteConfirm">Ja</button>
+        <button type="button" class="btn scc" data-dismiss="modal">Nein</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+   
+</main>
+
+</body>
+</html>
