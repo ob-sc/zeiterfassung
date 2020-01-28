@@ -193,8 +193,7 @@ $.ajax({
     XLSX.utils.book_append_sheet(notdienstWB, wsNotdienst, 'Notdienste');
     wsNotdienst['!cols'] = wsNotdienstCols;
     wsNotdienst['!margins'] = wsMargins;
-
-    if (status !== 'controlling') $('#abrechnungXLSX, #weListeXLSX').show();
+    
     $('.XLSXwrapper').show();
   })
   .fail(data => {
