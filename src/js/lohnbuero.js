@@ -8,7 +8,11 @@ const sortBy = require('lodash.sortby');
 
 moment.locale('de');
 
-session('lohnbuero');
+let status;
+
+session('lohnbuero', data => {
+  status = data.userStatus;
+});
 
 const stationMap = stationen;
 
@@ -32,6 +36,9 @@ const weFilename = `${moment()
   .format('YYYY-MM')}-SC-wochenende.xlsx`;
 const weWB = XLSX.utils.book_new();
 
+const notdienstFilename = `${moment().format('YYYY-MM')}-Notdienste.xlsx`;
+const notdienstWB = XLSX.utils.book_new();
+
 const wsAbrechnungCols = [
   { wpx: 40 },
   { wpx: 125 },
@@ -44,6 +51,15 @@ const wsAbrechnungCols = [
 ];
 
 const wsWeCols = [{ wpx: 80 }, { wpx: 300 }, { wpx: 80 }, { wpx: 80 }];
+
+const wsNotdienstCols = [
+  { wpx: 40 },
+  { wpx: 125 },
+  { wpx: 125 },
+  { wpx: 50 },
+  { wpx: 50 },
+  { wpx: 50 }
+];
 
 const wsMargins = {
   left: 0.25,
@@ -62,6 +78,15 @@ $.ajax({
   data: { statID: stationNummern }
 })
   .done(data => {
+    const controlling = [];
+    controlling.push([
+      'PN',
+      'Nachname',
+      'Vorname',
+      'Menge',
+      'Gehalt',
+      'Station'
+    ]);
     // Loop durch alle Stationsergebnisse
     Object.entries(data).forEach(([key, val]) => {
       /* Abrechnung */
@@ -108,12 +133,6 @@ $.ajax({
       });
 
       // Abrechnung Notdienst
-      const notdienstData = [];
-      notdienstData.length = 0;
-
-      notdienstData.push([null], ['Notdienst']);
-      notdienstData.push(['PN', 'Nachname', 'Vorname', 'Menge', 'Gehalt']);
-
       Object.values(val.notdienst).forEach(element => {
         const notdienstRow = [];
         notdienstRow.length = 0;
@@ -130,16 +149,10 @@ $.ajax({
           notdienstRow.push(element.vorname);
           notdienstRow.push(menge);
           notdienstRow.push(roundTF(element.gehalt));
-          notdienstData.push(notdienstRow);
+          notdienstRow.push(element.ahstation);
+          controlling.push(notdienstRow);
         }
       });
-
-      // Notdienst Daten in Worksheet Daten pushen, Zeile für Zeile (wenn nicht nur überschrift sondern daten vorhanden)
-      if (notdienstData.length > 4) {
-        notdienstData.forEach(element => {
-          wsAbrechnungData.push(element);
-        });
-      }
 
       const wsAbrechnung = XLSX.utils.aoa_to_sheet(wsAbrechnungData);
       XLSX.utils.book_append_sheet(
@@ -176,6 +189,12 @@ $.ajax({
       wsWe['!cols'] = wsWeCols;
       wsWe['!margins'] = wsMargins;
     });
+    const wsNotdienst = XLSX.utils.aoa_to_sheet(controlling);
+    XLSX.utils.book_append_sheet(notdienstWB, wsNotdienst, 'Notdienste');
+    wsNotdienst['!cols'] = wsNotdienstCols;
+    wsNotdienst['!margins'] = wsMargins;
+
+    if (status !== 'controlling') $('#abrechnungXLSX, #weListeXLSX').show();
     $('.XLSXwrapper').show();
   })
   .fail(data => {
@@ -195,13 +214,21 @@ $(document).ready(() => {
     downloadXLSX(weWB, weFilename);
   });
 
+  $('#notdienstXLSX').click(() => {
+    downloadXLSX(notdienstWB, notdienstFilename);
+  });
+
   $('.pagetitle').html(abZeitraum);
 
-  $('#abrechnungZeitraum').html(`${moment().format('MMMM')}`);
+  $('.abrechnungZeitraum').html(`${moment().format('MMMM')}`);
 
   $('#weZeitraum').html(
     `${moment()
       .subtract(1, 'months')
       .format('MMMM')}`
   );
+
+  $('.lohnLogout').click(() => {
+    window.location.href = '../scripts/logout.php';
+  });
 });

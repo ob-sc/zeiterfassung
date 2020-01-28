@@ -31,7 +31,10 @@ $(document).ready(() => {
           return fehler(
             'Lass deinen Account von deinem Stationsleiter bestätigen.'
           );
-        if (loginRes.valid === true && loginRes.status === 'lohnbuero') {
+        if (
+          (loginRes.valid === true && loginRes.status === 'lohnbuero') ||
+          (loginRes.valid === true && loginRes.status === 'controlling')
+        ) {
           window.location.href = '../lohnbuero';
           return false;
         }

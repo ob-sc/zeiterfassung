@@ -41,6 +41,26 @@
   width: 100%;
 }
 
+.logoutWrapper {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* width: 17%; */
+  padding-right: 2%;
+}
+
+.lohnLogout {
+  height: 50px;
+}
+
+.lohnLogout:hover {
+  cursor: pointer;
+}
+
 #fehlerAlert,
 #infoAlert {
   position: relative;

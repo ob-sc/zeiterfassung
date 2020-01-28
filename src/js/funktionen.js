@@ -60,7 +60,11 @@ export const session = (status, callback) => {
 
       // nur für lohnbüro
       if (status === 'lohnbuero')
-        if (data.userStatus !== 'admin' && data.userStatus !== 'lohnbuero')
+        if (
+          data.userStatus !== 'admin' &&
+          data.userStatus !== 'lohnbuero' &&
+          data.userStatus !== 'controlling'
+        )
           window.location.href = '../index.html#verlaufen';
 
       // station select erstellen laut berechtigung aus php
