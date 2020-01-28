@@ -8,11 +8,7 @@ const sortBy = require('lodash.sortby');
 
 moment.locale('de');
 
-let status;
-
-session('lohnbuero', data => {
-  status = data.userStatus;
-});
+session('lohnbuero');
 
 const stationMap = stationen;
 
@@ -193,7 +189,7 @@ $.ajax({
     XLSX.utils.book_append_sheet(notdienstWB, wsNotdienst, 'Notdienste');
     wsNotdienst['!cols'] = wsNotdienstCols;
     wsNotdienst['!margins'] = wsMargins;
-    
+
     $('.XLSXwrapper').show();
   })
   .fail(data => {
