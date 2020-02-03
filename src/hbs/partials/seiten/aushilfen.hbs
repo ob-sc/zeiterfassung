@@ -12,11 +12,15 @@
     </div>
     <div class="form-group">
       <label for="status">Status:</label>
-      <select class="form-control" name="status">
+      <select class="form-control" name="status" id="anlegenStatus">
         <option value="450" selected>450</option>
         <option value="Student">Werkstudent</option>
         <option value="Andere">Andere</option>
       </select>
+    </div>
+    <div id="andereInput" class="form-group" style="display:none;">
+      <label for="statusMax">Maximales Monatsgehalt</label>
+      <input type="text" class="form-control" name="statusMax" id="statusMax" value="450">
     </div>
     <div class="form-group">
       <label for="norlohn">Lohn Wochentag:</label>

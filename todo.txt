@@ -3,7 +3,10 @@
     |    ISSUES     |
     |_______________|
 
-- bei monatsberechnung schaut er nicht in welchen monat eingetragen wird
+- bei monatsberechnung (durchschnitt?) schaut er nicht in welchen monat eingetragen wird
+
+- bei abrechnung undefined rausnehmen
+    -> passiert wenn aushilfe gelöscht wurde aber zeit noch bei in zeiten gefunden wurde
     ________________
     |              |
     |     TODO     |

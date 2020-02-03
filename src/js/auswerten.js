@@ -5,7 +5,8 @@ import {
   roundTF,
   zuStunden,
   fehler,
-  info
+  info,
+  durchschnittBerechnung
 } from './funktionen';
 
 const moment = require('moment');
@@ -15,7 +16,6 @@ moment.locale('de');
 let html = '';
 let sonderRow = '';
 
-let eaDaten;
 let ahDaten;
 
 session('norm');
@@ -26,7 +26,7 @@ window.drucken = () => {
   window.print();
 };
 
-function eatabelle() {
+function eatabelle(eaDaten) {
   sonderRow = '';
 
   // Ende Funktion wenn keine Einträge
@@ -178,8 +178,37 @@ function eatabelle() {
   $('#eaText').append(`<br><strong>Gehalt:</strong> ${roundTF(sumGehalt)}€`);
 
   // wieviel bis maximales monatsgehalt / schon drüber
-  const status = ahDaten[$('#auswertenAuto').val()].ahStatus;
-  if (status === '450') {
+  const gehaltStatus = parseFloat(ahDaten[$('#auswertenAuto').val()].ahStatus);
+
+  if (
+    ahDaten[$('#auswertenAuto').val()].ahStatus !== 'Student' &&
+    // eslint-disable-next-line no-restricted-globals
+    isNaN(gehaltStatus)
+  )
+    fehler(
+      'Fehler bei der Durchschnittsberechnung, bitte überprüfe den Status unter "Aushilfen"'
+    );
+
+  console.log(ahDaten[$('#auswertenAuto').val()]);
+  console.log(eaDaten);
+
+  if (ahDaten[$('#auswertenAuto').val()].ahStatus !== 'Student') {
+    durchschnittBerechnung(
+      gehaltStatus,
+      ahDaten[$('#auswertenAuto').val()].id,
+      sumGehalt,
+      '#eaText',
+      () => {
+        // Druckbutton
+        $('#eaText').append(
+          '<br><input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc my-3">'
+        );
+      }
+    );
+  }
+}
+
+/*  if (status === '450') {
     const bisMax = 450 - sumGehalt;
     if (sumGehalt <= 450) {
       $('#eaText').append(`<br>Noch ${roundTF(bisMax)}€ bis 450€`);
@@ -188,11 +217,7 @@ function eatabelle() {
       $('#eaText').append(`<br><strong style="color:red;">Schon ${roundTF(-bisMax)}€ über 450€</strong>`);
     }
   }
-  // Druckbutton
-  $('#eaText').append(
-    '<br><input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc my-3">'
-  );
-}
+*/
 
 $(document).ready(() => {
   $('nav li').removeClass('current');
@@ -218,8 +243,7 @@ $(document).ready(() => {
       }
     })
       .done(eadata => {
-        eaDaten = eadata;
-        eatabelle();
+        eatabelle(eadata);
       })
       .fail(data => {
         fehler(data.responseText);

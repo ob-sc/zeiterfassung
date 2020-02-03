@@ -12,7 +12,7 @@ $stmt->bindValue(':norlohn', $_POST['norlohn']);
 $stmt->bindValue(':samlohn', $_POST['samlohn']);
 $stmt->bindValue(':sonlohn', $_POST['sonlohn']);
 $stmt->bindValue(':station', $_SESSION['station']);
-$stmt->bindValue(':status', $_POST['status']);
+$stmt->bindValue(':status', $_POST['statusMax']);
 
 $stmt->execute();
 

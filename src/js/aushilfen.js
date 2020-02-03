@@ -14,7 +14,7 @@ function ahBearbeiten() {
   ahDaten.forEach(key => {
     ahRow += `<tr><td>${key.personalnr}</td>`;
     ahRow += `<td class="table-ltr">${key.nachname}, ${key.vorname}</td>`;
-    ahRow += `<td>${key.ahStatus}</td>`;
+    ahRow += `<td class="editable" contenteditable="false" id="status${key.id}">${key.ahStatus}</td>`;
     ahRow += `<td class="editable" contenteditable="false" id="nor${
       key.id
     }">${roundTF(key.norlohn)}</td>`;
@@ -88,6 +88,7 @@ function ahBearbeiten() {
       $(this).attr('src', '../img/user-edit-solid.svg');
 
       // Werte aus contenteditable Feldern
+      const status = $(`#status${id}`).text();
       const norval = $(`#nor${id}`).text();
       const samval = $(`#sam${id}`).text();
       const sonval = $(`#son${id}`).text();
@@ -95,6 +96,7 @@ function ahBearbeiten() {
       // Objekt mit Daten an ajax
       const ahEdit = {
         id,
+        status,
         norlohn: norval.replace(',', '.'),
         samlohn: samval.replace(',', '.'),
         sonlohn: sonval.replace(',', '.')
@@ -207,5 +209,26 @@ $(document).ready(() => {
       }
     });
     $('#ahpnTab').html(ahpnRow);
+  });
+
+  $('#anlegenStatus').change(() => {
+    switch ($('#anlegenStatus').val()) {
+      case '450':
+        $('#statusMax').val('450');
+        $('#andereInput').hide();
+        break;
+      case 'Student':
+        $('#statusMax').val('Student');
+        $('#andereInput').hide();
+        break;
+      case 'Andere':
+        $('#statusMax').val('450');
+        $('#andereInput').show();
+        break;
+      default:
+        $('#statusMax').val('450');
+        $('#andereInput').hide();
+        break;
+    }
   });
 });

@@ -12,9 +12,9 @@ $stmt->bindValue(':ersterTagZeitraum', $_POST['ersterTagZeitraum']);
 
 $stmt->execute();
 
-$sqlres = $stmt->fetch(PDO::FETCH_ASSOC);
-$result['monat'] = $sqlres['gehalt'];
-if (is_null($sqlres['gehalt'])) $result['monat'] = 0;
+$sqlres1 = $stmt->fetch(PDO::FETCH_ASSOC);
+$result['monat'] = $sqlres1['gehalt'];
+if (is_null($sqlres1['gehalt'])) $result['monat'] = 0;
 
 $jahresgehaltSQL = 
 "SELECT sum(gehalt) AS gehalt FROM zeiten WHERE ahid = :id AND datum BETWEEN :beginnDate AND :endDate";
@@ -27,8 +27,9 @@ $stmt->bindValue(':endDate', $_POST['letzterTag']);
 
 $stmt->execute();
 
-$sqlres = $stmt->fetch(PDO::FETCH_ASSOC);
-$result['jahr'] = $sqlres['gehalt'];
+$sqlres2 = $stmt->fetch(PDO::FETCH_ASSOC);
+$result['jahr'] = $sqlres2['gehalt'];
+if (is_null($sqlres2['gehalt'])) $result['jahr'] = 0;
 
 echo json_encode($result);
 
