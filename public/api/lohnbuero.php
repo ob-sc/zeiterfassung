@@ -90,6 +90,12 @@ foreach ($stationen as $v) {
 		}
 	}
 
+	// Urlaubszeitraum vorbereiten
+	$year = date('Y');
+	$yearPrev = date('Y') - 1;
+	$beginnUrlaub = date('Y-m-d', mktime(0, 0, 0, 12, 18, $yearPrev));
+	$endUrlaub = date('Y-m-d', mktime(0, 0, 0, 12, 17, $year));
+
 	// alle arbeitstage im ausgewählten kompletten jahr / auch in anderer Station
 	$urlaubSql = 
 	"SELECT ahid, COUNT(DISTINCT datum) AS urlaub 
@@ -99,8 +105,8 @@ foreach ($stationen as $v) {
 
 	$stmt = $conn->prepare($urlaubSql);
 
-	$stmt->bindValue(':beginnDate', $beginnDate->format('Y-m-d'));
-	$stmt->bindValue(':endDate', $endDate->format('Y-m-d'));
+	$stmt->bindValue(':beginnDate', $beginnUrlaub);
+	$stmt->bindValue(':endDate', $endUrlaub);
 	$stmt->bindValue(':station', $station);
 	$stmt->execute();
 

@@ -17,13 +17,11 @@
 - Abrechnungszeitraum ändern
     -> eintragen
         -> durchschnitt (ist erstmal raus)
-    -> auswerten
-        -> tabelle
-    -> abrechnung
-        -> tabelle
+    -> auswerten x
+    -> abrechnung x
     -> lohnbüro x
 
-    -> alle php
+    -> alle php x?
 
 - andere lösung für aus anderer Station auf abrechnung für lohnbüro
 
@@ -94,3 +92,5 @@
 - in aushilfen anlegen -> alleDaten statt ahDaten[name] um zu gucken ob es sie insgesamt schon gibt
 
 - jeweils element zu key? -> https://stackoverflow.com/a/41550077/11918503
+
+- urlaubsberechnung richtig machen (es funktioniert nicht, wenn man im abrechnungszeitraum januar ist der im vorjahr startet, erst ab dem 1.1. wieder)
