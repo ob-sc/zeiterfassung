@@ -30,7 +30,7 @@ foreach ($stationen as $v) {
 	$monatJahr = $heute->format('Y-m');
 
 	$endDate = new DateTime($monatJahr.'-17');
-	$beginnDate = new DateTime($monatJahr.'-16');
+	$beginnDate = new DateTime($monatJahr.'-18');
 	$beginnDate->sub(new DateInterval('P1M'));
 
 

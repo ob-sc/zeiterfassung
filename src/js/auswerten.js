@@ -5,8 +5,7 @@ import {
   roundTF,
   zuStunden,
   fehler,
-  info,
-  durchschnittBerechnung
+  info
 } from './funktionen';
 
 const moment = require('moment');
@@ -26,7 +25,7 @@ window.drucken = () => {
   window.print();
 };
 
-function eatabelle(eaDaten) {
+function eatabelle(eaDaten, formName) {
   sonderRow = '';
 
   // Ende Funktion wenn keine Einträge
@@ -45,7 +44,7 @@ function eatabelle(eaDaten) {
   const sonderTabelle = [];
 
   // Abrechnungszeitrum 1
-  for (let i = 17; i <= monatsTage; i += 1) {
+  for (let i = 18; i <= monatsTage; i += 1) {
     const tempObjekt = {};
     tempObjekt.datum = `${i}.${eaMonatJahr}`;
     tempObjekt.tag = `<td>${i}.${eaMonatJahr}</td>`;
@@ -61,7 +60,7 @@ function eatabelle(eaDaten) {
 
   // Abrechnungszeitrum 2
   eaMonatJahr = eaDaten.ende;
-  for (let i = 1; i < 17; i += 1) {
+  for (let i = 1; i < 18; i += 1) {
     const tempObjekt = {};
     if (i < 10) {
       tempObjekt.datum = `0${i}.${eaMonatJahr}`;
@@ -178,24 +177,21 @@ function eatabelle(eaDaten) {
   $('#eaText').append(`<br><strong>Gehalt:</strong> ${roundTF(sumGehalt)}€`);
 
   // wieviel bis maximales monatsgehalt / schon drüber
-  const gehaltStatus = parseFloat(ahDaten[$('#auswertenAuto').val()].ahStatus);
+  if (ahDaten[formName].ahStatus !== 'Student') {
+    const gehaltStatus = Number(ahDaten[formName].ahStatus);
+    // prettier-ignore
+    if (Number.isNaN(gehaltStatus)) fehler('Fehler bei der Durchschnittsberechnung, bitte überprüfe den Status unter "Aushilfen"');
 
-  // Auch weg
-  if (
-    ahDaten[$('#auswertenAuto').val()].ahStatus !== 'Student' &&
-    // eslint-disable-next-line no-restricted-globals
-    isNaN(gehaltStatus)
-  )
-    fehler(
-      'Fehler bei der Durchschnittsberechnung, bitte überprüfe den Status unter "Aushilfen"'
-    );
+    const bisMax = gehaltStatus - sumGehalt;
+    if (sumGehalt <= gehaltStatus) {
+      // prettier-ignore
+      $('#eaText').append(`<br>Noch ${roundTF(bisMax)}€ bis ${ahDaten[formName].ahStatus}€`);
+    } else if (sumGehalt > gehaltStatus) {
+      // prettier-ignore
+      $('#eaText').append(`<br><strong style="color:red;">Schon ${roundTF(-bisMax)}€ über ${ahDaten[formName].ahStatus}€</strong>`);
+    }
 
-  console.log(ahDaten[$('#auswertenAuto').val()]);
-  console.log(eaDaten);
-
-  // Durchschnittsberechnung mit Formel von Eintragen - muss weg
-  // Hier ohne Gehalt, weil es sonst doppelt berechnet wird
-  if (ahDaten[$('#auswertenAuto').val()].ahStatus !== 'Student') {
+    /*
     durchschnittBerechnung(
       gehaltStatus,
       ahDaten[$('#auswertenAuto').val()].id,
@@ -203,24 +199,17 @@ function eatabelle(eaDaten) {
       '#eaText',
       () => {
         // Druckbutton
-        $('#eaText').append(
-          '<br><input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc my-3">'
-        );
+        
       }
     );
+    */
   }
-}
 
-/*  if (status === '450') {
-    const bisMax = 450 - sumGehalt;
-    if (sumGehalt <= 450) {
-      $('#eaText').append(`<br>Noch ${roundTF(bisMax)}€ bis 450€`);
-    } else if (sumGehalt > 450) {
-      // prettier-ignore
-      $('#eaText').append(`<br><strong style="color:red;">Schon ${roundTF(-bisMax)}€ über 450€</strong>`);
-    }
-  }
-*/
+  // Druckbutton
+  $('#eaText').append(
+    '<br><input type="button" onclick="drucken();" value="Drucken" class="noPrint btn scc my-3">'
+  );
+}
 
 $(document).ready(() => {
   $('nav li').removeClass('current');
@@ -246,7 +235,7 @@ $(document).ready(() => {
       }
     })
       .done(eadata => {
-        eatabelle(eadata);
+        eatabelle(eadata, AHName);
       })
       .fail(data => {
         fehler(data.responseText);

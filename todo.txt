@@ -3,18 +3,27 @@
     |    ISSUES     |
     |_______________|
 
+- Status
+    -> Bei anlegen: nicht input text sondern input number mit step 1
+    -> form serialize geht wohl nicht mehr sondern ein objkt mit dem jeweils richtigem Status
+    -> bei status bearbeiten nimmt er nur noch integer
+
+- Durchschnitt
+    -> aus funktion rausnehmen
+    -> emedian.php raus
+    -> auswerten (und eintragen)
+        -> gucken welche datenobjekte & variablen nicht mehr gebraucht werden
+
 - Abrechnungszeitraum ändern
     -> eintragen
-        -> durchschnitt
+        -> durchschnitt (ist erstmal raus)
     -> auswerten
         -> tabelle
-        -> durchschnitt
     -> abrechnung
         -> tabelle
-    -> lohnbüro
+    -> lohnbüro x
 
     -> alle php
-        -> nicht nur die
 
 - andere lösung für aus anderer Station auf abrechnung für lohnbüro
 
@@ -27,6 +36,8 @@
     -> wenn monatsabrechnung runtergeladen wurde:
         -> stiller eintrag in db
         -> runtergeladen mit regdate und von wem
+    -> historie wer sich wann anmeldet?
+        -> für controlling gbl
 
 - bei monatsberechnung (durchschnitt?) schaut er nicht in welchen monat eingetragen wird
 
@@ -47,6 +58,11 @@
     |     TODO     |
     |______________|
 
+- bei zb abrechnung
+    -> automatisch ok mit vorgegebenem monat
+
+- aushilfe anlegen nicht übereinander sonder auch nebeneinander
+    -> allg gucken wo forms schöner könnten
 
 -> allg gucken obs probleme beim jahreswechsel gibt?
 

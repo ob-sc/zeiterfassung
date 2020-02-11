@@ -5,6 +5,8 @@ const sortBy = require('lodash.sortby');
 let ahDaten;
 let namen;
 
+let formStatus = 450;
+
 session('sl');
 
 // Erstellen der Tabelle, jedes td hat ID mit Personal-ID für den Inhalt
@@ -168,7 +170,15 @@ $(document).ready(() => {
     $.ajax({
       url: '../api/anew.php',
       method: 'POST',
-      data: $('#newForm').serialize()
+      data: {
+        personalnr: $('#pNummer').val(),
+        vorname: $('#vorn').val(),
+        nachname: $('#nachn').val(),
+        norlohn: $('#anlegenNor').val(),
+        samlohn: $('#anlegenSam').val(),
+        sonlohn: $('#anlegenSon').val(),
+        statusMax: formStatus
+      }
     })
       .done(data => {
         info(data);
@@ -214,21 +224,24 @@ $(document).ready(() => {
   $('#anlegenStatus').change(() => {
     switch ($('#anlegenStatus').val()) {
       case '450':
-        $('#statusMax').val('450');
+        formStatus = 450;
         $('#andereInput').hide();
         break;
       case 'Student':
-        $('#statusMax').val('Student');
+        formStatus = 'Student';
         $('#andereInput').hide();
         break;
       case 'Andere':
-        $('#statusMax').val('450');
         $('#andereInput').show();
         break;
       default:
-        $('#statusMax').val('450');
+        formStatus = 450;
         $('#andereInput').hide();
         break;
     }
+  });
+
+  $('#statusMax').change(() => {
+    formStatus = $('#statusMax').val();
   });
 });

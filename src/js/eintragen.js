@@ -4,8 +4,7 @@ import {
   createAutoComplete,
   roundTF,
   info,
-  fehler,
-  durchschnittBerechnung
+  fehler
 } from './funktionen';
 
 const moment = require('moment');
@@ -26,6 +25,130 @@ let station;
 session('norm', data => {
   station = parseInt(data.stationID, 10);
 });
+
+/* ACHTUNG ÄNDER HIER DEN ABRECHNUNGSZEITRAUM
+// durchschnitt 
+const durchschnittBerechnung = (monatMax, id, gehalt, domTextID, callback) => {
+  const jetzt = moment();
+
+  // erster tag im aktuellen Abrechnungszeitraum
+  const tag = jetzt.format('DD');
+
+  let ersterTagZeitraum = '';
+
+  // wenn tag größer ist als 16, der monat also vor dem abrechnungszeitraumsmonat ist
+  if (tag > 16)
+    ersterTagZeitraum = `${jetzt.format('YYYY')}-${jetzt.format('MM')}-17`;
+
+  // wenn tag kleiner ist als 16, der monat also im abrechnungszeitraumsmonat ist
+  if (tag <= 16)
+    ersterTagZeitraum = `${jetzt.format('YYYY')}-${moment()
+      .subtract(1, 'months')
+      .format('MM')}-17`;
+
+  // wenn tag kleiner ist als 16, der monat also im abrechnungszeitraumsmonat ist und der monat januar ist, dann also dezember wird
+  if (tag <= 16 && moment().format('MM') === '01')
+    ersterTagZeitraum = `${moment()
+      .subtract(1, 'years')
+      .format('YYYY')}-${moment()
+      .subtract(1, 'months')
+      .format('MM')}-17`;
+
+  // letzter tag im abrechnungszeitraum des aktuellen jahres
+  const letzterTagAktuell = moment(
+    `${jetzt.format('YYYY')}-12-16`,
+    'YYYY-MM-DD'
+  );
+
+  // wenn heute schon im neuen Abrechnungszeitraum ist (Januar Folgejahr) also nach letzterTagAktuell
+  if (jetzt.isAfter(moment(letzterTagAktuell, 'YYYY-MM-DD')))
+    jetzt.add(1, 'years');
+
+  // letzter tag im abrechnungszeitraum
+  const letzterTag = moment(`${jetzt.format('YYYY')}-12-16`, 'YYYY-MM-DD');
+
+  // erster tag im abrechnungszeitraum
+  const ersterTag = moment(
+    `${moment()
+      .subtract(1, 'years')
+      .format('YYYY')}-12-17`,
+    'YYYY-MM-DD'
+  );
+
+  // gesamt tage im jahr
+  const ganzesJahrTage = letzterTag.diff(ersterTag, 'days');
+
+  // so viele tage im Abrechnungszeitraum schon vergangen
+  const tageVergangen = jetzt.diff(moment(ersterTag, 'YYYY-MM-DD'), 'days');
+
+  // max gehalt im gesamten jahr
+  const maxGehaltJetzt = ((monatMax * 12) / ganzesJahrTage) * tageVergangen;
+
+  $.ajax({
+    url: '../api/emedian.php',
+    method: 'POST',
+    data: {
+      id,
+      ersterTagZeitraum,
+      ersterTag: ersterTag.format('YYYY-MM-DD'),
+      letzterTag: letzterTag.format('YYYY-MM-DD')
+    }
+  })
+    .done(data => {
+      const durchschnittJSON = JSON.parse(data);
+
+      // gehalt dieser monat
+      const summeMonat =
+        parseFloat(roundTF(durchschnittJSON.monat)) + parseFloat(gehalt);
+
+      // gehalt dieses Jahr
+      const summe =
+        parseFloat(roundTF(durchschnittJSON.jahr)) + parseFloat(gehalt);
+
+      if (summeMonat < monatMax)
+        $(domTextID).append(
+          `<p><strong>Monat:</strong> ${roundTF(summeMonat)}€ (noch ${roundTF(
+            monatMax - summeMonat
+          )}€)</p>`
+        );
+
+      if (summeMonat === monatMax)
+        $(domTextID).append(
+          `<p><strong>Monat:</strong> ${roundTF(summeMonat)}€</p>`
+        );
+
+      if (summeMonat > monatMax) {
+        const rtfBugfix = roundTF(summeMonat) - monatMax;
+        $(domTextID).append(
+          `<p><strong>Monat:</strong> ${roundTF(summeMonat)}€ (${roundTF(
+            rtfBugfix
+          )}€ zu viel)</p>`
+        );
+
+        // berechnen des jahres durchschnitts
+        const durchschnitt = maxGehaltJetzt - summe;
+        if (durchschnitt >= 0)
+          $(domTextID).append(
+            `<p><strong>${roundTF(
+              durchschnitt
+            )}€</strong style="font-size: 0.8em"> unter Jahresdurchschnitt</p>`
+          );
+        else
+          $(domTextID).append(
+            `<p><strong style="color:#c90000;font-size: 0.8em">${roundTF(
+              durchschnitt
+            ) * -1}€ über Jahresdurchschnitt</strong></p>`
+          );
+      }
+
+      if (callback) callback();
+    })
+    .fail(data => {
+      fehler(data.responseText);
+    });
+};
+
+*/
 
 window.senden = () => {
   $.ajax({
@@ -153,22 +276,40 @@ const formBerechnung = () => {
     $('#etext').append(`<p><strong>Gehalt:</strong> ${fbData.gehalt}€</p>`);
   }
 
-  const gehaltStatus = parseFloat(alleDaten[ausName].ahStatus);
+  /* reinnehmen wenn wir wissen, ob der jahresdurchschnitt rein soll oder nicht
 
-  // eslint-disable-next-line no-restricted-globals
-  if (alleDaten[ausName].ahStatus !== 'Student' && isNaN(gehaltStatus))
-    return fehler(
-      'Fehler bei der Durchschnittsberechnung, bitte überprüfe den Status unter "Aushilfen"'
-    );
-
+  // wieviel bis maximales monatsgehalt / schon drüber
   if (alleDaten[ausName].ahStatus !== 'Student') {
-    durchschnittBerechnung(
-      gehaltStatus,
-      fbData.aushilfenId,
-      fbData.gehalt,
-      '#etext'
-    );
+    const gehaltStatus = Number(alleDaten[ausName].ahStatus);
+    // prettier-ignore
+    if (Number.isNaN(gehaltStatus)) fehler('Fehler bei der Durchschnittsberechnung, bitte überprüfe den Status unter "Aushilfen"');
+
+    const bisMax = gehaltStatus - fbData.gehalt;
+    if (fbData.gehalt <= gehaltStatus) {
+      // prettier-ignore
+      $('#etext').append(`<p>Noch ${roundTF(bisMax)}€ bis ${alleDaten[ausName].ahStatus}€</p>`);
+    } else if (fbData.gehalt > gehaltStatus) {
+      // prettier-ignore
+      $('#etext').append(`<p><strong style="color:red;">Schon ${roundTF(-bisMax)}€ über ${alleDaten[ausName].ahStatus}€</strong></p>`);
+    }
   }
+
+  */
+
+  // // eslint-disable-next-line no-restricted-globals
+  // if (alleDaten[ausName].ahStatus !== 'Student' && isNaN(gehaltStatus))
+  //   return fehler(
+  //     'Fehler bei der Durchschnittsberechnung, bitte überprüfe den Status unter "Aushilfen"'
+  //   );
+
+  // if (alleDaten[ausName].ahStatus !== 'Student') {
+  //   durchschnittBerechnung(
+  //     gehaltStatus,
+  //     fbData.aushilfenId,
+  //     fbData.gehalt,
+  //     '#etext'
+  //   );
+  // }
 
   // senden knopf zeigen
   return $('#esend').show();

@@ -20,9 +20,9 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 
 // abrechnungszeitraum vorbereiten
-$beginnDate = new DateTime($_POST['monat'].'-17');
+$beginnDate = new DateTime($_POST['monat'].'-18');
 $beginnDate->sub(new DateInterval('P1M'));
-$endDate = new DateTime($_POST['monat'].'-16');
+$endDate = new DateTime($_POST['monat'].'-17');
 
 
 // alle arbeitszeiten holen für station
