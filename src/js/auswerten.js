@@ -180,6 +180,7 @@ function eatabelle(eaDaten) {
   // wieviel bis maximales monatsgehalt / schon drüber
   const gehaltStatus = parseFloat(ahDaten[$('#auswertenAuto').val()].ahStatus);
 
+  // Auch weg
   if (
     ahDaten[$('#auswertenAuto').val()].ahStatus !== 'Student' &&
     // eslint-disable-next-line no-restricted-globals
@@ -192,11 +193,13 @@ function eatabelle(eaDaten) {
   console.log(ahDaten[$('#auswertenAuto').val()]);
   console.log(eaDaten);
 
+  // Durchschnittsberechnung mit Formel von Eintragen - muss weg
+  // Hier ohne Gehalt, weil es sonst doppelt berechnet wird
   if (ahDaten[$('#auswertenAuto').val()].ahStatus !== 'Student') {
     durchschnittBerechnung(
       gehaltStatus,
       ahDaten[$('#auswertenAuto').val()].id,
-      sumGehalt,
+      0,
       '#eaText',
       () => {
         // Druckbutton

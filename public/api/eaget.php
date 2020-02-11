@@ -6,8 +6,6 @@ $beginnDate = new DateTime($_POST['datum'].'-17');
 $beginnDate->sub(new DateInterval('P1M'));
 $endDate = new DateTime($_POST['datum'].'-16');
 
-#10.juli bis 9. august ist august
-
 // QUERY 1 mehrere Reihen
 $zeitenSql = "SELECT datum, beginn, ende, arbeitszeit, gehalt, station, ahstation FROM zeiten WHERE ahid = :id AND datum BETWEEN :beginnDate AND :endDate ORDER BY datum ASC, beginn ASC";
 

@@ -3,18 +3,50 @@
     |    ISSUES     |
     |_______________|
 
+- Abrechnungszeitraum ändern
+    -> eintragen
+        -> durchschnitt
+    -> auswerten
+        -> tabelle
+        -> durchschnitt
+    -> abrechnung
+        -> tabelle
+    -> lohnbüro
+
+    -> alle php
+        -> nicht nur die
+
+- andere lösung für aus anderer Station auf abrechnung für lohnbüro
+
+- nachträgliche bearbeitung (eintragen & löschen) von zeiten im vormonat (& alle?) sperren
+
+- personalnummer nicht selber eintragen
+    -> soll das lohnbüro das machen?
+
+- api: 
+    -> wenn monatsabrechnung runtergeladen wurde:
+        -> stiller eintrag in db
+        -> runtergeladen mit regdate und von wem
+
 - bei monatsberechnung (durchschnitt?) schaut er nicht in welchen monat eingetragen wird
 
 - bei abrechnung undefined rausnehmen
     -> passiert wenn aushilfe gelöscht wurde aber zeit noch bei in zeiten gefunden wurde
+   
+- bei eintragen:
+    -> schon angemeldet heute (bei anmelden)
+    -> schon zeit heute (bei eintragen)
+        -> warnung/fehler wenn gleiche arbeitszeit eingetragen wird (zb 1.1.2019 13 uhr bis 15 uhr und 1.1.2019 14 uhr bis 15 uhr)
+            -> in vorschau oder fehler?
+
+- wenn über jahresdurchschnitt
+    -> kein eintragen möglich
+
     ________________
     |              |
     |     TODO     |
     |______________|
 
-- bei eintragen:
-    -> schon angemeldet heute (bei anmelden)
-    -> schon zeit heute (bei eintragen)
 
 -> allg gucken obs probleme beim jahreswechsel gibt?
 
@@ -30,13 +62,7 @@
     -> fehler wenn es eine aushilfen schon gibt?
     -> ein array -> namen pushen -> nächster name -> gucken obs schon gibt -> pushen oder halt fehler
 
-- warnung/fehler wenn gleiche arbeitszeit eingetragen wird (zb 1.1.2019 13 uhr bis 15 uhr und 1.1.2019 14 uhr bis 15 uhr)
-    -> in vorschau?
-
 - bei aushilfen (& andere) seite nicht neu laden sondern wie bei mitarbeiter we eintragen aktualisieren
-
-- wie wird förster jetzt informiert?
-    -> ich kann ihm einen account machen auf dem alle notdienste angezeigt werden
 
 - knöpfe gleiche größe
     -> besonders aushilfen löschen modal
