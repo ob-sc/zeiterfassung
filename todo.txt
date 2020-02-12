@@ -3,6 +3,10 @@
     |    ISSUES     |
     |_______________|
 
+- manual überarbeiten
+
+- löschen ordentlich rausnehmen
+
 - Status
     -> Bei anlegen: nicht input text sondern input number mit step 1
     -> form serialize geht wohl nicht mehr sondern ein objkt mit dem jeweils richtigem Status
@@ -39,7 +43,7 @@
 
 - bei monatsberechnung (durchschnitt?) schaut er nicht in welchen monat eingetragen wird
 
-- bei abrechnung undefined rausnehmen
+- bei abrechnung undefined rausnehmen WICHTIG
     -> passiert wenn aushilfe gelöscht wurde aber zeit noch bei in zeiten gefunden wurde
    
 - bei eintragen:
