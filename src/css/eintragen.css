@@ -1,0 +1,83 @@
+.flex-wrapper-eintragen {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.flex-wrapper-eintragen > * {
+  flex: 1 100%;
+  padding: 30px;
+}
+
+.eintragen-main {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: left;
+  align-content: flex-start;
+}
+
+.signedIn {
+  display: inline-block;
+  width: 200px;
+  background-color: #000;
+  color: #fafafa;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 10px;
+}
+
+.wrongDate {
+  background-color: #7a0000;
+  color: #fff;
+}
+
+.signedIn:hover {
+  cursor: pointer;
+}
+
+.selectedSI {
+  background-color: #fafafa;
+  color: #000;
+}
+
+.preview {
+  margin: 20px 0 20px;
+}
+
+#delete {
+  color: #cc0000;
+  margin-bottom: 30px;
+}
+
+#delete:hover {
+  color: rgb(255, 0, 0);
+  cursor: pointer;
+}
+
+/* Reihenfolge:
+ * 1. main
+ * 2. left
+ * 3. right 
+ */
+
+@media all and (min-width: 600px) {
+  .aside {
+    flex: 1 0 0;
+  }
+}
+
+@media all and (min-width: 800px) {
+  .eintragen-main {
+    flex: 3.5 0px;
+  }
+  .eintragen-left {
+    order: 1;
+  }
+  .eintragen-main {
+    order: 2;
+  }
+  .eintragen-right {
+    order: 3;
+  }
+}

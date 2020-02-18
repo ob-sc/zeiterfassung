@@ -22,7 +22,7 @@ getData(daten => {
 // Fehler Alert
 export function fehler(tx) {
   $('#fehlerText').html(tx);
-  $('#fehlerAlert').fadeIn('fast');
+  $('#fehlerAlert').show();
   $('#fehlerClose').click(() => {
     $('#fehlerAlert').fadeOut('fast');
   });
@@ -31,11 +31,28 @@ export function fehler(tx) {
 // Info Alert
 export function info(tx) {
   $('#infoText').html(tx);
-  $('#infoAlert').fadeIn('fast');
+  $('#infoAlert').show();
   $('#infoClose').click(() => {
     $('#infoAlert').fadeOut('fast');
   });
 }
+
+// clear DOM
+export const clearDOM = selector => {
+  const element = document.querySelector(selector);
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+};
+
+// add current navbar
+export const addCurrent = id => {
+  const nav = Array.from(document.querySelector('.cnav').children);
+  nav.forEach(element => {
+    element.classList.remove('current');
+  });
+  document.getElementById(id).classList.add('current');
+};
 
 // session
 export const session = (status, callback) => {

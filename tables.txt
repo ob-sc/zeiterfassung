@@ -17,3 +17,7 @@ fertig
 ALTER TABLE `angemeldet` ADD `name` TEXT NOT NULL AFTER `ahid`;
 ALTER TABLE `angemeldet` DROP `ahid`;
 fertig
+
+ALTER TABLE `angemeldet` CHANGE `datum` `date` DATE NOT NULL;
+ALTER TABLE `angemeldet` CHANGE `beginn` `start` TIME NOT NULL;
+ALTER TABLE `angemeldet` ADD `ahid` INT NOT NULL AFTER `name`;

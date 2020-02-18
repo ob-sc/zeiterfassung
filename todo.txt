@@ -3,6 +3,26 @@
     |    ISSUES     |
     |_______________|
 
+- Eintragen neu:
+    -> bei klick auf namen direkt id in db
+    -> https://tarekraafat.github.io/autoComplete.js/#/
+
+    -> eintrag über ahid nicht name
+    -> name kommt bei signedin und eintragen aus aushilfen tabelle
+    -> alledaten mit id statt name im index?
+
+    -> statt 
+
+GESPRÄCH CK MH JO:
+- Nicht mehr über 450
+    -> Rückwirkend mehr wieder rein
+- Nur noch Namen (nicht mehr billstedt sondern rothehueser)
+- Pausenzeiten müssen rein
+- Über 10 Stunden stop
+- morgens eintragen abends abmelden
+    -> keine zeiten nachtragen
+- fehlermeldung bei über durchschnitt
+
 - manual überarbeiten
 
 - löschen ordentlich rausnehmen
@@ -17,15 +37,6 @@
     -> emedian.php raus
     -> auswerten (und eintragen)
         -> gucken welche datenobjekte & variablen nicht mehr gebraucht werden
-
-- Abrechnungszeitraum ändern
-    -> eintragen
-        -> durchschnitt (ist erstmal raus)
-    -> auswerten x
-    -> abrechnung x
-    -> lohnbüro x
-
-    -> alle php x?
 
 - andere lösung für aus anderer Station auf abrechnung für lohnbüro
 
@@ -55,10 +66,17 @@
 - wenn über jahresdurchschnitt
     -> kein eintragen möglich
 
+- alles jquery zu vanilla js
+
+- jquery ajax zu fetch()
+
     ________________
     |              |
     |     TODO     |
     |______________|
+
+- wirklich löschen ein modal in header handlebar dings?
+    -> zu info und alert
 
 - bei zb abrechnung
     -> automatisch ok mit vorgegebenem monat
@@ -87,7 +105,8 @@
 
 - favicon ändern?
 
-- responsive machen?
+- responsive machen
+    -> navbar nicht scalen sondern mit @media min-width wie eintragen
 
 - trim (nur bei aushilfe anlegen?)
 
@@ -98,3 +117,13 @@
 - jeweils element zu key? -> https://stackoverflow.com/a/41550077/11918503
 
 - urlaubsberechnung richtig machen (es funktioniert nicht, wenn man im abrechnungszeitraum januar ist der im vorjahr startet, erst ab dem 1.1. wieder)
+
+- statt namen immer id eintragen
+    -> alle daten als index id nicht name
+    -> aus db bei eintragen und zeiten (u.a.) kommt id => name suchen
+
+- css in js direkt importieren statt cssbundle?
+    -> also eintragen.css in eintragen.js
+
+- loop through object
+https://stackoverflow.com/a/41550077/11918503

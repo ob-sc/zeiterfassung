@@ -63,7 +63,7 @@
 
 #fehlerAlert,
 #infoAlert {
-  position: relative;
+  position: absolute;
   display: none;
   font-size: 1.3rem;
   width: 40%;

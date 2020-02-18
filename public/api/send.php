@@ -19,10 +19,10 @@ $stmt->bindValue(':ahstation', $_POST['ahStation']);
 
 $stmt->execute();
 
-if ($stmt->rowCount() < 1) {
-  echo "Fehler!";
+if ($stmt->rowCount() !== 1) {
+  http_response_code(500);
 } else {
-  echo "Eintrag erfolgreich";
+  http_response_code(200);
 }
 
 $conn = null;
