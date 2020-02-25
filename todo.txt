@@ -1,7 +1,12 @@
     _________________
     |               |
-    |    ISSUES     |
+    |    WICHTIG    |
     |_______________|
+
+- excel für förster
+    -> wer aus anderer Station
+
+- RS bohrs backup db
 
 - Eintragen neu:
     -> bei klick auf namen direkt id in db
@@ -18,15 +23,15 @@
 
     -> Schrift bei max Rot
 
-    -> Eintrag löschen auf Anmeldung löschen?
+    -> umbenennen auf zeiterfassung?
 
 - Eintragen alt für GBL
+    -> auch zeiten löschen?
 
 - elegantere Lösung für negative/gleiche arbeitszeit bei eintragen 
     -> NaN.00€ ist nicht gut
 
-
-
+- zeiten löschen für admin
 
 GESPRÄCH CK MH JO:
 - Nicht mehr über 450
@@ -84,6 +89,7 @@ GESPRÄCH CK MH JO:
 - lohnbüro php urlaub jahr geht nicht vom 18.12. bis 31.12.
 
 - lohnbüro excel erstellen eine funktion?
+    -> excel wird bei klick auf symbol erstellt, nicht im voraus
 
 - eintragen alt und send alt raus
 
@@ -91,6 +97,18 @@ GESPRÄCH CK MH JO:
     -> direkt info an kehler auf "lohnbuero"
     -> unterlagen direkt auf der seite hochladen
         -> RS bohrs ob möglich
+
+- alle stationsaccounts auf namen ändern
+
+- php mit http_response_code
+    -> alle oder nur welche mit fehler?
+    -> echo je nachdem
+
+    ________________
+    |              |
+    |     TODO     |
+    |______________|
+    
 
 - abrechnung neu machen
     -> kein jquery
@@ -102,7 +120,7 @@ GESPRÄCH CK MH JO:
     -> create element tabelle wie eintragen
     -> vormonate rechts anzeigen
 
-- aushilfen mit an/ abmelden -> info kehler
+- aushilfen
     -> mitarbeiter mit rein ?
 
 - mitarbeiter
@@ -115,10 +133,7 @@ GESPRÄCH CK MH JO:
 
 - überschrift weg?
 
-    ________________
-    |              |
-    |     TODO     |
-    |______________|
+- Schichtplan?
 
 - kann ich tabelle zeiten beginn und ende auf HH:mm time oder wie auch immer formatieren?
 
@@ -143,6 +158,7 @@ GESPRÄCH CK MH JO:
     -> entweder dom element löschen oder ajax neu
 
 - filter clear zeiten
+    -> zeit inputs schöner machen
 
 - aushilfen: 
     -> fehler wenn es eine aushilfen schon gibt?

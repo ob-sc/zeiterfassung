@@ -66,16 +66,27 @@ const calcAZ = (name, moments) => {
   const { samlohn } = alleDaten[name];
   const { sonlohn } = alleDaten[name];
 
-  const diff = moments.end.diff(moments.start, 'minutes');
+  calc.diff = moments.end.diff(moments.start, 'minutes');
 
   // validate az
-  if (diff < 1) return false;
+  if (calc.diff < 1) return false;
 
-  calc.az = diff;
+  calc.az = calc.diff;
+
+  // no pause, nothing added
+  calc.pause = 0;
 
   // pausenzeit
-  if (diff > 360) calc.az -= 30;
-  if (diff > 540) calc.az -= 15;
+  // 30 mins, pause is 1
+  if (calc.diff >= 360) {
+    calc.az -= 30;
+    calc.pause = 1;
+  }
+  // 45 mins, pause = 2
+  if (calc.diff >= 540) {
+    calc.az -= 15;
+    calc.pause = 2;
+  }
 
   // Gehalt
   let lohn;
@@ -91,8 +102,8 @@ const calcAZ = (name, moments) => {
     lohn = 10;
   }
 
-  // gehalt in cent
-  const gehaltCent = (lohn * 100 * calc.az) / 60 / 100;
+  // gehalt in cent / rundungsfehler vermeiden
+  const gehaltCent = (lohn * 100 * calc.diff) / 60 / 100;
 
   calc.gehalt = roundTF(gehaltCent);
 
@@ -102,6 +113,9 @@ const calcAZ = (name, moments) => {
 const createPreview = (data, event) => {
   // delete previous preview
   clearDOM('.preview');
+
+  // pause var
+  let pause = 0;
 
   // assign ids
   const confirmBtn = document.getElementById('confirm');
@@ -155,7 +169,9 @@ const createPreview = (data, event) => {
 
   if (!notdienst) {
     const calc = calcAZ(data.name, moments);
+    pause = calc.pause;
     sendData.az = calc.az;
+    sendData.diff = calc.diff;
     sendData.gehalt = calc.gehalt;
 
     createRow(i, 'dateCell', 'Datum', moments.date.format('DD.MM.YYYY'));
@@ -180,7 +196,7 @@ const createPreview = (data, event) => {
   if (notdienst) {
     sendData.start = 'nd';
     sendData.end = 'nd';
-    sendData.az = 0;
+    sendData.diff = 0;
 
     const amount = document.getElementById('anzahl').value;
     sendData.gehalt = 40 * amount;
@@ -286,12 +302,8 @@ const createPreview = (data, event) => {
     calcMax(gehaltStatus);
   }
 
-  // clone node to remove eventlisteners
-  const endClone = endInput.cloneNode(true);
-  endInput.parentNode.replaceChild(endClone, endInput);
-
   // on end input change
-  document.getElementById('end').addEventListener('change', e => {
+  document.getElementById('end').onchange = e => {
     sendData.end = e.target.value;
     moments.end = moment(sendData.end, 'HH:mm');
     document.getElementById('endCell').innerHTML = sendData.end;
@@ -299,10 +311,11 @@ const createPreview = (data, event) => {
     if (moments.end.isAfter(moments.start)) {
       const newCalc = calcAZ(data.name, moments);
 
-      sendData.az = newCalc.az;
+      pause = newCalc.pause;
+      sendData.diff = newCalc.diff;
       sendData.gehalt = newCalc.gehalt;
 
-      document.getElementById('azCell').innerHTML = zuStunden(sendData.az);
+      document.getElementById('azCell').innerHTML = zuStunden(newCalc.az);
       document.getElementById('gehaltCell').innerHTML = `${sendData.gehalt}€`;
 
       if (alleDaten[data.name].ahStatus !== 'Student') {
@@ -320,15 +333,10 @@ const createPreview = (data, event) => {
 
       confirmBtn.style.display = 'none';
     }
-  });
-
-  // clone node to remove eventlisteners
-  const anzahl = document.getElementById('anzahl');
-  const anzahlClone = anzahl.cloneNode(true);
-  anzahl.parentNode.replaceChild(anzahlClone, anzahl);
+  };
 
   // on amount input change
-  document.getElementById('anzahl').addEventListener('change', e => {
+  document.getElementById('anzahl').onchange = e => {
     confirmBtn.style.display = 'none';
 
     const amount = e.target.value;
@@ -338,7 +346,7 @@ const createPreview = (data, event) => {
 
     document.getElementById('amountCell').innerHTML = amount;
     document.getElementById('gehaltCell').innerHTML = `${sendData.gehalt}€`;
-  });
+  };
 
   // remove entry from db and dom
   deleteBtn.onclick = () => {
@@ -360,6 +368,12 @@ const createPreview = (data, event) => {
   };
 
   document.getElementById('confirm').onclick = () => {
+    // ¯\_(ツ)_/¯
+    if (pause === 1)
+      sendData.end = moments.end.add(30, 'minutes').format('HH:mm');
+    else if (pause === 2)
+      sendData.end = moments.end.add(45, 'minutes').format('HH:mm');
+
     $.ajax({
       url: '../api/send.php',
       method: 'POST',

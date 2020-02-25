@@ -25,7 +25,7 @@ $stmt->bindValue(':ahid', $_POST['ahid']);
 $stmt->bindValue(':datum', $_POST['date']);
 $stmt->bindValue(':beginn', $_POST['start']);
 $stmt->bindValue(':ende', $_POST['end']);
-$stmt->bindValue(':arbeitszeit', $_POST['az']);
+$stmt->bindValue(':arbeitszeit', $_POST['diff']);
 $stmt->bindValue(':gehalt', $_POST['gehalt']);
 $stmt->bindValue(':disp', $_SESSION['userid']);
 $stmt->bindValue(':station', $_SESSION['station']);

@@ -8,7 +8,7 @@ $result = [];
 foreach ($stationen as $v) {
 	$station = $v;
 
-	// alle aushilfen der station -> leer
+	// alle aushilfen der station -> leer => für kehler
 	$aushilfenSql = 
 	"SELECT id, personalnr, nachname, vorname, 0 AS arbeitszeit, 0 AS gehalt, 0 AS datum, 0 AS urlaub , status 
 	FROM aushilfen 
@@ -34,7 +34,7 @@ foreach ($stationen as $v) {
 	$beginnDate->sub(new DateInterval('P1M'));
 
 
-	// alle arbeitszeiten holen für station
+	// alle arbeitszeiten holen für station => für kehler
 	$zeitenSql = 
 	"SELECT ahid, SUM(arbeitszeit) AS arbeitszeit, SUM(gehalt) AS gehalt, COUNT(DISTINCT datum) AS datum 
 	FROM zeiten 
@@ -54,7 +54,7 @@ foreach ($stationen as $v) {
 		$aushilfen[$row['ahid']]['datum'] = $row['datum'];
 	}
 
-	// Zeiten der Fremd-Aushilfen
+	// Zeiten der Fremd-Aushilfen => für förster
 	$fremdZeitenSql = 
 	"SELECT ahid AS id, SUM(arbeitszeit) AS arbeitszeit, SUM(gehalt) AS gehalt, COUNT(DISTINCT datum) AS datum, ahstation 
 	FROM zeiten 
@@ -74,7 +74,7 @@ foreach ($stationen as $v) {
 		$fremdDaten[$row['id']] = $row;
 	}
 
-	// Daten der Fremd-Aushilfen 
+	// Daten der Fremd-Aushilfen  => für förster
 	$fremdSql = "SELECT id, vorname, nachname, personalnr, status FROM aushilfen WHERE id = :ahid";
 	$stmt = $conn->prepare($fremdSql);
 
@@ -95,7 +95,7 @@ foreach ($stationen as $v) {
 	$beginnUrlaub = date('Y-m-d', mktime(0, 0, 0, 12, 18, $yearPrev));
 	$endUrlaub = date('Y-m-d', mktime(0, 0, 0, 12, 17, $year));
 
-	// alle arbeitstage im ausgewählten kompletten jahr / auch in anderer Station
+	// alle arbeitstage im ausgewählten kompletten jahr / auch in anderer Station => für kehler
 	$urlaubSql = 
 	"SELECT ahid, COUNT(DISTINCT datum) AS urlaub 
 	FROM zeiten 
@@ -113,8 +113,7 @@ foreach ($stationen as $v) {
 		$aushilfen[$row['ahid']]['urlaub'] = $row['urlaub'];
 	}
 
-	// notdienst
-	// notdienst wird durch beginn = 'nd' gekennzeichnet und in json als urlaub übertragen
+	// notdienst wird durch beginn = 'nd' gekennzeichnet und in json als urlaub übertragen => für förster
 	$notdienstSql = 
 	"SELECT ahid, beginn, sum(gehalt) AS gehalt, ahstation
 	FROM zeiten 
@@ -134,7 +133,7 @@ foreach ($stationen as $v) {
 		$ndAushilfen[$row['ahid']]['urlaub'] = $row['beginn'];
 	}
 
-	// WE-Listen
+	// WE-Listen => für förster
 	// abrechnungszeitraum vorbereiten
 	$weBeginnDate = new DateTime('first day of last month');
 	$weEndDate = new DateTime('last day of last month');

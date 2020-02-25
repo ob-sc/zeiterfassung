@@ -102,6 +102,7 @@ $stmt->bindValue(':endDate', $endUrlaub);
 $stmt->bindValue(':station', $_SESSION['station']);
 $stmt->execute();
 
+// todo hier if !is_null($aushilfen[$row['ahid']]), evtl $aushilfen[$row['ahid']][personalnr]?
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 	$aushilfen[$row['ahid']]['urlaub'] = $row['urlaub'];
 }
