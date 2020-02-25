@@ -16,46 +16,47 @@ moment.locale('de');
 
 let alleDaten;
 let notdienst = false;
-let abmeldung; // todo weg?
 let station;
 
 session('norm', data => {
   station = parseInt(data.stationID, 10);
 });
 
-// '19.12.2020', 'DD.MM.YYYY'
+// todo klasse notdienst und normal oder so auf elemente => queryselector .notdienst => foreach style.display none oder halt block
+const checkND = () => {
+  // Toggle elements for notdienst
+  document.querySelector('.zeit').style.display = 'none';
+  document.getElementById('menge').style.display = 'block';
+  document.getElementById('signIn').style.display = 'none';
+  document.getElementById('ndPreview').style.display = 'block';
 
-// calculate maximum from previous / current month
+  // clear the preview
+  clearDOM('.preview');
+  document.getElementById('endGroup').style.display = 'none';
+  document.getElementById('delete').style.display = 'none';
+  document.getElementById('confirm').style.display = 'none';
 
-window.senden = () => {
-  $.ajax({
-    url: '../api/send.php',
-    method: 'POST',
-    data: fbData
-  })
-    .done(data => {
-      info(data);
-      $('#eform')[0].reset();
-      document.getElementById('datum').valueAsDate = new Date();
-      $('#etext').html('');
-      if (abmeldung) {
-        $.ajax({
-          url: '../api/signIn.php',
-          method: 'POST',
-          data: { deleteid: abmeldung.dataset.id }
-        })
-          .done(() => {
-            abmeldung.remove();
-            abmeldung = false;
-          })
-          .fail(deletedata => {
-            fehler(deletedata.responseText);
-          });
-      }
-    })
-    .fail(data => {
-      fehler(data.responseText);
-    });
+  // remove selectedSI
+  document.querySelectorAll('.signedIn').forEach(element => {
+    element.classList.remove('selectedSI');
+  });
+
+  notdienst = true;
+};
+
+const unCheckND = () => {
+  // Toggle elements for notdienst
+  document.querySelector('.zeit').style.display = 'block';
+  document.getElementById('menge').style.display = 'none';
+  document.getElementById('signIn').style.display = 'block';
+  document.getElementById('confirm').style.display = 'none';
+  document.getElementById('ndPreview').style.display = 'none';
+
+  document.getElementById('ndCheck').checked = false;
+
+  clearDOM('.preview');
+
+  notdienst = false;
 };
 
 const calcAZ = (name, moments) => {
@@ -99,48 +100,43 @@ const calcAZ = (name, moments) => {
 };
 
 const createPreview = (data, event) => {
+  // delete previous preview
   clearDOM('.preview');
 
+  // assign ids
   const confirmBtn = document.getElementById('confirm');
   const deleteBtn = document.getElementById('delete');
   const preview = document.querySelector('.preview');
+  const endInput = document.getElementById('end');
 
   const sendData = {};
 
-  const endInput = document.getElementById('end');
-
+  // moment objects to pass to other functions
   const moments = {
     date: moment(data.date, 'YYYY-MM-DD'),
     start: moment(data.start, 'HH:mm:ss'),
     end: moment(endInput.value, 'HH:mm')
   };
 
-  sendData.date = moments.date.format('DD.MM.YYYY');
+  // prepare name, ahstation, date, start and end to pass to php
+  sendData.name = data.name;
+  sendData.ahstation = alleDaten[data.name].station;
+  sendData.date = moments.date.format('YYYY-MM-DD');
   sendData.start = moments.start.format('HH:mm');
   sendData.end = endInput.value;
 
-  // if (notdienst) {
-  //   fbData.beginnForm = 'nd';
-  //   fbData.endeForm = 'nd';
-  //   fbData.diff = 0;
-
-  //   const menge = $('#anzahl').val();
-  //   $('#etext').append(`<p><strong>Einsätze:</strong> ${menge}</p>`);
-
-  //   fbData.gehalt = 40 * menge;
-  //   $('#etext').append(`<p><strong>Gehalt:</strong> ${fbData.gehalt}€</p>`);
-  // }
-
-  const calc = calcAZ(data.name, moments);
-  sendData.az = calc.az;
-  sendData.gehalt = calc.gehalt;
-
+  // prepare id - doesn't change
   sendData.ahid = data.ahid;
 
+  // create table element in preview
   const table = document.createElement('table');
   table.setAttribute('style', 'width: 100%');
   preview.appendChild(table);
 
+  // index for table
+  let i = 0;
+
+  // create row in preview
   const createRow = (position, id, text0, text1) => {
     const row = table.insertRow(position);
     const cell0 = row.insertCell(0);
@@ -150,60 +146,83 @@ const createPreview = (data, event) => {
 
     cell0.innerHTML = text0;
     cell1.innerHTML = text1;
+
+    i += 1;
   };
 
-  createRow(0, 'nameCell', 'Name', data.name);
-  createRow(1, 'dateCell', 'Datum', sendData.date);
-  createRow(2, 'startCell', 'Beginn', sendData.start);
-  createRow(3, 'endCell', 'Ende', sendData.end);
+  // create name row, always and doesn't change
+  createRow(i, 'nameCell', 'Name', data.name);
 
   if (!notdienst) {
+    const calc = calcAZ(data.name, moments);
+    sendData.az = calc.az;
+    sendData.gehalt = calc.gehalt;
+
+    createRow(i, 'dateCell', 'Datum', moments.date.format('DD.MM.YYYY'));
+    createRow(i, 'startCell', 'Beginn', sendData.start);
+    createRow(i, 'endCell', 'Ende', sendData.end);
+
     if (moments.end.isAfter(moments.start)) {
-      createRow(4, 'azCell', 'Arbeitszeit', zuStunden(sendData.az));
-      createRow(5, 'gehaltCell', 'Gehalt', `${sendData.gehalt}€`);
+      createRow(i, 'azCell', 'Arbeitszeit', zuStunden(sendData.az));
+      createRow(i, 'gehaltCell', 'Gehalt', `${sendData.gehalt}€`);
 
       confirmBtn.value = 'Abmelden';
       deleteBtn.style.display = 'block';
     } else {
-      createRow(4, 'azCell', 'Arbeitszeit', 'Fehler');
-      createRow(5, 'gehaltCell', 'Gehalt', 'Fehler');
+      createRow(i, 'azCell', 'Arbeitszeit', 'Fehler');
+      createRow(i, 'gehaltCell', 'Gehalt', 'Fehler');
 
       confirmBtn.style.display = 'none';
       deleteBtn.style.display = 'block';
     }
   }
 
-  if (alleDaten[data.name].ahStatus !== 'Student') {
-    createRow(6, 'monthCell', 'Monat', '');
-    createRow(7, 'yearCell', 'Jahr', '');
+  if (notdienst) {
+    sendData.start = 'nd';
+    sendData.end = 'nd';
+    sendData.az = 0;
+
+    const amount = document.getElementById('anzahl').value;
+    sendData.gehalt = 40 * amount;
+
+    createRow(i, 'amountCell', 'Menge', amount);
+    createRow(i, 'gehaltCell', 'Gehalt', `${sendData.gehalt}€`);
+
+    confirmBtn.value = 'Eintragen';
   }
 
+  if (alleDaten[data.name].ahStatus !== 'Student') {
+    createRow(i, 'monthCell', 'Monat', '');
+    createRow(i, 'yearCell', 'Jahr', '');
+  }
+
+  // calculate max for month and year
   const calcMax = statusMax => {
     const today = moment().format('DD');
 
-    // abrechnungsmonate
+    // months
     let months = 1;
 
-    // erster tag im abrechnungszeitraum des jahres
+    // create first day by taking the current year
     let firstDayYear = `${moment().format('YYYY')}-12-18`;
 
-    // wenn firstDayYear in der Zukunft liegt
+    // if firstDayYear is in the future subtract 1 year
     if (moment().isBefore(moment(firstDayYear, 'YYYY-MM-DD'))) {
       firstDayYear = `${moment()
         .subtract(1, 'years')
         .format('YYYY')}-12-18`;
     }
 
-    // erster tag im aktuellen Abrechnungszeitraum
+    // first day of abrechnungs-month (?) - don't create it yet
     let firstDayMonth = '';
 
-    // wenn tag größer ist als 17, der monat also vor dem abrechnungszeitraumsmonat ist
+    // if today is after the 17th, currently in the next month
     if (today > 17) {
       firstDayMonth = `${moment().format('YYYY-MM')}-18`;
       months += 1;
     }
 
-    // wenn tag kleiner ist als 18, der monat also im abrechnungszeitraumsmonat ist
+    // if today is before the 18th, currently in the right month
     if (today < 18) {
       firstDayMonth = `${moment()
         .subtract(1, 'months')
@@ -256,18 +275,23 @@ const createPreview = (data, event) => {
         }
       })
       .fail(maxData => {
-        fehler(maxData.responseText);
+        return fehler(maxData.responseText);
       });
   };
 
   const gehaltStatus = Number(alleDaten[data.name].ahStatus);
   if (alleDaten[data.name].ahStatus !== 'Student') {
     if (Number.isNaN(gehaltStatus))
-      fehler('Fehler, bitte überprüfe den Status unter "Aushilfen"');
+      return fehler('Fehler, bitte überprüfe den Status unter "Aushilfen"');
     calcMax(gehaltStatus);
   }
 
-  endInput.addEventListener('change', e => {
+  // clone node to remove eventlisteners
+  const endClone = endInput.cloneNode(true);
+  endInput.parentNode.replaceChild(endClone, endInput);
+
+  // on end input change
+  document.getElementById('end').addEventListener('change', e => {
     sendData.end = e.target.value;
     moments.end = moment(sendData.end, 'HH:mm');
     document.getElementById('endCell').innerHTML = sendData.end;
@@ -294,15 +318,29 @@ const createPreview = (data, event) => {
       document.getElementById('azCell').innerHTML = 'Fehler';
       document.getElementById('gehaltCell').innerHTML = 'Fehler';
 
-      if (alleDaten[data.name].ahStatus !== 'Student') {
-        document.getElementById('monthCell').innerHTML = 'Fehler';
-        document.getElementById('yearCell').innerHTML = 'Fehler';
-      }
-
       confirmBtn.style.display = 'none';
     }
   });
 
+  // clone node to remove eventlisteners
+  const anzahl = document.getElementById('anzahl');
+  const anzahlClone = anzahl.cloneNode(true);
+  anzahl.parentNode.replaceChild(anzahlClone, anzahl);
+
+  // on amount input change
+  document.getElementById('anzahl').addEventListener('change', e => {
+    confirmBtn.style.display = 'none';
+
+    const amount = e.target.value;
+    sendData.gehalt = 40 * amount;
+
+    calcMax(gehaltStatus);
+
+    document.getElementById('amountCell').innerHTML = amount;
+    document.getElementById('gehaltCell').innerHTML = `${sendData.gehalt}€`;
+  });
+
+  // remove entry from db and dom
   deleteBtn.onclick = () => {
     $.ajax({
       url: '../api/signIn.php',
@@ -311,11 +349,48 @@ const createPreview = (data, event) => {
     })
       .done(() => {
         event.target.remove();
+        clearDOM('.preview');
+        document.getElementById('endGroup').style.display = 'none';
+        document.getElementById('delete').style.display = 'none';
+        document.getElementById('confirm').style.display = 'none';
       })
       .fail(failData => {
         fehler(failData.responseText);
       });
   };
+
+  document.getElementById('confirm').onclick = () => {
+    $.ajax({
+      url: '../api/send.php',
+      method: 'POST',
+      data: sendData
+    })
+      .done(sendResponse => {
+        info(sendResponse);
+        if (!notdienst) {
+          $.ajax({
+            url: '../api/signIn.php',
+            method: 'POST',
+            data: { deleteid: data.id }
+          })
+            .done(() => {
+              event.target.remove();
+              clearDOM('.preview');
+              document.getElementById('endGroup').style.display = 'none';
+              document.getElementById('delete').style.display = 'none';
+              document.getElementById('confirm').style.display = 'none';
+            })
+            .fail(deletedata => {
+              fehler(deletedata.responseText);
+            });
+        }
+      })
+      .fail(sendResponse => {
+        fehler(sendResponse.responseText);
+      });
+  };
+
+  return true;
 };
 
 const toggleSelect = (event, data) => {
@@ -323,14 +398,18 @@ const toggleSelect = (event, data) => {
   document.getElementById('confirm').style.display = 'none';
   document.getElementById('delete').style.display = 'none';
 
+  // check each signed in ah if it is the current selected one
+  // if it is, change the classList method and give it the selectedSI class
   signedIn.forEach(element => {
     element.classList[event.target === element ? 'toggle' : 'remove'](
       'selectedSI'
     );
   });
 
+  // if there is a selected signedIn element remove the notdienst selection and create a preview
   if (event.target.classList.contains('selectedSI')) {
     document.getElementById('endGroup').style.display = 'block';
+    unCheckND();
     createPreview(data, event);
   } else {
     clearDOM('.preview');
@@ -364,6 +443,7 @@ const signIn = () => {
 
   // name from form
   // todo irgendwann hier mit alleDaten die id holen und eintragen
+  // dataset id auf den namen den man auswählt?
   signInData.name = document.getElementById('eintragenAuto').value;
 
   // validate name
@@ -405,39 +485,63 @@ const signIn = () => {
     });
 };
 
+const prepareNdPreview = () => {
+  const nameInputValue = document.getElementById('eintragenAuto').value;
+
+  const notdienstData = {
+    date: moment().format('YYYY-MM-DD')
+  };
+
+  if (nameInputValue === '' || alleDaten[nameInputValue] === undefined)
+    fehler('Aushilfe nicht gefunden');
+
+  if (nameInputValue !== '') {
+    notdienstData.name = nameInputValue;
+    notdienstData.ahid = alleDaten[nameInputValue].id;
+    createPreview(notdienstData);
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
+  // navbar current
   addCurrent('eintragen');
 
+  // insert current time to inputs
   document.getElementById('start').value = moment().format('HH:mm');
   document.getElementById('end').value = moment().format('HH:mm');
 
+  // all ah data
   getData(daten => {
     alleDaten = daten.alleDaten;
     createAutoComplete('#eintragenAuto', daten.stationNamen, daten.alleNamen);
   });
 
+  // all signed in ah from db
   $.getJSON('../api/signIn.php').done(data => {
     listSignedIn(data);
   });
 
-  document.getElementById('signInForm').addEventListener('submit', e => {
-    e.preventDefault();
-    document.getElementById('fehlerAlert').style.display = 'none';
-    document.getElementById('infoAlert').style.display = 'none';
-    signIn();
-  });
-});
-
-$(document).ready(() => {
-  $('#ndCheck').change(e => {
-    if (e.currentTarget.checked === true) {
-      $('.zeit').hide();
-      $('#menge').show();
-      notdienst = true;
+  // notdienst checkbox
+  document.getElementById('ndCheck').addEventListener('click', e => {
+    if (e.target.checked === true) {
+      checkND();
     } else {
-      $('.zeit').show();
-      $('#menge').hide();
-      notdienst = false;
+      unCheckND();
     }
+  });
+
+  // on anmelden submit
+  document.getElementById('signInForm').addEventListener('submit', e => {
+    if (!notdienst) {
+      e.preventDefault();
+      document.getElementById('fehlerAlert').style.display = 'none';
+      document.getElementById('infoAlert').style.display = 'none';
+      signIn();
+    }
+  });
+
+  // on notdienst vorschau click
+  document.getElementById('ndPreview').addEventListener('click', () => {
+    prepareNdPreview();
   });
 });

@@ -1,28 +1,44 @@
 <?php
 require '../scripts/connect.php';
 
+// test ob schon zeit eingetragen 
+$stmt = $conn->prepare("SELECT id FROM zeiten WHERE ahid = :ahid AND datum = :date");
+
+$stmt->bindValue(':ahid', $_POST['ahid']);
+$stmt->bindValue(':date', $_POST['date']);
+
+$stmt->execute();
+
+if ($stmt->rowCount() !== 0) {
+  http_response_code(500);
+  $conn = null;
+  die('Für diesen Tag ('. $_POST[date] .') wurde schon eine Schicht eingetragen');
+}
+
 // Eintragen in Tabelle zeiten
 $sql = "INSERT INTO zeiten (name, ahid, datum, beginn, ende, arbeitszeit, gehalt, disponent, station, ahstation) 
-  VALUES (:name, :ahid, :datum, :beginn, :ende, :arbeitszeit, :sgehalt, :disp, :station, :ahstation)";
+  VALUES (:name, :ahid, :datum, :beginn, :ende, :arbeitszeit, :gehalt, :disp, :station, :ahstation)";
 $stmt = $conn->prepare($sql);
 
-$stmt->bindValue(':name', $_POST['ausName']);
-$stmt->bindValue(':ahid', $_POST['aushilfenId']);
-$stmt->bindValue(':datum', $_POST['datum']);
-$stmt->bindValue(':beginn', $_POST['beginnForm']);
-$stmt->bindValue(':ende', $_POST['endeForm']);
-$stmt->bindValue(':arbeitszeit', $_POST['diff']); // Arbeitszeit in Minuten
-$stmt->bindValue(':sgehalt', $_POST['gehalt']); // Gehalt ungerundet, da teilweise falsch gerundet wird
+$stmt->bindValue(':name', $_POST['name']);
+$stmt->bindValue(':ahid', $_POST['ahid']);
+$stmt->bindValue(':datum', $_POST['date']);
+$stmt->bindValue(':beginn', $_POST['start']);
+$stmt->bindValue(':ende', $_POST['end']);
+$stmt->bindValue(':arbeitszeit', $_POST['az']);
+$stmt->bindValue(':gehalt', $_POST['gehalt']);
 $stmt->bindValue(':disp', $_SESSION['userid']);
 $stmt->bindValue(':station', $_SESSION['station']);
-$stmt->bindValue(':ahstation', $_POST['ahStation']);
+$stmt->bindValue(':ahstation', $_POST['ahstation']);
 
 $stmt->execute();
 
 if ($stmt->rowCount() !== 1) {
   http_response_code(500);
+  echo 'Fehler';
 } else {
-  http_response_code(200);
+  http_response_code(201);
+  echo 'Eintrag erfolgreich';
 }
 
 $conn = null;

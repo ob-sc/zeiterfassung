@@ -10,7 +10,7 @@ foreach ($stationen as $v) {
 
 	// alle aushilfen der station -> leer
 	$aushilfenSql = 
-	"SELECT id, personalnr, nachname, vorname, 0 AS arbeitszeit, 0 AS gehalt, 0 AS datum, 0 AS urlaub , status, station as ahstation 
+	"SELECT id, personalnr, nachname, vorname, 0 AS arbeitszeit, 0 AS gehalt, 0 AS datum, 0 AS urlaub , status 
 	FROM aushilfen 
 	WHERE station = ?";
 
@@ -36,9 +36,9 @@ foreach ($stationen as $v) {
 
 	// alle arbeitszeiten holen für station
 	$zeitenSql = 
-	"SELECT ahid, SUM(arbeitszeit) AS arbeitszeit, SUM(gehalt) AS gehalt, COUNT(DISTINCT datum) AS datum, ahstation 
+	"SELECT ahid, SUM(arbeitszeit) AS arbeitszeit, SUM(gehalt) AS gehalt, COUNT(DISTINCT datum) AS datum 
 	FROM zeiten 
-	WHERE datum BETWEEN :beginnDate AND :endDate AND station = :station AND station = ahstation 
+	WHERE datum BETWEEN :beginnDate AND :endDate AND ahstation = :station 
 	GROUP BY ahid";
 
 	$stmt = $conn->prepare($zeitenSql);
@@ -52,7 +52,6 @@ foreach ($stationen as $v) {
 		$aushilfen[$row['ahid']]['arbeitszeit'] = $row['arbeitszeit'];
 		$aushilfen[$row['ahid']]['gehalt'] = $row['gehalt'];
 		$aushilfen[$row['ahid']]['datum'] = $row['datum'];
-		$aushilfen[$row['ahid']]['ahstation'] = $row['ahstation'];
 	}
 
 	// Zeiten der Fremd-Aushilfen
@@ -159,13 +158,14 @@ foreach ($stationen as $v) {
 
 	// array aus objekt
 	$normal = [];
+	$fremd = [];
 	$notdienst = [];
 	foreach($aushilfen as $entry) {
 		$normal[] = $entry;
 	}
 	unset($entry);
 	foreach($fremdDaten as $entry) {
-		$normal[] = $entry;
+		$fremd[] = $entry;
 	}
 	unset($entry);
 	foreach($ndAushilfen as $entry) {
@@ -175,6 +175,7 @@ foreach ($stationen as $v) {
 
 	// Abrechnung für diese Station
 	$result[$v]['normal'] = $normal;
+	$result[$v]['fremd'] = $fremd;
 	$result[$v]['notdienst'] = $notdienst;
 	$result[$v]['we'] = $weListe;
 }

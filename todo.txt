@@ -11,7 +11,22 @@
     -> name kommt bei signedin und eintragen aus aushilfen tabelle
     -> alledaten mit id statt name im index?
 
-    -> statt 
+    -> Wenn jahrmax überschritten ist geht klasse disabled auf confirm?
+        -> Auch bei negativer Arbeitszeit?
+
+    -> Confirm erscheint erst wenn max berechnet wurde?
+
+    -> Schrift bei max Rot
+
+    -> Eintrag löschen auf Anmeldung löschen?
+
+- Eintragen alt für GBL
+
+- elegantere Lösung für negative/gleiche arbeitszeit bei eintragen 
+    -> NaN.00€ ist nicht gut
+
+
+
 
 GESPRÄCH CK MH JO:
 - Nicht mehr über 450
@@ -24,6 +39,7 @@ GESPRÄCH CK MH JO:
 - fehlermeldung bei über durchschnitt
 
 - manual überarbeiten
+    -> oder ganz raus?
 
 - löschen ordentlich rausnehmen
 
@@ -31,12 +47,6 @@ GESPRÄCH CK MH JO:
     -> Bei anlegen: nicht input text sondern input number mit step 1
     -> form serialize geht wohl nicht mehr sondern ein objkt mit dem jeweils richtigem Status
     -> bei status bearbeiten nimmt er nur noch integer
-
-- Durchschnitt
-    -> aus funktion rausnehmen
-    -> emedian.php raus
-    -> auswerten (und eintragen)
-        -> gucken welche datenobjekte & variablen nicht mehr gebraucht werden
 
 - andere lösung für aus anderer Station auf abrechnung für lohnbüro
 
@@ -53,6 +63,7 @@ GESPRÄCH CK MH JO:
         -> für controlling gbl
 
 - bei monatsberechnung (durchschnitt?) schaut er nicht in welchen monat eingetragen wird
+    -> immernoch?
 
 - bei abrechnung undefined rausnehmen WICHTIG
     -> passiert wenn aushilfe gelöscht wurde aber zeit noch bei in zeiten gefunden wurde
@@ -70,10 +81,49 @@ GESPRÄCH CK MH JO:
 
 - jquery ajax zu fetch()
 
+- lohnbüro php urlaub jahr geht nicht vom 18.12. bis 31.12.
+
+- lohnbüro excel erstellen eine funktion?
+
+- eintragen alt und send alt raus
+
+- an und abmelden funktion auf "aushilfen"
+    -> direkt info an kehler auf "lohnbuero"
+    -> unterlagen direkt auf der seite hochladen
+        -> RS bohrs ob möglich
+
+- abrechnung neu machen
+    -> kein jquery
+    -> create element tabelle wie eintragen
+    -> evtl hover über aushilfen -> mehr info
+
+- auswerten neu machen
+    -> kein jquery
+    -> create element tabelle wie eintragen
+    -> vormonate rechts anzeigen
+
+- aushilfen mit an/ abmelden -> info kehler
+    -> mitarbeiter mit rein ?
+
+- mitarbeiter
+    -> wochenendlisten anders?
+
+- hilfe
+    -> komplett raus?
+
+- abmelden per knopf?
+
+- überschrift weg?
+
     ________________
     |              |
     |     TODO     |
     |______________|
+
+- kann ich tabelle zeiten beginn und ende auf HH:mm time oder wie auch immer formatieren?
+
+- notdienst und normale schicht an einem tag wird nicht gehen
+    -> notdienst datum ganz raus?
 
 - wirklich löschen ein modal in header handlebar dings?
     -> zu info und alert

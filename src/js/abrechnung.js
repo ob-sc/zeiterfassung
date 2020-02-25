@@ -86,29 +86,32 @@ function abtabelle() {
   html += '</tr></thead><tbody>';
 
   abDaten.forEach(key => {
-    const urlaub = Math.floor((24 / 312) * key.urlaub * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
+    // todo temporäre fix, lieber aus php raus
+    if (key.id !== undefined) {
+      const urlaub = Math.floor((24 / 312) * key.urlaub * 2) / 2; // Urlaub, auf halbe / ganze abgerundet
 
-    // eslint-disable-next-line eqeqeq
-    if (key.ahstation != stationid && key.arbeitszeit !== 0)
-      html += '<tr class="table-warning">';
-    else html += '<tr>';
-    html += `<td>${key.personalnr}</td>`;
-    html += `<td class="table-ltr">${key.nachname}, ${key.vorname}</td>`;
-    html += `<td class="table-rtl">${zuStunden(key.arbeitszeit)}</td>`;
-    if (key.status === '450' && key.gehalt > 450)
-      html += `<td class="table-rtl" style="color:red">${roundTF(
-        key.gehalt
-      )}</td>`;
-    else html += `<td class="table-rtl">${roundTF(key.gehalt)}</td>`;
-    html += `<td class="table-rtl">${key.datum}</td>`;
-    // eslint-disable-next-line eqeqeq
-    if (key.ahstation != stationid && key.arbeitszeit !== 0)
-      html += '<td>&nbsp</td>';
-    else html += `<td class="table-rtl">${urlaub}</td>`;
-    html += `<td class="table-rtl">${key.status}</td></tr>`;
+      // eslint-disable-next-line eqeqeq
+      if (key.ahstation != stationid && key.arbeitszeit !== 0)
+        html += '<tr class="table-warning">';
+      else html += '<tr>';
+      html += `<td>${key.personalnr}</td>`;
+      html += `<td class="table-ltr">${key.nachname}, ${key.vorname}</td>`;
+      html += `<td class="table-rtl">${zuStunden(key.arbeitszeit)}</td>`;
+      if (key.status === '450' && key.gehalt > 450)
+        html += `<td class="table-rtl" style="color:red">${roundTF(
+          key.gehalt
+        )}</td>`;
+      else html += `<td class="table-rtl">${roundTF(key.gehalt)}</td>`;
+      html += `<td class="table-rtl">${key.datum}</td>`;
+      // eslint-disable-next-line eqeqeq
+      if (key.ahstation != stationid && key.arbeitszeit !== 0)
+        html += '<td>&nbsp</td>';
+      else html += `<td class="table-rtl">${urlaub}</td>`;
+      html += `<td class="table-rtl">${key.status}</td></tr>`;
 
-    summeAZ += parseInt(key.arbeitszeit, 10);
-    summeGehalt += key.gehalt;
+      summeAZ += parseInt(key.arbeitszeit, 10);
+      summeGehalt += key.gehalt;
+    }
   });
 
   html += `<tr><td>&nbsp</td><td>&nbsp</td><th>${zuStunden(

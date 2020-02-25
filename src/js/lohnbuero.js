@@ -122,9 +122,7 @@ $.ajax({
         row.push(roundTF(element.gehalt));
         row.push(element.datum);
         row.push(urlaub);
-        if (element.ahstation !== parseInt(key, 10))
-          row.push(`aus ${element.ahstation}`);
-        else row.push(element.status);
+        row.push(element.status);
         wsAbrechnungData.push(row);
       });
 
@@ -139,6 +137,7 @@ $.ajax({
           fehler('Fehler bei der Notdienstberechnung');
 
         // wenn im objekt ein notdienst eingetragen ist
+        // todo if clause weg?
         if (element.urlaub === 'nd') {
           notdienstRow.push(element.personalnr);
           notdienstRow.push(element.nachname);

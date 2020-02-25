@@ -29,7 +29,7 @@ $endDate = new DateTime($_POST['monat'].'-17');
 $zeitenSql = 
 "SELECT ahid, SUM(arbeitszeit) AS arbeitszeit, SUM(gehalt) AS gehalt, COUNT(DISTINCT datum) AS datum, ahstation 
 FROM zeiten 
-WHERE datum BETWEEN :beginnDate AND :endDate AND station = :station AND station = ahstation 
+WHERE datum BETWEEN :beginnDate AND :endDate AND ahstation = :station 
 GROUP BY ahid";
 
 $stmt = $conn->prepare($zeitenSql);
@@ -39,6 +39,7 @@ $stmt->bindValue(':endDate', $endDate->format('Y-m-d'));
 $stmt->bindValue(':station', $_SESSION['station']);
 $stmt->execute();
 
+// todo ahstation raus? siehe lohnbuero.php
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 	$aushilfen[$row['ahid']]['arbeitszeit'] = $row['arbeitszeit'];
 	$aushilfen[$row['ahid']]['gehalt'] = $row['gehalt'];
