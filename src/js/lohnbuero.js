@@ -32,7 +32,7 @@ const weFilename = `${moment()
   .format('YYYY-MM')}-SC-wochenende.xlsx`;
 const weWB = XLSX.utils.book_new();
 
-const notdienstFilename = `${moment().format('YYYY-MM')}-Notdienste.xlsx`;
+const notdienstFilename = `${moment().format('YYYY-MM')}-Umbuchungen.xlsx`;
 const notdienstWB = XLSX.utils.book_new();
 
 const wsAbrechnungCols = [
@@ -52,6 +52,9 @@ const wsNotdienstCols = [
   { wpx: 40 },
   { wpx: 125 },
   { wpx: 125 },
+  { wpx: 50 },
+  { wpx: 50 },
+  { wpx: 50 },
   { wpx: 50 },
   { wpx: 50 },
   { wpx: 50 }
@@ -74,14 +77,30 @@ $.ajax({
   data: { statID: stationNummern }
 })
   .done(data => {
+    const notdienstData = [];
+    const fremdData = [];
     const controlling = [];
-    controlling.push([
+
+    notdienstData.push([
       'PN',
       'Nachname',
       'Vorname',
       'Menge',
       'Gehalt',
       'Station'
+    ]);
+
+    fremdData.push([null]);
+    fremdData.push([
+      'PN',
+      'Nachname',
+      'Vorname',
+      'AZ',
+      'Gehalt',
+      'Tage',
+      'Status',
+      'Aus',
+      'Für'
     ]);
     // Loop durch alle Stationsergebnisse
     Object.entries(data).forEach(([key, val]) => {
@@ -123,7 +142,10 @@ $.ajax({
         row.push(element.datum);
         row.push(urlaub);
         row.push(element.status);
-        wsAbrechnungData.push(row);
+        // todo bugfix für gelöschte aushilfen, iwann eleganter lösen!
+        if (element.personalnr !== undefined) {
+          wsAbrechnungData.push(row);
+        }
       });
 
       // Abrechnung Notdienst
@@ -137,16 +159,37 @@ $.ajax({
           fehler('Fehler bei der Notdienstberechnung');
 
         // wenn im objekt ein notdienst eingetragen ist
-        // todo if clause weg?
-        if (element.urlaub === 'nd') {
+        // todo if clause element.urlaub === 'nd' weg?
+        // todo  element.personalnr !== undefined ist ein bugfix, keine ahnung woher die undefined einträge kommen, laut db sollte php diese einträge nicht haben aber sie erscheinen halt
+        // das sind einträge die nur eine station und ein gehalt haben, die es aber eigentlich nicht gibt
+        // eventuell wie oben gelöschte aushilfen
+        if (element.urlaub === 'nd' && element.personalnr !== undefined) {
           notdienstRow.push(element.personalnr);
           notdienstRow.push(element.nachname);
           notdienstRow.push(element.vorname);
           notdienstRow.push(menge);
           notdienstRow.push(roundTF(element.gehalt));
           notdienstRow.push(element.ahstation);
-          controlling.push(notdienstRow);
+          notdienstData.push(notdienstRow);
         }
+      });
+
+      // Abrechnung fremde Zeiten
+      Object.values(val.fremd).forEach(element => {
+        const fremdRow = [];
+        fremdRow.length = 0;
+
+        fremdRow.push(element.personalnr);
+        fremdRow.push(element.nachname);
+        fremdRow.push(element.vorname);
+        fremdRow.push(zuStunden(element.arbeitszeit));
+        fremdRow.push(roundTF(element.gehalt));
+        fremdRow.push(element.datum);
+        fremdRow.push(element.status);
+        fremdRow.push(element.ahstation); // station aus der die aushilfe kommt
+        fremdRow.push(key); // station in der gearbeitet wurde
+
+        fremdData.push(fremdRow);
       });
 
       const wsAbrechnung = XLSX.utils.aoa_to_sheet(wsAbrechnungData);
@@ -184,8 +227,16 @@ $.ajax({
       wsWe['!cols'] = wsWeCols;
       wsWe['!margins'] = wsMargins;
     });
+
+    notdienstData.forEach(element => {
+      controlling.push(element);
+    });
+    fremdData.forEach(element => {
+      controlling.push(element);
+    });
+
     const wsNotdienst = XLSX.utils.aoa_to_sheet(controlling);
-    XLSX.utils.book_append_sheet(notdienstWB, wsNotdienst, 'Notdienste');
+    XLSX.utils.book_append_sheet(notdienstWB, wsNotdienst, 'Umbuchungen');
     wsNotdienst['!cols'] = wsNotdienstCols;
     wsNotdienst['!margins'] = wsMargins;
 

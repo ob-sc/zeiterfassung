@@ -300,6 +300,8 @@ const createPreview = (data, event) => {
     if (Number.isNaN(gehaltStatus))
       return fehler('Fehler, bitte überprüfe den Status unter "Aushilfen"');
     calcMax(gehaltStatus);
+  } else {
+    confirmBtn.style.display = 'block';
   }
 
   // on end input change

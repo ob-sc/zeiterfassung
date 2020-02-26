@@ -3,8 +3,9 @@
     |    WICHTIG    |
     |_______________|
 
-- excel für förster
-    -> wer aus anderer Station
+- WICHTIG GBL LÖSCHEN UND NACHTRAGEN (BEARBEITEN?)
+    -> gbl kann in stationsanmeldung datum bearbeiten?
+    -> kann in zeiten auf eine zeit klicken, in modal bearbeiten oder löschen?
 
 - RS bohrs backup db
 
@@ -25,23 +26,10 @@
 
     -> umbenennen auf zeiterfassung?
 
-- Eintragen alt für GBL
-    -> auch zeiten löschen?
-
 - elegantere Lösung für negative/gleiche arbeitszeit bei eintragen 
     -> NaN.00€ ist nicht gut
 
 - zeiten löschen für admin
-
-GESPRÄCH CK MH JO:
-- Nicht mehr über 450
-    -> Rückwirkend mehr wieder rein
-- Nur noch Namen (nicht mehr billstedt sondern rothehueser)
-- Pausenzeiten müssen rein
-- Über 10 Stunden stop
-- morgens eintragen abends abmelden
-    -> keine zeiten nachtragen
-- fehlermeldung bei über durchschnitt
 
 - manual überarbeiten
     -> oder ganz raus?
@@ -104,11 +92,19 @@ GESPRÄCH CK MH JO:
     -> alle oder nur welche mit fehler?
     -> echo je nachdem
 
+- abrechnung (und lohnbuero) undefined dauerhaft ordentlich rausnehmen (aus php?)
+
+- alerts sind hinter manchen elementen
+    -> z-index hoch
+
     ________________
     |              |
     |     TODO     |
     |______________|
+
+- lohnbuero notdienst workbook umbenennen auf umbuchungen o.ä.
     
+- bei abrechnen / auswerten abrechnungsmonat statt kalendermonat als standard anzeigen
 
 - abrechnung neu machen
     -> kein jquery
