@@ -1,13 +1,41 @@
-    _________________
-    |               |
-    |    WICHTIG    |
-    |_______________|
+bohrs
+- backup db
+- API mit symfony
+- datei hochladen
+
+title raus
+  -> hwpdata
+  -> hbs template
+  -> wo sonst?
+
+  BUG
+- AH selecten -> beginn ende steht fehler
+  -> knopf ist da aber ohne beschriftung
+  -> student
+
+
+tools für sl / gbl
+- gbl
+  -> zeiten (tabelle zum suchen, (bearbeiten?) & löschen, alle stationen, region?)
+    -> hover auf namen in tabelle?
+  -> daneben eintragen alt (nachtragen)
+
+- sl
+  -> übersicht wer darf noch wie viel (+anzahl schichten?)
+
 
 - WICHTIG GBL LÖSCHEN UND NACHTRAGEN (BEARBEITEN?)
     -> gbl kann in stationsanmeldung datum bearbeiten?
     -> kann in zeiten auf eine zeit klicken, in modal bearbeiten oder löschen?
 
-- RS bohrs backup db
+- zeiten:
+  -> bei sl
+    -> knopf zeit löschen an rl melden (auch x?)
+    -> der kann an / abnehmen
+    -> rl kann auch direkt aus zeiten löschen mit x
+
+
+
 
 - Eintragen neu:
     -> bei klick auf namen direkt id in db
@@ -26,166 +54,7 @@
 
     -> umbenennen auf zeiterfassung?
 
-- elegantere Lösung für negative/gleiche arbeitszeit bei eintragen 
-    -> NaN.00€ ist nicht gut
 
-- zeiten löschen für admin
-
-- manual überarbeiten
-    -> oder ganz raus?
-
-- löschen ordentlich rausnehmen
-
-- Status
-    -> Bei anlegen: nicht input text sondern input number mit step 1
-    -> form serialize geht wohl nicht mehr sondern ein objkt mit dem jeweils richtigem Status
-    -> bei status bearbeiten nimmt er nur noch integer
-
-- andere lösung für aus anderer Station auf abrechnung für lohnbüro
-
-- nachträgliche bearbeitung (eintragen & löschen) von zeiten im vormonat (& alle?) sperren
-
-- personalnummer nicht selber eintragen
-    -> soll das lohnbüro das machen?
-
-- api: 
-    -> wenn monatsabrechnung runtergeladen wurde:
-        -> stiller eintrag in db
-        -> runtergeladen mit regdate und von wem
-    -> historie wer sich wann anmeldet?
-        -> für controlling gbl
-
-- bei monatsberechnung (durchschnitt?) schaut er nicht in welchen monat eingetragen wird
-    -> immernoch?
-
-- bei abrechnung undefined rausnehmen WICHTIG
-    -> passiert wenn aushilfe gelöscht wurde aber zeit noch bei in zeiten gefunden wurde
-   
-- bei eintragen:
-    -> schon angemeldet heute (bei anmelden)
-    -> schon zeit heute (bei eintragen)
-        -> warnung/fehler wenn gleiche arbeitszeit eingetragen wird (zb 1.1.2019 13 uhr bis 15 uhr und 1.1.2019 14 uhr bis 15 uhr)
-            -> in vorschau oder fehler?
-
-- wenn über jahresdurchschnitt
-    -> kein eintragen möglich
-
-- alles jquery zu vanilla js
-
-- jquery ajax zu fetch()
-
-- lohnbüro php urlaub jahr geht nicht vom 18.12. bis 31.12.
-
-- lohnbüro excel erstellen eine funktion?
-    -> excel wird bei klick auf symbol erstellt, nicht im voraus
-
-- eintragen alt und send alt raus
-
-- an und abmelden funktion auf "aushilfen"
-    -> direkt info an kehler auf "lohnbuero"
-    -> unterlagen direkt auf der seite hochladen
-        -> RS bohrs ob möglich
-
-- alle stationsaccounts auf namen ändern
-
-- php mit http_response_code
-    -> alle oder nur welche mit fehler?
-    -> echo je nachdem
-
-- abrechnung (und lohnbuero) undefined dauerhaft ordentlich rausnehmen (aus php?)
-
-- alerts sind hinter manchen elementen
-    -> z-index hoch
-
-    ________________
-    |              |
-    |     TODO     |
-    |______________|
-
-- lohnbuero notdienst workbook umbenennen auf umbuchungen o.ä.
-    
-- bei abrechnen / auswerten abrechnungsmonat statt kalendermonat als standard anzeigen
-
-- abrechnung neu machen
-    -> kein jquery
-    -> create element tabelle wie eintragen
-    -> evtl hover über aushilfen -> mehr info
-
-- auswerten neu machen
-    -> kein jquery
-    -> create element tabelle wie eintragen
-    -> vormonate rechts anzeigen
-
-- aushilfen
-    -> mitarbeiter mit rein ?
-
-- mitarbeiter
-    -> wochenendlisten anders?
-
-- hilfe
-    -> komplett raus?
-
-- abmelden per knopf?
-
-- überschrift weg?
-
-- Schichtplan?
-
-- kann ich tabelle zeiten beginn und ende auf HH:mm time oder wie auch immer formatieren?
-
-- notdienst und normale schicht an einem tag wird nicht gehen
-    -> notdienst datum ganz raus?
-
-- wirklich löschen ein modal in header handlebar dings?
-    -> zu info und alert
-
-- bei zb abrechnung
-    -> automatisch ok mit vorgegebenem monat
-
-- aushilfe anlegen nicht übereinander sonder auch nebeneinander
-    -> allg gucken wo forms schöner könnten
-
--> allg gucken obs probleme beim jahreswechsel gibt?
-
-- favicon als ico
-    -> neu machen?
-
-- kein window.location.reload mehr
-    -> entweder dom element löschen oder ajax neu
-
-- filter clear zeiten
-    -> zeit inputs schöner machen
-
-- aushilfen: 
-    -> fehler wenn es eine aushilfen schon gibt?
-    -> ein array -> namen pushen -> nächster name -> gucken obs schon gibt -> pushen oder halt fehler
-
-- bei aushilfen (& andere) seite nicht neu laden sondern wie bei mitarbeiter we eintragen aktualisieren
-
-- knöpfe gleiche größe
-    -> besonders aushilfen löschen modal
-
-- favicon ändern?
-
-- responsive machen
-    -> navbar nicht scalen sondern mit @media min-width wie eintragen
-
-- trim (nur bei aushilfe anlegen?)
-
-- eaget und eatabelle umschreiben? zeiten (tage) und summen in ein array? mit while($row = $stmt-fetch...) wie in abget?
-
-- in aushilfen anlegen -> alleDaten statt ahDaten[name] um zu gucken ob es sie insgesamt schon gibt
-
-- jeweils element zu key? -> https://stackoverflow.com/a/41550077/11918503
-
-- urlaubsberechnung richtig machen (es funktioniert nicht, wenn man im abrechnungszeitraum januar ist der im vorjahr startet, erst ab dem 1.1. wieder)
-
-- statt namen immer id eintragen
-    -> alle daten als index id nicht name
-    -> aus db bei eintragen und zeiten (u.a.) kommt id => name suchen
-
-- css in js direkt importieren statt cssbundle?
-    -> also eintragen.css in eintragen.js
 
 - loop through object
 https://stackoverflow.com/a/41550077/11918503

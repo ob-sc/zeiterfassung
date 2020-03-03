@@ -54,6 +54,12 @@ switch (window.location.pathname) {
     // eslint-disable-next-line global-require
     require('./lohnbuero');
     break;
+  case '/regionalleiter':
+  case '/regionalleiter/':
+  case '/regionalleiter/index.html':
+    // eslint-disable-next-line global-require
+    require('./regionalleiter');
+    break;
   default:
     // eslint-disable-next-line global-require
     require('./login');

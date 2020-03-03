@@ -43,6 +43,7 @@ module.exports = {
     new HtmlWebpackPlugin(hwp('zeiten')),
     new HtmlWebpackPlugin(hwp('mitarbeiter')),
     new HtmlWebpackPlugin(hwp('readme')),
+    new HtmlWebpackPlugin(hwp('regionalleiter')),
     new HtmlWebpackPlugin({
       filename: 'lohnbuero/index.html',
       template: './src/hbs/partials/seiten/lohnbuero.hbs',

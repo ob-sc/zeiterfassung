@@ -17,8 +17,10 @@ moment.locale('de');
 let alleDaten;
 let notdienst = false;
 let station;
+// let status; todo weg?
 
 session('norm', data => {
+  // status = data.userStatus; todo weg?
   station = parseInt(data.stationID, 10);
 });
 
@@ -168,8 +170,10 @@ const createPreview = (data, event) => {
   createRow(i, 'nameCell', 'Name', data.name);
 
   if (!notdienst) {
+    // calculate az and gehalt with moments => change moments everytime we need a new calc
     const calc = calcAZ(data.name, moments);
     pause = calc.pause;
+    // display different az from db entry (pause)
     sendData.az = calc.az;
     sendData.diff = calc.diff;
     sendData.gehalt = calc.gehalt;
