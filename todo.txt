@@ -3,6 +3,9 @@ bohrs
 - API mit symfony
 - datei hochladen
 
+ACHTUNG: 
+WENN PAUSE ÄNDERN DANN IN EINTRAGEN UND REGIONALLEITER
+
 title raus
   -> hwpdata
   -> hbs template
@@ -33,6 +36,9 @@ tools für sl / gbl
     -> knopf zeit löschen an rl melden (auch x?)
     -> der kann an / abnehmen
     -> rl kann auch direkt aus zeiten löschen mit x
+
+    -> soll gelöscht werden: knopf leuchtet Rot
+    -> erneut klick -> rot weg -> eintrag weg
 
 
 

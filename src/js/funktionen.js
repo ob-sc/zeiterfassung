@@ -79,6 +79,11 @@ export const session = (status, callback) => {
         )
           window.location.href = '../index.html#verlaufen';
 
+      // nur für gbl
+      if (status === 'gbl')
+        if (data.userStatus !== 'admin' && data.userStatus !== 'gbl')
+          window.location.href = '../index.html#verlaufen';
+
       // nur für lohnbüro
       if (status === 'lohnbuero')
         if (
@@ -109,6 +114,9 @@ export const session = (status, callback) => {
           data.userStatus === 'gbl'
         )
           $('.slmenu').show();
+
+        if (data.userStatus === 'admin' || data.userStatus === 'gbl')
+          $('.gblmenu').show();
 
         $('#stationSelect').val(data.stationID);
 
@@ -226,8 +234,12 @@ export function createAutoComplete(id, srcArray1, srcArray2) {
 // für jeden input Datum - automatisch Datum heute
 export function datumHeute() {
   $(document).ready(() => {
+    // todo alle auf date ändern
     const datumInput = document.getElementById('datum');
     if (datumInput) datumInput.valueAsDate = new Date();
+    // dann den hier oben weg
+    const dateInput = document.getElementById('date');
+    if (dateInput) dateInput.valueAsDate = new Date();
   });
 }
 
