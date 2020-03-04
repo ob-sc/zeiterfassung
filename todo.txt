@@ -13,22 +13,11 @@ title raus
   -> hbs template
   -> wo sonst?
 
-BUG
-- AH selecten -> beginn ende steht fehler
-  -> knopf ist da aber ohne beschriftung
-  -> student
+- status zu 0 (disp), 1 (sl), 2 (gbl), 3 (admin) statt string
+  -> evtl 0 (neu), 1 (disp), ...
+  -> in funktionen: if userStatus < 2 dann weg..
 
-status zu 0 (disp), 1 (sl), 2 (gbl), 3 (admin) statt string
--> evtl 0 (neu), 1 (disp), ...
--> in funktionen: if userStatus < 2 dann weg..
-
-
-wenn eine aushilfe gelöscht wird dann bleibt die anmeldung, anmeldung löschen erscheint aber nicht mehr
-
-
-tools für sl / gbl
-- sl
-  -> übersicht wer darf noch wie viel (+anzahl schichten?)
+- wenn eine aushilfe gelöscht wird dann bleibt die anmeldung, anmeldung löschen erscheint aber nicht mehr
 
 - Eintragen neu:
     -> bei klick auf namen direkt id in db
@@ -39,7 +28,7 @@ tools für sl / gbl
     -> alledaten mit id statt name im index?
 
     -> Wenn jahrmax überschritten ist geht klasse disabled auf confirm?
-        -> Auch bei negativer Arbeitszeit?
+      -> Auch bei negativer Arbeitszeit?
 
     -> Confirm erscheint erst wenn max berechnet wurde?
 

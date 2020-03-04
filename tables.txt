@@ -26,3 +26,4 @@ fertig
 CREATE TABLE `starcar_prod`.`reqdelete` ( `id` INT NOT NULL AUTO_INCREMENT , `zeitid` INT NOT NULL , `user` INT NOT NULL , `reg_date` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ALTER TABLE `reqdelete` CHANGE `reg_date` `reg_date` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE `reqdelete` ADD `station` INT NOT NULL AFTER `user`;
+fertig

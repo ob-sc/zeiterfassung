@@ -17,10 +17,8 @@ moment.locale('de');
 let alleDaten;
 let notdienst = false;
 let station;
-// let status; todo weg?
 
 session('norm', data => {
-  // status = data.userStatus; todo weg?
   station = parseInt(data.stationID, 10);
 });
 
@@ -170,6 +168,7 @@ const createPreview = (data, event) => {
   createRow(i, 'nameCell', 'Name', data.name);
 
   if (!notdienst) {
+    confirmBtn.value = 'Abmelden';
     // calculate az and gehalt with moments => change moments everytime we need a new calc
     const calc = calcAZ(data.name, moments);
     pause = calc.pause;
@@ -186,7 +185,6 @@ const createPreview = (data, event) => {
       createRow(i, 'azCell', 'Arbeitszeit', zuStunden(sendData.az));
       createRow(i, 'gehaltCell', 'Gehalt', `${sendData.gehalt}€`);
 
-      confirmBtn.value = 'Abmelden';
       deleteBtn.style.display = 'block';
     } else {
       createRow(i, 'azCell', 'Arbeitszeit', 'Fehler');
@@ -290,7 +288,7 @@ const createPreview = (data, event) => {
         document.getElementById('monthCell').innerHTML = `${roundTF(checkM)}€`;
         document.getElementById('yearCell').innerHTML = `${roundTF(checkY)}€`;
 
-        if (checkY >= 0) {
+        if (checkY >= 0 && moments.end.isAfter(moments.start)) {
           confirmBtn.style.display = 'block';
         }
       })
@@ -304,7 +302,7 @@ const createPreview = (data, event) => {
     if (Number.isNaN(gehaltStatus))
       return fehler('Fehler, bitte überprüfe den Status unter "Aushilfen"');
     calcMax(gehaltStatus);
-  } else {
+  } else if (moments.end.isAfter(moments.start)) {
     confirmBtn.style.display = 'block';
   }
 
