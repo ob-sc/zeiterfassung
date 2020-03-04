@@ -15,9 +15,7 @@ title raus
 
 - status zu 0 (disp), 1 (sl), 2 (gbl), 3 (admin) statt string
   -> evtl 0 (neu), 1 (disp), ...
-  -> in funktionen: if userStatus < 2 dann weg..
-
-- wenn eine aushilfe gelöscht wird dann bleibt die anmeldung, anmeldung löschen erscheint aber nicht mehr
+  -> in funktionen (session): if userStatus < 2 dann weg..
 
 - Eintragen neu:
     -> bei klick auf namen direkt id in db

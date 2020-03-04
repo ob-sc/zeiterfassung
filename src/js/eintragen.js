@@ -125,6 +125,11 @@ const createPreview = (data, event) => {
 
   const sendData = {};
 
+  if (alleDaten[data.name] === undefined) {
+    fehler('Aushilfe nicht gefunden');
+    deleteBtn.style.display = 'block';
+  }
+
   // moment objects to pass to other functions
   const moments = {
     date: moment(data.date, 'YYYY-MM-DD'),
