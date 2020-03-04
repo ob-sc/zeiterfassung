@@ -130,6 +130,25 @@ const createPreview = (data, event) => {
     deleteBtn.style.display = 'block';
   }
 
+  // remove entry from db and dom
+  deleteBtn.onclick = () => {
+    $.ajax({
+      url: '../api/signIn.php',
+      method: 'POST',
+      data: { deleteid: data.id }
+    })
+      .done(() => {
+        event.target.remove();
+        clearDOM('.preview');
+        document.getElementById('endGroup').style.display = 'none';
+        document.getElementById('delete').style.display = 'none';
+        document.getElementById('confirm').style.display = 'none';
+      })
+      .fail(failData => {
+        fehler(failData.responseText);
+      });
+  };
+
   // moment objects to pass to other functions
   const moments = {
     date: moment(data.date, 'YYYY-MM-DD'),
@@ -355,25 +374,6 @@ const createPreview = (data, event) => {
 
     document.getElementById('amountCell').innerHTML = amount;
     document.getElementById('gehaltCell').innerHTML = `${sendData.gehalt}€`;
-  };
-
-  // remove entry from db and dom
-  deleteBtn.onclick = () => {
-    $.ajax({
-      url: '../api/signIn.php',
-      method: 'POST',
-      data: { deleteid: data.id }
-    })
-      .done(() => {
-        event.target.remove();
-        clearDOM('.preview');
-        document.getElementById('endGroup').style.display = 'none';
-        document.getElementById('delete').style.display = 'none';
-        document.getElementById('confirm').style.display = 'none';
-      })
-      .fail(failData => {
-        fehler(failData.responseText);
-      });
   };
 
   document.getElementById('confirm').onclick = () => {

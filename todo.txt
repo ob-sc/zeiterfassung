@@ -3,36 +3,29 @@ bohrs
 - API mit symfony
 - datei hochladen
 
-dieser browser wird nicht unterstützt statt bitte benutze chrome
-
 ACHTUNG: 
 WENN PAUSE ÄNDERN DANN IN EINTRAGEN UND REGIONALLEITER
-
-title raus
-  -> hwpdata
-  -> hbs template
-  -> wo sonst?
 
 - status zu 0 (disp), 1 (sl), 2 (gbl), 3 (admin) statt string
   -> evtl 0 (neu), 1 (disp), ...
   -> in funktionen (session): if userStatus < 2 dann weg..
 
 - Eintragen neu:
-    -> bei klick auf namen direkt id in db
-    -> https://tarekraafat.github.io/autoComplete.js/#/
+  -> bei klick auf namen direkt id in db
+  -> https://tarekraafat.github.io/autoComplete.js/#/
 
-    -> eintrag über ahid nicht name
-    -> name kommt bei signedin und eintragen aus aushilfen tabelle
-    -> alledaten mit id statt name im index?
+  -> eintrag über ahid nicht name
+  -> name kommt bei signedin und eintragen aus aushilfen tabelle
+  -> alledaten mit id statt name im index?
 
-    -> Wenn jahrmax überschritten ist geht klasse disabled auf confirm?
-      -> Auch bei negativer Arbeitszeit?
+  -> Wenn jahrmax überschritten ist geht klasse disabled auf confirm?
+    -> Auch bei negativer Arbeitszeit?
 
-    -> Confirm erscheint erst wenn max berechnet wurde?
+  -> Confirm erscheint erst wenn max berechnet wurde?
 
-    -> Schrift bei max Rot
+  -> Schrift bei max Rot
 
-    -> umbenennen auf zeiterfassung?
+  -> umbenennen auf zeiterfassung?
 
 
 
