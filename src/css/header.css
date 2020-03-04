@@ -63,6 +63,7 @@
 
 #fehlerAlert,
 #infoAlert {
+  z-index: 999;
   position: absolute;
   display: none;
   font-size: 1.3rem;

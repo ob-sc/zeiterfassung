@@ -3,6 +3,8 @@ bohrs
 - API mit symfony
 - datei hochladen
 
+dieser browser wird nicht unterstützt statt bitte benutze chrome
+
 ACHTUNG: 
 WENN PAUSE ÄNDERN DANN IN EINTRAGEN UND REGIONALLEITER
 
@@ -11,37 +13,22 @@ title raus
   -> hbs template
   -> wo sonst?
 
-  BUG
+BUG
 - AH selecten -> beginn ende steht fehler
   -> knopf ist da aber ohne beschriftung
   -> student
 
+status zu 0 (disp), 1 (sl), 2 (gbl), 3 (admin) statt string
+-> evtl 0 (neu), 1 (disp), ...
+-> in funktionen: if userStatus < 2 dann weg..
+
+
+wenn eine aushilfe gelöscht wird dann bleibt die anmeldung, anmeldung löschen erscheint aber nicht mehr
+
 
 tools für sl / gbl
-- gbl
-  -> zeiten (tabelle zum suchen, (bearbeiten?) & löschen, alle stationen, region?)
-    -> hover auf namen in tabelle?
-  -> daneben eintragen alt (nachtragen)
-
 - sl
   -> übersicht wer darf noch wie viel (+anzahl schichten?)
-
-
-- WICHTIG GBL LÖSCHEN UND NACHTRAGEN (BEARBEITEN?)
-    -> gbl kann in stationsanmeldung datum bearbeiten?
-    -> kann in zeiten auf eine zeit klicken, in modal bearbeiten oder löschen?
-
-- zeiten:
-  -> bei sl
-    -> knopf zeit löschen an rl melden (auch x?)
-    -> der kann an / abnehmen
-    -> rl kann auch direkt aus zeiten löschen mit x
-
-    -> soll gelöscht werden: knopf leuchtet Rot
-    -> erneut klick -> rot weg -> eintrag weg
-
-
-
 
 - Eintragen neu:
     -> bei klick auf namen direkt id in db

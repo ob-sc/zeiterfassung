@@ -71,18 +71,21 @@ export const session = (status, callback) => {
       if (data.userStatus === 'neu') window.location.href = '../index.html#neu';
 
       // wenn nur sl seite benutzen darf (in index.js festgelegt) & jemand ohne berechtigung es versucht
-      if (status === 'sl')
-        if (
-          data.userStatus !== 'admin' &&
-          data.userStatus !== 'sl' &&
-          data.userStatus !== 'gbl'
-        )
-          window.location.href = '../index.html#verlaufen';
+      if (
+        status === 'sl' &&
+        data.userStatus !== 'admin' &&
+        data.userStatus !== 'sl' &&
+        data.userStatus !== 'gbl'
+      )
+        window.location.href = '../index.html#verlaufen';
 
       // nur für gbl
-      if (status === 'gbl')
-        if (data.userStatus !== 'admin' && data.userStatus !== 'gbl')
-          window.location.href = '../index.html#verlaufen';
+      if (
+        status === 'gbl' &&
+        data.userStatus !== 'admin' &&
+        data.userStatus !== 'gbl'
+      )
+        window.location.href = '../index.html#verlaufen';
 
       // nur für lohnbüro
       if (status === 'lohnbuero')

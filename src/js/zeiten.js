@@ -5,7 +5,7 @@ import 'datatables.net-bs4/css/dataTables.bootstrap4.min.css';
 
 import './datetime-moment';
 
-import { session, roundTF, zuStunden, fehler } from './funktionen';
+import { session, roundTF, zuStunden, fehler, info } from './funktionen';
 
 const moment = require('moment');
 
@@ -122,8 +122,8 @@ $.getJSON('../api/zeitenget.php')
 
           // eslint-disable-next-line func-names
           $('.delete').click(function() {
+            const deleteid = $(this).data('deleteid');
             if (status === 'gbl' || status === 'admin') {
-              const deleteid = $(this).data('deleteid');
               const tdArray = [];
               $(this)
                 .parents('tr')
@@ -146,7 +146,7 @@ $.getJSON('../api/zeitenget.php')
                 $.ajax({
                   url: '../api/zdelete.php',
                   method: 'POST',
-                  data: { id: deleteid }
+                  data: { id: deleteid, mode: 1 }
                 })
                   .done(() => {
                     window.location.reload();
@@ -155,6 +155,18 @@ $.getJSON('../api/zeitenget.php')
                     fehler(data.responseText);
                   });
               });
+            } else {
+              $.ajax({
+                url: '../api/zreqdelete.php',
+                method: 'POST',
+                data: { id: deleteid }
+              })
+                .done(() => {
+                  info('Gebietsleiter wurde benachrichtigt');
+                })
+                .fail(data => {
+                  fehler(data.responseText);
+                });
             }
           });
         }
