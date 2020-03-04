@@ -95,6 +95,11 @@ function ahBearbeiten() {
       const samval = $(`#sam${id}`).text();
       const sonval = $(`#son${id}`).text();
 
+      if (!Number.isInteger(parseInt(status, 10)) && status !== 'Student') {
+        fehler('Fehler beim Status der Aushilfe');
+        return;
+      }
+
       // Objekt mit Daten an ajax
       const ahEdit = {
         id,
@@ -163,11 +168,10 @@ $(document).ready(() => {
     const ahName = `${$('#vorn').val()} ${$('#nachn').val()}`;
 
     if (namen[ahName] !== undefined) {
-      fehler('Aushilfe existiert bereits!');
-      return;
+      return fehler('Aushilfe existiert bereits!');
     }
 
-    $.ajax({
+    return $.ajax({
       url: '../api/anew.php',
       method: 'POST',
       data: {
