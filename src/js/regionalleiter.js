@@ -59,7 +59,6 @@ session('gbl', data => {
   })
     .done(zReqRes => {
       const reqs = JSON.parse(zReqRes);
-      console.log(reqs);
 
       if (reqs.length !== 0) {
         // create table element
