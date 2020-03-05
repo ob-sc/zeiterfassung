@@ -162,7 +162,7 @@ $.getJSON('../api/zeitenget.php')
                 data: { id: deleteid }
               })
                 .done(() => {
-                  info('Gebietsleiter wurde benachrichtigt');
+                  info('Regionalleiter wurde benachrichtigt');
                 })
                 .fail(data => {
                   fehler(data.responseText);
