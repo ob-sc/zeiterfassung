@@ -306,13 +306,18 @@ const createPreview = (data, event) => {
         const month = Number(res.month) + Number(sendData.gehalt);
         const year = Number(res.year) + Number(sendData.gehalt);
 
-        const checkM = statusMax - month;
-        const checkY = maxYear - year;
+        const mMax = statusMax - month;
+        const yMax = maxYear - year;
 
-        document.getElementById('monthCell').innerHTML = `${roundTF(checkM)}€`;
-        document.getElementById('yearCell').innerHTML = `${roundTF(checkY)}€`;
+        if (moments.end.isAfter(moments.start)) {
+          document.getElementById('monthCell').innerHTML = `${roundTF(mMax)}€`;
+          document.getElementById('yearCell').innerHTML = `${roundTF(yMax)}€`;
+        } else {
+          document.getElementById('monthCell').innerHTML = '';
+          document.getElementById('yearCell').innerHTML = '';
+        }
 
-        if (checkY >= 0 && moments.end.isAfter(moments.start)) {
+        if (yMax >= 0 && moments.end.isAfter(moments.start)) {
           confirmBtn.style.display = 'block';
         }
       })
