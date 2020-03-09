@@ -239,6 +239,10 @@ const createPreview = (data, event) => {
   }
 
   // calculate max for month and year
+  // dependencies:
+  // ajax: data.ahid
+  // monthcell und yearcell
+  // moment end & start
   const calcMax = statusMax => {
     const today = moment().format('DD');
 
@@ -285,6 +289,7 @@ const createPreview = (data, event) => {
     months += mdiff;
 
     // wenn zwischen 18.12. und 31.12. => 1 monat
+    // todo kann ich hier die Lösung von oben mit before firstdayyear nehmen?
     const bs = moment(`${moment().format('YYYY')}-12-17`, 'YYYY-MM-DD');
     const be = moment(`${moment().format('YYYY')}-12-31`, 'YYYY-MM-DD');
     if (moment().isBetween(bs, be)) months = 1;

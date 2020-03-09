@@ -131,18 +131,20 @@ function abtabelle() {
   ndhtml += '</tr></thead><tbody>';
 
   ndDaten.forEach(key => {
-    const ndabGehalt = key.gehalt;
-    const menge = ndabGehalt / 40;
+    if (key.id !== undefined) {
+      const ndabGehalt = key.gehalt;
+      const menge = ndabGehalt / 40;
 
-    if (ndabGehalt % 40 !== 0) fehler('Fehler bei der Notdienstberechnung');
+      if (ndabGehalt % 40 !== 0) fehler('Fehler bei der Notdienstberechnung');
 
-    if (key.urlaub === 'nd') {
-      ndhtml += `<tr><td>${key.personalnr}</td>`;
-      ndhtml += `<td class="table-ltr">${key.nachname}, ${key.vorname}</td>`;
-      ndhtml += `<td class="table-rtl">${menge}</td>`;
-      ndhtml += `<td class="table-rtl">${roundTF(ndabGehalt)}</td></tr>`;
+      if (key.urlaub === 'nd') {
+        ndhtml += `<tr><td>${key.personalnr}</td>`;
+        ndhtml += `<td class="table-ltr">${key.nachname}, ${key.vorname}</td>`;
+        ndhtml += `<td class="table-rtl">${menge}</td>`;
+        ndhtml += `<td class="table-rtl">${roundTF(ndabGehalt)}</td></tr>`;
 
-      notdienst = true;
+        notdienst = true;
+      }
     }
   });
 
