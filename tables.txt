@@ -27,3 +27,7 @@ CREATE TABLE `starcar_prod`.`reqdelete` ( `id` INT NOT NULL AUTO_INCREMENT , `ze
 ALTER TABLE `reqdelete` CHANGE `reg_date` `reg_date` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE `reqdelete` ADD `station` INT NOT NULL AFTER `user`;
 fertig
+
+ALTER TABLE `aushilfen` ADD `reg_date` INT NOT NULL AFTER `status`;
+ALTER TABLE `aushilfen` CHANGE `reg_date` `reg_date` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+UPDATE `aushilfen` SET `reg_date`='2019-12-18' WHERE id >= 0

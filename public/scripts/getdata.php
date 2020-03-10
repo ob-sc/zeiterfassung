@@ -29,7 +29,7 @@ foreach ($ahResult as $value) {
 }
 
 // alle aushilfen 
-$stmt = $conn->query("SELECT id, personalnr, vorname, nachname, norlohn, samlohn, sonlohn, status, station FROM aushilfen");
+$stmt = $conn->query("SELECT id, personalnr, vorname, nachname, norlohn, samlohn, sonlohn, status, station, reg_date FROM aushilfen");
 $alleResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $alleNamen = [];
@@ -44,7 +44,8 @@ foreach ($alleResult as $value) {
     'samlohn' => $value['samlohn'], 
     'sonlohn' => $value['sonlohn'], 
     'ahStatus' => $value['status'], 
-    'station' => $value['station']
+    'station' => $value['station'],
+    'reg_date' => $value['reg_date']
   ];
 }
 

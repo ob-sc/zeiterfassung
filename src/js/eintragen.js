@@ -246,8 +246,10 @@ const createPreview = (data, event) => {
   const calcMax = statusMax => {
     const today = moment().format('DD');
 
-    // months
-    let months = 1;
+    const regDate = moment(
+      alleDaten[data.name].reg_date,
+      'YYYY-MM-DD HH:mm:ss'
+    );
 
     // create first day by taking the current year
     let firstDayYear = `${moment().format('YYYY')}-12-18`;
@@ -265,7 +267,6 @@ const createPreview = (data, event) => {
     // if today is after the 17th, currently in the next month
     if (today > 17) {
       firstDayMonth = `${moment().format('YYYY-MM')}-18`;
-      months += 1;
     }
 
     // if today is before the 18th, currently in the right month
@@ -275,24 +276,18 @@ const createPreview = (data, event) => {
         .format('YYYY-MM')}-18`;
     }
 
-    // todo testen 2x subtract
     // wenn tag kleiner ist als 18, der monat also im abrechnungszeitraumsmonat ist und der monat januar ist
     if (today < 18 && moment().format('MM') === '01') {
-      firstDayMonth = `${moment()
-        .subtract(1, 'years')
-        .subtract(1, 'months')
-        .format('YYYY-MM')}-18`;
+      firstDayMonth = firstDayYear;
     }
 
-    // monate seit anfang des jahres addieren
-    const mdiff = moment().diff(moment().startOf('year'), 'months');
-    months += mdiff;
+    const monthStart = moment(firstDayYear, 'YYYY-MM-DD');
+    let months = 1;
 
-    // wenn zwischen 18.12. und 31.12. => 1 monat
-    // todo kann ich hier die Lösung von oben mit before firstdayyear nehmen?
-    const bs = moment(`${moment().format('YYYY')}-12-17`, 'YYYY-MM-DD');
-    const be = moment(`${moment().format('YYYY')}-12-31`, 'YYYY-MM-DD');
-    if (moment().isBetween(bs, be)) months = 1;
+    while (monthStart.isBefore(moment())) {
+      if (!monthStart.isBefore(regDate)) months += 1;
+      monthStart.add(1, 'months');
+    }
 
     const maxYear = statusMax * months;
 
