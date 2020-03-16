@@ -335,7 +335,7 @@ const createPreview = (data, event) => {
     if (Number.isNaN(gehaltStatus))
       return fehler('Fehler, bitte überprüfe den Status unter "Aushilfen"');
     calcMax(gehaltStatus);
-  } else if (moments.end.isAfter(moments.start)) {
+  } else if (notdienst || moments.end.isAfter(moments.start)) {
     confirmBtn.style.display = 'block';
   }
 
@@ -379,7 +379,11 @@ const createPreview = (data, event) => {
     const amount = e.target.value;
     sendData.gehalt = 40 * amount;
 
-    calcMax(gehaltStatus);
+    if (alleDaten[data.name].ahStatus !== 'Student') {
+      calcMax(gehaltStatus);
+    } else {
+      confirmBtn.style.display = 'block';
+    }
 
     document.getElementById('amountCell').innerHTML = amount;
     document.getElementById('gehaltCell').innerHTML = `${sendData.gehalt}€`;
