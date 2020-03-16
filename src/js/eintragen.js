@@ -7,7 +7,7 @@ import {
   fehler,
   clearDOM,
   addCurrent,
-  zuStunden,
+  zuStunden
 } from './funktionen';
 
 const moment = require('moment');
@@ -135,7 +135,7 @@ const createPreview = (data, event) => {
     $.ajax({
       url: '../api/signIn.php',
       method: 'POST',
-      data: { deleteid: data.id },
+      data: { deleteid: data.id }
     })
       .done(() => {
         event.target.remove();
@@ -153,7 +153,7 @@ const createPreview = (data, event) => {
   const moments = {
     date: moment(data.date, 'YYYY-MM-DD'),
     start: moment(data.start, 'HH:mm:ss'),
-    end: moment(endInput.value, 'HH:mm'),
+    end: moment(endInput.value, 'HH:mm')
   };
 
   // prepare name, ahstation, date, start and end to pass to php
@@ -303,8 +303,8 @@ const createPreview = (data, event) => {
       data: {
         ahid: data.ahid,
         firstDayMonth,
-        firstDayYear,
-      },
+        firstDayYear
+      }
     })
       .done(maxData => {
         const res = JSON.parse(maxData);
@@ -315,16 +315,14 @@ const createPreview = (data, event) => {
         const mMax = statusMax - month;
         const yMax = maxYear - year;
 
-        if (moments.end.isAfter(moments.start)) {
+        if (notdienst || moments.end.isAfter(moments.start)) {
           document.getElementById('monthCell').innerHTML = `${roundTF(mMax)}€`;
           document.getElementById('yearCell').innerHTML = `${roundTF(yMax)}€`;
+          if (yMax >= 0) confirmBtn.style.display = 'block';
         } else {
           document.getElementById('monthCell').innerHTML = '';
           document.getElementById('yearCell').innerHTML = '';
-        }
-
-        if (yMax >= 0 && moments.end.isAfter(moments.start)) {
-          confirmBtn.style.display = 'block';
+          confirmBtn.style.display = 'none';
         }
       })
       .fail(maxData => {
@@ -397,7 +395,7 @@ const createPreview = (data, event) => {
     $.ajax({
       url: '../api/send.php',
       method: 'POST',
-      data: sendData,
+      data: sendData
     })
       .done(sendResponse => {
         info(sendResponse);
@@ -405,7 +403,7 @@ const createPreview = (data, event) => {
           $.ajax({
             url: '../api/signIn.php',
             method: 'POST',
-            data: { deleteid: data.id },
+            data: { deleteid: data.id }
           })
             .done(() => {
               event.target.remove();
@@ -507,7 +505,7 @@ const signIn = () => {
   return $.ajax({
     url: '../api/signIn.php',
     method: 'POST',
-    data: { signInData },
+    data: { signInData }
   })
     .done(data => {
       const signedIn = JSON.parse(data);
@@ -523,7 +521,7 @@ const prepareNdPreview = () => {
   const nameInputValue = document.getElementById('eintragenAuto').value;
 
   const notdienstData = {
-    date: moment().format('YYYY-MM-DD'),
+    date: moment().format('YYYY-MM-DD')
   };
 
   if (nameInputValue === '' || alleDaten[nameInputValue] === undefined)
