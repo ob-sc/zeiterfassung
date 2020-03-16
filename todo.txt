@@ -6,6 +6,8 @@ bohrs
 ACHTUNG: 
 WENN PAUSE ÄNDERN DANN IN EINTRAGEN UND REGIONALLEITER
 
+trailing comma weg? (es5 bei prettier)
+
 - status zu 0 (disp), 1 (sl), 2 (gbl), 3 (admin) statt string
   -> evtl 0 (neu), 1 (disp), ...
   -> in funktionen (session): if userStatus < 2 dann weg..
