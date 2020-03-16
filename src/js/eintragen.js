@@ -7,7 +7,7 @@ import {
   fehler,
   clearDOM,
   addCurrent,
-  zuStunden
+  zuStunden,
 } from './funktionen';
 
 const moment = require('moment');
@@ -135,7 +135,7 @@ const createPreview = (data, event) => {
     $.ajax({
       url: '../api/signIn.php',
       method: 'POST',
-      data: { deleteid: data.id }
+      data: { deleteid: data.id },
     })
       .done(() => {
         event.target.remove();
@@ -153,7 +153,7 @@ const createPreview = (data, event) => {
   const moments = {
     date: moment(data.date, 'YYYY-MM-DD'),
     start: moment(data.start, 'HH:mm:ss'),
-    end: moment(endInput.value, 'HH:mm')
+    end: moment(endInput.value, 'HH:mm'),
   };
 
   // prepare name, ahstation, date, start and end to pass to php
@@ -281,11 +281,17 @@ const createPreview = (data, event) => {
       firstDayMonth = firstDayYear;
     }
 
+    // calc months currently worked
     const monthStart = moment(firstDayYear, 'YYYY-MM-DD');
     let months = 1;
 
+    // loop through all billing months for this year until now
     while (monthStart.isBefore(moment())) {
-      if (!monthStart.isBefore(regDate)) months += 1;
+      // this is always one month less, added that 1 month in the variable declaration for months
+      if (!monthStart.isBefore(regDate) && !monthStart.isSame(regDate, 'day')) {
+        months += 1;
+      }
+
       monthStart.add(1, 'months');
     }
 
@@ -297,8 +303,8 @@ const createPreview = (data, event) => {
       data: {
         ahid: data.ahid,
         firstDayMonth,
-        firstDayYear
-      }
+        firstDayYear,
+      },
     })
       .done(maxData => {
         const res = JSON.parse(maxData);
@@ -391,7 +397,7 @@ const createPreview = (data, event) => {
     $.ajax({
       url: '../api/send.php',
       method: 'POST',
-      data: sendData
+      data: sendData,
     })
       .done(sendResponse => {
         info(sendResponse);
@@ -399,7 +405,7 @@ const createPreview = (data, event) => {
           $.ajax({
             url: '../api/signIn.php',
             method: 'POST',
-            data: { deleteid: data.id }
+            data: { deleteid: data.id },
           })
             .done(() => {
               event.target.remove();
@@ -501,7 +507,7 @@ const signIn = () => {
   return $.ajax({
     url: '../api/signIn.php',
     method: 'POST',
-    data: { signInData }
+    data: { signInData },
   })
     .done(data => {
       const signedIn = JSON.parse(data);
@@ -517,7 +523,7 @@ const prepareNdPreview = () => {
   const nameInputValue = document.getElementById('eintragenAuto').value;
 
   const notdienstData = {
-    date: moment().format('YYYY-MM-DD')
+    date: moment().format('YYYY-MM-DD'),
   };
 
   if (nameInputValue === '' || alleDaten[nameInputValue] === undefined)
