@@ -1,6 +1,6 @@
 /*
  *  alle = 1; nord = 2; berlin = 3; mitte = 4; hannover = 5; süd = 6; frankfurt = 7;
- *  Verwaltung = 8; köln 40+41 = 9; köln 46+43 = 10; frankfurt 55+57 = 11; harburg 13+113 = 12;
+ *  Verwaltung = 8; köln 40+41 = 9; köln 46+43 = 10; frankfurt 55+57 +düsseldorf = 11; harburg 13+113 = 12;
  */
 
 const stationen = new Map();
@@ -72,7 +72,7 @@ stationen.set(24, {
 
 stationen.set(30, {
   name: 'Hannover',
-  region: [1, 5]
+  region: [1, 2, 5]
 });
 
 stationen.set(32, {
@@ -82,7 +82,7 @@ stationen.set(32, {
 
 stationen.set(33, {
   name: 'Hannover-Döhren',
-  region: [1, 5]
+  region: [1, 2, 5]
 });
 
 stationen.set(36, {
@@ -127,7 +127,7 @@ stationen.set(50, {
 
 stationen.set(52, {
   name: 'Düsseldorf',
-  region: [1, 4]
+  region: [1, 4, 11]
 });
 
 stationen.set(54, {
