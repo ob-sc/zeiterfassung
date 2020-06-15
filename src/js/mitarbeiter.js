@@ -187,12 +187,6 @@ $(document).ready(() => {
   $('#weForm').submit(e => {
     e.preventDefault();
 
-    // prettier-ignore
-    if (moment($('#datum').val(), 'YYYY-MM-DD').isoWeekday() !== 7) {
-      $('#weModal').modal('hide');
-      return fehler(`${moment($('#datum').val(), 'YYYY-MM-DD').format('DD.MM.YYYY')} ist kein Sonntag`)
-    }
-
     return $.ajax({
       url: '../api/weeintragen.php',
       method: 'POST',
