@@ -102,6 +102,11 @@ const calcAZ = (name, moments) => {
     lohn = 10;
   }
 
+  // Wenn Köln-Renault (41) dann am Wochenende pauschal 12€
+  if (station === 41 && moments.date.isoWeekday() >= 6) {
+    lohn = 12;
+  }
+
   // gehalt in cent / rundungsfehler vermeiden
   const gehaltCent = (lohn * 100 * calc.diff) / 60 / 100;
 
