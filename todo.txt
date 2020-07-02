@@ -3,6 +3,11 @@ bohrs
 - API mit symfony
 - datei hochladen
 
+- stationen: in db eintrag welche freigeschaltet ist 
+
+- aushilfen name trim
+- name aus zeiten, immer referenz aus ahid
+
 ACHTUNG: 
 WENN PAUSE ÄNDERN DANN IN EINTRAGEN UND REGIONALLEITER
 

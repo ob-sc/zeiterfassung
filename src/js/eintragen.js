@@ -97,13 +97,13 @@ const calcAZ = (name, moments) => {
   } else {
     lohn = norlohn;
   }
-  // Wenn Berlin Tiergarten (020) dann am Montag pauschal 10€
-  if (station === 20 && moments.date.isoWeekday() === 1) {
+  // Wenn Berlin Tiergarten (020) und Lohn kleiner als 10 dann am Montag pauschal 10€
+  if (station === 20 && moments.date.isoWeekday() === 1 && lohn < 10) {
     lohn = 10;
   }
 
-  // Wenn Köln-Renault (41) dann am Wochenende pauschal 12€
-  if (station === 41 && moments.date.isoWeekday() >= 6) {
+  // Wenn Köln-Renault (41) und Lohn kleiner als 12 dann am Wochenende pauschal 12€
+  if (station === 41 && moments.date.isoWeekday() >= 6 && lohn < 12) {
     lohn = 12;
   }
 

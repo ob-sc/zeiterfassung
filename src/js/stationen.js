@@ -137,12 +137,12 @@ stationen.set(54, {
 
 stationen.set(55, {
   name: 'Frankfurt-Ostend',
-  region: [1, 4, 11]
+  region: [1, 4, 11, 6]
 });
 
 stationen.set(57, {
   name: 'Bad Homburg',
-  region: [1, 4, 11]
+  region: [1, 4, 11, 6]
 });
 
 stationen.set(60, {
