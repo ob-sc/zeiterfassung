@@ -1,6 +1,6 @@
 /*
  *  alle = 1; nord = 2; berlin = 3; mitte = 4; hannover = 5; süd = 6; frankfurt = 7;
- *  Verwaltung = 8; köln 40+41 = 9; köln 46+43 = 10; frankfurt 55+57 +52 = 11; harburg 13+113 = 12;
+ *  Verwaltung = 8; köln 40+41 = 9; köln 46+43 = 10; frankfurt 55+57 +52 = 11; harburg 13+113 = 12; osdorf + altona = 13
  */
 
 const stationen = new Map();
@@ -32,12 +32,12 @@ stationen.set(14, {
 
 stationen.set(15, {
   name: 'Hamburg-Altona',
-  region: [1, 2]
+  region: [1, 2, 13]
 });
 
 stationen.set(18, {
   name: 'Hamburg-Osdorf',
-  region: [1, 2]
+  region: [1, 2, 13]
 });
 
 stationen.set(19, {
