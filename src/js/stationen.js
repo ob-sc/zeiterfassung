@@ -1,6 +1,6 @@
 /*
  *  alle = 1; nord = 2; berlin = 3; mitte = 4; hannover = 5; süd = 6; frankfurt = 7;
- *  Verwaltung = 8; köln 40+41 = 9; köln 46+43 = 10; frankfurt 55+57 +52 = 11; harburg 13+113 = 12; osdorf + altona = 13
+ *  Verwaltung = 8; köln 40+41 = 9; köln 46+43 = 10; frankfurt 55+57+52 = 11; harburg 13+113 = 12; osdorf + altona = 13
  */
 
 const stationen = new Map();
@@ -173,6 +173,11 @@ stationen.set(113, {
 stationen.set(114, {
   name: 'Hamburg-Langenhorn',
   region: [1, 2]
+});
+
+stationen.set(130, {
+  name: 'Nürnberg',
+  region: [1, 6]
 });
 
 export default stationen;
