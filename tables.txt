@@ -32,3 +32,12 @@ ALTER TABLE `aushilfen` ADD `reg_date` INT NOT NULL AFTER `status`;
 ALTER TABLE `aushilfen` CHANGE `reg_date` `reg_date` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 UPDATE `aushilfen` SET `reg_date`='2019-12-18' WHERE id >= 0
 fertig
+
+ALTER TABLE `zeiten` ADD `ahmax` VARCHAR(7) NOT NULL AFTER `ahstation`;
+UPDATE zeiten
+INNER JOIN aushilfen ON (zeiten.ahid = aushilfen.id)
+SET zeiten.ahmax = aushilfen.status
+fertig
+
+ALTER TABLE `aushilfen` CHANGE `reg_date` `reg_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+fertig

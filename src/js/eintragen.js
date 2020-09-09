@@ -164,6 +164,7 @@ const createPreview = (data, event) => {
   // prepare name, ahstation, date, start and end to pass to php
   sendData.name = data.name;
   sendData.ahstation = alleDaten[data.name].station;
+  sendData.ahmax = alleDaten[data.name].ahStatus;
   sendData.date = moments.date.format('YYYY-MM-DD');
   sendData.start = moments.start.format('HH:mm');
   sendData.end = endInput.value;

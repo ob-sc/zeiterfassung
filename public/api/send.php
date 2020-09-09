@@ -16,8 +16,8 @@ if ($stmt->rowCount() !== 0) {
 }
 
 // Eintragen in Tabelle zeiten
-$sql = "INSERT INTO zeiten (name, ahid, datum, beginn, ende, arbeitszeit, gehalt, disponent, station, ahstation) 
-  VALUES (:name, :ahid, :datum, :beginn, :ende, :arbeitszeit, :gehalt, :disp, :station, :ahstation)";
+$sql = "INSERT INTO zeiten (name, ahid, datum, beginn, ende, arbeitszeit, gehalt, disponent, station, ahstation, ahmax) 
+  VALUES (:name, :ahid, :datum, :beginn, :ende, :arbeitszeit, :gehalt, :disp, :station, :ahstation, :ahmax)";
 $stmt = $conn->prepare($sql);
 
 $stmt->bindValue(':name', $_POST['name']);
@@ -30,6 +30,7 @@ $stmt->bindValue(':gehalt', $_POST['gehalt']);
 $stmt->bindValue(':disp', $_SESSION['userid']);
 $stmt->bindValue(':station', $_SESSION['station']);
 $stmt->bindValue(':ahstation', $_POST['ahstation']);
+$stmt->bindValue(':ahmax', $_POST['ahmax']);
 
 $stmt->execute();
 
