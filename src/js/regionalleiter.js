@@ -252,6 +252,7 @@ const eintragen = () => {
 
   sendData.name = inputs.name;
   sendData.ahstation = alleDaten[inputs.name].station;
+  sendData.ahmax = alleDaten[inputs.name].ahStatus;
   sendData.ahid = alleDaten[inputs.name].id;
   sendData.date = moments.date.format('YYYY-MM-DD');
   sendData.start = moments.start.format('HH:mm');
