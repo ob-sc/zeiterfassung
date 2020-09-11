@@ -41,3 +41,6 @@ fertig
 
 ALTER TABLE `aushilfen` CHANGE `reg_date` `reg_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 fertig
+
+ALTER TABLE `benutzer` ADD `extstat` VARCHAR(255) NULL AFTER `region`;
+fertig

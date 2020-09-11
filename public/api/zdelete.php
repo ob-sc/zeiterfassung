@@ -19,5 +19,4 @@ if ($_POST['mode'] == 3) {
   $stmt->execute(array($_POST['id']));
 }
 
-
 $conn = null;

@@ -96,18 +96,32 @@ export const session = (status, callback) => {
         )
           window.location.href = '../index.html#verlaufen';
 
-      // station select erstellen laut berechtigung aus php
       $(document).ready(() => {
-        if (data.region) {
+        // station select erstellen laut berechtigung aus php
+        if (data.region || data.extstat) {
           $('#stationSelectContainer').show();
 
+          // initiale Station (nur wenn keine region)
+          if (!data.region) {
+            const initStation = stationen.get(data.initStation);
+            $('#stationSelect').append(
+              `<option value='${data.initStation}'>${initStation.name}</option>`
+            );
+          }
+
           stationen.forEach((value, key) => {
+            // region
             value.region.forEach(region => {
               if (region === data.region)
                 $('#stationSelect').append(
                   `<option value='${key}'>${value.name}</option>`
                 );
             });
+            // extstat
+            if (key === Number(data.extstat))
+              $('#stationSelect').append(
+                `<option value='${key}'>${value.name}</option>`
+              );
           });
         }
 
