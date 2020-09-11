@@ -1,6 +1,5 @@
 /*
- *  alle = 1; nord = 2; berlin = 3; mitte = 4; hannover = 5; süd = 6; frankfurt = 7;
- *  Verwaltung = 8; köln 40+41 = 9; köln 46+43 = 10; frankfurt 55+57+52 = 11; harburg 13+113 = 12; osdorf + altona = 13
+ *  alle = 1; nord = 2; berlin = 3; mitte = 4; frankfurt = 5; süd = 6; Köln 46 & 43 = 7 Verwaltung = 8;
  */
 
 const stationen = new Map();
@@ -22,7 +21,7 @@ stationen.set(12, {
 
 stationen.set(13, {
   name: 'Hamburg-Heimfeld',
-  region: [1, 2, 12]
+  region: [1, 2]
 });
 
 stationen.set(14, {
@@ -32,12 +31,12 @@ stationen.set(14, {
 
 stationen.set(15, {
   name: 'Hamburg-Altona',
-  region: [1, 2, 13]
+  region: [1, 2]
 });
 
 stationen.set(18, {
   name: 'Hamburg-Osdorf',
-  region: [1, 2, 13]
+  region: [1, 2]
 });
 
 stationen.set(19, {
@@ -72,7 +71,7 @@ stationen.set(24, {
 
 stationen.set(30, {
   name: 'Hannover',
-  region: [1, 2, 5]
+  region: [1, 2]
 });
 
 stationen.set(32, {
@@ -82,7 +81,7 @@ stationen.set(32, {
 
 stationen.set(33, {
   name: 'Hannover-Döhren',
-  region: [1, 2, 5]
+  region: [1, 2]
 });
 
 stationen.set(36, {
@@ -92,17 +91,17 @@ stationen.set(36, {
 
 stationen.set(40, {
   name: 'Köln-Sülz',
-  region: [1, 4, 9]
+  region: [1, 4]
 });
 
 stationen.set(41, {
   name: 'Köln-Renault',
-  region: [1, 4, 9]
+  region: [1, 4]
 });
 
 stationen.set(43, {
   name: 'Köln St. Augustin',
-  region: [1, 4, 10]
+  region: [1, 4, 7]
 });
 
 stationen.set(45, {
@@ -112,7 +111,7 @@ stationen.set(45, {
 
 stationen.set(46, {
   name: 'Köln-Porz',
-  region: [1, 4, 10]
+  region: [1, 4, 7]
 });
 
 stationen.set(47, {
@@ -127,7 +126,7 @@ stationen.set(50, {
 
 stationen.set(52, {
   name: 'Düsseldorf',
-  region: [1, 4, 11]
+  region: [1, 4]
 });
 
 stationen.set(54, {
@@ -137,12 +136,12 @@ stationen.set(54, {
 
 stationen.set(55, {
   name: 'Frankfurt-Ostend',
-  region: [1, 4, 11, 6]
+  region: [1, 4, 5]
 });
 
 stationen.set(57, {
   name: 'Bad Homburg',
-  region: [1, 4, 11, 6]
+  region: [1, 4, 5]
 });
 
 stationen.set(60, {
@@ -167,7 +166,7 @@ stationen.set(89, {
 
 stationen.set(113, {
   name: 'Harburg-Mitte',
-  region: [1, 2, 12]
+  region: [1, 2]
 });
 
 stationen.set(114, {
