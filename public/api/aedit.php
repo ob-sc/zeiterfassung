@@ -16,4 +16,11 @@ $stmt->bindValue(':id', $_POST['id']);
 
 $stmt->execute();
 
+if ($_POST['vonStudent'] == 'true') {
+  $sql2 = 'UPDATE aushilfen SET reg_date = now() WHERE id = :id';
+  $stmt2 = $conn->prepare($sql2);
+  $stmt2->bindValue(':id', $_POST['id']);
+  $stmt2->execute();
+}
+
 $conn = null;

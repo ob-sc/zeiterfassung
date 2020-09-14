@@ -77,7 +77,7 @@ function ahBearbeiten() {
       return;
     }
 
-    // Bei Disketten-Bild: Zeile wird gespeichert -> variablen aus IDs der Zellen werden erstellt und dann per ajax an php gesendet
+    // Bei Mensch mit Haken-Bild: Zeile wird gespeichert -> variablen aus IDs der Zellen werden erstellt und dann per ajax an php gesendet
 
     if ($(this).attr('src') === '../img/user-check-solid.svg') {
       // eslint-disable-next-line func-names
@@ -104,10 +104,21 @@ function ahBearbeiten() {
       const ahEdit = {
         id,
         status,
+        vonStudent: false,
         norlohn: norval.replace(',', '.'),
         samlohn: samval.replace(',', '.'),
         sonlohn: sonval.replace(',', '.')
       };
+
+      // wenn der status von student auf 450 geht muss timestamp aktualisiert werden,
+      // damit die vormonate in gehaltmax nicht gezählt werden
+      if (status !== 'Student') {
+        ahDaten.forEach(e => {
+          if (e.id === id && e.ahStatus === 'Student') {
+            ahEdit.vonStudent = true;
+          }
+        });
+      }
 
       // Senden an aedit.php
       $.ajax({
