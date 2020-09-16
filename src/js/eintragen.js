@@ -308,6 +308,7 @@ const createPreview = (data, event) => {
       method: 'POST',
       data: {
         ahid: data.ahid,
+        status: alleDaten[data.name].ahStatus,
         firstDayMonth,
         firstDayYear
       }
