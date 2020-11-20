@@ -150,8 +150,8 @@ function ahBearbeiten() {
         method: 'POST',
         data: { id: deleteId }
       })
-        .done(() => {
-          window.location.reload();
+        .done(data => {
+          console.log(data);
         })
         .fail(data => {
           fehler(data.responseText);

@@ -24,7 +24,8 @@ foreach ($ahResult as $value) {
     'norlohn' => $value['norlohn'], 
     'samlohn' => $value['samlohn'], 
     'sonlohn' => $value['sonlohn'], 
-    'ahStatus' => $value['status']
+    'ahStatus' => $value['status'], 
+    'fs' => $value['fs-kontrolle']
   ];
 }
 
@@ -45,7 +46,8 @@ foreach ($alleResult as $value) {
     'sonlohn' => $value['sonlohn'], 
     'ahStatus' => $value['status'], 
     'station' => $value['station'],
-    'reg_date' => $value['reg_date']
+    'reg_date' => $value['reg_date'], 
+    // 'fs' => $value['fs-kontrolle']
   ];
 }
 

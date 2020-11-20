@@ -11,6 +11,9 @@ bohrs
 ACHTUNG: 
 WENN PAUSE ÄNDERN DANN IN EINTRAGEN UND REGIONALLEITER
 
+aushilfen
+tooltip hover edit und abmelden
+
 trailing comma weg? (es5 bei prettier)
 
 - status zu 0 (disp), 1 (sl), 2 (gbl), 3 (admin) statt string

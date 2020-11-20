@@ -44,3 +44,5 @@ fertig
 
 ALTER TABLE `benutzer` ADD `extstat` VARCHAR(255) NULL AFTER `region`;
 fertig
+
+ALTER TABLE `aushilfen` ADD `fs-kontrolle` DATE NULL AFTER `status`;
