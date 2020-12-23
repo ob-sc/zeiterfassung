@@ -29,6 +29,7 @@
     "bootstrap": "^4.5.0",
     "datatables.net": "^1.10.21",
     "datatables.net-bs4": "^1.10.21",
+    "date-fns": "^2.16.1",
     "jquery": "^3.5.0",
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.5.6",

@@ -1,6 +1,9 @@
 <?php
 require '../scripts/connect.php';
 
+# todo das ist nicht richtig so
+# er zählt nur alle aus zeiten mit dem exakten ahstatus
+
 $result = [];
 
 $monthSQL = "SELECT sum(gehalt) AS gehalt FROM zeiten WHERE ahid = :id AND ahmax = :status AND datum BETWEEN :fdm AND CURDATE()";

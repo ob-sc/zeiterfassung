@@ -1,7 +1,20 @@
-bohrs
-- backup db
-- API mit symfony
-- datei hochladen
+startseite (eintragen):
+es gibt ein datum irgendwo
+  der aktuelle abrechnungsmonat aus dates.js wird angezeigt
+es werden alle aushilfen der Station in einem container angezeigt
+  wie aktuell eine angemeldete aushilfe
+    immer V. Nachname
+      wenn der name zu lang wird nicht zweizeilig sondern ...
+  filtern nach name (und anderen param?)
+    auch vorname
+bei klick kontextmenü 
+  gehaltmax
+  noch bis max (leiste die sich prozentual füllt?)
+  FS-Kontrolle?
+  anmelden > mit zeitauswahl
+
+
+---
 
 - stationen: in db eintrag welche freigeschaltet ist 
 

@@ -1,3 +1,5 @@
+import { differenceInDays } from 'date-fns';
+import calendar from './calendar';
 import {
   session,
   getData,
@@ -244,74 +246,34 @@ const createPreview = (data, event) => {
     createRow(i, 'yearCell', 'Jahr', '');
   }
 
-  // calculate max for month and year
-  // dependencies:
-  // ajax: data.ahid
-  // monthcell und yearcell
-  // moment end & start
-  const calcMax = statusMax => {
-    const today = moment().format('DD');
+  const gehaltStatus = Number(alleDaten[data.name].ahStatus);
 
-    const regDate = moment(
-      alleDaten[data.name].reg_date,
-      'YYYY-MM-DD HH:mm:ss'
-    );
+  const calcMax = () => {
+    const dates = calendar();
 
-    // create first day by taking the current year
-    let firstDayYear = `${moment().format('YYYY')}-12-18`;
+    const regDate = new Date(alleDaten[data.name].reg_date);
 
-    // if firstDayYear is in the future subtract 1 year
-    if (moment().isBefore(moment(firstDayYear, 'YYYY-MM-DD'))) {
-      firstDayYear = `${moment()
-        .subtract(1, 'years')
-        .format('YYYY')}-12-18`;
-    }
+    const firstDayMonth =
+      differenceInDays(regDate, dates.month.start.date) > 0
+        ? regDate
+        : dates.month.start.str;
 
-    // first day of abrechnungs-month (?) - don't create it yet
-    let firstDayMonth = '';
+    const firstDayYear =
+      differenceInDays(regDate, dates.year.start.date) > 0
+        ? regDate
+        : dates.year.start.str;
 
-    // if today is after the 17th, currently in the next month
-    if (today > 17) {
-      firstDayMonth = `${moment().format('YYYY-MM')}-18`;
-    }
-
-    // if today is before the 18th, currently in the right month
-    if (today < 18) {
-      firstDayMonth = `${moment()
-        .subtract(1, 'months')
-        .format('YYYY-MM')}-18`;
-    }
-
-    // wenn tag kleiner ist als 18, der monat also im abrechnungszeitraumsmonat ist und der monat januar ist
-    if (today < 18 && moment().format('MM') === '01') {
-      firstDayMonth = firstDayYear;
-    }
-
-    // calc months currently worked
-    const monthStart = moment(firstDayYear, 'YYYY-MM-DD');
-    let months = 1;
-
-    // loop through all billing months for this year until now
-    while (monthStart.isBefore(moment())) {
-      // this is always one month less, added that 1 month in the variable declaration for months
-      if (!monthStart.isBefore(regDate) && !monthStart.isSame(regDate, 'day')) {
-        months += 1;
-      }
-
-      monthStart.add(1, 'months');
-    }
-
-    const maxYear = statusMax * months;
+    const requestData = {
+      ahid: data.ahid,
+      status: alleDaten[data.name].ahStatus,
+      firstDayMonth,
+      firstDayYear
+    };
 
     $.ajax({
       url: '../api/gehaltMax.php',
       method: 'POST',
-      data: {
-        ahid: data.ahid,
-        status: alleDaten[data.name].ahStatus,
-        firstDayMonth,
-        firstDayYear
-      }
+      data: requestData
     })
       .done(maxData => {
         const res = JSON.parse(maxData);
@@ -319,8 +281,8 @@ const createPreview = (data, event) => {
         const month = Number(res.month) + Number(sendData.gehalt);
         const year = Number(res.year) + Number(sendData.gehalt);
 
-        const mMax = statusMax - month;
-        const yMax = maxYear - year;
+        const mMax = gehaltStatus - month;
+        const yMax = gehaltStatus * (dates.month.num + 1) - year;
 
         if (notdienst || moments.end.isAfter(moments.start)) {
           document.getElementById('monthCell').innerHTML = `${roundTF(mMax)}€`;
@@ -337,11 +299,10 @@ const createPreview = (data, event) => {
       });
   };
 
-  const gehaltStatus = Number(alleDaten[data.name].ahStatus);
   if (alleDaten[data.name].ahStatus !== 'Student') {
     if (Number.isNaN(gehaltStatus))
       return fehler('Fehler, bitte überprüfe den Status unter "Aushilfen"');
-    calcMax(gehaltStatus);
+    calcMax();
   } else if (notdienst || moments.end.isAfter(moments.start)) {
     confirmBtn.style.display = 'block';
   }
@@ -364,7 +325,7 @@ const createPreview = (data, event) => {
 
       if (alleDaten[data.name].ahStatus !== 'Student') {
         confirmBtn.style.display = 'none';
-        calcMax(gehaltStatus);
+        calcMax();
       } else {
         confirmBtn.style.display = 'block';
       }
@@ -387,7 +348,7 @@ const createPreview = (data, event) => {
     sendData.gehalt = 40 * amount;
 
     if (alleDaten[data.name].ahStatus !== 'Student') {
-      calcMax(gehaltStatus);
+      calcMax();
     } else {
       confirmBtn.style.display = 'block';
     }
@@ -397,7 +358,6 @@ const createPreview = (data, event) => {
   };
 
   document.getElementById('confirm').onclick = () => {
-    // ¯\_(ツ)_/¯
     if (pause === 1)
       sendData.end = moments.end.add(30, 'minutes').format('HH:mm');
     else if (pause === 2)
