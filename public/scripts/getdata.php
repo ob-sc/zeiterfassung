@@ -47,7 +47,7 @@ foreach ($alleResult as $value) {
     'ahStatus' => $value['status'], 
     'station' => $value['station'],
     'reg_date' => $value['reg_date'], 
-    // 'fs' => $value['fs-kontrolle']
+    'fs' => $value['fs-kontrolle']
   ];
 }
 
