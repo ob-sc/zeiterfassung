@@ -1,5 +1,5 @@
 /*
- *  alle = 1; nord = 2; berlin = 3; mitte = 4; frankfurt = 5; süd = 6; Köln 46 & 43 = 7 Verwaltung = 8;
+ *  alle = 1; nord = 2; berlin = 3; mitte = 4; frankfurt = 5; süd = 6; Köln 46 & 43 = 7; Verwaltung = 8; Spandau 24 & 26 = 9;
  */
 
 const stationen = new Map();
@@ -66,7 +66,12 @@ stationen.set(23, {
 
 stationen.set(24, {
   name: 'Berlin-Spandau',
-  region: [1, 3]
+  region: [1, 3, 9]
+});
+
+stationen.set(26, {
+  name: 'Berlin-Spandau MB',
+  region: [1, 3, 9]
 });
 
 stationen.set(30, {
@@ -126,6 +131,11 @@ stationen.set(50, {
 
 stationen.set(52, {
   name: 'Düsseldorf',
+  region: [1, 4]
+});
+
+stationen.set(53, {
+  name: 'Duisburg',
   region: [1, 4]
 });
 
