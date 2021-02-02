@@ -2,3 +2,5 @@ config.ini
 
 node_modules/
 db/
+
+*.log
