@@ -2,7 +2,7 @@
 require 'connect.php';
 
 // aushilfen der Station mit löhnen -> station dazu?
-$aushilfenSql = "SELECT id, personalnr, vorname, nachname, norlohn, samlohn, sonlohn, status FROM aushilfen WHERE station = ?";
+$aushilfenSql = "SELECT id, personalnr, vorname, nachname, norlohn, samlohn, sonlohn, status, fs-kontrolle FROM aushilfen WHERE station = ?";
 
 $stmt = $conn->prepare($aushilfenSql);
 
@@ -30,7 +30,7 @@ foreach ($ahResult as $value) {
 }
 
 // alle aushilfen 
-$stmt = $conn->query("SELECT id, personalnr, vorname, nachname, norlohn, samlohn, sonlohn, status, station, reg_date FROM aushilfen");
+$stmt = $conn->query("SELECT id, personalnr, vorname, nachname, norlohn, samlohn, sonlohn, status, station, reg_date, fs-kontrolle FROM aushilfen");
 $alleResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $alleNamen = [];
