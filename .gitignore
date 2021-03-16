@@ -3,4 +3,7 @@ config.ini
 node_modules/
 db/
 
+package-lock.json
+yarn.lock
+
 *.log
