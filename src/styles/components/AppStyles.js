@@ -6,7 +6,7 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100vh',
+    minHeight: '100vh',
     '& a': {
       textDecoration: 'none',
     },
