@@ -3,13 +3,21 @@ import { common } from '../common';
 
 const styles = (theme) => ({
   ...common,
-  root: { width: 'min(1000px, 90%)', padding: '5% 10%' },
+  root: {
+    width: 700,
+    [theme.breakpoints.down('md')]: {
+      width: '90vw',
+    },
+  },
   headLine: {
     textAlign: 'center',
     marginBottom: theme.spacing(3),
   },
   textContainer: {
-    width: 'min(500px, 100%)',
+    width: 500,
+    [theme.breakpoints.down('md')]: {
+      width: '80vw',
+    },
   },
 });
 

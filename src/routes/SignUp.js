@@ -31,90 +31,88 @@ function SignUp() {
   );
 
   return (
-    <Paper className={classes.root}>
-      <h1 className={classes.headLine}>Account erstellen</h1>
-
-      <form onSubmit={formik.handleSubmit} noValidate>
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          alignItems="center"
-          spacing={2}
-        >
-          <Grid className={classes.textContainer} item>
-            <Box>
-              <p>
-                Der Benutzername ist <i>vorname.nachname</i>, wie bei deinem
-                Citrix-Account
-              </p>
-              <p>
-                Das Passwort muss mindestens einen Klein-, einen Großbuchstaben
-                und eine Zahl enthalten.
-              </p>
-            </Box>
-          </Grid>
-          <Grid item>
-            <Input
-              name="username"
-              label="Benutzer"
-              formik={formik}
-              noComplete={true}
-              variant="outlined"
-              className={classes.input}
-            />
-          </Grid>
-          <Grid item>
-            <Input
-              name="password"
-              label="Passwort"
-              formik={formik}
-              noComplete={true}
-              variant="outlined"
-              className={classes.input}
-            />
-          </Grid>
-          <Grid item>
-            <Input
-              name="repeat_password"
-              label="Passwort wiederholen"
-              formik={formik}
-              noComplete={true}
-              variant="outlined"
-              className={classes.input}
-            />
-          </Grid>
-          <Grid item>
-            <CtrlSelect
-              name="station"
-              label="Station"
-              formik={formik}
-              className={classes.input}
-            >
-              <MenuItem value="">&nbsp;</MenuItem>
-              {stations.map(({ num, station }) => {
-                return (
-                  <MenuItem key={num} value={num}>
-                    {station.name}
-                  </MenuItem>
-                );
-              })}
-            </CtrlSelect>
-          </Grid>
-          <Grid item>
-            <Box float="right" mt={3}>
-              <Button
-                type="submit"
-                disabled={mutation.isLoading}
-                color="primary"
+    <Box m={2} px={2} py={4} className={classes.root} clone>
+      <Paper>
+        <h1 className={classes.headLine}>Account erstellen</h1>
+        <form onSubmit={formik.handleSubmit} noValidate>
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+            spacing={2}
+          >
+            <Grid className={classes.textContainer} item>
+              <Box>
+                <p>
+                  Der Benutzername ist <i>vorname.nachname</i>, wie bei deinem
+                  Citrix-Account. Das Passwort muss mindestens einen Klein-,
+                  einen Großbuchstaben und eine Zahl enthalten.
+                </p>
+              </Box>
+            </Grid>
+            <Grid item>
+              <Input
+                name="username"
+                label="Benutzer"
+                formik={formik}
+                noComplete={true}
+                variant="outlined"
+                className={classes.input}
+              />
+            </Grid>
+            <Grid item>
+              <Input
+                name="password"
+                label="Passwort"
+                formik={formik}
+                noComplete={true}
+                variant="outlined"
+                className={classes.input}
+              />
+            </Grid>
+            <Grid item>
+              <Input
+                name="repeat_password"
+                label="Passwort wiederholen"
+                formik={formik}
+                noComplete={true}
+                variant="outlined"
+                className={classes.input}
+              />
+            </Grid>
+            <Grid item>
+              <CtrlSelect
+                name="station"
+                label="Station"
+                formik={formik}
+                className={classes.input}
               >
-                Registrieren
-              </Button>
-            </Box>
+                <MenuItem value="">&nbsp;</MenuItem>
+                {stations.map(({ num, station }) => {
+                  return (
+                    <MenuItem key={num} value={num}>
+                      {station.name}
+                    </MenuItem>
+                  );
+                })}
+              </CtrlSelect>
+            </Grid>
+            <Grid item>
+              <Box mt={3}>
+                <Button
+                  type="submit"
+                  disabled={mutation.isLoading}
+                  color="primary"
+                >
+                  Registrieren
+                </Button>
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
-      </form>
-    </Paper>
+        </form>
+      </Paper>
+    </Box>
   );
 }
 
