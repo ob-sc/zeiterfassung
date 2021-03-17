@@ -5,7 +5,7 @@ import { navigate } from '@reach/router';
 import { Box, IconButton, Menu, MenuItem } from '@material-ui/core';
 import { FiMenu } from 'react-icons/fi';
 import { IoPersonCircleOutline } from 'react-icons/io5';
-import { deleteData } from '../util/fetchData';
+import fetchData from '../util/fetchData';
 import useToastContext from '../context/ToastContext';
 
 // NavMenu ist ein User Menu für logout etc wenn desktop
@@ -35,7 +35,7 @@ function NavMenu({ routes, mobile }) {
     setNoLogout(true);
     setAnchorEl(null);
     try {
-      const isLoggedOut = await deleteData('api/session');
+      const isLoggedOut = await fetchData('api/session', {}, 'delete');
       // erst wenn logout erfolgreich war
       if (isLoggedOut) {
         queryClient.invalidateQueries('session');

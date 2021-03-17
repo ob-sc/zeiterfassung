@@ -28,10 +28,10 @@ function Input({ name, label, noComplete, formik, ...rest }) {
 }
 
 Input.propTypes = {
-  name: PropTypes.string,
-  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   autoComplete: PropTypes.bool,
-  formik: PropTypes.object,
+  formik: PropTypes.object.isRequired,
 };
 
 export default Input;

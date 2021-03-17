@@ -1,46 +1,38 @@
 import { Link, navigate } from '@reach/router';
-import { useMutation } from 'react-query';
-import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Grid, Button, Paper } from '@material-ui/core';
 
-import useStyles from '../styles/views/LoginStyles';
-import useToastContext from '../context/ToastContext';
-import { postData } from '../util/fetchData';
+import useCommonStyles from '../styles/common';
 import yupLocale from '../validations/locale';
 import Input from '../components/Input';
+import useForm from '../hooks/useForm';
 
 Yup.setLocale(yupLocale);
 
 function Login() {
-  const classes = useStyles();
-  const { addError } = useToastContext();
+  const classes = useCommonStyles();
 
-  const mutation = useMutation((values) => postData('/api/session', values), {
-    onError: (error) => {
-      addError(error);
-    },
-    onSuccess: (data) => {
-      navigate('/', { replace: true });
-    },
+  const init = {
+    username: '',
+    password: '',
+  };
+
+  const validation = Yup.object({
+    username: Yup.string().trim().lowercase().required('Benutzer eingeben'),
+    password: Yup.string().required('Passwort eingeben'),
   });
 
-  const formik = useFormik({
-    initialValues: {
-      username: '',
-      password: '',
-    },
+  const handleSuccess = (data) => {
+    navigate('/', { replace: true });
+  };
 
-    validationSchema: Yup.object({
-      username: Yup.string().trim().lowercase().required('Benutzer eingeben'),
-      password: Yup.string().trim().lowercase().required('Passwort eingeben'),
-    }),
-
-    onSubmit: (values, { setSubmitting }) => {
-      mutation.mutate(values);
-      setSubmitting(false);
-    },
-  });
+  const { formik, mutation } = useForm(
+    init,
+    validation,
+    handleSuccess,
+    '/api/session',
+    'post'
+  );
 
   return (
     <Box m={2} px={3} py={6} clone>
@@ -59,7 +51,7 @@ function Login() {
                 label="Benutzer"
                 formik={formik}
                 variant="outlined"
-                className={classes.loginInput}
+                className={classes.input}
               />
             </Grid>
             <Grid item>
@@ -68,10 +60,10 @@ function Login() {
                 label="Passwort"
                 formik={formik}
                 variant="outlined"
-                className={classes.loginInput}
+                className={classes.input}
               />
             </Grid>
-            <Grid className={classes.actionBox} item>
+            <Grid className={classes.input} item>
               <Box
                 display="flex"
                 flexDirection="row"

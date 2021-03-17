@@ -1,56 +1,47 @@
+import { Box, Grid, Button, Paper, MenuItem } from '@material-ui/core';
 import { navigate } from '@reach/router';
-import { useMutation } from 'react-query';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { Box, Grid, Button, Paper } from '@material-ui/core';
 
-import useToastContext from '../context/ToastContext';
-import { postData } from '../util/fetchData';
-import yupLocale from '../validations/locale';
+import useStyles from '../styles/views/SignUpStyles';
+import stations from '../constants/stations';
+import validation from '../validations/signUpValidation';
 import Input from '../components/Input';
-
-Yup.setLocale(yupLocale);
+import CtrlSelect from '../components/CtrlSelect';
+import useForm from '../hooks/useForm';
 
 function SignUp() {
-  const { addError } = useToastContext();
+  const classes = useStyles();
 
-  const mutation = useMutation(
-    (formValues) => postData('/api/users', formValues),
-    {
-      onError: (error) => {
-        addError(error);
-      },
-      onSuccess: (data) => {
-        navigate('/login');
-      },
-    }
+  const init = {
+    username: '',
+    password: '',
+    repeat_password: '',
+    station: '',
+  };
+
+  const handleSuccess = (data) => {
+    navigate('/login');
+  };
+
+  const { formik, mutation } = useForm(
+    init,
+    validation,
+    handleSuccess,
+    '/api/users',
+    'post'
   );
 
-  const formik = useFormik({
-    initialValues: {
-      username: '', // todo session.isDead ? session.username : ''
-      password: '',
-      repeat_password: '',
-    },
-
-    validationSchema: Yup.object({
-      username: Yup.string().trim().lowercase().required('Benutzer eingeben'),
-      password: Yup.string().trim().lowercase().required('Passwort eingeben'),
-      repeat_password: Yup.string()
-        .trim()
-        .lowercase()
-        .required('Passwort eingeben'),
-    }),
-
-    onSubmit: (values, { setSubmitting }) => {
-      mutation.mutate(values);
-      setSubmitting(false);
-    },
-  });
-
   return (
-    <Box m={2} px={8} py={6} clone>
+    <Box m={2} px={3} py={6} clone>
       <Paper>
+        <h1 className={classes.headLine}>Account erstellen</h1>
+        <p>
+          Der Benutzername ist <i>vorname.nachname</i>, wie bei deinem
+          Citrix-Account
+        </p>
+        <p>
+          Das Passwort muss mindestens einen Klein-, einen Großbuchstaben und
+          eine Zahl enthalten.
+        </p>
         <form onSubmit={formik.handleSubmit} noValidate>
           <Grid
             container
@@ -65,6 +56,8 @@ function SignUp() {
                 label="Benutzer"
                 formik={formik}
                 noComplete={true}
+                variant="outlined"
+                className={classes.input}
               />
             </Grid>
             <Grid item>
@@ -73,6 +66,8 @@ function SignUp() {
                 label="Passwort"
                 formik={formik}
                 noComplete={true}
+                variant="outlined"
+                className={classes.input}
               />
             </Grid>
             <Grid item>
@@ -81,7 +76,26 @@ function SignUp() {
                 label="Passwort wiederholen"
                 formik={formik}
                 noComplete={true}
+                variant="outlined"
+                className={classes.input}
               />
+            </Grid>
+            <Grid item>
+              <CtrlSelect
+                name="station"
+                label="Station"
+                formik={formik}
+                className={classes.input}
+              >
+                <MenuItem value="">&nbsp;</MenuItem>
+                {stations.map(({ num, station }) => {
+                  return (
+                    <MenuItem key={num} value={num}>
+                      {station.name}
+                    </MenuItem>
+                  );
+                })}
+              </CtrlSelect>
             </Grid>
             <Grid item>
               <Box float="right" mt={3}>
@@ -90,7 +104,7 @@ function SignUp() {
                   disabled={mutation.isLoading}
                   color="primary"
                 >
-                  Anmelden
+                  Registrieren
                 </Button>
               </Box>
             </Grid>

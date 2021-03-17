@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
-import { getData } from '../util/fetchData';
+import fetchData from '../util/fetchData';
 
 const getSession = async () => {
-  const data = await getData('/api/session');
+  const data = await fetchData('/api/session');
   return data.payload;
 };
 

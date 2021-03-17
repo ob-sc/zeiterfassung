@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Box, IconButton, Menu, MenuItem } from '@material-ui/core';
 import { IoMapOutline } from 'react-icons/io5';
-import { updateData } from '../util/fetchData';
+import fetchData from '../util/fetchData';
 import { useQueryClient } from 'react-query';
 import useToastContext from '../context/ToastContext';
 
@@ -25,9 +25,13 @@ function StationMenu({ stations }) {
     try {
       setNoMenu(true);
       setAnchorEl(null);
-      const isUpdated = await updateData('api/session', {
-        station: num,
-      });
+      const isUpdated = await fetchData(
+        'api/session',
+        {
+          station: num,
+        },
+        'put'
+      );
       // erst wenn update erfolgreich war
       if (isUpdated) queryClient.invalidateQueries('session');
     } catch (err) {

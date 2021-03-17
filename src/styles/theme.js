@@ -10,6 +10,10 @@ export const colors = {
 };
 
 const theme = createMuiTheme({
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontWeight: 300,
+  },
   palette: {
     background: {
       default: colors.offwhite,
@@ -43,12 +47,12 @@ theme.props = {
 };
 
 theme.overrides = {
-  MuiButtonBase: {
-    root: {
-      borderRadius: 0,
-      textTransform: 'none',
-    },
-  },
+  // MuiButtonBase: {
+  //   root: {
+  //     borderRadius: 0,
+  //     textTransform: 'none',
+  //   },
+  // },
   MuiTouchRipple: {
     child: {
       backgroundColor: colors.bluewhite,
