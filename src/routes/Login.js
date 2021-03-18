@@ -35,55 +35,55 @@ function Login() {
   );
 
   return (
-    <Box m={2} px={3} py={6} clone>
-      <Paper>
-        <form onSubmit={formik.handleSubmit}>
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-            spacing={2}
-          >
-            <Grid item>
-              <Input
-                name="username"
-                label="Benutzer"
-                formik={formik}
-                variant="outlined"
-                className={classes.input}
-              />
-            </Grid>
-            <Grid item>
-              <Input
-                name="password"
-                label="Passwort"
-                formik={formik}
-                variant="outlined"
-                className={classes.input}
-              />
-            </Grid>
-            <Grid className={classes.input} item>
-              <Box
-                display="flex"
-                flexDirection="row"
-                justifyContent="space-between"
-                alignItems="center"
-                mt={3}
-              >
-                <Link to="/sign-up">Account erstellen</Link>
-                <Button
-                  type="submit"
-                  disabled={mutation.isLoading}
-                  color="primary"
+    <Box className={classes.flexCenterRoot}>
+      <Box m={2} px={3} py={6} clone>
+        <Paper>
+          <form onSubmit={formik.handleSubmit}>
+            <Grid
+              container
+              direction="column"
+              justify="center"
+              alignItems="center"
+              spacing={2}
+            >
+              <Grid item>
+                <Input
+                  name="username"
+                  label="Benutzer"
+                  formik={formik}
+                  className={classes.input}
+                />
+              </Grid>
+              <Grid item>
+                <Input
+                  name="password"
+                  label="Passwort"
+                  formik={formik}
+                  className={classes.input}
+                />
+              </Grid>
+              <Grid className={classes.input} item>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  mt={3}
                 >
-                  Anmelden
-                </Button>
-              </Box>
+                  <Link to="/sign-up">Account erstellen</Link>
+                  <Button
+                    type="submit"
+                    disabled={mutation.isLoading}
+                    color="primary"
+                  >
+                    Anmelden
+                  </Button>
+                </Box>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </Paper>
+          </form>
+        </Paper>
+      </Box>
     </Box>
   );
 }

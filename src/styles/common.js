@@ -1,8 +1,19 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+const flex = {
+  flexCenterRoot: {
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+};
+
 export const common = {
+  ...flex,
   input: {
-    width: 'min(300px, 75vw)',
+    width: 300,
   },
 };
 

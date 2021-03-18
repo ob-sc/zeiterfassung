@@ -13,6 +13,7 @@ function Input({ name, label, noComplete, formik, ...rest }) {
 
   return (
     <TextField
+      variant="outlined"
       id={name}
       name={name}
       label={label}

@@ -4,7 +4,7 @@ import { common } from '../common';
 const styles = (theme) => ({
   ...common,
   root: {
-    width: 700,
+    width: 600,
     [theme.breakpoints.down('md')]: {
       width: '90vw',
     },

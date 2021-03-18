@@ -1,7 +1,12 @@
+import useStyles from '../styles/routes/HomeStyles';
+import AHAutocomplete from '../components/AHAutocomplete';
+
 function Home() {
+  const classes = useStyles();
+
   return (
-    <div>
-      <h1>Home</h1>
+    <div className={classes.flexCenterRoot}>
+      <AHAutocomplete />
     </div>
   );
 }

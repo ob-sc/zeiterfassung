@@ -1,7 +1,7 @@
 import { Box, Grid, Button, Paper, MenuItem } from '@material-ui/core';
 import { navigate } from '@reach/router';
 
-import useStyles from '../styles/views/SignUpStyles';
+import useStyles from '../styles/routes/SignUpStyles';
 import stations from '../constants/stations';
 import validation from '../validations/signUpValidation';
 import Input from '../components/Input';
@@ -57,7 +57,6 @@ function SignUp() {
                 label="Benutzer"
                 formik={formik}
                 noComplete={true}
-                variant="outlined"
                 className={classes.input}
               />
             </Grid>
@@ -67,7 +66,6 @@ function SignUp() {
                 label="Passwort"
                 formik={formik}
                 noComplete={true}
-                variant="outlined"
                 className={classes.input}
               />
             </Grid>
@@ -77,7 +75,6 @@ function SignUp() {
                 label="Passwort wiederholen"
                 formik={formik}
                 noComplete={true}
-                variant="outlined"
                 className={classes.input}
               />
             </Grid>
