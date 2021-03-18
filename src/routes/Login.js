@@ -10,7 +10,7 @@ import useForm from '../hooks/useForm';
 Yup.setLocale(yupLocale);
 
 function Login() {
-  const classes = useCommonStyles();
+  const common = useCommonStyles();
 
   const init = {
     username: '',
@@ -35,7 +35,7 @@ function Login() {
   );
 
   return (
-    <Box className={classes.flexCenterRoot}>
+    <Box className={common.flexCenterRoot}>
       <Box m={2} px={3} py={6} clone>
         <Paper>
           <form onSubmit={formik.handleSubmit}>
@@ -51,7 +51,7 @@ function Login() {
                   name="username"
                   label="Benutzer"
                   formik={formik}
-                  className={classes.input}
+                  className={common.mdInput}
                 />
               </Grid>
               <Grid item>
@@ -59,10 +59,10 @@ function Login() {
                   name="password"
                   label="Passwort"
                   formik={formik}
-                  className={classes.input}
+                  className={common.mdInput}
                 />
               </Grid>
-              <Grid className={classes.input} item>
+              <Grid className={common.mdInput} item>
                 <Box
                   display="flex"
                   flexDirection="row"

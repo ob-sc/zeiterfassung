@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { common } from '../common';
+import { util } from '../common';
 
 const styles = {
-  ...common,
+  ...util,
   root: {},
 };
 

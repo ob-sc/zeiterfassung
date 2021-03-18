@@ -10,20 +10,26 @@ const flex = {
   },
 };
 
-export const common = {
+export const util = {
   ...flex,
-  input: {
-    width: 300,
-  },
 };
 
-const useCommonStyles = makeStyles(common);
+const useCommonStyles = makeStyles((theme) => ({
+  ...util,
+  mdInput: {
+    width: 300,
+    [theme.breakpoints.down('xs')]: {
+      width: '70vw',
+    },
+  },
+}));
 
 export default useCommonStyles;
 
 /*
- * dürfen nicht root oder anderen
+ *           ACHTUNG
+ * Klassen dürfen nicht root oder
  * Namen aus jss haben, sonst geht
  * style = { ...common, root: {  }}
- * nicht mehr
+ * oder alles nicht mehr
  */

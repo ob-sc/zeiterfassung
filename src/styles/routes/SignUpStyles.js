@@ -1,11 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { common } from '../common';
 
 const styles = (theme) => ({
-  ...common,
   root: {
     width: 600,
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('xs')]: {
       width: '90vw',
     },
   },
@@ -15,7 +13,7 @@ const styles = (theme) => ({
   },
   textContainer: {
     width: 500,
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('xs')]: {
       width: '80vw',
     },
   },
