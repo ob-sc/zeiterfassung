@@ -3,8 +3,10 @@ import { Redirect } from '@reach/router';
 import { CircularProgress } from '@material-ui/core';
 import useToastContext from '../context/ToastContext';
 import useAuth from '../hooks/useAuth';
+import useCommonStyles from '../styles/common';
 
 function AuthWrapper({ children }) {
+  const common = useCommonStyles();
   const { error, isError, isLoading, isLoggedIn } = useAuth();
   const { addError } = useToastContext();
 
@@ -12,10 +14,13 @@ function AuthWrapper({ children }) {
     if (isError) addError(error);
   });
 
-  if (isLoading) return <CircularProgress size={70} />;
+  if (isLoading)
+    return (
+      <div className={common.flexCenterRoot}>
+        <CircularProgress size={70} />
+      </div>
+    );
   if (isError) {
-    // todo timeout ist hacky lösung für fehler
-    // Cannot update a component (`ToastContextProvider`) while rendering a different component (`AuthWrapper`).
     return <Redirect to="/login" noThrow />;
   }
 

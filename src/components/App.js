@@ -31,12 +31,10 @@ function App() {
         <NavBar mobile={mobile} />
         <Toast mobile={mobile} />
         <Router>
-          <AuthWrapper path="/">
-            <Home path="/" />
+          <AuthWrapper path="">
+            <Home path="" />
+            <Admin path="admin" />
             <NotFound default />
-          </AuthWrapper>
-          <AuthWrapper path="admin">
-            <Admin path="/" />
           </AuthWrapper>
           <Login path="login" />
           <SignUp path="sign-up" />

@@ -15,7 +15,7 @@ function Toast({ mobile }) {
   return (
     // bool toast.message = false verhindert fade out
     // vor dem fade out wird toast auf null zurückgesetzt
-    // dann braucht die severity einen default und ändert kurz die farbe
+    // dann braucht die severity einen default und ist default
     !!toast.message && (
       <Box textAlign="center">
         <Snackbar
