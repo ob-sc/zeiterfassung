@@ -1,6 +1,8 @@
+import { Box } from '@material-ui/core';
 import useStyles from '../styles/routes/HomeStyles';
 import useAllAushilfen from '../hooks/useAllAushilfen';
 import AHAutocomplete from '../components/AHAutocomplete';
+import PaperContainer from '../components/PaperContainer';
 
 function Home() {
   const classes = useStyles();
@@ -9,9 +11,11 @@ function Home() {
   const options = 'all' === true ? ah.all : ah.station;
 
   return (
-    <div className={classes.flexCenterRoot}>
-      <AHAutocomplete options={options} />
-    </div>
+    <Box className={classes.flexCenterRoot}>
+      <PaperContainer m={2} p={2}>
+        <AHAutocomplete options={options} />
+      </PaperContainer>
+    </Box>
   );
 }
 

@@ -1,31 +1,20 @@
 import PropTypes from 'prop-types';
-import { Box, Paper } from '@material-ui/core';
-import { useLocation } from '@reach/router';
+import { Box } from '@material-ui/core';
 import useCommonStyles from '../styles/common';
+import PaperContainer from '../components/PaperContainer';
+import magnifyingGlass from '../images/magnifying-glass.svg';
 
 function NotFound() {
   const common = useCommonStyles();
 
-  const { pathname } = useLocation();
-  const isApiRoute = pathname.substring(0, 4) === '/api';
   return (
     <Box className={common.flexCenterRoot}>
-      {' '}
-      <Paper>
-        <Box m={2} p={8} textAlign="center">
-          {isApiRoute ? (
-            <>
-              <h1>Kein Zugriff</h1>
-              <Box fontSize="90px">🔒</Box>
-            </>
-          ) : (
-            <>
-              <h1>Seite nicht gefunden</h1>
-              <Box fontSize="90px">🔎</Box>
-            </>
-          )}
+      <PaperContainer m={2} p={10}>
+        <Box textAlign="center">
+          <h1>Seite nicht gefunden</h1>
+          <img src={magnifyingGlass} alt="lupe" width="50%" />
         </Box>
-      </Paper>
+      </PaperContainer>
     </Box>
   );
 }

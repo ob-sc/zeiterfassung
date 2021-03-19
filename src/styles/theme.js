@@ -4,6 +4,7 @@ export const colors = {
   white: '#ffffff',
   offwhite: '#f6f5f4',
   bluewhite: '#f2faff',
+  lightGrey: '#dedede',
   black: '#000000',
   blackish: '#4a4c51',
   brand: '#feed01',
@@ -20,10 +21,10 @@ const theme = createMuiTheme({
     },
     primary: {
       main: colors.blackish,
+      light: colors.lightGrey,
     },
     secondary: {
       main: colors.brand,
-      contrastText: colors.blackish,
     },
   },
 });
@@ -34,8 +35,8 @@ theme.props = {
     disableRipple: true,
   },
   MuiPaper: {
-    square: true,
-    elevation: 1,
+    // square: true,
+    elevation: 0,
   },
   MuiAlert: {
     variant: 'outlined',
