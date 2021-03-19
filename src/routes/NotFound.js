@@ -12,7 +12,7 @@ function NotFound() {
       <PaperContainer m={2} p={10}>
         <Box textAlign="center">
           <h1>Seite nicht gefunden</h1>
-          <img src={magnifyingGlass} alt="lupe" width="50%" />
+          <img src={magnifyingGlass} alt="lupe" width="150px" />
         </Box>
       </PaperContainer>
     </Box>
