@@ -1,6 +1,7 @@
-import useSession from './useSession';
+import { useQuery } from 'react-query';
 import routes from '../constants/routes';
 import stations from '../constants/stations';
+import fetchData from '../util/fetchData';
 
 const authRoutes = (userStatus) => {
   const authenticated = [];
@@ -35,7 +36,7 @@ const authStations = (userStation, extstat, userRegion) => {
 
     if (element.num === userStation) pushStation();
     // extstat in der db ist zb "11,12,15"
-    // diesen string parsen -> array
+    // diesen string parsen zu array
     if (typeof extstat === 'string') {
       extstatArray = extstat.split(',');
       for (let extraStation of extstatArray) {
@@ -51,7 +52,11 @@ const authStations = (userStation, extstat, userRegion) => {
 };
 
 const useAuth = () => {
-  const { status, error, data, isFetching } = useSession();
+  const { status, error, data, isFetching } = useQuery(
+    'session',
+    async () => await fetchData('/api/session')
+  );
+
   const authObject = {
     isLoading: false,
     isError: false,

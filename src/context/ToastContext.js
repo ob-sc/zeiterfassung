@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { useImmer } from 'use-immer';
 
 const context = React.createContext();
-
 const useToastContext = () => useContext(context);
 
 export const ToastContextProvider = ({ children }) => {

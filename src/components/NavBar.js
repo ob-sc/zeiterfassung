@@ -56,7 +56,11 @@ function NavBar({ mobile }) {
           </Box>
         </Toolbar>
       </AppBar>
-      {hasStations && <CurrStation station={auth.station} />}
+      {
+        hasStations && (
+          <CurrStation station={auth.station} />
+        ) /* todo schöner machen, badge bei stationmenu?? */
+      }
     </>
   );
 }

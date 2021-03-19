@@ -7,7 +7,7 @@ function AHAutocomplete({ options }) {
     <Autocomplete
       id="combo-box"
       options={options}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) => `${option.vorname} ${option.nachname}`}
       style={{ width: 300 }}
       renderInput={(params) => (
         <TextField {...params} label="Aushilfe" variant="outlined" />
@@ -19,5 +19,3 @@ function AHAutocomplete({ options }) {
 AHAutocomplete.propTypes = { options: PropTypes.array };
 
 export default AHAutocomplete;
-
-// options: [{ name: 'peter', ... }, { ... }, ...]

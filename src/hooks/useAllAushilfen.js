@@ -1,28 +1,26 @@
 import { useQuery } from 'react-query';
+import useAuthContext from '../context/AuthContext';
 import fetchData from '../util/fetchData';
-import useSession from './useSession';
 
 function useAllAushilfen() {
-  const { data } = useSession();
-  const { station } = data;
-
-  const stationAH = [];
+  const { station } = useAuthContext();
   const result = useQuery(
     'aushilfen',
     async () => await fetchData('/api/aushilfen')
   );
+  const { status, data } = result;
 
-  const test = [
-    { test: 'test', station: 70 },
-    { test: 'ta', station: 10 },
-    { station: 70 },
-    { station: 11 },
-  ];
-  for (let [i, v] of test.entries()) {
-    if ((v.station = station)) stationAH.push(v);
+  if (status === 'success') {
+    const stationAH = [];
+
+    for (let item of data) {
+      if (item.station === station) stationAH.push(item);
+    }
+
+    return { station: stationAH, all: data };
   }
 
-  return { station: stationAH, all: test };
+  return { station: [], all: [] };
 }
 
 export default useAllAushilfen;

@@ -3,8 +3,8 @@ import { Router } from '@reach/router';
 import { Box } from '@material-ui/core';
 import useStyles from '../styles/components/AppStyles';
 import { ToastContextProvider } from '../context/ToastContext';
+import { AuthContextProvider } from '../context/AuthContext';
 import NavBar from './NavBar';
-import AuthWrapper from './AuthWrapper';
 import Toast from './Toast';
 import NotFound from '../routes/NotFound';
 import Home from '../routes/Home';
@@ -31,11 +31,11 @@ function App() {
         <NavBar mobile={mobile} />
         <Toast mobile={mobile} />
         <Router>
-          <AuthWrapper path="">
-            <Home path="" />
+          <AuthContextProvider path="/">
+            <Home path="/" />
             <Admin path="admin" />
             <NotFound default />
-          </AuthWrapper>
+          </AuthContextProvider>
           <Login path="login" />
           <SignUp path="sign-up" />
         </Router>
@@ -46,6 +46,6 @@ function App() {
 
 export default App;
 
-// innerhalb authwrapper kommt <Account /> oder so, verlinkt über navbar
+// innerhalb AuthContextProvider kommt <Account /> oder so, verlinkt über navbar
 // der hat keine access beschränkung
 // deshalb kriegt status null nur die seite settings wenn eingeloggt
