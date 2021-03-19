@@ -23,4 +23,4 @@ NotFound.propTypes = { restricted: PropTypes.bool };
 
 export default NotFound;
 
-// Kein Zugriff sollte wegen nginx konfig nie kommen
+// /api sollte wegen nginx konfig nie kommen
