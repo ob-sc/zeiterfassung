@@ -24,3 +24,10 @@ export default Home;
 // set state aushilfe, wenn keine aushilfe in autocomplete dann default
 
 // state ah angemeldet -> wenn ausgewählt abmelden statt anmelden
+
+// aushilfe aussuchen -> id in state
+// GET daten für aushilfe
+//
+
+// station ist eine tabelle mit ausklappen
+// bei ausklappen kann man dann gehalt anpassen etc
