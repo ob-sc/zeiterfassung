@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
 import { Router } from '@reach/router';
 import { Box } from '@material-ui/core';
 import useStyles from '../styles/components/AppStyles';
 import { ToastContextProvider } from '../context/ToastContext';
 import { AuthContextProvider } from '../context/AuthContext';
+import useMobile from '../hooks/useMobile';
 import NavBar from './NavBar';
 import Toast from './Toast';
 import NotFound from '../routes/NotFound';
@@ -14,16 +14,7 @@ import SignUp from '../routes/SignUp';
 
 function App() {
   const classes = useStyles();
-  const [mobile, setMobile] = useState(false);
-
-  useEffect(() => {
-    const setResponsiveness = () => {
-      return window.innerWidth < 1024 ? setMobile(true) : setMobile(false);
-    };
-    setResponsiveness();
-    window.addEventListener('resize', () => setResponsiveness());
-  });
-  // }, []);
+  const mobile = useMobile();
 
   return (
     <ToastContextProvider>
@@ -45,7 +36,3 @@ function App() {
 }
 
 export default App;
-
-// innerhalb AuthContextProvider kommt <Account /> oder so, verlinkt über navbar
-// der hat keine access beschränkung
-// deshalb kriegt status null nur die seite settings wenn eingeloggt

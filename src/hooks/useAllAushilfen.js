@@ -8,19 +8,24 @@ function useAllAushilfen() {
     'aushilfen',
     async () => await fetchData('/api/aushilfen')
   );
-  const { status, data } = result;
+  const { status, data, isFetching } = result;
+
+  const aushilfen = {
+    station: [],
+    all: [],
+    isLoading: false,
+  };
+
+  if (status === 'loading' || isFetching) aushilfen.isLoading = true;
 
   if (status === 'success') {
-    const stationAH = [];
-
     for (let item of data) {
-      if (item.station === station) stationAH.push(item);
+      if (item.station === station) aushilfen.station.push(item);
     }
-
-    return { station: stationAH, all: data };
+    aushilfen.all = data;
   }
 
-  return { station: [], all: [] };
+  return aushilfen;
 }
 
 export default useAllAushilfen;

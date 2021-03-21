@@ -1,4 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+import { deDE } from '@material-ui/core/locale';
 
 export const colors = {
   white: '#ffffff',
@@ -8,6 +9,8 @@ export const colors = {
   black: '#000000',
   blackish: '#4a4c51',
   brand: '#feed01',
+  blue: '#0112fe',
+  blueish: '#8089ff',
 };
 
 const theme = createMuiTheme({
@@ -24,12 +27,13 @@ const theme = createMuiTheme({
       light: colors.lightGrey,
     },
     secondary: {
-      main: colors.brand,
+      main: colors.blueish,
     },
   },
 });
 
 theme.props = {
+  ...deDE.props,
   MuiButton: {
     variant: 'outlined',
     disableRipple: true,

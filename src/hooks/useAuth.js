@@ -54,7 +54,8 @@ const authStations = (userStation, extstat, userRegion) => {
 const useAuth = () => {
   const { status, error, data, isFetching } = useQuery(
     'session',
-    async () => await fetchData('/api/session')
+    async () => await fetchData('/api/session'),
+    { refetchOnWindowFocus: false }
   );
 
   const authObject = {
