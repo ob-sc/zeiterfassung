@@ -20,6 +20,8 @@ export const AuthContextProvider = ({ children }) => {
   const { addError } = useToastContext();
   const { error, isError, isLoading, isLoggedIn, ...session } = useAuth();
 
+  // console.log('isLoggedIn ', isLoggedIn);
+
   useEffect(() => {
     if (isError) addError(error);
   });

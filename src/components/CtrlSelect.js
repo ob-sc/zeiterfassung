@@ -39,3 +39,17 @@ CtrlSelect.propTypes = {
 };
 
 export default CtrlSelect;
+
+/*
+children:
+<MenuItem value="">&nbsp;</MenuItem>;
+{
+  stations.map(({ num, station }) => {
+    return (
+      <MenuItem key={num} value={num}>
+        {station.name}
+      </MenuItem>
+    );
+  });
+}
+*/

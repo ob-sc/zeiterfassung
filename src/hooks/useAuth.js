@@ -52,21 +52,26 @@ const authStations = (userStation, extstat, userRegion) => {
 };
 
 const useAuth = () => {
+  // todo query muss iwann stale werden, wird dann von den einzelnen seiten noch mal abgefragt
+  // wenn stale -> neu holen. dann ist isLoggedIn = false und private seiten nicht mehr gezeigt
+  // staleTime: 300000
   const { status, error, data, isFetching } = useQuery(
     'session',
     async () => await fetchData('/api/session'),
     { refetchOnWindowFocus: false }
   );
 
-  const authObject = {
+  // eigene booleans statt isLoading und isError aus usequery
+  // ist aber eig egal, muss nur isFetching noch abfangen
+  const statusBools = {
     isLoading: false,
     isError: false,
   };
 
-  // status === loading ist manchmal false trotz isFetching true, deshalb beide
   if (status === 'loading' || isFetching)
-    return { ...authObject, isLoading: true };
+    return { ...statusBools, isLoading: true };
 
+  // return userdaten
   if (status === 'success') {
     const authedRoutes = authRoutes(data.access);
     const authedStations = authStations(
@@ -75,9 +80,8 @@ const useAuth = () => {
       data.region
     );
 
-    // return userdaten
     return {
-      ...authObject,
+      ...statusBools,
       username: data.username,
       station: data.currentStation,
       isLoggedIn: data.isLoggedIn,
@@ -87,7 +91,7 @@ const useAuth = () => {
   }
 
   // default case (error)
-  return { ...authObject, error, isError: true };
+  return { ...statusBools, error, isError: true };
 };
 
 export default useAuth;
