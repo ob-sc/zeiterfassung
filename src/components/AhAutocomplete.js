@@ -1,24 +1,23 @@
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Box, FormControlLabel, Switch, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { tripDigitStation } from '../util/stringUtil';
-import useAhAutocomplete from '../hooks/components/useAhAutocomplete';
 
-function AhAutocomplete() {
-  const {
-    isLoading,
-    ahState,
-    optionsAll,
-    optionsRegion,
-    toggleAll,
-    toggleRegion,
-    selectAushilfe,
-  } = useAhAutocomplete();
-  const { optionToggle, options, selectedAH } = ahState;
+function AhAutocomplete({ aushilfen, selected, setSelected }) {
+  const { station, all, loading } = aushilfen;
+  const [checkAll, setCheckAll] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
-  // station einfügen wenn options != aktuelle station
+  const toggleAll = () => {
+    setSelected(null);
+    setCheckAll(!checkAll);
+  };
+
+  // station einfügen wenn all ah
   // damit AH mit doppelten namen eindeutig sind
   const optionLabel = (option) =>
-    optionsAll || optionsRegion
+    checkAll
       ? `${tripDigitStation(
           option.station
         )} ${option.vorname.trim()} ${option.nachname.trim()}`
@@ -27,9 +26,17 @@ function AhAutocomplete() {
   return (
     <Box>
       <Autocomplete
-        id="combo-box"
-        loading={isLoading}
-        options={options}
+        value={selected}
+        onChange={(event, newValue) => {
+          setSelected(newValue);
+        }}
+        inputValue={inputValue}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+        }}
+        id="ah-combo-box"
+        loading={loading}
+        options={checkAll ? all : station}
         getOptionLabel={optionLabel}
         style={{ width: 300 }}
         renderInput={(params) => (
@@ -38,12 +45,18 @@ function AhAutocomplete() {
       />
       <FormControlLabel
         control={
-          <Switch checked={optionsAll} onChange={toggleAll} color="secondary" />
+          <Switch checked={checkAll} onChange={toggleAll} color="secondary" />
         }
-        label="Alle"
+        label="Alle Aushilfen"
       />
     </Box>
   );
 }
+
+AhAutocomplete.propTypes = {
+  station: PropTypes.array,
+  all: PropTypes.array,
+  loading: PropTypes.bool,
+};
 
 export default AhAutocomplete;

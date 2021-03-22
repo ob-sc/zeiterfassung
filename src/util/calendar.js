@@ -1,9 +1,10 @@
+import { addZeroToTen } from './stringUtil';
+
+// default (leer) = heute
 const calendar = (date = new Date()) => {
   // month = 0-indexed
   // format: yyyy-MM-dd (date-fns)
   // ab = abrechnung
-
-  const addZero = (num) => (num < 10 ? `0${num}` : String(num));
 
   const d = date.getDate();
   const m = date.getMonth();
@@ -31,11 +32,13 @@ const calendar = (date = new Date()) => {
     const isJanuary = month.num === 0;
     const monthNum = isJanuary ? 12 : month.num;
     month.start = {
-      str: `${isJanuary ? year.num - 1 : year.num}-${addZero(monthNum)}-18`,
+      str: `${isJanuary ? year.num - 1 : year.num}-${addZeroToTen(
+        monthNum
+      )}-18`,
       date: new Date(isJanuary ? year.num - 1 : year.num, monthNum - 1, 18),
     };
     month.end = {
-      str: `${year.num}-${addZero(month.num + 1)}-17`,
+      str: `${year.num}-${addZeroToTen(month.num + 1)}-17`,
       date: new Date(year.num, month.num, 17),
     };
   }
