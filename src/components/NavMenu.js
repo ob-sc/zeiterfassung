@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useQueryClient } from 'react-query';
 import { navigate } from '@reach/router';
 import { Box, IconButton, Menu, MenuItem } from '@material-ui/core';
 import { FiMenu } from 'react-icons/fi';
 import { IoPersonCircleOutline } from 'react-icons/io5';
-import fetchData from '../util/fetchData';
-import useToastContext from '../context/ToastContext';
+import useLogout from '../hooks/useLogout';
 
 // NavMenu ist ein User Menu für logout etc wenn desktop
 
@@ -14,9 +12,7 @@ function NavMenu({ routes, mobile }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [noLogout, setNoLogout] = useState(false);
 
-  const { addError } = useToastContext();
-
-  const queryClient = useQueryClient();
+  const logout = useLogout();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -34,16 +30,7 @@ function NavMenu({ routes, mobile }) {
   const handleLogout = async () => {
     setNoLogout(true);
     setAnchorEl(null);
-    try {
-      const isLoggedOut = await fetchData('api/session', {}, 'delete');
-      // erst wenn logout erfolgreich war
-      if (isLoggedOut) {
-        queryClient.invalidateQueries('session');
-        navigate('/');
-      }
-    } catch (err) {
-      addError(err);
-    }
+    logout();
   };
 
   return (

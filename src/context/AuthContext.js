@@ -1,8 +1,10 @@
 import React, { useContext, useEffect } from 'react';
+import { useIdleTimer } from 'react-idle-timer';
 import { Redirect } from '@reach/router';
 import { CircularProgress } from '@material-ui/core';
 import useToastContext from './ToastContext';
 import useAuth from '../hooks/useAuth';
+import useLogout from '../hooks/useLogout';
 import useCommonStyles from '../styles/common';
 
 /*
@@ -19,11 +21,19 @@ export const AuthContextProvider = ({ children }) => {
   const common = useCommonStyles();
   const { addError } = useToastContext();
   const { error, isError, isLoading, isLoggedIn, ...session } = useAuth();
+  const logout = useLogout();
 
   // console.log('isLoggedIn ', isLoggedIn);
 
   useEffect(() => {
     if (isError) addError(error);
+  });
+
+  useIdleTimer({
+    timeout: 1000 * 60 * 5,
+    onIdle: () => {
+      logout();
+    },
   });
 
   if (isLoading)

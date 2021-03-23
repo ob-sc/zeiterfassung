@@ -25,7 +25,7 @@ const fetchData = async (route, data = {}, type = 'get') => {
         };
   const res = await fetch(url, init);
 
-  const response = res.json();
+  const response = await res.json();
   if (!res.ok) throw new Error(response.msg);
 
   return response;

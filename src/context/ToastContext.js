@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { useImmer } from 'use-immer';
+import React, { useContext, useState } from 'react';
 
 const context = React.createContext();
 const useToastContext = () => useContext(context);
@@ -10,26 +9,27 @@ export const ToastContextProvider = ({ children }) => {
     severity: 'info',
   };
 
-  const [toast, updateToast] = useImmer(initialState);
+  const [toast, setToast] = useState(initialState);
 
   const addError = (err) => {
-    updateToast((draft) => {
-      draft.message = err.message;
-      draft.severity = 'error';
+    console.dir(err.message);
+    setToast({
+      message: err.message,
+      severity: 'error',
     });
   };
 
   const addMessage = (msg, sev) => {
-    updateToast((draft) => {
-      draft.message = msg;
-      draft.severity = sev;
+    setToast({
+      message: msg,
+      severity: sev,
     });
   };
 
   const removeToast = (toast) => {
-    updateToast((draft) => {
-      draft.message = initialState.message;
-      draft.severity = initialState.severity;
+    setToast({
+      message: initialState.message,
+      severity: initialState.severity,
     });
   };
 

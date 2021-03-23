@@ -1,7 +1,6 @@
 import { Router } from '@reach/router';
 import { Box } from '@material-ui/core';
 import useStyles from '../styles/components/AppStyles';
-import { ToastContextProvider } from '../context/ToastContext';
 import { AuthContextProvider } from '../context/AuthContext';
 import useMobile from '../hooks/useMobile';
 import NavBar from './NavBar';
@@ -17,21 +16,19 @@ function App() {
   const mobile = useMobile();
 
   return (
-    <ToastContextProvider>
-      <Box className={classes.root}>
-        <NavBar mobile={mobile} />
-        <Toast mobile={mobile} />
-        <Router>
-          <AuthContextProvider path="/">
-            <Home path="/" />
-            <Admin path="admin" />
-            <NotFound default />
-          </AuthContextProvider>
-          <Login path="login" />
-          <SignUp path="sign-up" />
-        </Router>
-      </Box>
-    </ToastContextProvider>
+    <Box className={classes.root}>
+      <NavBar mobile={mobile} />
+      <Toast mobile={mobile} />
+      <Router>
+        <AuthContextProvider path="/">
+          <Home path="/" />
+          <Admin path="admin" />
+          <NotFound default />
+        </AuthContextProvider>
+        <Login path="login" />
+        <SignUp path="sign-up" />
+      </Router>
+    </Box>
   );
 }
 
