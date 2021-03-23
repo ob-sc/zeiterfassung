@@ -22,9 +22,9 @@ const routes = [
     },
   },
   {
-    label: 'Reporte',
+    label: 'Report',
     route: {
-      href: '/reports',
+      href: '/report',
       access: [1, 2],
     },
   },

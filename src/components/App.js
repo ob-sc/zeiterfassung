@@ -10,6 +10,7 @@ import Home from '../routes/Home';
 import Admin from '../routes/Admin';
 import Login from '../routes/Login';
 import SignUp from '../routes/SignUp';
+import AuthRoute from './AuthRoute';
 
 function App() {
   const classes = useStyles();
@@ -22,7 +23,7 @@ function App() {
       <Router>
         <AuthContextProvider path="/">
           <Home path="/" />
-          <Admin path="admin" />
+          <AuthRoute path="admin" component={<Admin />} />
           <NotFound default />
         </AuthContextProvider>
         <Login path="login" />

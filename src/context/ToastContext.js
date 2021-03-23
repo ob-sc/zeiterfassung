@@ -12,7 +12,6 @@ export const ToastContextProvider = ({ children }) => {
   const [toast, setToast] = useState(initialState);
 
   const addError = (err) => {
-    console.dir(err.message);
     setToast({
       message: err.message,
       severity: 'error',
