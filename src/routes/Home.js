@@ -11,7 +11,6 @@ function Home() {
 
   const aushilfen = useAllAushilfen(); // { station, all, isLoading }
   const [selected, setSelected] = useState(null);
-  console.log(selected);
 
   return (
     <Box className={classes.flexCenterRoot}>

@@ -4,14 +4,18 @@ import stations from '../constants/stations';
 import fetchData from '../util/fetchData';
 
 const authRoutes = (userStatus) => {
-  const authenticated = [];
+  const routeArray = [];
+  const routeObject = {};
   for (let item of routes) {
     for (let access of item.route.access) {
-      if (access === userStatus) authenticated.push(item);
+      if (access === userStatus) {
+        routeArray.push(item);
+        routeObject[item.label.toLowerCase()] = true;
+      }
     }
   }
-  const onlyHome = authenticated.length === 1;
-  return onlyHome ? null : authenticated;
+  const onlyHome = routeArray.length === 1;
+  return onlyHome ? null : { routeArray, routeObject };
 };
 
 const authStations = (userStation, extstat, userRegion) => {
@@ -56,8 +60,8 @@ const useAuth = () => {
   // idleTimer loggt schon nach 5 min aus, guckt allerdings nicht im Hintergrund
   const { status, error, data, isFetching } = useQuery(
     'session',
-    async () => await fetchData('/api/session')
-    // { refetchOnWindowFocus: false }
+    async () => await fetchData('/api/session'),
+    { refetchOnWindowFocus: false }
   );
 
   // eigene booleans statt isLoading und isError aus usequery
@@ -72,7 +76,7 @@ const useAuth = () => {
 
   // return userdaten
   if (status === 'success') {
-    const authedRoutes = authRoutes(data.access);
+    const { routeArray, routeObject } = authRoutes(data.access);
     const authedStations = authStations(
       data.station,
       data.extstat,
@@ -84,7 +88,8 @@ const useAuth = () => {
       username: data.username,
       station: data.currentStation,
       isLoggedIn: data.isLoggedIn,
-      routes: authedRoutes,
+      routes: routeArray,
+      routeAuth: routeObject,
       stations: authedStations,
     };
   }

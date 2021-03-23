@@ -23,7 +23,7 @@ export const AuthContextProvider = ({ children }) => {
   const { error, isError, isLoading, isLoggedIn, ...session } = useAuth();
   const logout = useLogout();
 
-  console.log(session.routes);
+  console.log(session);
 
   useEffect(() => {
     if (isError) addError(error);
