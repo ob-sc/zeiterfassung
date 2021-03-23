@@ -4,7 +4,7 @@ const prefixRoute = (route) => {
   const slash = route[0] === '/' ? '' : '/';
   const server = isDev
     ? `http://localhost:${REACT_APP_PORT}`
-    : `http://192.168.100.39:${REACT_APP_PORT}`;
+    : `https://192.168.100.39:${REACT_APP_PORT}`;
 
   return `${server}${slash}${route}`;
 };
