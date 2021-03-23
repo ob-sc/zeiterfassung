@@ -52,13 +52,12 @@ const authStations = (userStation, extstat, userRegion) => {
 };
 
 const useAuth = () => {
-  // todo query muss iwann stale werden, wird dann von den einzelnen seiten noch mal abgefragt
-  // wenn stale -> neu holen. dann ist isLoggedIn = false und private seiten nicht mehr gezeigt
-  // staleTime: 300000
+  // session cookie 10 min gültig, dann läuft die session ab
+  // idleTimer loggt schon nach 5 min aus, guckt allerdings nicht im Hintergrund
   const { status, error, data, isFetching } = useQuery(
     'session',
-    async () => await fetchData('/api/session'),
-    { refetchOnWindowFocus: false }
+    async () => await fetchData('/api/session')
+    // { refetchOnWindowFocus: false }
   );
 
   // eigene booleans statt isLoading und isError aus usequery

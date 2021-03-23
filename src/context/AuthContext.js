@@ -23,11 +23,11 @@ export const AuthContextProvider = ({ children }) => {
   const { error, isError, isLoading, isLoggedIn, ...session } = useAuth();
   const logout = useLogout();
 
-  // console.log('isLoggedIn ', isLoggedIn);
+  console.log(session.routes);
 
   useEffect(() => {
     if (isError) addError(error);
-  });
+  }); // todo hier dependency array?
 
   useIdleTimer({
     timeout: 1000 * 60 * 5,
@@ -47,6 +47,7 @@ export const AuthContextProvider = ({ children }) => {
   if (isError) {
     return <Redirect to="/login" noThrow />;
   }
+
   return isLoggedIn === true ? (
     <context.Provider value={session}>{children}</context.Provider>
   ) : (

@@ -17,8 +17,11 @@ const fetchData = async (route, data = {}, type = 'get') => {
   };
   const init =
     method === 'GET'
-      ? {}
+      ? {
+          credentials: 'include',
+        }
       : {
+          credentials: 'include',
           method,
           headers,
           body: JSON.stringify(data),
