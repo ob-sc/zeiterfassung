@@ -9,15 +9,15 @@ const validation = Yup.object().shape({
     .trim()
     .lowercase()
     .matches(user, 'Benutzer entspricht nicht den Anforderungen')
-    .required(),
+    .required('Benutzer eingeben'),
   password: Yup.string()
     .min(6)
     .matches(pwd, 'Passwort entspricht nicht den Anforderungen')
-    .required(),
+    .required('Passwort eingeben'),
   repeat_password: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwörter müssen gleich sein')
-    .required(),
-  station: Yup.number().required(),
+    .required('Passwort wiederholen'),
+  station: Yup.number().required('Station auswählen'),
 });
 
 export default validation;

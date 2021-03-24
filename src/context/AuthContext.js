@@ -23,11 +23,11 @@ export const AuthContextProvider = ({ children }) => {
   const { error, isError, isLoading, isLoggedIn, ...session } = useAuth();
   const logout = useLogout();
 
-  console.log(session);
-
   useEffect(() => {
     if (isError) addError(error);
-  }); // todo hier dependency array?
+  });
+  // todo hier dependency array?
+  // brauch ich das nur wegen dem redirect nicht?
 
   useIdleTimer({
     timeout: 1000 * 60 * 5,

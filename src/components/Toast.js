@@ -23,6 +23,7 @@ function Toast({ mobile }) {
             vertical: mobile ? 'bottom' : 'top',
             horizontal: 'center',
           }}
+          // variant=""
           open={!!toast.message}
           autoHideDuration={5000}
           onClose={handleClose}

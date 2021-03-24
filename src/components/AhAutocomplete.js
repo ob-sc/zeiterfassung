@@ -4,8 +4,8 @@ import { Box, FormControlLabel, Switch, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { tripDigitStation } from '../util/stringUtil';
 
-function AhAutocomplete({ aushilfen, selected, setSelected }) {
-  const { station, all, loading } = aushilfen;
+function AhAutocomplete({ aushilfen, selected, setSelected, error }) {
+  const { station, all, isLoading } = aushilfen;
   const [checkAll, setCheckAll] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
@@ -35,12 +35,18 @@ function AhAutocomplete({ aushilfen, selected, setSelected }) {
           setInputValue(newInputValue);
         }}
         id="ah-combo-box"
-        loading={loading}
+        loading={isLoading}
         options={checkAll ? all : station}
         getOptionLabel={optionLabel}
         style={{ width: 300 }}
         renderInput={(params) => (
-          <TextField {...params} label="Aushilfe" variant="outlined" />
+          <TextField
+            {...params}
+            error={!!error}
+            helperText={!!error && error.message}
+            label="Aushilfe"
+            variant="outlined"
+          />
         )}
       />
       <FormControlLabel
@@ -57,6 +63,7 @@ AhAutocomplete.propTypes = {
   station: PropTypes.array,
   all: PropTypes.array,
   loading: PropTypes.bool,
+  error: PropTypes.any,
 };
 
 export default AhAutocomplete;

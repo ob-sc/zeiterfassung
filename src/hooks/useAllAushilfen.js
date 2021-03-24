@@ -6,7 +6,7 @@ import fetchData from '../util/fetchData';
 const useAllAushilfen = () => {
   const { station } = useAuthContext();
 
-  const { status, data, isFetching } = useQuery(
+  const { status, data, error, isFetching } = useQuery(
     'aushilfen',
     async () => await fetchData('/api/aushilfen')
   );
@@ -15,6 +15,7 @@ const useAllAushilfen = () => {
     station: [],
     all: [],
     isLoading: false,
+    error: status === 'error' ? error : null,
   };
 
   if (status === 'loading' || isFetching) aushilfen.isLoading = true;

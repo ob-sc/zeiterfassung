@@ -1,12 +1,12 @@
 const prefixRoute = (route) => {
-  const { NODE_ENV, REACT_APP_PORT } = process.env;
+  const { NODE_ENV, REACT_APP_HOST, REACT_APP_PORT } = process.env;
   const isDev = NODE_ENV === 'development';
   const slash = route[0] === '/' ? '' : '/';
-  const server = isDev
+  const host = isDev
     ? `http://localhost:${REACT_APP_PORT}`
-    : `https://192.168.100.39:${REACT_APP_PORT}`;
+    : `https://${REACT_APP_HOST}:${REACT_APP_PORT}`;
 
-  return `${server}${slash}${route}`;
+  return `${host}${slash}${route}`;
 };
 
 const fetchData = async (route, data = {}, type = 'get') => {
@@ -28,9 +28,10 @@ const fetchData = async (route, data = {}, type = 'get') => {
         };
   const res = await fetch(url, init);
 
-  const response = await res.json();
-  if (!res.ok) throw new Error(response.msg);
+  const noJSON = res.status === 205 || res.status === 205;
+  const response = noJSON ? {} : await res.json();
 
+  if (!res.ok) throw new Error(response.msg);
   return response;
 };
 

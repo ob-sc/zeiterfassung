@@ -9,7 +9,7 @@ import PaperContainer from '../components/PaperContainer';
 function Home() {
   const classes = useStyles();
 
-  const aushilfen = useAllAushilfen(); // { station, all, isLoading }
+  const aushilfen = useAllAushilfen(); // { station, all, isLoading, error }
   const [selected, setSelected] = useState(null);
 
   return (
@@ -19,6 +19,7 @@ function Home() {
           aushilfen={aushilfen}
           selected={selected}
           setSelected={setSelected}
+          error={aushilfen.error}
         />
       </PaperContainer>
     </Box>

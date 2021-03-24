@@ -42,9 +42,6 @@ theme.props = {
     // square: true,
     elevation: 0,
   },
-  MuiAlert: {
-    variant: 'outlined',
-  },
   MuiAppBar: {
     color: 'transparent',
     elevation: 0,
