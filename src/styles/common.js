@@ -2,24 +2,49 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const flex = {
   flexCenterRoot: {
-    height: '100vh',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
+  flexRowCenter: {
     display: 'flex',
-    flexDirection: 'column',
+    flexFlow: 'row wrap',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
 };
 
-export const util = {
+export const commonClasses = {
   ...flex,
 };
 
 const useCommonStyles = makeStyles((theme) => ({
-  ...util,
-  mdInput: {
+  ...commonClasses,
+  input: {
     width: 300,
     [theme.breakpoints.down('xs')]: {
+      width: '60vw',
+    },
+  },
+  smContainer: {
+    width: 420,
+    [theme.breakpoints.down('xs')]: {
+      width: '50vw',
+    },
+  },
+  mdContainer: {
+    width: 600,
+    [theme.breakpoints.down('xs')]: {
       width: '70vw',
+    },
+  },
+  lgContainer: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: 980,
+    [theme.breakpoints.down('xs')]: {
+      width: '80vw',
     },
   },
 }));

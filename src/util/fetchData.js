@@ -28,7 +28,7 @@ const fetchData = async (route, data = {}, type = 'get') => {
         };
   const res = await fetch(url, init);
 
-  const noJSON = res.status === 205 || res.status === 205;
+  const noJSON = res.status === 204 || res.status === 205;
   const response = noJSON ? {} : await res.json();
 
   if (!res.ok) throw new Error(response.msg);

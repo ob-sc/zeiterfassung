@@ -18,18 +18,17 @@ function NavBar({ mobile }) {
 
   return (
     <>
-      <AppBar>
-        <Toolbar>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            width="100%"
-            pt={2}
-          >
-            <Link to="/">
-              <img src={logo} alt="logo" height="45px" />
-            </Link>
+      <AppBar position="static" color="transparent" elevation={0}>
+        <Box
+          display="flex"
+          flexDirection="row-reverse"
+          justifyContent="space-between"
+          alignItems="center"
+          width="100%"
+          py={2}
+          clone
+        >
+          <Toolbar>
             <Box display="flex">
               {showNavButtons &&
                 auth.routes.map(({ label, route }) => {
@@ -53,8 +52,14 @@ function NavBar({ mobile }) {
                 </>
               )}
             </Box>
-          </Box>
-        </Toolbar>
+
+            {!mobile && (
+              <Link to="/">
+                <img src={logo} alt="logo" height="45px" />
+              </Link>
+            )}
+          </Toolbar>
+        </Box>
       </AppBar>
       {
         hasStations && (

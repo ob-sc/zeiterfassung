@@ -3,11 +3,13 @@ import { deDE } from '@material-ui/core/locale';
 
 export const colors = {
   white: '#ffffff',
+  greywhite: '#fbfbfb',
   offwhite: '#f6f5f4',
   bluewhite: '#f2faff',
   lightGrey: '#dedede',
+  grey: '#959595',
+  blackish: '#6e6e6e',
   black: '#000000',
-  blackish: '#4a4c51',
   brand: '#feed01',
   blue: '#0112fe',
   blueish: '#8089ff',
@@ -20,7 +22,7 @@ const theme = createMuiTheme({
   },
   palette: {
     background: {
-      default: colors.offwhite,
+      default: colors.greywhite,
     },
     primary: {
       main: colors.blackish,
@@ -28,6 +30,7 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: colors.blueish,
+      light: colors.bluewhite,
     },
   },
 });
@@ -39,25 +42,19 @@ theme.props = {
     disableRipple: true,
   },
   MuiPaper: {
-    // square: true,
-    elevation: 0,
-  },
-  MuiAppBar: {
-    color: 'transparent',
     elevation: 0,
   },
 };
 
 theme.overrides = {
-  // MuiButtonBase: {
-  //   root: {
-  //     borderRadius: 0,
-  //     textTransform: 'none',
-  //   },
-  // },
+  MuiButton: {
+    root: {
+      textTransform: 'none',
+    },
+  },
   MuiTouchRipple: {
     child: {
-      backgroundColor: colors.bluewhite,
+      backgroundColor: colors.greywhite,
     },
   },
 };

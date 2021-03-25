@@ -37,8 +37,8 @@ function Login() {
 
   return (
     <Box className={common.flexCenterRoot}>
-      <PaperContainer m={2} px={2} py={6}>
-        <form onSubmit={formik.handleSubmit}>
+      <PaperContainer m={2} px={4} py={6}>
+        <form onSubmit={formik.handleSubmit} className={common.fullWidth}>
           <Grid
             container
             direction="column"
@@ -46,23 +46,13 @@ function Login() {
             alignItems="center"
             spacing={2}
           >
-            <Grid item>
-              <Input
-                name="username"
-                label="Benutzer"
-                formik={formik}
-                className={common.mdInput}
-              />
+            <Grid item className={common.input}>
+              <Input name="username" label="Benutzer" formik={formik} />
             </Grid>
-            <Grid item>
-              <Input
-                name="password"
-                label="Passwort"
-                formik={formik}
-                className={common.mdInput}
-              />
+            <Grid item className={common.input}>
+              <Input name="password" label="Passwort" formik={formik} />
             </Grid>
-            <Grid className={common.mdInput} item>
+            <Grid item className={common.input}>
               <Box
                 display="flex"
                 flexDirection="row"

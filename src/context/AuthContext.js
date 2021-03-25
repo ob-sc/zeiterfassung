@@ -21,7 +21,7 @@ export const AuthContextProvider = ({ children }) => {
   const common = useCommonStyles();
   const { addError } = useToastContext();
   const { error, isError, isLoading, isLoggedIn, ...session } = useAuth();
-  const logout = useLogout();
+  const logout = useLogout(true);
 
   useEffect(() => {
     if (isError) addError(error);

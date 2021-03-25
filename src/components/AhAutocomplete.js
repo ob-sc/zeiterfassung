@@ -38,7 +38,6 @@ function AhAutocomplete({ aushilfen, selected, setSelected, error }) {
         loading={isLoading}
         options={checkAll ? all : station}
         getOptionLabel={optionLabel}
-        style={{ width: 300 }}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -46,6 +45,7 @@ function AhAutocomplete({ aushilfen, selected, setSelected, error }) {
             helperText={!!error && error.message}
             label="Aushilfe"
             variant="outlined"
+            fullWidth={true}
           />
         )}
       />

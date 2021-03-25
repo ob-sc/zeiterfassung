@@ -12,6 +12,7 @@ function CtrlSelect({ name, label, formik, children, ...rest }) {
     <FormControl
       variant="outlined"
       error={formik.touched[name] && !!formik.errors[name]}
+      fullWidth={true}
       {...rest}
     >
       <InputLabel id={`${name}-label`}>{label}</InputLabel>
@@ -22,6 +23,7 @@ function CtrlSelect({ name, label, formik, children, ...rest }) {
         onChange={formik.handleChange}
         value={formik.values[name]}
         label={label}
+        fullWidth={true}
       >
         {children}
       </Select>

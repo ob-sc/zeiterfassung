@@ -14,10 +14,12 @@ function Input({ name, label, noComplete, formik, ...rest }) {
   return (
     <TextField
       variant="outlined"
+      color="primary"
       id={name}
       name={name}
       label={label}
       type={type}
+      fullWidth={true}
       value={formik.values[name]}
       onChange={formik.handleChange}
       error={formik.touched[name] && !!formik.errors[name]}
