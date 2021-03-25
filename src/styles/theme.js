@@ -33,30 +33,31 @@ const theme = createMuiTheme({
       light: colors.bluewhite,
     },
   },
+  props: {
+    ...deDE.props,
+    MuiButton: {
+      variant: 'outlined',
+      disableRipple: true,
+    },
+    MuiPaper: {
+      elevation: 0,
+    },
+  },
+  overrides: {
+    MuiButton: {
+      root: {
+        textTransform: 'none',
+      },
+      // label: {
+      //   color: colors.black,
+      // },
+    },
+    MuiTouchRipple: {
+      child: {
+        backgroundColor: colors.greywhite,
+      },
+    },
+  },
 });
-
-theme.props = {
-  ...deDE.props,
-  MuiButton: {
-    variant: 'outlined',
-    disableRipple: true,
-  },
-  MuiPaper: {
-    elevation: 0,
-  },
-};
-
-theme.overrides = {
-  MuiButton: {
-    root: {
-      textTransform: 'none',
-    },
-  },
-  MuiTouchRipple: {
-    child: {
-      backgroundColor: colors.greywhite,
-    },
-  },
-};
 
 export default theme;

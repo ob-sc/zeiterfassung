@@ -6,7 +6,7 @@ import useCommonStyles from '../styles/common';
 import yupLocale from '../validations/locale';
 import Input from '../components/Input';
 import useForm from '../hooks/useForm';
-import PaperContainer from '../components/PaperContainer';
+import BorderContainer from '../components/BorderContainer';
 
 Yup.setLocale(yupLocale);
 
@@ -36,8 +36,8 @@ function Login() {
   );
 
   return (
-    <Box className={common.flexCenterRoot}>
-      <PaperContainer m={2} px={4} py={6}>
+    <Box className={common.centerTransform}>
+      <BorderContainer m={2} px={4} py={6}>
         <form onSubmit={formik.handleSubmit} className={common.fullWidth}>
           <Grid
             container
@@ -65,6 +65,7 @@ function Login() {
                   type="submit"
                   disabled={mutation.isLoading}
                   color="primary"
+                  className={common.button}
                 >
                   Anmelden
                 </Button>
@@ -72,7 +73,7 @@ function Login() {
             </Grid>
           </Grid>
         </form>
-      </PaperContainer>
+      </BorderContainer>
     </Box>
   );
 }

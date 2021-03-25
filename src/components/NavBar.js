@@ -37,8 +37,8 @@ function NavBar({ mobile }) {
                       className={classes.navButton}
                       key={label}
                       color="inherit"
-                      variant="text"
                       to={route.href}
+                      variant="text"
                       component={Link}
                     >
                       {label}

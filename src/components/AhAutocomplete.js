@@ -9,6 +9,8 @@ function AhAutocomplete({ aushilfen, selected, setSelected, error }) {
   const [checkAll, setCheckAll] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
+  console.log(selected);
+
   const toggleAll = () => {
     setSelected(null);
     setCheckAll(!checkAll);

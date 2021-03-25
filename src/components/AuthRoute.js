@@ -3,8 +3,8 @@ import useAuthContext from '../context/AuthContext';
 
 function AuthRoute({ path, component }) {
   const { routeAuth } = useAuthContext();
-  // boolean aus zb routeAuth.admin (true oder undefined)
-  const auth = !!routeAuth[path];
+  // zb routeAuth.admin (true oder undefined)
+  const auth = routeAuth[path];
 
   return auth === true ? component : <Redirect to="/" noThrow />;
 }

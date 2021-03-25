@@ -93,6 +93,7 @@ function SignUp() {
               <Button
                 type="submit"
                 disabled={mutation.isLoading}
+                className={common.button}
                 color="primary"
               >
                 Registrieren

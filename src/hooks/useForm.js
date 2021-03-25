@@ -8,9 +8,7 @@ const useForm = (initialValues, validationSchema, onSuccess, url, method) => {
   const { addError } = useToastContext();
 
   const mutation = useMutation((values) => fetchData(url, values, method), {
-    onError: (error) => {
-      addError(error);
-    },
+    onError: addError,
     onSuccess,
   });
 

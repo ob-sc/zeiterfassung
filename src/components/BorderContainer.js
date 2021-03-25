@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import { Box, Paper, useTheme } from '@material-ui/core';
+import { Box, useTheme } from '@material-ui/core';
 import useCommonStyles from '../styles/common';
 
-function PaperContainer({ size, children, ...rest }) {
+function BorderContainer({ size, children, ...rest }) {
   const { smContainer, mdContainer, lgContainer } = useCommonStyles();
   const theme = useTheme();
 
@@ -38,6 +38,6 @@ function PaperContainer({ size, children, ...rest }) {
   );
 }
 
-PaperContainer.propTypes = { size: PropTypes.string };
+BorderContainer.propTypes = { size: PropTypes.string };
 
-export default PaperContainer;
+export default BorderContainer;

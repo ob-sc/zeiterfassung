@@ -39,7 +39,7 @@ export const AuthContextProvider = ({ children }) => {
   if (isLoading)
     return (
       // mit wrapper damit spinner zentriert ist
-      <div className={common.flexCenterRoot}>
+      <div className={common.centerTransform}>
         <CircularProgress size={70} />
       </div>
     );

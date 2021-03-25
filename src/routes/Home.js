@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Box } from '@material-ui/core';
+import { FiChevronRight } from 'react-icons/fi';
+import { Box, IconButton } from '@material-ui/core';
 
 import useCommonStyles from '../styles/common';
 import useStyles from '../styles/routes/HomeStyles';
@@ -26,7 +27,17 @@ function Home() {
           />
         </Box>
         <Box m={1} p={1}>
-          <TimeInput label="Zeit" />
+          <TimeInput label="Beginn" />
+        </Box>
+        <Box m={1} p={1}>
+          <IconButton
+            edge="start"
+            color="inherit"
+            className={common.iconButton}
+            // onClick={handleClick}
+          >
+            <FiChevronRight />
+          </IconButton>
         </Box>
       </Box>
     </Box>
@@ -34,3 +45,7 @@ function Home() {
 }
 
 export default Home;
+
+// angemeldet-objekt,id1123 = true, dann erscheint der abmeldenbutton
+
+// <Chip variant="outlined" color="primary" onDelete={handleDelete} avatar={<Avatar>F</Avatar>} />
