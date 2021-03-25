@@ -1,16 +1,16 @@
 import { Router } from '@reach/router';
 import { Box } from '@material-ui/core';
-import useStyles from '../styles/components/AppStyles';
-import { AuthContextProvider } from '../context/AuthContext';
-import useMobile from '../hooks/useMobile';
-import NavBar from './NavBar';
-import Toast from './Toast';
-import NotFound from '../routes/NotFound';
-import Home from '../routes/Home';
-import Admin from '../routes/Admin';
-import Login from '../routes/Login';
-import SignUp from '../routes/SignUp';
-import AuthRoute from './AuthRoute';
+import useStyles from './AppStyles';
+import useMobile from './useMobile';
+import { AuthContextProvider } from '../../context/AuthContext';
+import NavBar from './components/NavBar';
+import Toast from './components/Toast';
+import AuthRoute from './components/AuthRoute';
+import NotFound from '../NotFound/NotFound';
+import Home from '../Home/Home';
+import Admin from '../Admin/Admin';
+import Login from '../Login/Login';
+import SignUp from '../SignUp/SignUp';
 
 function App() {
   const classes = useStyles();
@@ -23,7 +23,7 @@ function App() {
       <Router>
         <AuthContextProvider path="/">
           <Home path="/" />
-          <AuthRoute path="admin" component={<Admin />} />
+          <AuthRoute path="admin" component={Admin} />
           <NotFound default />
         </AuthContextProvider>
         <Login path="login" />

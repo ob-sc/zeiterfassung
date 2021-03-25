@@ -1,5 +1,16 @@
 import PropTypes from 'prop-types';
-import useStyles from '../styles/components/CurrStationStyles';
+import { makeStyles } from '@material-ui/core/styles';
+
+const styles = {
+  root: {
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
+    fontSize: '1rem',
+  },
+};
+
+const useStyles = makeStyles(styles);
 
 function CurrStation({ station }) {
   const classes = useStyles();

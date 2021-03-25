@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
-import useCommonStyles from '../styles/common';
-import BorderContainer from '../components/BorderContainer';
-import magnifyingGlass from '../images/magnifying-glass.svg';
+import useCommonStyles from '../../styles/common';
+import BorderContainer from '../../components/BorderContainer';
+import magnifyingGlass from '../../images/magnifying-glass.svg';
 
 function NotFound() {
   const common = useCommonStyles();

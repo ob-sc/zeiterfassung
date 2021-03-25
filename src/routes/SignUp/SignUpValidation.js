@@ -1,4 +1,4 @@
-import Yup from './yup';
+import Yup from '../../validation/yup';
 
 const user = new RegExp('^[a-z.-]{1,}$');
 // > 6, 1 klein, 1 groß & 1 zahl

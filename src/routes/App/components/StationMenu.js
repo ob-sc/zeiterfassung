@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Box, IconButton, Menu, MenuItem } from '@material-ui/core';
 import { IoMapOutline } from 'react-icons/io5';
-import fetchData from '../util/fetchData';
+import fetchData from '../../../util/fetchData';
 import { useQueryClient } from 'react-query';
-import useToastContext from '../context/ToastContext';
+import useToastContext from '../../../context/ToastContext';
 
 function StationMenu({ stations }) {
   const [anchorEl, setAnchorEl] = useState(null);

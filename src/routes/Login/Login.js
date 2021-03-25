@@ -1,14 +1,10 @@
 import { Link, navigate } from '@reach/router';
-import * as Yup from 'yup';
+import Yup from '../../validation/yup';
 import { Box, Grid, Button } from '@material-ui/core';
-
-import useCommonStyles from '../styles/common';
-import yupLocale from '../validations/locale';
-import Input from '../components/Input';
-import useForm from '../hooks/useForm';
-import BorderContainer from '../components/BorderContainer';
-
-Yup.setLocale(yupLocale);
+import useCommonStyles from '../../styles/common';
+import Input from '../../components/Input';
+import useForm from '../../hooks/useForm';
+import BorderContainer from '../../components/BorderContainer';
 
 function Login() {
   const common = useCommonStyles();

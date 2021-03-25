@@ -4,7 +4,7 @@ import { navigate } from '@reach/router';
 import { Box, IconButton, Menu, MenuItem } from '@material-ui/core';
 import { FiMenu } from 'react-icons/fi';
 import { IoPersonCircleOutline } from 'react-icons/io5';
-import useLogout from '../hooks/useLogout';
+import useLogout from '../../../hooks/useLogout';
 
 // NavMenu ist ein User Menu für logout etc wenn desktop
 

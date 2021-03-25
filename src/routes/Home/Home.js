@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 import { Box, IconButton } from '@material-ui/core';
 
-import useCommonStyles from '../styles/common';
-import useStyles from '../styles/routes/HomeStyles';
-import useAllAushilfen from '../hooks/useAllAushilfen';
-import AhAutocomplete from '../components/AhAutocomplete';
-import TimeInput from '../components/TimeInput';
+import useStyles from './HomeStyles';
+import useCommonStyles from '../../styles/common';
+import useAllAushilfen from '../../hooks/useAllAushilfen';
+import AhAutocomplete from '../../components/AhAutocomplete';
+import TimeInput from '../../components/TimeInput';
+import AngemeldetList from './components/AngemeldetList';
 
 function Home() {
   const classes = useStyles();
@@ -14,6 +15,8 @@ function Home() {
 
   const aushilfen = useAllAushilfen(); // { station, all, isLoading, error }
   const [selected, setSelected] = useState(null);
+
+  console.log(selected);
 
   return (
     <Box className={common.lgContainer}>
@@ -40,6 +43,7 @@ function Home() {
           </IconButton>
         </Box>
       </Box>
+      <AngemeldetList angemeldet={[{}]} />
     </Box>
   );
 }

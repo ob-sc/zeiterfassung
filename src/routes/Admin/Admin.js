@@ -1,6 +1,6 @@
 import { Box } from '@material-ui/core';
-import useCommonStyles from '../styles/common';
-import BorderContainer from '../components/BorderContainer';
+import useCommonStyles from '../../styles/common';
+import BorderContainer from '../../components/BorderContainer';
 
 function Admin() {
   const common = useCommonStyles();

@@ -1,12 +1,20 @@
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
+import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Box, Button, Toolbar } from '@material-ui/core';
-import useStyles from '../styles/components/NavBarStyles';
-import logo from '../images/logo.png';
-import useAuth from '../hooks/useAuth';
+import logo from '../../../images/logo.png';
+import useAuth from '../../../hooks/useAuth';
 import NavMenu from './NavMenu';
 import StationMenu from './StationMenu';
 import CurrStation from './CurrStation';
+
+const styles = {
+  navButton: {
+    width: 96,
+  },
+};
+
+const useStyles = makeStyles(styles);
 
 function NavBar({ mobile }) {
   const classes = useStyles();

@@ -1,13 +1,12 @@
 import { Box, Grid, Button, MenuItem } from '@material-ui/core';
 import { navigate } from '@reach/router';
-
-import useCommonStyles from '../styles/common';
-import useStyles from '../styles/routes/SignUpStyles';
-import stations from '../constants/stations';
-import validation from '../validations/signUpValidation';
-import Input from '../components/Input';
-import CtrlSelect from '../components/CtrlSelect';
-import useForm from '../hooks/useForm';
+import useStyles from './SignUpStyles';
+import validation from './SignUpValidation';
+import useCommonStyles from '../../styles/common';
+import stations from '../../constants/stations';
+import Input from '../../components/Input';
+import CtrlSelect from '../../components/CtrlSelect';
+import useForm from '../../hooks/useForm';
 
 function SignUp() {
   const common = useCommonStyles();
