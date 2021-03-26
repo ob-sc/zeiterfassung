@@ -1,28 +1,70 @@
-import PropTypes from 'prop-types';
-import { List, ListItem, ListItemText } from '@material-ui/core';
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+  IconButton,
+  CircularProgress,
+  makeStyles,
+} from '@material-ui/core';
+import { FiDelete } from 'react-icons/fi';
+import useCommonStyles from '../../../styles/common';
 
-function AngemeldetList({ angemeldet }) {
-  const notEmpty = angemeldet.length > 0;
+const useStyles = makeStyles((theme) => ({
+  listItem: {
+    border: '1px solid',
+    borderRadius: 4,
+    borderColor: theme.palette.primary.light,
+    '&:hover': {
+      borderColor: theme.palette.primary.main,
+      cursor: 'pointer',
+    },
+  },
+}));
 
-  return (
-    <List>
-      {notEmpty ? (
-        angemeldet.map(() => {
+function AngemeldetList({ aushilfe, handleSelection, angemeldet }) {
+  const { isLoading, data } = angemeldet;
+  const common = useCommonStyles();
+  const classes = useStyles();
+
+  const isEmpty = data.length === 0;
+
+  return !isLoading ? (
+    <List dense={true} className={common.mdItem}>
+      {!isEmpty ? (
+        data.map((angemeldetAh) => {
+          const { id, date, nachname, start, vorname } = angemeldetAh;
+          const name = `${vorname} ${nachname}`;
           return (
-            <ListItem>
-              <ListItemText primary="text1" secondary={'text2'} />
+            <ListItem
+              key={id}
+              className={classes.listItem}
+              selected={aushilfe?.data?.id === id}
+              onClick={() => handleSelection(angemeldetAh)}
+            >
+              <ListItemText primary={name} secondary={start} />
+              <ListItemSecondaryAction>
+                <IconButton edge="end" aria-label="delete">
+                  <FiDelete />
+                </IconButton>
+              </ListItemSecondaryAction>
             </ListItem>
           );
         })
       ) : (
         <ListItem>
-          <ListItemText primary="Niemand angemeldet" />
+          <ListItemText primary="Keine Aushilfe angemeldet" />
         </ListItem>
       )}
     </List>
+  ) : (
+    <CircularProgress />
   );
 }
 
-AngemeldetList.propTypes = { angemeldet: PropTypes.array.isRequired };
-
 export default AngemeldetList;
+
+// container mit border und dann entweder list
+// oder wenn isEmpty dann text niemand angemeldet
+
+// iserror und isloading einbauen

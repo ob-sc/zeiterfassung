@@ -1,31 +1,54 @@
 import { useState } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 import { Box, IconButton } from '@material-ui/core';
-
-import useStyles from './HomeStyles';
 import useCommonStyles from '../../styles/common';
-import useAllAushilfen from '../../hooks/useAllAushilfen';
+import useAngemeldet from '../../hooks/api/useAngemeldet';
+import useAushilfen from '../../hooks/api/useAushilfen';
 import AhAutocomplete from '../../components/AhAutocomplete';
 import TimeInput from '../../components/TimeInput';
 import AngemeldetList from './components/AngemeldetList';
 
 function Home() {
-  const classes = useStyles();
   const common = useCommonStyles();
 
-  const aushilfen = useAllAushilfen(); // { station, all, isLoading, error }
-  const [selected, setSelected] = useState(null);
+  const aushilfen = useAushilfen();
+  const angemeldet = useAngemeldet();
 
-  console.log(selected);
+  const [aushilfe, setAushilfe] = useState(null);
+
+  const handleInputSelection = (ah) => {
+    if (ah === null) setAushilfe(null);
+    else
+      for (let anmeldung of angemeldet.data) {
+        if (anmeldung.id === ah.id)
+          return setAushilfe({
+            data: ah,
+            anmeldung: { date: anmeldung.date, start: anmeldung.start },
+          });
+      }
+    setAushilfe({ data: ah, anmeldung: null });
+  };
+
+  const handleListSelection = (anmeldung) => {
+    // wenn ah die ausgewählte ist -> abwählen
+    if (anmeldung.id === aushilfe?.data?.id) return setAushilfe(null);
+    for (let ah of aushilfen.data.all) {
+      if (ah.id === anmeldung.id)
+        return setAushilfe({
+          data: ah,
+          anmeldung: { date: anmeldung.date, start: anmeldung.start },
+        });
+    }
+  };
 
   return (
     <Box className={common.lgContainer}>
       <Box className={common.flexRowCenter}>
-        <Box m={1} p={1} className={common.input}>
+        <Box m={1} p={1} className={common.mdItem}>
           <AhAutocomplete
             aushilfen={aushilfen}
-            selected={selected}
-            setSelected={setSelected}
+            state={[aushilfe, setAushilfe]}
+            handleSelection={handleInputSelection}
             error={aushilfen.error}
           />
         </Box>
@@ -43,7 +66,11 @@ function Home() {
           </IconButton>
         </Box>
       </Box>
-      <AngemeldetList angemeldet={[{}]} />
+      <AngemeldetList
+        aushilfe={aushilfe}
+        handleSelection={handleListSelection}
+        angemeldet={angemeldet}
+      />
     </Box>
   );
 }

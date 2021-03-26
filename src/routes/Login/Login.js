@@ -42,13 +42,13 @@ function Login() {
             alignItems="center"
             spacing={2}
           >
-            <Grid item className={common.input}>
+            <Grid item className={common.mdItem}>
               <Input name="username" label="Benutzer" formik={formik} />
             </Grid>
-            <Grid item className={common.input}>
+            <Grid item className={common.mdItem}>
               <Input name="password" label="Passwort" formik={formik} />
             </Grid>
-            <Grid item className={common.input}>
+            <Grid item className={common.mdItem}>
               <Box
                 display="flex"
                 flexDirection="row"

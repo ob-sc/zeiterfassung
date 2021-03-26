@@ -16,6 +16,8 @@ const layout = {
   },
 };
 
+// todo muss eig unten zu (theme) =>
+// dann theme.palette.primary.main und .light?
 const buttons = {
   button: {
     color: colors.black,
@@ -37,7 +39,7 @@ export const commonClasses = {
 
 const useCommonStyles = makeStyles((theme) => ({
   ...commonClasses,
-  input: {
+  mdItem: {
     width: 300,
     [theme.breakpoints.down('xs')]: {
       width: '60vw',
@@ -59,8 +61,19 @@ const useCommonStyles = makeStyles((theme) => ({
     marginLeft: 'auto',
     marginRight: 'auto',
     width: 980,
+    [theme.breakpoints.down('md')]: {
+      width: '70vw',
+    },
     [theme.breakpoints.down('xs')]: {
       width: '80vw',
+    },
+  },
+  xlContainer: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: 1200,
+    [theme.breakpoints.down('xs')]: {
+      width: '90vw',
     },
   },
 }));

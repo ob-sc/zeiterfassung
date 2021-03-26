@@ -51,7 +51,7 @@ function SignUp() {
               und eine Zahl enthalten.
             </Box>
           </Grid>
-          <Grid item className={common.input}>
+          <Grid item className={common.mdItem}>
             <Input
               name="username"
               label="Benutzer"
@@ -59,7 +59,7 @@ function SignUp() {
               noComplete={true}
             />
           </Grid>
-          <Grid item className={common.input}>
+          <Grid item className={common.mdItem}>
             <Input
               name="password"
               label="Passwort"
@@ -67,7 +67,7 @@ function SignUp() {
               noComplete={true}
             />
           </Grid>
-          <Grid item className={common.input}>
+          <Grid item className={common.mdItem}>
             <Input
               name="repeat_password"
               label="Passwort wiederholen"
@@ -75,7 +75,7 @@ function SignUp() {
               noComplete={true}
             />
           </Grid>
-          <Grid item className={common.input}>
+          <Grid item className={common.mdItem}>
             <CtrlSelect name="station" label="Station" formik={formik}>
               <MenuItem value="">&nbsp;</MenuItem>
               {stations.map(({ num, station }) => {

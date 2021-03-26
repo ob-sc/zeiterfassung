@@ -31,7 +31,7 @@ const fetchData = async (route, data = {}, type = 'get') => {
   const noJSON = res.status === 204 || res.status === 205;
   const response = noJSON ? {} : await res.json();
 
-  if (!res.ok) throw new Error(response.msg);
+  if (!res.ok) throw new Error(response.msg ?? 'API Fehler');
   return response;
 };
 

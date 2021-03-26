@@ -1,8 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useIdleTimer } from 'react-idle-timer';
 import { Redirect } from '@reach/router';
 import { CircularProgress } from '@material-ui/core';
-import useToastContext from './ToastContext';
 import useAuth from '../hooks/useAuth';
 import useLogout from '../hooks/useLogout';
 import useCommonStyles from '../styles/common';
@@ -19,15 +18,8 @@ const useAuthContext = () => useContext(context);
 
 export const AuthContextProvider = ({ children }) => {
   const common = useCommonStyles();
-  const { addError } = useToastContext();
-  const { error, isError, isLoading, isLoggedIn, ...session } = useAuth();
   const logout = useLogout(true);
-
-  useEffect(() => {
-    if (isError) addError(error);
-  });
-  // todo hier dependency array?
-  // brauch ich das nur wegen dem redirect nicht?
+  const { isLoading, isError, error, isLoggedIn, ...session } = useAuth();
 
   useIdleTimer({
     timeout: 1000 * 60 * 5,

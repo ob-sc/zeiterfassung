@@ -1,7 +1,6 @@
-import { useQuery } from 'react-query';
 import routes from '../constants/routes';
 import stations from '../constants/stations';
-import fetchData from '../util/fetchData';
+import useSession from './api/useSession';
 
 const authRoutes = (userStatus) => {
   const routeArray = [];
@@ -56,26 +55,17 @@ const authStations = (userStation, extstat, userRegion) => {
 };
 
 const useAuth = () => {
-  // session cookie 10 min gültig, dann läuft die session ab
-  // idleTimer loggt schon nach 5 min aus, guckt allerdings nicht im Hintergrund
-  const { status, error, data, isFetching } = useQuery(
-    'session',
-    async () => await fetchData('/api/session'),
-    { refetchOnWindowFocus: false }
-  );
+  const { isSuccess, isLoading, isError, data, error } = useSession();
 
-  // eigene booleans statt isLoading und isError aus usequery
-  // ist aber eig egal, muss nur isFetching noch abfangen
-  const statusBools = {
-    isLoading: false,
-    isError: false,
+  const auth = {
+    isSuccess,
+    isLoading,
+    isError,
+    error,
   };
 
-  if (status === 'loading' || isFetching)
-    return { ...statusBools, isLoading: true };
-
   // return userdaten
-  if (status === 'success') {
+  if (isSuccess) {
     const { routeArray, routeObject } = authRoutes(data.access);
     const authedStations = authStations(
       data.station,
@@ -84,7 +74,7 @@ const useAuth = () => {
     );
 
     return {
-      ...statusBools,
+      ...auth,
       username: data.username,
       station: data.currentStation,
       isLoggedIn: data.isLoggedIn,
@@ -95,7 +85,7 @@ const useAuth = () => {
   }
 
   // default case (error)
-  return { ...statusBools, error, isError: true };
+  return auth;
 };
 
 export default useAuth;

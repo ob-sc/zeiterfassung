@@ -4,13 +4,16 @@ import { Box, FormControlLabel, Switch, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { tripDigitStation } from '../util/stringUtil';
 
-function AhAutocomplete({ aushilfen, selected, setSelected, error }) {
-  const { station, all, isLoading } = aushilfen;
+function AhAutocomplete({ aushilfen, state, handleSelection, error }) {
+  const [aushilfe, setAushilfe] = state;
+  const { data, isLoading } = aushilfen;
+  const { station, all } = data;
+
   const [checkAll, setCheckAll] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
   const toggleAll = () => {
-    setSelected(null);
+    setAushilfe(null);
     setCheckAll(!checkAll);
   };
 
@@ -26,9 +29,9 @@ function AhAutocomplete({ aushilfen, selected, setSelected, error }) {
   return (
     <Box>
       <Autocomplete
-        value={selected}
+        value={aushilfe?.data ?? null}
         onChange={(event, newValue) => {
-          setSelected(newValue);
+          handleSelection(newValue);
         }}
         inputValue={inputValue}
         onInputChange={(event, newInputValue) => {
