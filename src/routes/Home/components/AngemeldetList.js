@@ -67,4 +67,7 @@ export default AngemeldetList;
 // container mit border und dann entweder list
 // oder wenn isEmpty dann text niemand angemeldet
 
-// iserror und isloading einbauen
+// iserror einbauen
+// date gestern einbauen
+
+// <Chip variant="outlined" color="primary" onDelete={handleDelete} avatar={<Avatar>F</Avatar>} />

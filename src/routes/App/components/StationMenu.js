@@ -34,6 +34,7 @@ function StationMenu({ stations }) {
       );
       // erst wenn update erfolgreich war
       if (isUpdated) queryClient.invalidateQueries('session');
+      setNoMenu(false);
     } catch (err) {
       addError(err);
     }
@@ -47,7 +48,8 @@ function StationMenu({ stations }) {
           color="inherit"
           aria-label="stat-menu"
           aria-haspopup={true}
-          onClick={noMenu ? null : handleClick}
+          onClick={handleClick}
+          disabled={noMenu}
         >
           <IoMapOutline />
         </IconButton>

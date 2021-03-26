@@ -72,7 +72,7 @@ function NavBar({ mobile }) {
       {
         hasStations && (
           <CurrStation station={auth.station} />
-        ) /* todo schöner machen, badge bei stationmenu?? */
+        ) /* todo schöner machen, badge bei stationmenu? */
       }
     </>
   );

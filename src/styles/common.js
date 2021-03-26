@@ -47,31 +47,41 @@ const useCommonStyles = makeStyles((theme) => ({
   },
   smContainer: {
     width: 420,
+    marginLeft: 'auto',
+    marginRight: 'auto',
     [theme.breakpoints.down('xs')]: {
       width: '50vw',
     },
   },
   mdContainer: {
     width: 600,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    [theme.breakpoints.down('md')]: {
+      width: '60vw',
+    },
     [theme.breakpoints.down('xs')]: {
       width: '70vw',
     },
   },
   lgContainer: {
+    width: 980,
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: 980,
     [theme.breakpoints.down('md')]: {
-      width: '70vw',
+      width: '80vw',
     },
     [theme.breakpoints.down('xs')]: {
-      width: '80vw',
+      width: '90vw',
     },
   },
   xlContainer: {
+    width: 1200,
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: 1200,
+    [theme.breakpoints.down('md')]: {
+      width: '80vw',
+    },
     [theme.breakpoints.down('xs')]: {
       width: '90vw',
     },
