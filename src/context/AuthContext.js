@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { useIdleTimer } from 'react-idle-timer';
 import { Redirect } from '@reach/router';
 import { CircularProgress } from '@material-ui/core';
-import useAuth from '../hooks/useAuth';
 import useLogout from '../hooks/useLogout';
 import useCommonStyles from '../styles/common';
 
@@ -16,10 +16,11 @@ import useCommonStyles from '../styles/common';
 const context = React.createContext();
 const useAuthContext = () => useContext(context);
 
-export const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider = ({ auth, children }) => {
+  const { isLoading, isError, error, isLoggedIn, ...session } = auth;
+  console.log(auth);
   const common = useCommonStyles();
   const logout = useLogout(true);
-  const { isLoading, isError, error, isLoggedIn, ...session } = useAuth();
 
   useIdleTimer({
     timeout: 1000 * 60 * 5,
@@ -46,5 +47,7 @@ export const AuthContextProvider = ({ children }) => {
     <Redirect to="/login" noThrow />
   );
 };
+
+AuthContextProvider.propTypes = { auth: PropTypes.object.isRequired };
 
 export default useAuthContext;

@@ -3,12 +3,12 @@ import { Link } from '@reach/router';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Box, Button, Toolbar } from '@material-ui/core';
 import logo from '../../../images/logo.png';
-import useAuth from '../../../hooks/useAuth';
 import NavMenu from './NavMenu';
 import StationMenu from './StationMenu';
-import CurrStation from './CurrStation';
+import { layout } from '../../../styles/common';
 
 const styles = {
+  ...layout,
   navButton: {
     width: 96,
   },
@@ -16,9 +16,8 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-function NavBar({ mobile }) {
+function NavBar({ mobile, auth }) {
   const classes = useStyles();
-  const auth = useAuth();
 
   const isLoggedIn = auth?.isLoggedIn === true; // nur true wenn status != loading
   const hasStations = auth?.stations?.length > 1;
@@ -37,7 +36,7 @@ function NavBar({ mobile }) {
           clone
         >
           <Toolbar>
-            <Box display="flex">
+            <Box className={classes.flexRowCenter}>
               {showNavButtons &&
                 auth.routes.map(({ label, route }) => {
                   return (
@@ -55,7 +54,12 @@ function NavBar({ mobile }) {
                 })}
               {isLoggedIn && (
                 <>
-                  {hasStations && <StationMenu stations={auth.stations} />}
+                  {hasStations && (
+                    <StationMenu
+                      stations={auth.stations}
+                      station={auth.station}
+                    />
+                  )}
                   <NavMenu routes={auth.routes} mobile={mobile} />
                 </>
               )}
@@ -69,15 +73,13 @@ function NavBar({ mobile }) {
           </Toolbar>
         </Box>
       </AppBar>
-      {
-        hasStations && (
-          <CurrStation station={auth.station} />
-        ) /* todo schöner machen, badge bei stationmenu? */
-      }
     </>
   );
 }
 
-NavBar.propTypes = { mobile: PropTypes.bool };
+NavBar.propTypes = {
+  mobile: PropTypes.bool,
+  auth: PropTypes.object.isRequired,
+};
 
 export default NavBar;

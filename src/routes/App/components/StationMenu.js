@@ -1,12 +1,26 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Box, IconButton, Menu, MenuItem } from '@material-ui/core';
-import { IoMapOutline } from 'react-icons/io5';
-import fetchData from '../../../util/fetchData';
+import PropTypes from 'prop-types';
 import { useQueryClient } from 'react-query';
+import { Box, IconButton, makeStyles, Menu, MenuItem } from '@material-ui/core';
+import { IoMapOutline } from 'react-icons/io5';
+import useCommonStyles from '../../../styles/common';
+import fetchData from '../../../util/fetchData';
 import useToastContext from '../../../context/ToastContext';
+import { tripDigitStation } from '../../../util/stringUtil';
 
-function StationMenu({ stations }) {
+const useStyles = makeStyles({
+  stationIcon: {
+    '& svg': {
+      fontSize: 24,
+    },
+  },
+  stationNum: { fontSize: 14, marginTop: -14 },
+});
+
+function StationMenu({ stations, station }) {
+  const classes = useStyles();
+  const common = useCommonStyles();
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [noMenu, setNoMenu] = useState(false);
   const { addError } = useToastContext();
@@ -42,7 +56,7 @@ function StationMenu({ stations }) {
 
   return !stations.length > 0 ? null : (
     <div>
-      <Box ml={2}>
+      <Box ml={2} className={common.flexColumnCenterStart}>
         <IconButton
           edge="start"
           color="inherit"
@@ -50,9 +64,11 @@ function StationMenu({ stations }) {
           aria-haspopup={true}
           onClick={handleClick}
           disabled={noMenu}
+          className={classes.stationIcon}
         >
           <IoMapOutline />
         </IconButton>
+        <div className={classes.stationNum}>{tripDigitStation(station)}</div>
       </Box>
 
       <Menu
@@ -82,6 +98,7 @@ function StationMenu({ stations }) {
 
 StationMenu.propTypes = {
   stations: PropTypes.array,
+  station: PropTypes.number,
 };
 
 export default StationMenu;

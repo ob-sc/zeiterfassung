@@ -4,6 +4,7 @@
 .pnp.js
 
 # production
+# build kann aktuell nicht auf dem server erfolgen
 # /build
 
 # favicons (variationen)

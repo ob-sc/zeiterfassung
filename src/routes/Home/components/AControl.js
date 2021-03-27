@@ -8,7 +8,7 @@ function AControl({ aushilfen, state, handleSelection, error }) {
   const common = useCommonStyles();
 
   return (
-    <Box className={common.flexRowCenter}>
+    <Box className={common.flexRowCenterStartWrap}>
       <Box m={1} p={1} className={common.mdItem}>
         <AhAutocomplete
           aushilfen={aushilfen}

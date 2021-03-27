@@ -1,14 +1,21 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
-import { Box, IconButton, Menu, MenuItem } from '@material-ui/core';
+import { Box, IconButton, makeStyles, Menu, MenuItem } from '@material-ui/core';
 import { FiMenu } from 'react-icons/fi';
 import { IoPersonCircleOutline } from 'react-icons/io5';
 import useLogout from '../../../hooks/useLogout';
 
-// NavMenu ist ein User Menu für logout etc wenn desktop
+const useStyles = makeStyles({
+  menuIcon: {
+    '& svg': {
+      fontSize: 30,
+    },
+  },
+});
 
 function NavMenu({ routes, mobile }) {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [noLogout, setNoLogout] = useState(false);
 
@@ -42,6 +49,7 @@ function NavMenu({ routes, mobile }) {
           aria-label="nav-menu"
           aria-haspopup={true}
           onClick={handleClick}
+          className={classes.menuIcon}
         >
           {mobile ? <FiMenu /> : <IoPersonCircleOutline />}
         </IconButton>

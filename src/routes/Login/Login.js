@@ -1,3 +1,4 @@
+import { useQueryClient } from 'react-query';
 import { Link, navigate } from '@reach/router';
 import Yup from '../../validation/yup';
 import { Box, Grid, Button } from '@material-ui/core';
@@ -8,6 +9,7 @@ import BorderContainer from '../../components/BorderContainer';
 
 function Login() {
   const common = useCommonStyles();
+  const queryClient = useQueryClient();
 
   const init = {
     username: '',
@@ -20,6 +22,7 @@ function Login() {
   });
 
   const handleSuccess = (data) => {
+    queryClient.invalidateQueries('session');
     navigate('/', { replace: true });
   };
 
