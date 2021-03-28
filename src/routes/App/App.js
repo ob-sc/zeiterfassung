@@ -1,8 +1,7 @@
 import { Router } from '@reach/router';
 import { Box } from '@material-ui/core';
-import useStyles from './AppStyles';
+import useApp from './useApp';
 import useAuth from '../../hooks/useAuth';
-import useMobile from './hooks/useMobile';
 import { AuthContextProvider } from '../../context/AuthContext';
 import NotFound from '../NotFound/NotFound';
 import Home from '../Home/Home';
@@ -13,10 +12,21 @@ import NavBar from './components/NavBar';
 import Toast from './components/Toast';
 import AuthRoute from './components/AuthRoute';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  root: {
+    minHeight: '100vh',
+    '& a': {
+      textDecoration: 'none',
+    },
+  },
+});
+
 function App() {
   const classes = useStyles();
   const auth = useAuth();
-  const mobile = useMobile();
+  const mobile = useApp();
 
   return (
     <Box className={classes.root}>

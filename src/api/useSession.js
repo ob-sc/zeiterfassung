@@ -32,6 +32,21 @@ export const useDeleteSession = (expire) => {
   });
 };
 
+export const useUpdateSession = () => {
+  const queryClient = useQueryClient();
+  const { addError } = useToastContext();
+
+  return useMutation(
+    (station) => fetchData('/api/session', 'put', { station }),
+    {
+      onError: addError,
+      onSuccess: () => {
+        queryClient.invalidateQueries('session');
+      },
+    }
+  );
+};
+
 const useSession = () => {
   const { addError } = useToastContext();
 

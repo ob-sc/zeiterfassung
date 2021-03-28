@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useQueryClient } from 'react-query';
 import { Box, IconButton, makeStyles, Menu, MenuItem } from '@material-ui/core';
 import { IoMapOutline } from 'react-icons/io5';
 import useCommonStyles from '../../../styles/common';
-import fetchData from '../../../util/fetchData';
 import useToastContext from '../../../context/ToastContext';
 import { tripDigitStation } from '../../../util/stringUtil';
+import { useUpdateSession } from '../../../api/useSession';
 
 const useStyles = makeStyles({
   stationIcon: {
@@ -22,10 +21,9 @@ function StationMenu({ stations, station }) {
   const common = useCommonStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [disabled, setDisabled] = useState(false);
   const { addError } = useToastContext();
 
-  const queryClient = useQueryClient();
+  const updateStation = useUpdateSession();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -35,14 +33,10 @@ function StationMenu({ stations, station }) {
     setAnchorEl(null);
   };
 
-  const handleSelection = async (num) => {
+  const handleSelection = async (station) => {
     try {
-      setDisabled(true);
       setAnchorEl(null);
-      const isUpdated = await fetchData('api/session', 'put', { station: num });
-      // erst wenn update erfolgreich war
-      if (isUpdated) queryClient.invalidateQueries('session');
-      setDisabled(false);
+      updateStation.mutate(station);
     } catch (err) {
       addError(err);
     }
@@ -57,7 +51,7 @@ function StationMenu({ stations, station }) {
           aria-label="stat-menu"
           aria-haspopup={true}
           onClick={handleClick}
-          disabled={disabled}
+          disabled={updateStation.isLoading}
           className={classes.stationIcon}
         >
           <IoMapOutline />
