@@ -8,6 +8,7 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import { FiDelete } from 'react-icons/fi';
+import { useDeleteAnmeldung } from '../../../api/useAngemeldet';
 import useCommonStyles from '../../../styles/common';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,10 +23,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AngemeldetList({ aushilfe, handleSelection, angemeldet }) {
+function AngemeldetList({ selectedAh, handleSelection, angemeldet }) {
   const { isLoading, data } = angemeldet;
   const common = useCommonStyles();
   const classes = useStyles();
+
+  const deleteMutation = useDeleteAnmeldung();
 
   const isEmpty = data.length === 0;
 
@@ -33,18 +36,22 @@ function AngemeldetList({ aushilfe, handleSelection, angemeldet }) {
     <List dense={true} className={common.mdItem}>
       {!isEmpty ? (
         data.map((angemeldetAh) => {
-          const { id, date, nachname, start, vorname } = angemeldetAh;
+          const { id, ahid, date, nachname, start, vorname } = angemeldetAh;
           const name = `${vorname} ${nachname}`;
           return (
             <ListItem
               key={id}
               className={classes.listItem}
-              selected={aushilfe?.data?.id === id}
+              selected={selectedAh?.data?.id === ahid}
               onClick={() => handleSelection(angemeldetAh)}
             >
               <ListItemText primary={name} secondary={start} />
               <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete">
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => deleteMutation.mutate({ id: id })}
+                >
                   <FiDelete />
                 </IconButton>
               </ListItemSecondaryAction>

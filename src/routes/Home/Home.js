@@ -12,27 +12,27 @@ function Home() {
   const aushilfen = useAushilfen();
   const angemeldet = useAngemeldet();
 
-  const [aushilfe, setAushilfe] = useState(null);
+  const [selectedAh, setSelectedAh] = useState(null);
 
   const handleInputSelection = (ah) => {
-    if (ah === null) setAushilfe(null);
+    if (ah === null) setSelectedAh(null);
     else
       for (let anmeldung of angemeldet.data) {
         if (anmeldung.id === ah.id)
-          return setAushilfe({
+          return setSelectedAh({
             data: ah,
             anmeldung: { date: anmeldung.date, start: anmeldung.start },
           });
       }
-    setAushilfe({ data: ah, anmeldung: null });
+    setSelectedAh({ data: ah, anmeldung: null });
   };
 
   const handleListSelection = (anmeldung) => {
     // wenn ah die ausgewählte ist -> abwählen
-    if (anmeldung.id === aushilfe?.data?.id) return setAushilfe(null);
+    if (anmeldung.ahid === selectedAh?.data?.id) return setSelectedAh(null);
     for (let ah of aushilfen.data.all) {
-      if (ah.id === anmeldung.id)
-        return setAushilfe({
+      if (ah.id === anmeldung.ahid)
+        return setSelectedAh({
           data: ah,
           anmeldung: { date: anmeldung.date, start: anmeldung.start },
         });
@@ -43,12 +43,11 @@ function Home() {
     <Box className={common.lgContainer}>
       <AControl
         aushilfen={aushilfen}
-        state={[aushilfe, setAushilfe]}
+        state={[selectedAh, setSelectedAh]}
         handleSelection={handleInputSelection}
-        error={aushilfen.error}
       />
       <AngemeldetList
-        aushilfe={aushilfe}
+        selectedAh={selectedAh}
         handleSelection={handleListSelection}
         angemeldet={angemeldet}
       />
@@ -59,3 +58,6 @@ function Home() {
 export default Home;
 
 // angemeldet-objekt,id1123 = true, dann erscheint der abmeldenbutton
+
+// context mit:
+// selectedAh

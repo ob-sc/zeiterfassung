@@ -13,4 +13,12 @@ export const useCreateAnmeldung = () => {
   });
 };
 
+export const useDeleteAnmeldung = () => {
+  const queryClient = useQueryClient();
+
+  return useCreateMutation('/api/angemeldet', 'delete', () => {
+    queryClient.invalidateQueries('angemeldet');
+  });
+};
+
 export default useAngemeldet;

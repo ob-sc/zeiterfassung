@@ -1,5 +1,5 @@
 import useForm from '../../hooks/useForm';
-import Yup from '../../validation/yup';
+import yup from '../../validation/yup';
 
 const useLogin = (mutation) => {
   const init = {
@@ -7,9 +7,9 @@ const useLogin = (mutation) => {
     password: '',
   };
 
-  const validation = Yup.object({
-    username: Yup.string().trim().lowercase().required('Benutzer eingeben'),
-    password: Yup.string().required('Passwort eingeben'),
+  const validation = yup.object().shape({
+    username: yup.string().trim().lowercase().required('Benutzer eingeben'),
+    password: yup.string().required('Passwort eingeben'),
   });
 
   const formik = useForm(init, mutation, validation);
