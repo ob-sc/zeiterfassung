@@ -1,6 +1,6 @@
 import routes from '../constants/routes';
 import stations from '../constants/stations';
-import useSession from './api/useSession';
+import useSession from '../api/useSession';
 
 const authRoutes = (userStatus) => {
   const routeArray = [];

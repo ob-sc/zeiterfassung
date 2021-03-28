@@ -1,35 +1,25 @@
 import { Box, Grid, Button, MenuItem } from '@material-ui/core';
-import { navigate } from '@reach/router';
-import useStyles from './SignUpStyles';
-import validation from './SignUpValidation';
+import { makeStyles } from '@material-ui/core/styles';
+import useSignUp from './useSignUp';
 import useCommonStyles from '../../styles/common';
+import { useCreateUser } from '../../api/useUser';
 import stations from '../../constants/stations';
 import Input from '../../components/Input';
 import CtrlSelect from '../../components/CtrlSelect';
-import useForm from '../../hooks/useForm';
+
+const useStyles = makeStyles((theme) => ({
+  center: {
+    textAlign: 'center',
+    marginBottom: theme.spacing(3),
+  },
+}));
 
 function SignUp() {
   const common = useCommonStyles();
   const classes = useStyles();
 
-  const init = {
-    username: '',
-    password: '',
-    repeat_password: '',
-    station: '',
-  };
-
-  const handleSuccess = (data) => {
-    navigate('/login');
-  };
-
-  const { formik, mutation } = useForm(
-    init,
-    validation,
-    handleSuccess,
-    '/api/users',
-    'post'
-  );
+  const mutation = useCreateUser();
+  const formik = useSignUp(mutation);
 
   return (
     <Box m={2} px={2} p={4} className={common.lgContainer}>
@@ -43,13 +33,13 @@ function SignUp() {
           spacing={2}
         >
           <Grid item>
-            <Box>
+            <div>
               Der Benutzername ist <i>vorname.nachname</i>, wie bei deinem
               Citrix-Account.
               <br />
               Das Passwort muss mindestens einen Klein-, einen Großbuchstaben
               und eine Zahl enthalten.
-            </Box>
+            </div>
           </Grid>
           <Grid item className={common.mdItem}>
             <Input

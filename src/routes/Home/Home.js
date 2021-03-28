@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Box } from '@material-ui/core';
 import useCommonStyles from '../../styles/common';
-import useAngemeldet from '../../hooks/api/useAngemeldet';
-import useAushilfen from '../../hooks/api/useAushilfen';
+import useAngemeldet from '../../api/useAngemeldet';
+import useAushilfen from '../../api/useAushilfen';
 import AngemeldetList from './components/AngemeldetList';
 import AControl from './components/AControl';
 

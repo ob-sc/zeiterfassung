@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
-import useToastContext from '../../context/ToastContext';
-import useAuthContext from '../../context/AuthContext';
-import fetchData from '../../util/fetchData';
+import useToastContext from '../context/ToastContext';
+import useAuthContext from '../context/AuthContext';
+import fetchData from '../util/fetchData';
 
 const useAushilfen = () => {
   const { addError } = useToastContext();

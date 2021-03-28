@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
-import useToastContext from '../../context/ToastContext';
-import fetchData from '../../util/fetchData';
+import useToastContext from '../context/ToastContext';
+import fetchData from '../util/fetchData';
 
 const useAngemeldet = () => {
   const { addError } = useToastContext();

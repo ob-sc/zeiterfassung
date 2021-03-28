@@ -1,38 +1,16 @@
-import { useQueryClient } from 'react-query';
-import { Link, navigate } from '@reach/router';
-import Yup from '../../validation/yup';
+import { Link } from '@reach/router';
 import { Box, Grid, Button } from '@material-ui/core';
+import useLogin from './useLogin';
 import useCommonStyles from '../../styles/common';
+import { useCreateSession } from '../../api/useSession';
 import Input from '../../components/Input';
-import useForm from '../../hooks/useForm';
 import BorderContainer from '../../components/BorderContainer';
 
 function Login() {
   const common = useCommonStyles();
-  const queryClient = useQueryClient();
+  const login = useCreateSession();
 
-  const init = {
-    username: '',
-    password: '',
-  };
-
-  const validation = Yup.object({
-    username: Yup.string().trim().lowercase().required('Benutzer eingeben'),
-    password: Yup.string().required('Passwort eingeben'),
-  });
-
-  const handleSuccess = (data) => {
-    queryClient.invalidateQueries('session');
-    navigate('/', { replace: true });
-  };
-
-  const { formik, mutation } = useForm(
-    init,
-    validation,
-    handleSuccess,
-    '/api/session',
-    'post'
-  );
+  const formik = useLogin(login);
 
   return (
     <Box className={common.centerTransform}>
@@ -62,7 +40,7 @@ function Login() {
                 <Link to="/sign-up">Account erstellen</Link>
                 <Button
                   type="submit"
-                  disabled={mutation.isLoading}
+                  disabled={login.isLoading}
                   color="primary"
                   className={common.button}
                 >

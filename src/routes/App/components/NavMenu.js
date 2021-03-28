@@ -4,7 +4,7 @@ import { navigate } from '@reach/router';
 import { Box, IconButton, makeStyles, Menu, MenuItem } from '@material-ui/core';
 import { FiMenu } from 'react-icons/fi';
 import { IoPersonCircleOutline } from 'react-icons/io5';
-import useLogout from '../../../hooks/useLogout';
+import { useDeleteSession } from '../../../api/useSession';
 
 const useStyles = makeStyles({
   menuIcon: {
@@ -19,7 +19,7 @@ function NavMenu({ routes, mobile }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [noLogout, setNoLogout] = useState(false);
 
-  const logout = useLogout();
+  const logout = useDeleteSession();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -37,7 +37,7 @@ function NavMenu({ routes, mobile }) {
   const handleLogout = async () => {
     setNoLogout(true);
     setAnchorEl(null);
-    logout();
+    logout.mutate();
   };
 
   return (

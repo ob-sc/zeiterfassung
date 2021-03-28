@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { useIdleTimer } from 'react-idle-timer';
 import { Redirect } from '@reach/router';
 import { CircularProgress } from '@material-ui/core';
-import useLogout from '../hooks/useLogout';
 import useCommonStyles from '../styles/common';
+import { useDeleteSession } from '../api/useSession';
 
 /*
  * AuthContextProvider prüft, ob es eine session gibt
@@ -18,14 +18,14 @@ const useAuthContext = () => useContext(context);
 
 export const AuthContextProvider = ({ auth, children }) => {
   const { isLoading, isError, error, isLoggedIn, ...session } = auth;
-  console.log(auth);
+
   const common = useCommonStyles();
-  const logout = useLogout(true);
+  const logout = useDeleteSession(true);
 
   useIdleTimer({
     timeout: 1000 * 60 * 5,
     onIdle: () => {
-      logout();
+      logout.mutate();
     },
   });
 

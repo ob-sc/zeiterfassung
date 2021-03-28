@@ -22,7 +22,7 @@ function StationMenu({ stations, station }) {
   const common = useCommonStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [noMenu, setNoMenu] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const { addError } = useToastContext();
 
   const queryClient = useQueryClient();
@@ -37,18 +37,12 @@ function StationMenu({ stations, station }) {
 
   const handleSelection = async (num) => {
     try {
-      setNoMenu(true);
+      setDisabled(true);
       setAnchorEl(null);
-      const isUpdated = await fetchData(
-        'api/session',
-        {
-          station: num,
-        },
-        'put'
-      );
+      const isUpdated = await fetchData('api/session', 'put', { station: num });
       // erst wenn update erfolgreich war
       if (isUpdated) queryClient.invalidateQueries('session');
-      setNoMenu(false);
+      setDisabled(false);
     } catch (err) {
       addError(err);
     }
@@ -63,7 +57,7 @@ function StationMenu({ stations, station }) {
           aria-label="stat-menu"
           aria-haspopup={true}
           onClick={handleClick}
-          disabled={noMenu}
+          disabled={disabled}
           className={classes.stationIcon}
         >
           <IoMapOutline />
