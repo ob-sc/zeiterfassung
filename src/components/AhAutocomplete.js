@@ -4,7 +4,7 @@ import { Box, FormControlLabel, Switch, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { tripDigitStation } from '../util/stringUtil';
 
-function AhAutocomplete({ aushilfen, state, handleSelection, error }) {
+function AhAutocomplete({ name, aushilfen, state, handleSelection, formik }) {
   const [aushilfe, setAushilfe] = state;
   const { data, isLoading } = aushilfen;
   const { station, all } = data;
@@ -44,9 +44,10 @@ function AhAutocomplete({ aushilfen, state, handleSelection, error }) {
         renderInput={(params) => (
           <TextField
             {...params}
-            error={!!error}
-            helperText={!!error && error.message}
+            name={name}
             label="Aushilfe"
+            error={formik.touched[name] && !!formik.errors[name]}
+            helperText={formik.touched[name] && formik.errors[name]}
             variant="outlined"
             fullWidth={true}
           />
@@ -63,10 +64,11 @@ function AhAutocomplete({ aushilfen, state, handleSelection, error }) {
 }
 
 AhAutocomplete.propTypes = {
+  name: PropTypes.string.isRequired,
   station: PropTypes.array,
   all: PropTypes.array,
   loading: PropTypes.bool,
-  error: PropTypes.any,
+  formik: PropTypes.object.isRequired,
 };
 
 export default AhAutocomplete;

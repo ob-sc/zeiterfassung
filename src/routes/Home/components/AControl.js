@@ -9,20 +9,24 @@ import { useCreateAnmeldung } from '../../../api/useAngemeldet';
 import { nowTimeString } from '../../../util/stringUtil';
 import AhAutocomplete from '../../../components/AhAutocomplete';
 import TimeInput from '../../../components/TimeInput';
-import useToastContext from '../../../context/ToastContext';
-
-const schema = yup.object().shape({
-  ahid: yup.number().min(0).required(),
-  date: yup.date().required(),
-  start: yup.string().required(),
-});
+import useForm from '../../../hooks/useForm';
 
 function AControl({ aushilfen, state, handleSelection }) {
   const [selectedAh] = state;
-  const { addError } = useToastContext();
   const common = useCommonStyles();
-  const createMutation = useCreateAnmeldung();
+  const postMutation = useCreateAnmeldung();
   const [beginn, setBeginn] = useState(nowTimeString);
+
+  const init = {
+    ahid: selectedAh?.id ?? null,
+    start: beginn,
+  };
+
+  const schema = yup.object().shape({
+    ahid: yup.number().min(0).required(),
+    date: yup.date().required(),
+    start: yup.string().required(),
+  });
 
   const handleAnmeldung = (ahid, start) => {
     const date = format(new Date(), 'yyyy-MM-dd');
@@ -32,27 +36,29 @@ function AControl({ aushilfen, state, handleSelection }) {
       start,
     };
 
-    schema
-      .validate(values)
-      .then((valid) => {
-        if (valid === true) createMutation.mutate(values);
-      })
-      .catch((err) => {
-        addError({ message: err.errors });
-      });
+    postMutation.mutate(values);
   };
+
+  const formik = useForm(init, postMutation, schema);
 
   return (
     <Box className={common.flexRowCenterStartWrap}>
       <Box m={1} p={1} className={common.mdItem}>
         <AhAutocomplete
+          name="ahid"
           aushilfen={aushilfen}
           state={state}
           handleSelection={handleSelection}
+          formik={formik}
         />
       </Box>
       <Box m={1} p={1}>
-        <TimeInput beginn={beginn} setBeginn={setBeginn} label="Beginn" />
+        <TimeInput
+          beginn={beginn}
+          setBeginn={setBeginn}
+          label="Beginn"
+          name="start"
+        />
       </Box>
       <Box m={1} p={1}>
         <IconButton
