@@ -1,38 +1,14 @@
-import { useQuery, useMutation } from 'react-query';
 import { navigate } from '@reach/router';
-import useToastContext from '../context/ToastContext';
-import fetchData from '../util/fetchData';
-
-// session cookie 10 min gültig, dann läuft die session ab
-// idleTimer loggt schon nach 5 min aus (guckt allerdings nicht im Hintergrund?)
-
-export const useCreateUser = () => {
-  const { addError } = useToastContext();
-
-  return useMutation((values) => fetchData('/api/user', 'post', values), {
-    onError: addError,
-    onSuccess: () => {
-      navigate('/login');
-    },
-  });
-};
+import { useCreateMutation, useCreateQuery } from '../util/api';
 
 const useUser = () => {
-  // todo route gibt es noch nicht
-  const { addError } = useToastContext();
+  return useCreateQuery('user', '/api/user');
+};
 
-  const { status, isSuccess, isError, data, isFetching } = useQuery(
-    'user',
-    async () => await fetchData('/api/user'),
-    { onError: addError }
-  );
-
-  return {
-    isSuccess,
-    isError,
-    isLoading: status === 'loading' || isFetching,
-    data: isSuccess ? data : [],
-  };
+export const useCreateUser = () => {
+  return useCreateMutation('/api/user', 'post', () => {
+    navigate('/login');
+  });
 };
 
 export default useUser;

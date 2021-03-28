@@ -1,3 +1,6 @@
+import { useQuery, useMutation } from 'react-query';
+import useToastContext from '../context/ToastContext';
+
 const prefixRoute = (route) => {
   const { NODE_ENV, REACT_APP_HOST, REACT_APP_PORT } = process.env;
   const isDev = NODE_ENV === 'development';
@@ -35,6 +38,32 @@ const fetchData = async (route, type = 'get', data = {}) => {
   return response;
 };
 
-// get, post, put, delete
+export const useCreateQuery = (key, url, options = {}) => {
+  const { addError } = useToastContext();
+  const init = {
+    onError: addError,
+    ...options,
+  };
 
-export default fetchData;
+  const { status, isSuccess, isError, data, isFetching } = useQuery(
+    key,
+    async () => await fetchData(url),
+    init
+  );
+
+  return {
+    isSuccess,
+    isError,
+    isLoading: status === 'loading' || isFetching,
+    data: isSuccess ? data : [],
+  };
+};
+
+export const useCreateMutation = (url, method, handleSuccess) => {
+  const { addError } = useToastContext();
+
+  return useMutation((values) => fetchData(url, method, values), {
+    onError: addError,
+    onSuccess: handleSuccess,
+  });
+};

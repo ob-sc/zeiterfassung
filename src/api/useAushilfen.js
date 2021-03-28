@@ -1,35 +1,22 @@
-import { useQuery } from 'react-query';
-import useToastContext from '../context/ToastContext';
 import useAuthContext from '../context/AuthContext';
-import fetchData from '../util/fetchData';
+import { useCreateQuery } from '../util/api';
 
 const useAushilfen = () => {
-  const { addError } = useToastContext();
   const { station } = useAuthContext();
 
-  const { status, isSuccess, isError, data, isFetching } = useQuery(
-    'aushilfen',
-    async () => await fetchData('/api/aushilfen'),
-    {
-      onError: addError,
-    }
-  );
+  // destructure query um data im return auszutauschen
+  const { data, ...query } = useCreateQuery('aushilfen', '/api/aushilfen');
 
-  const query = {
-    isSuccess,
-    isError,
-    isLoading: status === 'loading' || isFetching,
-    data: { station: [], all: [] },
-  };
+  const aushilfen = { station: [], all: [] };
 
-  if (isSuccess) {
+  if (query.isSuccess) {
     for (let item of data) {
-      if (item.station === station) query.data.station.push(item);
+      if (item.station === station) aushilfen.station.push(item);
     }
-    query.data.all = data;
+    aushilfen.all = data;
   }
 
-  return query;
+  return { data: aushilfen, ...query };
 };
 
 export default useAushilfen;

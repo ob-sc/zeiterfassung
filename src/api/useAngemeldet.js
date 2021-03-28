@@ -1,35 +1,16 @@
-import { useQuery } from 'react-query';
-import useToastContext from '../context/ToastContext';
-import fetchData from '../util/fetchData';
+import { useQueryClient } from 'react-query';
+import { useCreateMutation, useCreateQuery } from '../util/api';
 
 const useAngemeldet = () => {
-  const { addError } = useToastContext();
+  return useCreateQuery('angemeldet', '/api/angemeldet');
+};
 
-  const { status, isSuccess, isError, data, isFetching } = useQuery(
-    'angemeldet',
-    async () => await fetchData('/api/angemeldet'),
-    {
-      onError: addError,
-    }
-  );
+export const useCreateAnmeldung = () => {
+  const queryClient = useQueryClient();
 
-  const query = {
-    isSuccess,
-    isError,
-    isLoading: status === 'loading' || isFetching,
-    data: isSuccess ? data : [],
-  };
-
-  return query;
+  return useCreateMutation('/api/angemeldet', 'post', () => {
+    queryClient.invalidateQueries('angemeldet');
+  });
 };
 
 export default useAngemeldet;
-
-/*
-ahid: 888
-date: "2020-12-21T23:00:00.000Z"
-nachname: "asddddd"
-name: "asd asddddd"
-start: "00:00:00"
-vorname: "asd"
-*/
