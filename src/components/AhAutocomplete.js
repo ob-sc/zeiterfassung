@@ -12,6 +12,8 @@ function AhAutocomplete({ name, aushilfen, state, formik, handleSelection }) {
   const [checkAll, setCheckAll] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
+  const allOptions = selectedAh?.sameStation === false || checkAll === true;
+
   const toggleAll = () => {
     setSelectedAh(null);
     setCheckAll(!checkAll);
@@ -31,27 +33,27 @@ function AhAutocomplete({ name, aushilfen, state, formik, handleSelection }) {
       <Autocomplete
         value={selectedAh?.data ?? null}
         onChange={(event, newValue) => {
+          formik.setFieldValue(name, newValue?.id ?? null);
           handleSelection(newValue);
-          formik.setFieldValue('ahid', selectedAh?.data?.id);
         }}
         inputValue={inputValue}
         onInputChange={(event, newInputValue) => {
           setInputValue(newInputValue);
-          formik.setFieldValue('ahid', selectedAh?.data?.id);
-          console.log(formik.values);
+          // formik.setFieldValue('ahid', selectedAh?.data?.id ?? null);
         }}
         id="ah-combo-box"
         loading={isLoading}
-        options={checkAll ? all : station}
+        options={allOptions ? all : station}
         getOptionLabel={optionLabel}
+        blurOnSelect={true}
         renderInput={(params) => (
           <TextField
             {...params}
             id={name}
             name={name}
             label="Aushilfe"
-            error={formik.touched[name] && !!formik.errors[name]}
-            helperText={formik.touched[name] && formik.errors[name]}
+            // error={formik.touched[name] && !!formik.errors[name]}
+            // helperText={formik.touched[name] && formik.errors[name]}
             variant="outlined"
             fullWidth={true}
           />
@@ -59,7 +61,12 @@ function AhAutocomplete({ name, aushilfen, state, formik, handleSelection }) {
       />
       <FormControlLabel
         control={
-          <Switch checked={checkAll} onChange={toggleAll} color="secondary" />
+          <Switch
+            checked={checkAll}
+            disabled={selectedAh?.sameStation === false}
+            onChange={toggleAll}
+            color="secondary"
+          />
         }
         label="Alle Aushilfen"
       />

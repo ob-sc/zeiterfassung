@@ -1,8 +1,8 @@
 import { Router } from '@reach/router';
 import { Box } from '@material-ui/core';
 import useApp from './useApp';
-import useAuth from '../../hooks/useAuth';
 import { AuthContextProvider } from '../../context/AuthContext';
+import useAuth from '../../hooks/useAuth';
 import NotFound from '../NotFound/NotFound';
 import Home from '../Home/Home';
 import Admin from '../Admin/Admin';

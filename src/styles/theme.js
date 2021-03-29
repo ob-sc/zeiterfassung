@@ -52,11 +52,11 @@ const theme = createMuiTheme({
       //   color: colors.black,
       // },
     },
-    MuiTouchRipple: {
-      child: {
-        backgroundColor: colors.greywhite,
-      },
-    },
+    // MuiTouchRipple: {
+    //   child: {
+    //     backgroundColor: colors.greywhite,
+    //   },
+    // },
   },
 });
 

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FiChevronRight } from 'react-icons/fi';
 import { Box, IconButton } from '@material-ui/core';
@@ -15,6 +16,13 @@ function AControl({ aushilfen, selected, handleSelection }) {
   const common = useCommonStyles();
   const postMutation = useCreateAnmeldung();
 
+  const [angemeldet, setAngemeldet] = useState(false);
+
+  useEffect(() => {
+    if (selectedAh?.anmeldung?.start !== undefined) setAngemeldet(true);
+    else setAngemeldet(false);
+  });
+
   const init = {
     ahid: selectedAh?.id ?? null,
     date: format(new Date(), 'yyyy-MM-dd'),
@@ -22,7 +30,7 @@ function AControl({ aushilfen, selected, handleSelection }) {
   };
 
   const validationSchema = yup.object().shape({
-    ahid: yup.number('Aushilfe auswählen').min(0).required(),
+    ahid: yup.number().required(),
     date: yup.date().required(),
     start: yup.string().required(),
   });
@@ -32,20 +40,16 @@ function AControl({ aushilfen, selected, handleSelection }) {
       initialValues={init}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        console.log('submit', values);
-        // postMutation.mutate(values);
-        setSubmitting(false);
+        postMutation.mutate(values, {
+          onSuccess: () => {
+            setSubmitting(false);
+            setAngemeldet(true);
+          },
+        });
       }}
     >
       {(props) => (
         <Box className={common.flexRowCenterStartWrap} clone>
-          {/* <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              console.log(props.values);
-              props.handleSubmit(props.values);
-            }} >*/}
-
           <form onSubmit={props.handleSubmit}>
             <Box m={1} p={1} className={common.mdItem}>
               <AhAutocomplete
@@ -72,6 +76,7 @@ function AControl({ aushilfen, selected, handleSelection }) {
                 edge="start"
                 color="inherit"
                 className={common.iconButton}
+                disabled={props.isSubmitting || angemeldet}
               >
                 <FiChevronRight />
               </IconButton>
