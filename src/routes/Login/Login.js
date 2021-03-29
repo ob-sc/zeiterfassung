@@ -14,8 +14,8 @@ function Login() {
 
   return (
     <Box className={common.centerTransform}>
-      <BorderContainer m={2} px={4} py={6}>
-        <form onSubmit={formik.handleSubmit} className={common.fullWidth}>
+      <BorderContainer m={2} px={4} py={6} className={common.fullWidth} clone>
+        <form onSubmit={formik.handleSubmit}>
           <Grid
             container
             direction="column"

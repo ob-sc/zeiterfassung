@@ -43,7 +43,7 @@ function Home() {
     <Box className={common.lgContainer}>
       <AControl
         aushilfen={aushilfen}
-        state={[selectedAh, setSelectedAh]}
+        selected={[selectedAh, setSelectedAh]}
         handleSelection={handleInputSelection}
       />
       <AngemeldetList

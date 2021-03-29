@@ -1,15 +1,10 @@
 import { useFormik } from 'formik';
 
-const useForm = (
-  initialValues,
-  mutation,
-  validationSchema = null,
-  values = {}
-) => {
+const useForm = (initialValues, mutation, validationSchema = null) => {
   const init = {
     initialValues,
-    onSubmit: (formValues, { setSubmitting }) => {
-      mutation.mutate({ ...values, ...formValues });
+    onSubmit: (values, { setSubmitting }) => {
+      mutation.mutate(values);
       setSubmitting(false);
     },
   };

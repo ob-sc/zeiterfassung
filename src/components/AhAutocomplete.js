@@ -4,8 +4,8 @@ import { Box, FormControlLabel, Switch, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { tripDigitStation } from '../util/stringUtil';
 
-function AhAutocomplete({ name, aushilfen, state, handleSelection, formik }) {
-  const [aushilfe, setAushilfe] = state;
+function AhAutocomplete({ name, aushilfen, state, formik, handleSelection }) {
+  const [selectedAh, setSelectedAh] = state;
   const { data, isLoading } = aushilfen;
   const { station, all } = data;
 
@@ -13,7 +13,7 @@ function AhAutocomplete({ name, aushilfen, state, handleSelection, formik }) {
   const [inputValue, setInputValue] = useState('');
 
   const toggleAll = () => {
-    setAushilfe(null);
+    setSelectedAh(null);
     setCheckAll(!checkAll);
   };
 
@@ -29,13 +29,16 @@ function AhAutocomplete({ name, aushilfen, state, handleSelection, formik }) {
   return (
     <Box>
       <Autocomplete
-        value={aushilfe?.data ?? null}
+        value={selectedAh?.data ?? null}
         onChange={(event, newValue) => {
           handleSelection(newValue);
+          formik.setFieldValue('ahid', selectedAh?.data?.id);
         }}
         inputValue={inputValue}
         onInputChange={(event, newInputValue) => {
           setInputValue(newInputValue);
+          formik.setFieldValue('ahid', selectedAh?.data?.id);
+          console.log(formik.values);
         }}
         id="ah-combo-box"
         loading={isLoading}
@@ -44,6 +47,7 @@ function AhAutocomplete({ name, aushilfen, state, handleSelection, formik }) {
         renderInput={(params) => (
           <TextField
             {...params}
+            id={name}
             name={name}
             label="Aushilfe"
             error={formik.touched[name] && !!formik.errors[name]}
@@ -65,10 +69,10 @@ function AhAutocomplete({ name, aushilfen, state, handleSelection, formik }) {
 
 AhAutocomplete.propTypes = {
   name: PropTypes.string.isRequired,
-  station: PropTypes.array,
-  all: PropTypes.array,
+  aushilfen: PropTypes.object,
   loading: PropTypes.bool,
   formik: PropTypes.object.isRequired,
+  handleSelection: PropTypes.func.isRequired,
 };
 
 export default AhAutocomplete;

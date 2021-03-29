@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { TextField } from '@material-ui/core';
 
-function TimeInput({ beginn, setBeginn, label, name }) {
+function TimeInput({ label, name, ...rest }) {
   return (
     <TextField
       fullWidth={true}
@@ -11,15 +11,17 @@ function TimeInput({ beginn, setBeginn, label, name }) {
       type="time"
       variant="outlined"
       color="primary"
-      value={beginn}
-      onChange={(val) => setBeginn(val)}
       InputLabelProps={{
         shrink: true,
       }}
+      {...rest}
     />
   );
 }
 
-TimeInput.propTypes = { label: PropTypes.string };
+TimeInput.propTypes = {
+  label: PropTypes.string,
+  name: PropTypes.string,
+};
 
 export default TimeInput;
