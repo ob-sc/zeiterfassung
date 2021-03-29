@@ -10,7 +10,7 @@ const useAushilfen = () => {
   const aushilfen = { station: [], all: [] };
 
   if (query.isSuccess) {
-    for (let item of data) {
+    for (const item of data) {
       if (item.station === station) aushilfen.station.push(item);
     }
     aushilfen.all = data;

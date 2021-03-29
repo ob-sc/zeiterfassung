@@ -2,27 +2,31 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, FormControlLabel, Switch, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import useHomeContext from '../context/HomeContext';
 import { tripDigitStation } from '../util/stringUtil';
 
-function AhAutocomplete({ name, aushilfen, state, formik, handleSelection }) {
-  const [selectedAh, setSelectedAh] = state;
+function AhAutocomplete({ name, aushilfen, formik, handleSelection }) {
   const { data, isLoading } = aushilfen;
+  const { state, updateSelected, updateCheckAll } = useHomeContext();
+  console.log(state);
   const { station, all } = data;
 
-  const [checkAll, setCheckAll] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
-  const allOptions = selectedAh?.sameStation === false || checkAll === true;
+  const allOptions =
+    state.selected?.sameStation === false || state.checkAll === true;
+  const isDisabled =
+    state.selected?.sameStation === false && state.angemeldet !== false;
 
   const toggleAll = () => {
-    setSelectedAh(null);
-    setCheckAll(!checkAll);
+    updateSelected(null);
+    updateCheckAll(!state.checkAll);
   };
 
   // station einfügen wenn all ah
   // damit AH mit doppelten namen eindeutig sind
   const optionLabel = (option) =>
-    checkAll
+    state.checkAll
       ? `${tripDigitStation(
           option.station
         )} ${option.vorname.trim()} ${option.nachname.trim()}`
@@ -31,7 +35,7 @@ function AhAutocomplete({ name, aushilfen, state, formik, handleSelection }) {
   return (
     <Box>
       <Autocomplete
-        value={selectedAh?.data ?? null}
+        value={state?.selected?.data ?? null}
         onChange={(event, newValue) => {
           formik.setFieldValue(name, newValue?.id ?? null);
           handleSelection(newValue);
@@ -39,7 +43,6 @@ function AhAutocomplete({ name, aushilfen, state, formik, handleSelection }) {
         inputValue={inputValue}
         onInputChange={(event, newInputValue) => {
           setInputValue(newInputValue);
-          // formik.setFieldValue('ahid', selectedAh?.data?.id ?? null);
         }}
         id="ah-combo-box"
         loading={isLoading}
@@ -52,18 +55,18 @@ function AhAutocomplete({ name, aushilfen, state, formik, handleSelection }) {
             id={name}
             name={name}
             label="Aushilfe"
-            // error={formik.touched[name] && !!formik.errors[name]}
-            // helperText={formik.touched[name] && formik.errors[name]}
             variant="outlined"
             fullWidth={true}
+            // error={formik.touched[name] && !!formik.errors[name]}
+            // helperText={formik.touched[name] && formik.errors[name]}
           />
         )}
       />
       <FormControlLabel
         control={
           <Switch
-            checked={checkAll}
-            disabled={selectedAh?.sameStation === false}
+            checked={state.checkAll}
+            disabled={isDisabled}
             onChange={toggleAll}
             color="secondary"
           />
@@ -76,8 +79,7 @@ function AhAutocomplete({ name, aushilfen, state, formik, handleSelection }) {
 
 AhAutocomplete.propTypes = {
   name: PropTypes.string.isRequired,
-  aushilfen: PropTypes.object,
-  loading: PropTypes.bool,
+  aushilfen: PropTypes.object.isRequired,
   formik: PropTypes.object.isRequired,
   handleSelection: PropTypes.func.isRequired,
 };

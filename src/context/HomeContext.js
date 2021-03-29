@@ -7,19 +7,36 @@ const useHomeContext = () => useContext(context);
 export const HomeContextProvider = ({ children }) => {
   const initialState = {
     selected: null,
+    checkAll: false,
+    angemeldet: false,
   };
 
   const [state, updateState] = useImmer(initialState);
 
-  function updateSelected(ah) {
+  const updateSelected = (ah) => {
     updateState((draft) => {
       draft.selected = ah;
+      draft.angemeldet = ah?.anmeldung?.start !== undefined;
     });
-  }
+  };
+
+  const updateCheckAll = (value) => {
+    updateState((draft) => {
+      draft.checkAll = value;
+    });
+  };
+
+  const updateAngemeldet = (val) => {
+    updateState((draft) => {
+      draft.angemeldet = val;
+    });
+  };
 
   const contextValue = {
     state,
     updateSelected,
+    updateCheckAll,
+    updateAngemeldet,
   };
 
   return <context.Provider value={contextValue}>{children}</context.Provider>;

@@ -32,7 +32,11 @@
       "react-app"
     ],
     "rules": {
-      "no-console": "warn"
+      "no-console": "warn",
+      "object-shorthand": "warn",
+      "prefer-const": "warn",
+      "prefer-destructuring": "warn",
+      "prefer-template": "warn"
     }
   },
   "browserslist": {

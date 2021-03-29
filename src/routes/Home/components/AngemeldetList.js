@@ -7,12 +7,16 @@ import {
   CircularProgress,
   makeStyles,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import { FiDelete } from 'react-icons/fi';
+import useHomeContext from '../../../context/HomeContext';
 import { useDeleteAnmeldung } from '../../../api/useAngemeldet';
 import useCommonStyles from '../../../styles/common';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
     border: '1px solid',
     borderRadius: 4,
     borderColor: theme.palette.primary.light,
@@ -23,10 +27,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AngemeldetList({ selectedAh, handleSelection, angemeldet }) {
+function AngemeldetList({ handleSelection, angemeldet }) {
   const { isLoading, data } = angemeldet;
   const common = useCommonStyles();
   const classes = useStyles();
+
+  const { state, updateAngemeldet } = useHomeContext();
 
   const deleteMutation = useDeleteAnmeldung();
 
@@ -42,7 +48,7 @@ function AngemeldetList({ selectedAh, handleSelection, angemeldet }) {
             <ListItem
               key={id}
               className={classes.listItem}
-              selected={selectedAh?.data?.id === ahid}
+              selected={state?.selected?.data?.id === ahid}
               onClick={() => handleSelection(angemeldetAh)}
             >
               <ListItemText primary={name} secondary={start} />
@@ -50,7 +56,10 @@ function AngemeldetList({ selectedAh, handleSelection, angemeldet }) {
                 <IconButton
                   edge="end"
                   aria-label="delete"
-                  onClick={() => deleteMutation.mutate({ id: id })}
+                  onClick={() => {
+                    updateAngemeldet(false);
+                    deleteMutation.mutate({ id });
+                  }}
                 >
                   <FiDelete />
                 </IconButton>
@@ -69,12 +78,9 @@ function AngemeldetList({ selectedAh, handleSelection, angemeldet }) {
   );
 }
 
+AngemeldetList.propTypes = {
+  handleSelection: PropTypes.func.isRequired,
+  angemeldet: PropTypes.object.isRequired,
+};
+
 export default AngemeldetList;
-
-// container mit border und dann entweder list
-// oder wenn isEmpty dann text niemand angemeldet
-
-// iserror einbauen
-// date gestern einbauen
-
-// <Chip variant="outlined" color="primary" onDelete={handleDelete} avatar={<Avatar>F</Avatar>} />
