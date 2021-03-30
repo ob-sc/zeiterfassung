@@ -7,16 +7,13 @@ import { tripDigitStation } from '../util/stringUtil';
 
 function AhAutocomplete({ name, aushilfen, formik, handleSelection }) {
   const { data, isLoading } = aushilfen;
-  const { state, updateSelected, updateCheckAll } = useHomeContext();
-  console.log(state);
   const { station, all } = data;
+  const { state, updateSelected, updateCheckAll } = useHomeContext();
 
   const [inputValue, setInputValue] = useState('');
 
   const allOptions =
     state.selected?.sameStation === false || state.checkAll === true;
-  const isDisabled =
-    state.selected?.sameStation === false && state.angemeldet !== false;
 
   const toggleAll = () => {
     updateSelected(null);
@@ -66,7 +63,6 @@ function AhAutocomplete({ name, aushilfen, formik, handleSelection }) {
         control={
           <Switch
             checked={state.checkAll}
-            disabled={isDisabled}
             onChange={toggleAll}
             color="secondary"
           />

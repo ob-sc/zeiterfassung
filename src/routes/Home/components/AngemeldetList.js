@@ -12,6 +12,7 @@ import { FiDelete } from 'react-icons/fi';
 import useHomeContext from '../../../context/HomeContext';
 import { useDeleteAnmeldung } from '../../../api/useAngemeldet';
 import useCommonStyles from '../../../styles/common';
+import { anmeldungIsToday } from '../../../util/dateUtil';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -19,12 +20,13 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     border: '1px solid',
     borderRadius: 4,
-    borderColor: theme.palette.primary.light,
     '&:hover': {
       borderColor: theme.palette.primary.main,
       cursor: 'pointer',
     },
   },
+  normalBorder: { borderColor: theme.palette.primary.light },
+  errorBorder: { borderColor: theme.palette.error.main },
 }));
 
 function AngemeldetList({ handleSelection, angemeldet }) {
@@ -44,14 +46,19 @@ function AngemeldetList({ handleSelection, angemeldet }) {
         data.map((angemeldetAh) => {
           const { id, ahid, date, nachname, start, vorname } = angemeldetAh;
           const name = `${vorname} ${nachname}`;
+          const { string, anmeldungToday } = anmeldungIsToday(date, start);
+          const borderClass = anmeldungToday
+            ? classes.normalBorder
+            : classes.errorBorder;
+
           return (
             <ListItem
               key={id}
-              className={classes.listItem}
+              className={`${classes.listItem} ${borderClass}`}
               selected={state?.selected?.data?.id === ahid}
               onClick={() => handleSelection(angemeldetAh)}
             >
-              <ListItemText primary={name} secondary={start} />
+              <ListItemText primary={name} secondary={string} />
               <ListItemSecondaryAction>
                 <IconButton
                   edge="end"

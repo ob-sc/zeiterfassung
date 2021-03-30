@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import useHomeContext from '../../context/HomeContext';
 import useCommonStyles from '../../styles/common';

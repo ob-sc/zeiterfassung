@@ -69,7 +69,11 @@ function AControl({ aushilfen, handleSelection }) {
                 edge="start"
                 color="inherit"
                 className={common.iconButton}
-                disabled={props.isSubmitting || state.angemeldet}
+                disabled={
+                  props.isSubmitting ||
+                  state.angemeldet ||
+                  state.selected === null
+                }
               >
                 <FiChevronRight />
               </IconButton>

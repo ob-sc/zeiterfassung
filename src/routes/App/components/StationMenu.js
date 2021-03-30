@@ -33,10 +33,10 @@ function StationMenu({ stations, station }) {
     setAnchorEl(null);
   };
 
-  const handleSelection = async (station) => {
+  const handleSelection = (station) => {
     try {
       setAnchorEl(null);
-      updateStation.mutate(station);
+      updateStation.mutate({ station });
     } catch (err) {
       addError(err);
     }
