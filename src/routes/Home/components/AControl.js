@@ -26,7 +26,7 @@ function AControl({ aushilfen, handleSelection }) {
   const validationSchema = yup.object().shape({
     ahid: yup.number().required(),
     date: yup.date().required(),
-    start: yup.string().required(),
+    start: yup.string().required('Beginn angeben'),
   });
 
   return (

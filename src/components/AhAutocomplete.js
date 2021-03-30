@@ -10,6 +10,8 @@ function AhAutocomplete({ name, aushilfen, formik, handleSelection }) {
   const { station, all } = data;
   const { state, updateSelected, updateCheckAll } = useHomeContext();
 
+  // es gibt value und inputValue, value hat das ganze ah objekt
+  // inputValue ist nur der lokale state vom input mit dem string
   const [inputValue, setInputValue] = useState('');
 
   const allOptions =

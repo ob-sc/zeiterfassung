@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { FiDelete } from 'react-icons/fi';
+import clsx from 'clsx';
 import useHomeContext from '../../../context/HomeContext';
 import { useDeleteAnmeldung } from '../../../api/useAngemeldet';
 import useCommonStyles from '../../../styles/common';
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   errorBorder: { borderColor: theme.palette.error.main },
 }));
 
-function AngemeldetList({ handleSelection, angemeldet }) {
+function AList({ handleSelection, angemeldet }) {
   const { isLoading, data } = angemeldet;
   const common = useCommonStyles();
   const classes = useStyles();
@@ -47,14 +48,14 @@ function AngemeldetList({ handleSelection, angemeldet }) {
           const { id, ahid, date, nachname, start, vorname } = angemeldetAh;
           const name = `${vorname} ${nachname}`;
           const { string, anmeldungToday } = anmeldungIsToday(date, start);
-          const borderClass = anmeldungToday
-            ? classes.normalBorder
-            : classes.errorBorder;
 
           return (
             <ListItem
               key={id}
-              className={`${classes.listItem} ${borderClass}`}
+              className={clsx(
+                classes.listItem,
+                anmeldungToday ? classes.normalBorder : classes.errorBorder
+              )}
               selected={state?.selected?.data?.id === ahid}
               onClick={() => handleSelection(angemeldetAh)}
             >
@@ -85,9 +86,9 @@ function AngemeldetList({ handleSelection, angemeldet }) {
   );
 }
 
-AngemeldetList.propTypes = {
+AList.propTypes = {
   handleSelection: PropTypes.func.isRequired,
   angemeldet: PropTypes.object.isRequired,
 };
 
-export default AngemeldetList;
+export default AList;

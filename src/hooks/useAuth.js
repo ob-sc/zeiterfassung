@@ -5,8 +5,8 @@ import useSession from '../api/useSession';
 const authRoutes = (userStatus) => {
   const routeArray = [];
   const routeObject = {};
-  for (let item of routes) {
-    for (let access of item.route.access) {
+  for (const item of routes) {
+    for (const access of item.route.access) {
       if (access === userStatus) {
         routeArray.push(item);
         routeObject[item.label.toLowerCase()] = true;
@@ -42,12 +42,12 @@ const authStations = (userStation, extstat, userRegion) => {
     // diesen string parsen zu array
     if (typeof extstat === 'string') {
       extstatArray = extstat.split(',');
-      for (let extraStation of extstatArray) {
+      for (const extraStation of extstatArray) {
         if (parseInt(extraStation) === element.num) pushStation();
       }
     }
 
-    for (let stationRegion of element.station.region) {
+    for (const stationRegion of element.station.region) {
       if (stationRegion === userRegion) pushStation();
     }
   }

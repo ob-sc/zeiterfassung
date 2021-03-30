@@ -4,15 +4,16 @@ import useCommonStyles from '../../styles/common';
 import useAuthContext from '../../context/AuthContext';
 import useAngemeldet from '../../api/useAngemeldet';
 import useAushilfen from '../../api/useAushilfen';
-import AngemeldetList from './components/AngemeldetList';
+import AList from './components/AList';
 import AControl from './components/AControl';
+import ADetails from './components/ADetails';
 
 function Home() {
   const common = useCommonStyles();
 
   const { station } = useAuthContext();
   const { state, updateSelected, updateCheckAll } = useHomeContext();
-
+  console.log(state);
   const aushilfen = useAushilfen();
   const angemeldet = useAngemeldet();
 
@@ -58,10 +59,12 @@ function Home() {
   return (
     <Box className={common.lgContainer}>
       <AControl aushilfen={aushilfen} handleSelection={handleInputSelection} />
-      <AngemeldetList
-        handleSelection={handleListSelection}
-        angemeldet={angemeldet}
-      />
+      <Box className={common.flexRowCenterStartWrap}>
+        <AList handleSelection={handleListSelection} angemeldet={angemeldet} />
+        <Box className={common.flexGrowItem}>
+          <ADetails />
+        </Box>
+      </Box>
     </Box>
   );
 }

@@ -32,6 +32,9 @@ export const layout = {
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
+  flexGrowItem: {
+    flex: '1 0 ',
+  },
 };
 
 // todo muss eig unten zu (theme) =>
