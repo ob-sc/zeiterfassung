@@ -5,13 +5,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "cd public && rm -rf *.html js css abrechnung aushilfen auswerten eintragen mitarbeiter readme zeiten lohnbuero",
-    "postclean": "cd public && mkdir js css abrechnung aushilfen auswerten eintragen mitarbeiter readme zeiten lohnbuero",
     "php": "cd public && php -S localhost:8000",
     "start": "webpack-dev-server --config webpack.dev.js",
     "dev": "npm run clean && webpack --config webpack.dev.js",
     "test": "eslint src/js",
-    "prebuild": "npm run clean && npm test",
     "build": "webpack --config webpack.prod.js",
     "stable": "git checkout stable && git merge master && git push && git checkout master",
     "preversion": "npm test",
@@ -54,7 +51,7 @@
     "prettier": "^1.18.2",
     "terser-webpack-plugin": "^2.3.7",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12",
+    "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^4.2.2"
   }
