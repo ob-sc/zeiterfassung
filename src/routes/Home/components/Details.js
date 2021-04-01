@@ -10,11 +10,11 @@ function ADetails() {
 
   const isSelected = state.selected !== null;
 
-  const date = localDate(state.selected?.angemeldet?.date);
+  const date = localDate(state.selected?.anmeldung?.date);
 
   const rows = [
     { key: 'Datum', value: date },
-    { key: 'Beginn', value: 1 },
+    { key: 'Beginn', value: state.selected?.anmeldung?.start },
     { key: 'Ende', value: 2 },
     { key: 'Arbeitszeit', value: 3 },
     { key: 'Gehalt', value: 4 },
@@ -23,13 +23,14 @@ function ADetails() {
   return (
     <BorderContainer
       mx={4}
+      mt={2}
       border={isSelected}
       classArray={[common.mdItem, common.flexColumnCenter]}
     >
       {!isSelected ? (
         <div></div>
       ) : (
-        <Table aria-label="simple table" size="small">
+        <Table aria-label="simple table" size="small" className={common.fw}>
           <TableBody>
             {rows.map((row) => (
               <TableRow key={row.key}>

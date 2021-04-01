@@ -2,6 +2,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { colors } from './theme';
 
 export const layout = {
+  fw: {
+    width: '100%',
+  },
   centerTransform: {
     position: 'absolute',
     top: '50%',
@@ -32,9 +35,6 @@ export const layout = {
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
-  flexGrowItem: {
-    flex: '1 0 ',
-  },
 };
 
 // todo muss eig unten zu (theme) =>
@@ -48,7 +48,7 @@ export const buttons = {
   },
   iconButton: {
     '& svg': {
-      fontSize: 35,
+      fontSize: 33,
     },
   },
 };
@@ -68,7 +68,7 @@ const useCommonStyles = makeStyles((theme) => ({
       width: '60vw',
     },
   },
-  smContainer: {
+  xsContainer: {
     width: 420,
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -76,8 +76,16 @@ const useCommonStyles = makeStyles((theme) => ({
       width: '50vw',
     },
   },
-  mdContainer: {
+  smContainer: {
     width: 600,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    [theme.breakpoints.down('xs')]: {
+      width: '50vw',
+    },
+  },
+  mdContainer: {
+    width: 800,
     marginLeft: 'auto',
     marginRight: 'auto',
     [theme.breakpoints.down('md')]: {

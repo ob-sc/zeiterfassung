@@ -14,7 +14,7 @@ function BorderContainer({ border, classArray, children, ...rest }) {
   const { root } = useStyles();
 
   return (
-    <Box {...rest} clone className={clsx(border && root, classArray)}>
+    <Box {...rest} className={clsx(border && root, classArray)}>
       {children}
     </Box>
   );

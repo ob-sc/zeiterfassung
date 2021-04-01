@@ -34,21 +34,18 @@ function AList({ handleSelection, angemeldet }) {
   const { isLoading, data } = angemeldet;
   const common = useCommonStyles();
   const { listItem, normalBorder, errorBorder } = useStyles();
-
   const { state, updateAngemeldet } = useHomeContext();
-
   const deleteMutation = useDeleteAnmeldung();
 
   const isEmpty = data.length === 0;
 
-  return !isLoading ? (
+  return (
     <List dense={true} className={common.mdItem}>
-      {!isEmpty ? (
+      {!isLoading ? (
         data.map((angemeldetAh) => {
           const { id, ahid, date, nachname, start, vorname } = angemeldetAh;
           const name = `${vorname} ${nachname}`;
           const { string, anmeldungToday } = anmeldungIsToday(date, start);
-
           return (
             <ListItem
               key={id}
@@ -56,7 +53,7 @@ function AList({ handleSelection, angemeldet }) {
                 listItem,
                 anmeldungToday ? normalBorder : errorBorder
               )}
-              selected={state?.selected?.data?.id === ahid}
+              selected={state.selected?.data?.id === ahid}
               onClick={() => handleSelection(angemeldetAh)}
             >
               <ListItemText primary={name} secondary={string} />
@@ -77,12 +74,15 @@ function AList({ handleSelection, angemeldet }) {
         })
       ) : (
         <ListItem>
-          <ListItemText primary="Keine Aushilfe angemeldet" />
+          <CircularProgress />
+        </ListItem>
+      )}
+      {isEmpty && !isLoading && (
+        <ListItem>
+          <ListItemText primary="Keine Aushilfe angemeldet" secondary=":(" />
         </ListItem>
       )}
     </List>
-  ) : (
-    <CircularProgress />
   );
 }
 

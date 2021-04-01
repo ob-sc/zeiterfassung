@@ -1,9 +1,7 @@
 import { isToday, parseISO, format } from 'date-fns';
 
-export const localDate = (inp) => {
-  const date = inp !== undefined ? parseISO(inp) : new Date();
-  return format(date, 'dd.MM.yyyy');
-};
+export const localDate = (date) =>
+  date === undefined ? null : format(parseISO(date), 'dd.MM.yyyy');
 
 export const anmeldungIsToday = (date, time) => {
   const timeArray = time.split(':');

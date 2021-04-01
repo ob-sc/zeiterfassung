@@ -7,6 +7,7 @@ import useAushilfen from '../../api/useAushilfen';
 import AList from './components/AList';
 import Control from './components/Control';
 import Details from './components/Details';
+import MaxProgress from './components/MaxProgress';
 
 function Home() {
   const common = useCommonStyles();
@@ -38,7 +39,7 @@ function Home() {
 
   const handleListSelection = (anmeldung) => {
     // wenn ah die ausgewählte ist -> abwählen
-    if (anmeldung.ahid === state?.selected?.data?.id)
+    if (anmeldung.ahid === state.selected?.data?.id)
       return updateSelected(null);
     for (const ah of aushilfen.data.all) {
       if (ah.id === anmeldung.ahid) {
@@ -55,8 +56,9 @@ function Home() {
   };
 
   return (
-    <Box className={common.lgContainer}>
+    <Box className={common.mdContainer}>
       <Control aushilfen={aushilfen} handleSelection={handleInputSelection} />
+      <MaxProgress />
       <Box className={common.flexRowCenterStartWrap}>
         <AList handleSelection={handleListSelection} angemeldet={angemeldet} />
         <Details />

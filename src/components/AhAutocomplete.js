@@ -34,7 +34,7 @@ function AhAutocomplete({ name, aushilfen, formik, handleSelection }) {
   return (
     <Box>
       <Autocomplete
-        value={state?.selected?.data ?? null}
+        value={state.selected?.data ?? null}
         onChange={(event, newValue) => {
           formik.setFieldValue(name, newValue?.id ?? null);
           handleSelection(newValue);

@@ -18,7 +18,7 @@ function AControl({ aushilfen, handleSelection }) {
   const { state, updateAngemeldet } = useHomeContext();
 
   const init = {
-    ahid: state?.selected?.id ?? null,
+    ahid: state.selected?.id ?? null,
     date: format(new Date(), 'yyyy-MM-dd'),
     time: nowTimeString,
   };
