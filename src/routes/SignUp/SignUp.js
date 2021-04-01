@@ -16,14 +16,14 @@ const useStyles = makeStyles((theme) => ({
 
 function SignUp() {
   const common = useCommonStyles();
-  const classes = useStyles();
+  const { center } = useStyles();
 
   const mutation = useCreateUser();
   const formik = useSignUp(mutation);
 
   return (
     <Box m={2} px={2} p={4} className={common.lgContainer}>
-      <h1 className={classes.center}>Account erstellen</h1>
+      <h1 className={center}>Account erstellen</h1>
       <form onSubmit={formik.handleSubmit} noValidate>
         <Grid
           container

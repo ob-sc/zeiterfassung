@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import { FiChevronRight } from 'react-icons/fi';
+import { FiLogIn, FiLogOut } from 'react-icons/fi';
 import { Box, IconButton } from '@material-ui/core';
+import { Formik } from 'formik';
 import { format } from 'date-fns';
 import useHomeContext from '../../../context/HomeContext';
 import yup from '../../../validation/yup';
@@ -9,24 +10,24 @@ import { useCreateAnmeldung } from '../../../api/useAngemeldet';
 import { nowTimeString } from '../../../util/stringUtil';
 import AhAutocomplete from '../../../components/AhAutocomplete';
 import TimeInput from '../../../components/TimeInput';
-import { Formik } from 'formik';
 
 function AControl({ aushilfen, handleSelection }) {
   const common = useCommonStyles();
-  const postMutation = useCreateAnmeldung();
+  const anmelden = useCreateAnmeldung();
 
   const { state, updateAngemeldet } = useHomeContext();
 
   const init = {
     ahid: state?.selected?.id ?? null,
     date: format(new Date(), 'yyyy-MM-dd'),
-    start: nowTimeString,
+    time: nowTimeString,
   };
 
+  // eintragen hier als nicht required?
   const validationSchema = yup.object().shape({
     ahid: yup.number().required(),
     date: yup.date().required(),
-    start: yup.string().required('Beginn angeben'),
+    time: yup.string().required('Zeit angeben'),
   });
 
   return (
@@ -34,7 +35,9 @@ function AControl({ aushilfen, handleSelection }) {
       initialValues={init}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        postMutation.mutate(values, {
+        const { ahid, date, time } = values;
+        const anmeldung = { ahid, date, start: time };
+        anmelden.mutate(anmeldung, {
           onSuccess: () => {
             setSubmitting(false);
             updateAngemeldet(true);
@@ -56,11 +59,11 @@ function AControl({ aushilfen, handleSelection }) {
             <Box m={1} p={1}>
               <TimeInput
                 label="Beginn"
-                name="start"
-                value={props.values.start}
+                name="time"
+                value={props.values.time}
                 onChange={props.handleChange}
-                error={props.touched.start && !!props.errors.start}
-                helperText={props.touched.start && props.errors.start}
+                error={props.touched.time && !!props.errors.time}
+                helperText={props.touched.time && props.errors.time}
               />
             </Box>
             <Box m={1} p={1}>
@@ -69,13 +72,9 @@ function AControl({ aushilfen, handleSelection }) {
                 edge="start"
                 color="inherit"
                 className={common.iconButton}
-                disabled={
-                  props.isSubmitting ||
-                  state.angemeldet ||
-                  state.selected === null
-                }
+                disabled={props.isSubmitting || state.selected === null}
               >
-                <FiChevronRight />
+                {state.angemeldet ? <FiLogOut /> : <FiLogIn />}
               </IconButton>
             </Box>
           </form>

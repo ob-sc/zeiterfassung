@@ -6,8 +6,8 @@ export const colors = {
   greywhite: '#fbfbfb',
   offwhite: '#f6f5f4',
   bluewhite: '#f2faff',
-  lightGrey: '#dedede',
-  grey: '#959595',
+  lightGrey: '#e3e3e3',
+  grey: '#c0c0c0',
   blackish: '#6e6e6e',
   black: '#000000',
   brand: '#feed01',
@@ -26,7 +26,7 @@ const theme = createMuiTheme({
     },
     primary: {
       main: colors.blackish,
-      light: colors.lightGrey,
+      light: colors.grey,
     },
     secondary: {
       main: colors.blueish,

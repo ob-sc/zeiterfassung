@@ -1,43 +1,28 @@
 import PropTypes from 'prop-types';
-import { Box, useTheme } from '@material-ui/core';
-import useCommonStyles from '../styles/common';
+import clsx from 'clsx';
+import { Box, makeStyles } from '@material-ui/core';
 
-function BorderContainer({ size, children, ...rest }) {
-  const { smContainer, mdContainer, lgContainer } = useCommonStyles();
-  const theme = useTheme();
+const useStyles = makeStyles((theme) => ({
+  root: {
+    border: '1px solid',
+    borderColor: theme.palette.primary.light,
+    borderRadius: 5,
+  },
+}));
 
-  let containerSize = '';
-
-  if (size !== undefined)
-    switch (size) {
-      case 'sm':
-        containerSize = smContainer;
-        break;
-      case 'md':
-        containerSize = mdContainer;
-        break;
-      case 'lg':
-        containerSize = lgContainer;
-        break;
-      default:
-        containerSize = null;
-        break;
-    }
+function BorderContainer({ border, classArray, children, ...rest }) {
+  const { root } = useStyles();
 
   return (
-    <Box
-      {...rest}
-      border={1}
-      borderColor={theme.palette.primary.light}
-      borderRadius={5}
-      className={containerSize !== null && containerSize}
-      clone
-    >
+    <Box {...rest} clone className={clsx(border && root, classArray)}>
       {children}
     </Box>
   );
 }
 
-BorderContainer.propTypes = { size: PropTypes.string };
+BorderContainer.propTypes = {
+  border: PropTypes.bool,
+  classArray: PropTypes.array,
+};
 
 export default BorderContainer;

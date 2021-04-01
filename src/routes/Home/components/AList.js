@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 function AList({ handleSelection, angemeldet }) {
   const { isLoading, data } = angemeldet;
   const common = useCommonStyles();
-  const classes = useStyles();
+  const { listItem, normalBorder, errorBorder } = useStyles();
 
   const { state, updateAngemeldet } = useHomeContext();
 
@@ -53,8 +53,8 @@ function AList({ handleSelection, angemeldet }) {
             <ListItem
               key={id}
               className={clsx(
-                classes.listItem,
-                anmeldungToday ? classes.normalBorder : classes.errorBorder
+                listItem,
+                anmeldungToday ? normalBorder : errorBorder
               )}
               selected={state?.selected?.data?.id === ahid}
               onClick={() => handleSelection(angemeldetAh)}

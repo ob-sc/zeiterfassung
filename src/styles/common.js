@@ -56,6 +56,12 @@ export const buttons = {
 const useCommonStyles = makeStyles((theme) => ({
   ...layout,
   ...buttons,
+  smItem: {
+    width: 250,
+    [theme.breakpoints.down('xs')]: {
+      width: '50vw',
+    },
+  },
   mdItem: {
     width: 300,
     [theme.breakpoints.down('xs')]: {

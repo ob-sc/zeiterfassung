@@ -24,12 +24,12 @@ const useStyles = makeStyles({
 });
 
 function App() {
-  const classes = useStyles();
+  const { root } = useStyles();
   const auth = useAuth();
   const mobile = useApp();
 
   return (
-    <Box className={classes.root}>
+    <Box className={root}>
       <NavBar mobile={mobile} auth={auth} />
       <Toast mobile={mobile} />
       <Router>

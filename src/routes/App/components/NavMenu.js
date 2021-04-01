@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 });
 
 function NavMenu({ routes, mobile }) {
-  const classes = useStyles();
+  const { menuIcon } = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [noLogout, setNoLogout] = useState(false);
 
@@ -49,7 +49,7 @@ function NavMenu({ routes, mobile }) {
           aria-label="nav-menu"
           aria-haspopup={true}
           onClick={handleClick}
-          className={classes.menuIcon}
+          className={menuIcon}
         >
           {mobile ? <FiMenu /> : <IoPersonCircleOutline />}
         </IconButton>

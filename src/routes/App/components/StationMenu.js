@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 });
 
 function StationMenu({ stations, station }) {
-  const classes = useStyles();
+  const { stationIcon, stationNum } = useStyles();
   const common = useCommonStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -52,11 +52,11 @@ function StationMenu({ stations, station }) {
           aria-haspopup={true}
           onClick={handleClick}
           disabled={updateStation.isLoading}
-          className={classes.stationIcon}
+          className={stationIcon}
         >
           <IoMapOutline />
         </IconButton>
-        <div className={classes.stationNum}>{tripDigitStation(station)}</div>
+        <div className={stationNum}>{tripDigitStation(station)}</div>
       </Box>
 
       <Menu

@@ -17,7 +17,7 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 function NavBar({ mobile, auth }) {
-  const classes = useStyles();
+  const { flexRowCenter, navButton } = useStyles();
 
   const isLoggedIn = auth?.isLoggedIn === true; // nur true wenn status != loading
   const hasStations = auth?.stations?.length > 1;
@@ -36,12 +36,12 @@ function NavBar({ mobile, auth }) {
           clone
         >
           <Toolbar>
-            <Box className={classes.flexRowCenter}>
+            <Box className={flexRowCenter}>
               {showNavButtons &&
                 auth.routes.map(({ label, route }) => {
                   return (
                     <Button
-                      className={classes.navButton}
+                      className={navButton}
                       key={label}
                       color="inherit"
                       to={route.href}
