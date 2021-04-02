@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 });
 
 function MaxProgress({ progress }) {
-  let color = progress > 80 ? barColors.neutral : barColors.warn;
+  const color = progress > 80 ? barColors.warn : barColors.neutral;
 
   // if progress so, dass die AH nicht mehr 8 Stunden arbeiten kann ? critical
 

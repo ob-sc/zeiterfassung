@@ -21,7 +21,7 @@ function Home() {
   return (
     <Box className={common.mdContainer}>
       <Control aushilfen={aushilfen} handleSelection={handleInputSelection} />
-      <MaxProgress />
+      <MaxProgress progress={20} />
       <Box className={common.flexRowCenterStartWrap}>
         <AList handleSelection={handleListSelection} angemeldet={angemeldet} />
         <Details />

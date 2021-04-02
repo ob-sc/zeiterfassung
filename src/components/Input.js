@@ -4,12 +4,14 @@ import { TextField } from '@material-ui/core';
 function Input({ name, label, noComplete, formik, ...rest }) {
   const isPassword = name === 'password' || name === 'repeat_password';
   const type = isPassword ? 'password' : 'text';
+  const autoComplete =
+    name === 'password' || name === 'username' ? { autoComplete: name } : {};
   const complete =
     noComplete === true
       ? {
           autoComplete: 'new-password',
         }
-      : {};
+      : autoComplete;
 
   return (
     <TextField
@@ -33,7 +35,7 @@ function Input({ name, label, noComplete, formik, ...rest }) {
 Input.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  autoComplete: PropTypes.bool,
+  noComplete: PropTypes.bool,
   formik: PropTypes.object.isRequired,
 };
 
