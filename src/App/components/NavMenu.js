@@ -4,7 +4,7 @@ import { navigate } from '@reach/router';
 import { Box, IconButton, makeStyles, Menu, MenuItem } from '@material-ui/core';
 import { FiMenu } from 'react-icons/fi';
 import { IoPersonCircleOutline } from 'react-icons/io5';
-import { useDeleteSession } from '../../../api/useSession';
+import { useDeleteSession } from '../../api/useSession';
 
 const useStyles = makeStyles({
   menuIcon: {

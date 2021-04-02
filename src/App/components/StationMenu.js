@@ -2,10 +2,10 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, IconButton, makeStyles, Menu, MenuItem } from '@material-ui/core';
 import { IoMapOutline } from 'react-icons/io5';
-import useCommonStyles from '../../../styles/common';
-import useToastContext from '../../../context/ToastContext';
-import { tripDigitStation } from '../../../util/stringUtil';
-import { useUpdateSession } from '../../../api/useSession';
+import useCommonStyles from '../../styles/common';
+import useToastContext from '../../context/ToastContext';
+import { tripDigitStation } from '../../util/stringUtil';
+import { useUpdateSession } from '../../api/useSession';
 
 const useStyles = makeStyles({
   stationIcon: {

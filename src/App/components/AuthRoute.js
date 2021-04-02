@@ -1,5 +1,5 @@
 import { Redirect } from '@reach/router';
-import useAuthContext from '../../../context/AuthContext';
+import useAuthContext from '../../context/AuthContext';
 
 function AuthRoute({ path, component }) {
   const { routeAuth } = useAuthContext();

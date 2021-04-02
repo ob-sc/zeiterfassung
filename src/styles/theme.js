@@ -9,10 +9,8 @@ export const colors = {
   lightGrey: '#e3e3e3',
   grey: '#c0c0c0',
   blackish: '#6e6e6e',
-  black: '#000000',
-  brand: '#feed01',
-  blue: '#0112fe',
   blueish: '#8089ff',
+  brand: '#feed01',
 };
 
 const theme = createMuiTheme({

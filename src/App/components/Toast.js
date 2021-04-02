@@ -1,6 +1,6 @@
 import { Box, Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import useToastContext from '../../../context/ToastContext';
+import useToastContext from '../../context/ToastContext';
 
 function Toast({ mobile }) {
   const { toast, removeToast } = useToastContext();

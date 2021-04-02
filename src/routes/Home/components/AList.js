@@ -41,45 +41,43 @@ function AList({ handleSelection, angemeldet }) {
 
   return (
     <List dense={true} className={common.mdItem}>
-      {!isLoading ? (
-        data.map((angemeldetAh) => {
-          const { id, ahid, date, nachname, start, vorname } = angemeldetAh;
-          const name = `${vorname} ${nachname}`;
-          const { string, anmeldungToday } = anmeldungIsToday(date, start);
-          return (
-            <ListItem
-              key={id}
-              className={clsx(
-                listItem,
-                anmeldungToday ? normalBorder : errorBorder
-              )}
-              selected={state.selected?.data?.id === ahid}
-              onClick={() => handleSelection(angemeldetAh)}
-            >
-              <ListItemText primary={name} secondary={string} />
-              <ListItemSecondaryAction>
-                <IconButton
-                  edge="end"
-                  aria-label="delete"
-                  onClick={() => {
-                    updateAngemeldet(false);
-                    deleteMutation.mutate({ id });
-                  }}
-                >
-                  <FiDelete />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          );
-        })
-      ) : (
+      {data.map((angemeldetAh) => {
+        const { id, ahid, date, nachname, start, vorname } = angemeldetAh;
+        const name = `${vorname} ${nachname}`;
+        const { string, anmeldungToday } = anmeldungIsToday(date, start);
+        return (
+          <ListItem
+            key={id}
+            className={clsx(
+              listItem,
+              anmeldungToday ? normalBorder : errorBorder
+            )}
+            selected={state.selected?.data?.id === ahid}
+            onClick={() => handleSelection(angemeldetAh)}
+          >
+            <ListItemText primary={name} secondary={string} />
+            <ListItemSecondaryAction>
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                onClick={() => {
+                  updateAngemeldet(false);
+                  deleteMutation.mutate({ id });
+                }}
+              >
+                <FiDelete />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+        );
+      })}
+      {isEmpty && (
         <ListItem>
-          <CircularProgress />
-        </ListItem>
-      )}
-      {isEmpty && !isLoading && (
-        <ListItem>
-          <ListItemText primary="Keine Aushilfe angemeldet" secondary=":(" />
+          {!isLoading ? (
+            <ListItemText primary="Keine Aushilfe angemeldet" />
+          ) : (
+            <CircularProgress />
+          )}
         </ListItem>
       )}
     </List>
