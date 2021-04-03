@@ -1,5 +1,9 @@
-import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { Box, LinearProgress, makeStyles } from '@material-ui/core';
+import useToastContext from '../../../context/ToastContext';
+import { useAhZeiten } from '../../../api/useZeiten';
+import useHomeContext from '../../../context/HomeContext';
+import { fetchData } from '../../../util/api';
 
 // todo colors theme primar main + light, warn und error?
 const barColors = {
@@ -14,8 +18,30 @@ const useStyles = makeStyles({
   barColorPrimary: { backgroundColor: barColors.bar },
 });
 
-function MaxProgress({ progress }) {
+function MaxProgress() {
+  const [zeiten, setZeiten] = useState([]);
+  const { addError } = useToastContext();
+  const { state } = useHomeContext();
+  const progress = 20;
+
+  console.log(zeiten);
+
   const color = progress > 80 ? barColors.warn : barColors.neutral;
+
+  useEffect(() => {
+    const fetchZeiten = async (ahid) => {
+      console.log(ahid);
+      try {
+        if (ahid !== undefined) {
+          const data = fetchData(`/zeiten/aushilfen/${ahid}`);
+          setZeiten(data);
+        }
+      } catch (err) {
+        addError(err);
+      }
+    };
+    fetchZeiten(state.selected?.data?.id);
+  }, [state]);
 
   // if progress so, dass die AH nicht mehr 8 Stunden arbeiten kann ? critical
 
@@ -34,7 +60,5 @@ function MaxProgress({ progress }) {
     </Box>
   );
 }
-
-MaxProgress.propTypes = { progress: PropTypes.number };
 
 export default MaxProgress;

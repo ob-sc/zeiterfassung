@@ -12,7 +12,7 @@ const prefixRoute = (route) => {
   return `${host}${slash}${route}`;
 };
 
-const fetchData = async (route, type = 'get', data = {}) => {
+export const fetchData = async (route, type = 'get', data = {}) => {
   const url = prefixRoute(route);
   const method = type.toUpperCase();
   const headers = {
