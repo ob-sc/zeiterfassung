@@ -5,10 +5,12 @@ const context = React.createContext();
 const useHomeContext = () => useContext(context);
 
 export const HomeContextProvider = ({ children }) => {
+  // selected = {data: {id: ?, ...}, anmeldung: {start: ?, ...}}
   const initialState = {
     selected: null,
     checkAll: false,
     angemeldet: false,
+    max: null,
   };
 
   const [state, updateState] = useImmer(initialState);
@@ -17,12 +19,13 @@ export const HomeContextProvider = ({ children }) => {
     updateState((draft) => {
       draft.selected = ah;
       draft.angemeldet = ah?.anmeldung?.start !== undefined;
+      if (ah === null) draft.max = null;
     });
   };
 
-  const updateCheckAll = (value) => {
+  const updateCheckAll = (val) => {
     updateState((draft) => {
-      draft.checkAll = value;
+      draft.checkAll = val;
     });
   };
 
@@ -32,11 +35,18 @@ export const HomeContextProvider = ({ children }) => {
     });
   };
 
+  const updateMax = (val) => {
+    updateState((draft) => {
+      draft.max = val;
+    });
+  };
+
   const contextValue = {
     state,
     updateSelected,
     updateCheckAll,
     updateAngemeldet,
+    updateMax,
   };
 
   return <context.Provider value={contextValue}>{children}</context.Provider>;

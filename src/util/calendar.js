@@ -18,36 +18,40 @@ const calendar = (date = new Date()) => {
   if (isNextABmonth) mnum = isDecember ? 0 : mnum + 1;
 
   const month = {
+    start: {},
+    end: {},
     num: mnum,
   };
 
   const year = {
+    start: {},
+    end: {},
     num: isYearBehind ? y + 1 : y,
   };
 
   if (isYearBehind) {
-    month.start = { str: `${y}-12-18`, date: new Date(y, 11, 18) };
-    month.end = { str: `${year.num}-01-17`, date: new Date(year.num, 0, 17) };
+    month.start = { iso: `${y}-12-18`, date: new Date(y, 11, 18) };
+    month.end = { iso: `${year.num}-01-17`, date: new Date(year.num, 0, 17) };
   } else {
     const isJanuary = month.num === 0;
     const monthNum = isJanuary ? 12 : month.num;
     month.start = {
-      str: `${isJanuary ? year.num - 1 : year.num}-${addZeroToTen(
+      iso: `${isJanuary ? year.num - 1 : year.num}-${addZeroToTen(
         monthNum
       )}-18`,
       date: new Date(isJanuary ? year.num - 1 : year.num, monthNum - 1, 18),
     };
     month.end = {
-      str: `${year.num}-${addZeroToTen(month.num + 1)}-17`,
+      iso: `${year.num}-${addZeroToTen(month.num + 1)}-17`,
       date: new Date(year.num, month.num, 17),
     };
   }
 
   year.start = {
-    str: `${year.num - 1}-12-18`,
+    iso: `${year.num - 1}-12-18`,
     date: new Date(year.num - 1, 11, 18),
   };
-  year.end = { str: `${year.num}-12-17`, date: new Date(year.num, 11, 17) };
+  year.end = { iso: `${year.num}-12-17`, date: new Date(year.num, 11, 17) };
 
   return { month, year };
 };

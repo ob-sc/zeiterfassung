@@ -62,8 +62,8 @@ export const useCreateQuery = (key, url, options = {}) => {
 export const useCreateMutation = (url, method, handleSuccess) => {
   const { addError } = useToastContext();
 
-  return useMutation((values) => fetchData(url, method, values), {
-    onError: addError,
-    onSuccess: handleSuccess,
-  });
+  const init = { onError: addError };
+  if (handleSuccess !== undefined) init.onSuccess = handleSuccess;
+
+  return useMutation((values) => fetchData(url, method, values), init);
 };

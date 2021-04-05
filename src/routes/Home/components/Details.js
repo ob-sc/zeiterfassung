@@ -7,27 +7,28 @@ import { localDate } from '../../../util/dateUtil';
 function ADetails() {
   const common = useCommonStyles();
   const { state } = useHomeContext();
+  const { angemeldet, selected } = state;
 
-  const isSelected = state.selected !== null;
-
-  const date = localDate(state.selected?.anmeldung?.date);
+  const date = localDate(selected?.anmeldung?.date);
 
   const rows = [
-    { key: 'Datum', value: date },
-    { key: 'Beginn', value: state.selected?.anmeldung?.start },
+    { key: 'Datum', value: date ?? '-' },
+    { key: 'Beginn', value: selected?.anmeldung?.start ?? '-' },
     { key: 'Ende', value: 2 },
     { key: 'Arbeitszeit', value: 3 },
     { key: 'Gehalt', value: 4 },
   ];
 
+  // wenn state nicht valid = -
+
   return (
     <BorderContainer
-      mx={4}
+      ml={4}
       mt={2}
-      border={isSelected}
+      border={angemeldet}
       classArray={[common.mdItem, common.flexColumnCenter]}
     >
-      {!isSelected ? (
+      {!angemeldet ? (
         <div></div>
       ) : (
         <Table aria-label="simple table" size="small" className={common.fw}>
