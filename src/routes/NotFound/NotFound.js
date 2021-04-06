@@ -8,9 +8,9 @@ function NotFound() {
   return (
     <div className={common.centerTransform}>
       <BorderContainer m={2} p={10}>
-        <div textAlign="center">
+        <div className={common.flexColumnCenter}>
           <h1>Seite nicht gefunden</h1>
-          <img src={magnifyingGlass} alt="lupe" width="150px" />
+          <img src={magnifyingGlass} alt="lupe" width="100px" />
         </div>
       </BorderContainer>
     </div>

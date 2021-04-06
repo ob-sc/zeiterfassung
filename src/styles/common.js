@@ -35,6 +35,12 @@ export const layout = {
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
+  flexRowAroundStartWrap: {
+    display: 'flex',
+    flexFlow: 'row wrap',
+    justifyContent: 'space-around',
+    alignItems: 'flex-start',
+  },
 };
 
 // todo muss eig unten zu (theme) =>
@@ -56,25 +62,13 @@ export const buttons = {
 const useCommonStyles = makeStyles((theme) => ({
   ...layout,
   ...buttons,
-  smItem: {
-    width: 250,
-    [theme.breakpoints.down('xs')]: {
-      width: '50vw',
-    },
-  },
-  mdItem: {
-    width: 300,
-    [theme.breakpoints.down('xs')]: {
-      width: '60vw',
-    },
-  },
+  smItem: { width: 'min(250px, 60vw)' },
+  mdItem: { width: 'min(300px, 80vw)' },
+  lgItem: { width: 'min(350px, 90vw)' },
   xsContainer: {
-    width: 420,
+    width: 'min(350px, 50vw)',
     marginLeft: 'auto',
     marginRight: 'auto',
-    [theme.breakpoints.down('xs')]: {
-      width: '50vw',
-    },
   },
   smContainer: {
     width: 600,
@@ -88,11 +82,8 @@ const useCommonStyles = makeStyles((theme) => ({
     width: 800,
     marginLeft: 'auto',
     marginRight: 'auto',
-    [theme.breakpoints.down('md')]: {
-      width: '60vw',
-    },
-    [theme.breakpoints.down('xs')]: {
-      width: '70vw',
+    [theme.breakpoints.down('sm')]: {
+      width: '80vw',
     },
   },
   lgContainer: {

@@ -23,8 +23,7 @@ function ADetails() {
 
   return (
     <BorderContainer
-      ml={4}
-      mt={2}
+      m={2}
       border={angemeldet}
       classArray={[common.mdItem, common.flexColumnCenter]}
     >

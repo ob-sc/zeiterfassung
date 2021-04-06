@@ -30,6 +30,7 @@ function AControl({ aushilfen, handleSelection }) {
     time: yup.string().required('Zeit angeben'),
   });
 
+  // 2x flexRowCenterStartWrap damit time und submit gleichen breakpoint haben
   return (
     <Formik
       initialValues={init}
@@ -46,9 +47,9 @@ function AControl({ aushilfen, handleSelection }) {
       }}
     >
       {(props) => (
-        <Box className={common.flexRowCenterStartWrap} clone>
-          <form onSubmit={props.handleSubmit}>
-            <Box m={1} p={1} className={common.mdItem}>
+        <form onSubmit={props.handleSubmit}>
+          <Box className={common.flexRowCenterStartWrap}>
+            <Box m={1} p={1} className={common.lgItem}>
               <AhAutocomplete
                 name="ahid"
                 aushilfen={aushilfen}
@@ -56,29 +57,31 @@ function AControl({ aushilfen, handleSelection }) {
                 formik={props}
               />
             </Box>
-            <Box m={1} p={1}>
-              <TimeInput
-                label="Beginn"
-                name="time"
-                value={props.values.time}
-                onChange={props.handleChange}
-                error={props.touched.time && !!props.errors.time}
-                helperText={props.touched.time && props.errors.time}
-              />
+            <Box className={common.flexRowCenterStartWrap}>
+              <Box m={1} p={1}>
+                <TimeInput
+                  label="Beginn"
+                  name="time"
+                  value={props.values.time}
+                  onChange={props.handleChange}
+                  error={props.touched.time && !!props.errors.time}
+                  helperText={props.touched.time && props.errors.time}
+                />
+              </Box>
+              <Box m={1} p={1} width={40}>
+                <IconButton
+                  type="submit"
+                  edge="start"
+                  color="inherit"
+                  className={common.iconButton}
+                  disabled={props.isSubmitting || state.selected === null}
+                >
+                  {state.angemeldet ? <FiLogOut /> : <FiLogIn />}
+                </IconButton>
+              </Box>
             </Box>
-            <Box m={1} p={1}>
-              <IconButton
-                type="submit"
-                edge="start"
-                color="inherit"
-                className={common.iconButton}
-                disabled={props.isSubmitting || state.selected === null}
-              >
-                {state.angemeldet ? <FiLogOut /> : <FiLogIn />}
-              </IconButton>
-            </Box>
-          </form>
-        </Box>
+          </Box>
+        </form>
       )}
     </Formik>
   );

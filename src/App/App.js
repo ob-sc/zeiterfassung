@@ -36,9 +36,9 @@ function App() {
         <AuthContextProvider path="/" auth={auth}>
           <HomeContextProvider path="/">
             <Home path="/" />
+            <NotFound default />
           </HomeContextProvider>
           <AuthRoute path="admin" component={<Admin />} />
-          <NotFound default />
         </AuthContextProvider>
         <Login path="login" />
         <SignUp path="sign-up" />

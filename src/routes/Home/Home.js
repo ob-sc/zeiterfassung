@@ -22,7 +22,7 @@ function Home() {
     <Box className={common.mdContainer}>
       <Control aushilfen={aushilfen} handleSelection={handleInputSelection} />
       <MaxProgress />
-      <Box className={common.flexRowCenterStartWrap}>
+      <Box className={common.flexRowAroundStartWrap}>
         <AList handleSelection={handleListSelection} angemeldet={angemeldet} />
         <Details />
       </Box>

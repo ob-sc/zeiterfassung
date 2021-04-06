@@ -5,6 +5,17 @@ export const addZeroToTen = (num) => (num < 10 ? `0${num}` : `${num}`);
 // prettier-ignore
 export const nowTimeString = `${addZeroToTen(new Date().getHours())}:${addZeroToTen(new Date().getMinutes())}`;
 
+export const formatMinutes = (inpMin, object = false) => {
+  // object = true: return h und m als objekt
+  const h = Math.floor(inpMin / 60);
+  const m = inpMin % 60;
+  let hours = h;
+  let minutes = m;
+  if (hours < 10) hours = `0${hours}`;
+  if (minutes < 10) minutes = `0${minutes}`;
+  return !object ? `${hours}:${minutes}` : { h, m };
+};
+
 export const toFixedTwo = (v) => {
   // value als string
   const value = String(v);

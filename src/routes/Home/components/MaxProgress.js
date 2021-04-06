@@ -1,6 +1,6 @@
 import { Box, LinearProgress, makeStyles } from '@material-ui/core';
 import useHomeContext from '../../../context/HomeContext';
-import { toFixedTwo } from '../../../util/stringUtil';
+import { toFixedTwo, formatMinutes } from '../../../util/stringUtil';
 
 // todo colors theme primar main + light, warn und error?
 const barColors = {
@@ -28,26 +28,40 @@ function MaxProgress() {
 
   let progress = 0;
   let progressDetails = '';
-  console.log(state);
 
   if (state.max !== null && sameAh) {
     const sumMax = state.max.sum;
     // studenten dürfen 20 std / woche arbeiten
     // bei semesterferien 40
-    const stunden = 20;
+    const hours = 20;
     // progress = von 0 bis 100, sumMax mit Gehalt in cent, deshalb nicht * 100
     progress = isStudent
-      ? Math.min((sumMax / (stunden * 60)) * 100, 100)
+      ? Math.min((sumMax / (hours * 60)) * 100, 100)
       : Math.min(sumMax / maxNumber, 100);
 
     progressDetails = isStudent
-      ? `${toFixedTwo(sumMax / 60)} von ${stunden} Stunden (${toFixedTwo(progress)} %)`
-      : `${toFixedTwo(sumMax / 100)} von ${maxNumber} € (${toFixedTwo(progress)} %)`;
+      ? `${toFixedTwo(sumMax / 60)} von ${hours} Stunden (${Math.round(progress)} %)`
+      : `${toFixedTwo(sumMax / 100)} von ${maxNumber} € (${Math.round(progress)} %)`;
     // todo append noch x stunden oder € bis abmeldung wenn critical
+
+    if (isStudent && progress > 80) {
+      const restMin = hours * 60 - sumMax;
+      const restZuStunden = formatMinutes(restMin, true);
+      const stdString =
+        restZuStunden.h > 0 ? `${restZuStunden.h} Stunde${restZuStunden.h > 1 ? 'n' : ''} ` : '';
+
+      const restString =
+        restMin < 0 ? ' - Limit überschritten' : ` - noch ${stdString}${restZuStunden.m} Minuten`;
+
+      progressDetails += restString;
+    }
   }
 
-  let color = progress > 70 ? barColors.warn : barColors.neutral;
-  if (progress > 80) color = barColors.critical;
+  const isWarning = progress > 80;
+  const isCritical = progress > 90;
+
+  let color = isWarning ? barColors.warn : barColors.neutral;
+  if (isCritical) color = barColors.critical;
 
   const { colorPrimary, barColorPrimary, criticalColor } = useStyles({
     colorPrimary: color,
@@ -60,7 +74,7 @@ function MaxProgress() {
         classes={{ colorPrimary, barColorPrimary }}
         value={progress}
       />
-      <Box className={progress > 80 ? criticalColor : null} height={20}>
+      <Box className={isCritical ? criticalColor : null} height={20}>
         {progress > 0 && sameAh ? progressDetails : null}
       </Box>
     </Box>
