@@ -15,7 +15,7 @@ function Login() {
   return (
     <Box className={common.centerTransform}>
       <BorderContainer m={2} px={4} py={6} className={common.fullWidth} clone>
-        <form onSubmit={formik.handleSubmit}>
+        {/* <form onSubmit={formik.handleSubmit}>
           <Grid
             container
             direction="column"
@@ -49,7 +49,7 @@ function Login() {
               </Box>
             </Grid>
           </Grid>
-        </form>
+        </form> */}
       </BorderContainer>
     </Box>
   );
