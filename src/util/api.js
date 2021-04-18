@@ -7,7 +7,7 @@ const prefixRoute = (route) => {
   const slash = route[0] === '/' ? '' : '/';
   const host = isDev
     ? `http://localhost:${REACT_APP_PORT}`
-    : `https://${REACT_APP_HOST}:${REACT_APP_PORT}`;
+    : `http://${REACT_APP_HOST}:${REACT_APP_PORT}`;
 
   return `${host}${slash}${route}`;
 };

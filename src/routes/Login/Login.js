@@ -15,14 +15,8 @@ function Login() {
   return (
     <Box className={common.centerTransform}>
       <BorderContainer m={2} px={4} py={6} className={common.fullWidth} clone>
-        {/* <form onSubmit={formik.handleSubmit}>
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-            spacing={2}
-          >
+        <form onSubmit={formik.handleSubmit}>
+          <Grid container direction="column" justify="center" alignItems="center" spacing={2}>
             <Grid item className={common.mdItem}>
               <Input name="username" label="Benutzer" formik={formik} />
             </Grid>
@@ -49,7 +43,7 @@ function Login() {
               </Box>
             </Grid>
           </Grid>
-        </form> */}
+        </form>
       </BorderContainer>
     </Box>
   );
