@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from 'react-query';
 import useToastContext from '../context/ToastContext';
 
-const prefixRoute = (route) => {
+export const prefixRoute = (route) => {
   const { NODE_ENV, REACT_APP_HOST, REACT_APP_PORT } = process.env;
   const isDev = NODE_ENV === 'development';
   const slash = route[0] === '/' ? '' : '/';
