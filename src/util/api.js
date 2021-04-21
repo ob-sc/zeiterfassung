@@ -20,11 +20,8 @@ export const fetchData = async (route, type = 'get', data = {}) => {
   };
   const init =
     method === 'GET'
-      ? {
-          credentials: 'include',
-        }
+      ? {}
       : {
-          credentials: 'include',
           method,
           headers,
           body: JSON.stringify(data),
