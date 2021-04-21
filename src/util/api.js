@@ -13,7 +13,8 @@ export const prefixRoute = (route) => {
 };
 
 export const fetchData = async (route, type = 'get', data = {}) => {
-  const url = prefixRoute(route);
+  // const url = prefixRoute(route);
+  const url = route;
   const method = type.toUpperCase();
   const headers = {
     'Content-Type': 'application/json',
