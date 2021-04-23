@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from 'react-query';
 import useToastContext from '../context/ToastContext';
 
-export const prefixRoute = (route) => {
+const prefixRoute = (route) => {
   const { NODE_ENV, REACT_APP_HOST, REACT_APP_PORT } = process.env;
   const isDev = NODE_ENV === 'development';
   const slash = route[0] === '/' ? '' : '/';
@@ -15,18 +15,13 @@ export const prefixRoute = (route) => {
 export const fetchData = async (route, type = 'get', data = {}) => {
   const url = prefixRoute(route);
   const method = type.toUpperCase();
-  const headers = {
-    'Content-Type': 'application/json',
-  };
   const init =
     method === 'GET'
-      ? {
-          credentials: 'include',
-        }
+      ? { credentials: 'include' }
       : {
           credentials: 'include',
           method,
-          headers,
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
         };
   const res = await fetch(url, init);
