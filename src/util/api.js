@@ -17,9 +17,8 @@ export const fetchData = async (route, type = 'get', data = {}) => {
   const method = type.toUpperCase();
   const init =
     method === 'GET'
-      ? { credentials: 'include' }
+      ? {}
       : {
-          credentials: 'include',
           method,
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
