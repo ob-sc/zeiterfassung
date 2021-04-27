@@ -10,7 +10,7 @@ function Login() {
 
   return (
     <div className={common.centerTransform}>
-      <LoginForm mutation={login} signUpLink={link} />
+      <LoginForm api={login} signUpLink={link} />
     </div>
   );
 }
