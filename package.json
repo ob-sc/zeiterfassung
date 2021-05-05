@@ -5,7 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/lab": "^4.0.0-alpha.57",
-    "@ob-sc/zeiterfassung.forms.login": "^0.0.2",
+    "@ob-sc/zeiterfassung.forms.login": "^0.1.0",
     "@reach/router": "^1.3.4",
     "date-fns": "^2.19.0",
     "formik": "^2.2.6",

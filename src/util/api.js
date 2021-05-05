@@ -25,8 +25,7 @@ export const fetchData = async (route, type = 'get', data = {}) => {
         };
   const res = await fetch(url, init);
 
-  const noJSON = res.status === 204 || res.status === 205;
-  const response = noJSON ? {} : await res.json();
+  const response = res.json === undefined ? {} : await res.json();
 
   if (!res.ok) throw new Error(response.msg ?? 'API Fehler');
   return response;
