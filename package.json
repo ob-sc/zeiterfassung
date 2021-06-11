@@ -23,22 +23,23 @@
     "prettier": "^2.2.1"
   },
   "scripts": {
+    "prestart": "yarn sync",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier --write src",
+    "lint": "eslint .",
+    "sync": "git pull && git submodule update --remote",
+    "clean": "rm -rf dist",
+    "preversion": "yarn sync && yarn prettier && yarn lint",
+    "version": "yarn build && git add -A",
+    "postversion": "git push && git push --tags"
   },
   "eslintConfig": {
     "extends": [
       "react-app"
-    ],
-    "rules": {
-      "no-console": "warn",
-      "object-shorthand": "warn",
-      "prefer-const": "warn",
-      "prefer-destructuring": "warn",
-      "prefer-template": "warn"
-    }
+    ]
   },
   "browserslist": {
     "production": [
