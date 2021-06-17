@@ -30,11 +30,15 @@
     "eject": "react-scripts eject",
     "prettier": "prettier --write src",
     "lint": "eslint .",
-    "sync": "git pull && git submodule update --remote",
+    "subinit": "git submodule init && git submodule update --remote --merge",
+    "sync": "git pull && git submodule update --remote --merge",
     "clean": "rm -rf dist",
     "preversion": "yarn sync && yarn prettier && yarn lint",
     "version": "yarn build && git add -A",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "patch": "yarn version --patch",
+    "minor": "yarn version --minor",
+    "major": "yarn version --major"
   },
   "eslintConfig": {
     "extends": [
