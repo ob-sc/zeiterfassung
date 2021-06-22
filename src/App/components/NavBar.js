@@ -22,7 +22,7 @@ function NavBar({ mobile, auth }) {
   const isLoggedIn = auth?.isLoggedIn === true; // nur true wenn status != loading
   const hasStations = auth?.stations?.length > 1;
   const showNavButtons = !mobile && isLoggedIn && hasStations; // nur desktop, daten geladen & nicht leer
-
+  
   return (
     <AppBar position="static" color="transparent" elevation={0}>
       <Box

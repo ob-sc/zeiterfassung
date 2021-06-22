@@ -5,7 +5,6 @@ function AuthRoute({ path, component }) {
   const { routeAuth } = useAuthContext();
   // zb routeAuth.admin (true oder undefined)
   const auth = routeAuth[path];
-
   return auth === true ? component : <Redirect to="/" noThrow />;
 }
 
